@@ -1,0 +1,20 @@
+Code,Species,Names,Location,Scientific name,Mating system,EPP,Sexual system,Ud,mu_1,95ci_lower_1,95ci_upper_1,mu_2,95ci_lower_2,95ci_upper_2,
+RD,Red deer,Red.deer,"Isle of Rum, UK",Cervus elaphus,polygynous,1,gonochorous,0.9,7.59E-09,4.07E-09,1.19E-08,6.71E-09,3.75E-09,1.20E-08,
+SV,Snow voles,Churwalden,"Graubünden, Switzerland",Chionomys nivalis,polygynandrous,1,gonochorous,0.91,5.74E-09,3.40E-09,7.92E-09,5.35E-09,3.46E-09,8.26E-09,
+NH,Spotted hyenas,Ngorongoro,"Ngorongoro Crater, Tanzania",Crocuta crocuta,polygynous,1,gonochorous,1.6,8.23E-09,4.04E-09,1.23E-08,5.13E-09,2.82E-09,8.38E-09,
+BTR,Blue tits (Rouviere),Blue.tits.R,"La Rouvière, France",Cyanistes caeruleus,monogamous,0.16,gonochorous,0.49,6.83E-09,2.90E-09,1.08E-08,5.19E-09,3.55E-09,7.61E-09,9.607595659747698
+BTP,Blue tits (Pirio),Blue.tits.P,"Pirio, France",Cyanistes caeruleus,monogamous,0.25,gonochorous,0.49,6.83E-09,2.90E-09,1.08E-08,5.19E-09,3.55E-09,7.61E-09,9.607595659747698
+BTM,Blue tits (Muro),Blue.tits.M,"Muro, France",Cyanistes caeruleus,monogamous,0.18,gonochorous,0.49,6.83E-09,2.90E-09,1.08E-08,5.19E-09,3.55E-09,7.61E-09,9.607595659747698
+CF,Collared flycatchers,Collared.flycatchers,"Gotland, Sweden",Ficedula albicollis,monogamous,0.19,gonochorous,0.49,6.64E-09,3.19E-09,1.03E-08,4.60E-09,3.40E-09,5.90E-09,9.155900252573485
+CSM,Rhesus macaques,Rhesus.macaques,"Cayo Santiago, Puerto Rico",Macaca mulatta,polygynandrous,1,gonochorous,1.9,8.38E-09,4.79E-09,1.21E-08,6.57E-09,6.08E-09,7.09E-09,7.945319271036481
+SFW,Superb fairy wrens,Superb.fairy.wrens,"Canberra, Australia",Malurus cyaneus,monogamous,0.76,gonochorous,0.49,7.04E-09,2.65E-09,1.14E-08,5.84E-09,3.54E-09,9.65E-09,9.262062940632124
+SSP,Song sparrows,Song.sparrows,"Mandarte Island, Canada",Melospiza melodia,monogamous,0.28,gonochorous,0.49,7.04E-09,2.65E-09,1.14E-08,5.84E-09,3.54E-09,9.65E-09,9.626494980401722
+HT,Hihi (Tiritiri),Hihi.T,"tiritiri Matangi Island, New Zealand",Notiomystis cincta,monogamous,0.46,gonochorous,0.49,6.64E-09,3.19E-09,1.03E-08,4.60E-09,3.40E-09,5.90E-09,
+HK,Hihi (Karori),Hihi.K,"Karori, New Zealand",Notiomystis cincta,monogamous,0.46,gonochorous,0.49,6.64E-09,3.19E-09,1.03E-08,4.60E-09,3.40E-09,5.90E-09,
+SSH,Soay sheep,Soay.sheep,"St. Kilda, UK",Ovis aries,polygynous,1,gonochorous,0.9,7.47E-09,4.19E-09,1.18E-08,4.70E-09,2.98E-09,7.44E-09,7.644740680063481
+BHS,Bighorn sheep,Bighorn.sheep,"Ram Mountain, Canada",Ovis canadensis,polygynous,1,gonochorous,0.9,7.47E-09,4.19E-09,1.18E-08,4.70E-09,2.98E-09,7.44E-09,6.721365403440326
+AB,Yellow baboons,Amboseli,"Amboseli National Park, Kenya",Papio cynocephalus,polygynandrous,1,gonochorous,1.9,8.29E-09,4.92E-09,1.26E-08,5.70E-09,5.10E-09,6.40E-09,7.2327069626156755
+GTU,Great tits (UK),Great.tits.U,"Wytham Woods, UK",Parus major (UK),monogamous,0.047,gonochorous,0.49,6.83E-09,2.90E-09,1.08E-08,5.19E-09,3.55E-09,7.61E-09,9.717033904066566
+GTN,Great tits (NL),Great.tits.N,"Hoge Veluwe, the Netherlands",Parus major (NL),monogamous,0.047,gonochorous,0.49,6.83E-09,2.90E-09,1.08E-08,5.19E-09,3.55E-09,7.61E-09,9.717033904066566
+KS,Red squirrels,Kluane,"Kluane, Canada",Sciurus vulgaris,polygynandrous,1,gonochorous,0.91,9.32E-09,3.38E-09,1.55E-08,8.72E-09,7.11E-09,1.07E-08,
+MK,Meerkats,Kalahari,"Kalahari, South Africa",Suricata suricatta,monogamous,0.25,gonochorous,1.6,7.53E-09,4.08E-09,1.15E-08,6.23E-09,4.36E-09,8.89E-09,

@@ -1,0 +1,367 @@
+Code,Species_code,Species,Linkage_Group,Total_cM,NCBI_Chromosome
+bsR,ovis_canadensis,Ovis canadensis,1,302.8,1
+bsR,ovis_canadensis,Ovis canadensis,2,274.3,2
+bsR,ovis_canadensis,Ovis canadensis,3,272.7,3
+bsR,ovis_canadensis,Ovis canadensis,4,142.7,4
+bsR,ovis_canadensis,Ovis canadensis,5,132.8,5
+bsR,ovis_canadensis,Ovis canadensis,6,138.9,6
+bsR,ovis_canadensis,Ovis canadensis,7,125.3,7
+bsR,ovis_canadensis,Ovis canadensis,8,127.9,8
+bsR,ovis_canadensis,Ovis canadensis,9,115.5,9
+bsR,ovis_canadensis,Ovis canadensis,10,64.2,10
+bsR,ovis_canadensis,Ovis canadensis,11,108.2,11
+bsR,ovis_canadensis,Ovis canadensis,12,102.9,12
+bsR,ovis_canadensis,Ovis canadensis,13,120.6,13
+bsR,ovis_canadensis,Ovis canadensis,14,82.5,14
+bsR,ovis_canadensis,Ovis canadensis,15,112.8,15
+bsR,ovis_canadensis,Ovis canadensis,16,67.6,16
+bsR,ovis_canadensis,Ovis canadensis,17,97.3,17
+bsR,ovis_canadensis,Ovis canadensis,18,96.9,18
+bsR,ovis_canadensis,Ovis canadensis,19,75.5,19
+bsR,ovis_canadensis,Ovis canadensis,20,71.5,20
+bsR,ovis_canadensis,Ovis canadensis,21,16.3,21
+bsR,ovis_canadensis,Ovis canadensis,22,51.9,22
+bsR,ovis_canadensis,Ovis canadensis,23,71.9,23
+bsR,ovis_canadensis,Ovis canadensis,24,44,24
+bsR,ovis_canadensis,Ovis canadensis,25,83.3,25
+bsR,ovis_canadensis,Ovis canadensis,26,51.3,26
+bsR,ovis_canadensis,Ovis canadensis,X,99.2,X
+ssS,ovis_aries,Ovis aries,1,312.2,1
+ssS,ovis_aries,Ovis aries,2,281.736,2
+ssS,ovis_aries,Ovis aries,3,262.484,3
+ssS,ovis_aries,Ovis aries,4,148.877,4
+ssS,ovis_aries,Ovis aries,5,139.738,5
+ssS,ovis_aries,Ovis aries,6,141.183,6
+ssS,ovis_aries,Ovis aries,7,134.691,7
+ssS,ovis_aries,Ovis aries,8,112.929,8
+ssS,ovis_aries,Ovis aries,9,115.373,9
+ssS,ovis_aries,Ovis aries,10,106.752,10
+ssS,ovis_aries,Ovis aries,11,100.823,11
+ssS,ovis_aries,Ovis aries,12,112.057,12
+ssS,ovis_aries,Ovis aries,13,113.009,13
+ssS,ovis_aries,Ovis aries,14,98.447,14
+ssS,ovis_aries,Ovis aries,15,102.363,15
+ssS,ovis_aries,Ovis aries,16,90.306,16
+ssS,ovis_aries,Ovis aries,17,98.286,17
+ssS,ovis_aries,Ovis aries,18,98.465,18
+ssS,ovis_aries,Ovis aries,19,87.643,19
+ssS,ovis_aries,Ovis aries,20,75.485,20
+ssS,ovis_aries,Ovis aries,21,72.025,21
+ssS,ovis_aries,Ovis aries,22,73.6,22
+ssS,ovis_aries,Ovis aries,23,86.844,23
+ssS,ovis_aries,Ovis aries,24,71.946,24
+ssS,ovis_aries,Ovis aries,25,69.641,25
+ssS,ovis_aries,Ovis aries,26,65.241,26
+ssS,ovis_aries,Ovis aries,X,168.811,X
+rdR,cervus_elaphus,Cervus elaphus,1,88.7,1
+rdR,cervus_elaphus,Cervus elaphus,2,55.4,2
+rdR,cervus_elaphus,Cervus elaphus,3,63.8,3
+rdR,cervus_elaphus,Cervus elaphus,4,81.3,4
+rdR,cervus_elaphus,Cervus elaphus,5,126.8,5
+rdR,cervus_elaphus,Cervus elaphus,6,59.6,6
+rdR,cervus_elaphus,Cervus elaphus,7,64,7
+rdR,cervus_elaphus,Cervus elaphus,8,62.1,8
+rdR,cervus_elaphus,Cervus elaphus,9,109.4,9
+rdR,cervus_elaphus,Cervus elaphus,10,55.3,10
+rdR,cervus_elaphus,Cervus elaphus,11,101.3,11
+rdR,cervus_elaphus,Cervus elaphus,12,104.2,12
+rdR,cervus_elaphus,Cervus elaphus,13,76.3,13
+rdR,cervus_elaphus,Cervus elaphus,14,85,14
+rdR,cervus_elaphus,Cervus elaphus,15,96.4,15
+rdR,cervus_elaphus,Cervus elaphus,16,54.8,16
+rdR,cervus_elaphus,Cervus elaphus,17,67,17
+rdR,cervus_elaphus,Cervus elaphus,18,108,18
+rdR,cervus_elaphus,Cervus elaphus,19,99.3,19
+rdR,cervus_elaphus,Cervus elaphus,20,112.9,20
+rdR,cervus_elaphus,Cervus elaphus,21,85.5,21
+rdR,cervus_elaphus,Cervus elaphus,22,65.2,22
+rdR,cervus_elaphus,Cervus elaphus,23,95.1,23
+rdR,cervus_elaphus,Cervus elaphus,24,69.7,24
+rdR,cervus_elaphus,Cervus elaphus,25,76,25
+rdR,cervus_elaphus,Cervus elaphus,26,51.7,26
+rdR,cervus_elaphus,Cervus elaphus,27,62.2,27
+rdR,cervus_elaphus,Cervus elaphus,28,64.7,28
+rdR,cervus_elaphus,Cervus elaphus,29,65.9,29
+rdR,cervus_elaphus,Cervus elaphus,30,86.9,30
+rdR,cervus_elaphus,Cervus elaphus,31,59.1,31
+rdR,cervus_elaphus,Cervus elaphus,32,56.7,32
+rdR,cervus_elaphus,Cervus elaphus,33,80.8,33
+rdR,cervus_elaphus,Cervus elaphus,X,148.7,X
+gtW,parus_major,Parus major (UK),1,139.88,1
+gtW,parus_major,Parus major (UK),1A,93.58,1A
+gtW,parus_major,Parus major (UK),2,139.69,2
+gtW,parus_major,Parus major (UK),3,114.87,3
+gtW,parus_major,Parus major (UK),4,97.65,4
+gtW,parus_major,Parus major (UK),4A,59.38,4A
+gtW,parus_major,Parus major (UK),5,98.57,5
+gtW,parus_major,Parus major (UK),6,78.02,6
+gtW,parus_major,Parus major (UK),7,72.64,7
+gtW,parus_major,Parus major (UK),8,53.83,8
+gtW,parus_major,Parus major (UK),9,54.2,9
+gtW,parus_major,Parus major (UK),10,50.47,10
+gtW,parus_major,Parus major (UK),11,58.23,11
+gtW,parus_major,Parus major (UK),12,51.92,12
+gtW,parus_major,Parus major (UK),13,40.95,13
+gtW,parus_major,Parus major (UK),14,49.2,14
+gtW,parus_major,Parus major (UK),15,49.15,15
+gtW,parus_major,Parus major (UK),17,45.36,17
+gtW,parus_major,Parus major (UK),18,49.91,18
+gtW,parus_major,Parus major (UK),19,49.43,19
+gtW,parus_major,Parus major (UK),20,49.44,20
+gtW,parus_major,Parus major (UK),21,46.76,21
+gtW,parus_major,Parus major (UK),22,57.69,22
+gtW,parus_major,Parus major (UK),23,51.43,23
+gtW,parus_major,Parus major (UK),24,49.51,24
+gtW,parus_major,Parus major (UK),25A,4.43,25LG1
+gtW,parus_major,Parus major (UK),25B,3.68,25LG2
+gtW,parus_major,Parus major (UK),26,53.45,26
+gtW,parus_major,Parus major (UK),27,49.15,27
+gtW,parus_major,Parus major (UK),28,48.7,28
+gtW,parus_major,Parus major (UK),Z,51.21,Z
+gtW,parus_major,Parus major (UK),LGE22,4.44,LGE22
+gtH,parus_major,Parus major (NL),1,138.15,1
+gtH,parus_major,Parus major (NL),1A,112.82,1A
+gtH,parus_major,Parus major (NL),2,127.41,2
+gtH,parus_major,Parus major (NL),3,107.05,3
+gtH,parus_major,Parus major (NL),4,97.33,4
+gtH,parus_major,Parus major (NL),4A,65.52,4A
+gtH,parus_major,Parus major (NL),5,101.05,5
+gtH,parus_major,Parus major (NL),6,78.07,6
+gtH,parus_major,Parus major (NL),7,83.67,7
+gtH,parus_major,Parus major (NL),8,49.74,8
+gtH,parus_major,Parus major (NL),9,56.57,9
+gtH,parus_major,Parus major (NL),10,56.67,10
+gtH,parus_major,Parus major (NL),11,58.49,11
+gtH,parus_major,Parus major (NL),12,55.42,12
+gtH,parus_major,Parus major (NL),13,54.17,13
+gtH,parus_major,Parus major (NL),14,51.65,14
+gtH,parus_major,Parus major (NL),15,48.93,15
+gtH,parus_major,Parus major (NL),17,50.05,17
+gtH,parus_major,Parus major (NL),18,51.02,18
+gtH,parus_major,Parus major (NL),19,51.52,19
+gtH,parus_major,Parus major (NL),20,50.94,20
+gtH,parus_major,Parus major (NL),21,53.08,21
+gtH,parus_major,Parus major (NL),22,55.75,22
+gtH,parus_major,Parus major (NL),23,40.33,23
+gtH,parus_major,Parus major (NL),24,52.33,24
+gtH,parus_major,Parus major (NL),25A,4.58,25LG1
+gtH,parus_major,Parus major (NL),25B,5.76,25LG2
+gtH,parus_major,Parus major (NL),26,54.91,26
+gtH,parus_major,Parus major (NL),27,54.32,27
+gtH,parus_major,Parus major (NL),28,52.43,28
+gtH,parus_major,Parus major (NL),Z,55.53,Z
+gtH,parus_major,Parus major (NL),LGE22,34.59,LGE22
+cfG,ficedula_albicollis,Ficedula albicollis,1,246.2,1
+cfG,ficedula_albicollis,Ficedula albicollis,1A,206.1,1A
+cfG,ficedula_albicollis,Ficedula albicollis,2,316.1,2
+cfG,ficedula_albicollis,Ficedula albicollis,3,225.9,3
+cfG,ficedula_albicollis,Ficedula albicollis,4,167.2,4
+cfG,ficedula_albicollis,Ficedula albicollis,4A,80.3,4A
+cfG,ficedula_albicollis,Ficedula albicollis,5,170.4,5
+cfG,ficedula_albicollis,Ficedula albicollis,6,121.3,6
+cfG,ficedula_albicollis,Ficedula albicollis,7,122.5,7
+cfG,ficedula_albicollis,Ficedula albicollis,8,96,8
+cfG,ficedula_albicollis,Ficedula albicollis,9,96.6,9
+cfG,ficedula_albicollis,Ficedula albicollis,10,94,10
+cfG,ficedula_albicollis,Ficedula albicollis,11,81,11
+cfG,ficedula_albicollis,Ficedula albicollis,12,84.7,12
+cfG,ficedula_albicollis,Ficedula albicollis,13,87.8,13
+cfG,ficedula_albicollis,Ficedula albicollis,14,87.6,14
+cfG,ficedula_albicollis,Ficedula albicollis,15,59.3,15
+cfG,ficedula_albicollis,Ficedula albicollis,17,73.8,17
+cfG,ficedula_albicollis,Ficedula albicollis,18,79.7,18
+cfG,ficedula_albicollis,Ficedula albicollis,19,58,19
+cfG,ficedula_albicollis,Ficedula albicollis,20,53.7,20
+cfG,ficedula_albicollis,Ficedula albicollis,21,48.3,21
+cfG,ficedula_albicollis,Ficedula albicollis,22,53.2,22
+cfG,ficedula_albicollis,Ficedula albicollis,23,49.1,23
+cfG,ficedula_albicollis,Ficedula albicollis,24,50.5,24
+cfG,ficedula_albicollis,Ficedula albicollis,25,47.9,25
+cfG,ficedula_albicollis,Ficedula albicollis,26,46.3,26
+cfG,ficedula_albicollis,Ficedula albicollis,27,73.5,27
+cfG,ficedula_albicollis,Ficedula albicollis,28,48.2,28
+cfG,ficedula_albicollis,Ficedula albicollis,Z,107.5,Z
+cfG,ficedula_albicollis,Ficedula albicollis,LGE22,53.3,LGE22
+cfG,ficedula_albicollis,Ficedula albicollis,Fal34,16.3,LG34
+cfG,ficedula_albicollis,Ficedula albicollis,Fal35,37.2,LG35
+cfG,ficedula_albicollis,Ficedula albicollis,Fal36,9.7,LG35
+bt,cyanistes_caeruleus,Cyanistes caeruleus,1A,51,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,1B,188,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,2,218,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,3A,2,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,3C,0,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,3B,35,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,4C,0,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,4D,0,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,4A,0,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,4B,22,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,4E,0,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,5,69,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,6,80,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,7,90,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,8,37,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,9,0,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,10,5,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,11,27,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,12,11,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,13,27,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,15,0,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,17,0,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,18,0,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,20,59,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,21,14,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,22,0,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,28,0,NA
+bt,cyanistes_caeruleus,Cyanistes caeruleus,Z,142,NA
+spM,melospiza_melodia,Melospiza melodia,1,203.1,NA
+spM,melospiza_melodia,Melospiza melodia,1A,102,NA
+spM,melospiza_melodia,Melospiza melodia,2,145.3,NA
+spM,melospiza_melodia,Melospiza melodia,3,160.2,NA
+spM,melospiza_melodia,Melospiza melodia,4,146.5,NA
+spM,melospiza_melodia,Melospiza melodia,4A,27.8,NA
+spM,melospiza_melodia,Melospiza melodia,5,125.1,NA
+spM,melospiza_melodia,Melospiza melodia,6,121.6,NA
+spM,melospiza_melodia,Melospiza melodia,7,71,NA
+spM,melospiza_melodia,Melospiza melodia,8,52.1,NA
+spM,melospiza_melodia,Melospiza melodia,9,79.3,NA
+spM,melospiza_melodia,Melospiza melodia,10,39.8,NA
+spM,melospiza_melodia,Melospiza melodia,11,41.8,NA
+spM,melospiza_melodia,Melospiza melodia,12,69.1,NA
+spM,melospiza_melodia,Melospiza melodia,13,0,NA
+spM,melospiza_melodia,Melospiza melodia,14,10.2,NA
+spM,melospiza_melodia,Melospiza melodia,15,0.2,NA
+spM,melospiza_melodia,Melospiza melodia,17,39.8,NA
+spM,melospiza_melodia,Melospiza melodia,18,59.7,NA
+spM,melospiza_melodia,Melospiza melodia,19,7.9,NA
+spM,melospiza_melodia,Melospiza melodia,20,19.7,NA
+spM,melospiza_melodia,Melospiza melodia,21,0,NA
+spM,melospiza_melodia,Melospiza melodia,22,0,NA
+spM,melospiza_melodia,Melospiza melodia,23,32.5,NA
+spM,melospiza_melodia,Melospiza melodia,24,48.7,NA
+spM,melospiza_melodia,Melospiza melodia,25,17.4,NA
+spM,melospiza_melodia,Melospiza melodia,26,56,NA
+spM,melospiza_melodia,Melospiza melodia,27,54.7,NA
+spM,melospiza_melodia,Melospiza melodia,Z,57.7,NA
+spM,melospiza_melodia,Melospiza melodia,LGE22,0,NA
+rmC,macaca_mulatta   ,Macaca mulatta,1,171.4,1
+rmC,macaca_mulatta   ,Macaca mulatta,2,85.7,2
+rmC,macaca_mulatta   ,Macaca mulatta,3,200,3
+rmC,macaca_mulatta   ,Macaca mulatta,4,85.7,4
+rmC,macaca_mulatta   ,Macaca mulatta,5,142.9,5
+rmC,macaca_mulatta   ,Macaca mulatta,6,114.3,6
+rmC,macaca_mulatta   ,Macaca mulatta,7,171.4,7
+rmC,macaca_mulatta   ,Macaca mulatta,8,142.9,8
+rmC,macaca_mulatta   ,Macaca mulatta,9,171.4,9
+rmC,macaca_mulatta   ,Macaca mulatta,10,85.7,10
+rmC,macaca_mulatta   ,Macaca mulatta,11,157.1,11
+rmC,macaca_mulatta   ,Macaca mulatta,12,142.9,12
+rmC,macaca_mulatta   ,Macaca mulatta,13,114.3,13
+rmC,macaca_mulatta   ,Macaca mulatta,14,100,14
+rmC,macaca_mulatta   ,Macaca mulatta,15,100,15
+rmC,macaca_mulatta   ,Macaca mulatta,16,42.9,16
+rmC,macaca_mulatta   ,Macaca mulatta,17,114.3,17
+rmC,macaca_mulatta   ,Macaca mulatta,18,57.1,18
+rmC,macaca_mulatta   ,Macaca mulatta,19,42.9,19
+rmC,macaca_mulatta   ,Macaca mulatta,20,114.3,20
+sfC,malurus_cyaneus,Malurus cyaneus,1,90.11,1
+sfC,malurus_cyaneus,Malurus cyaneus,1A,74,1A
+sfC,malurus_cyaneus,Malurus cyaneus,2,104.54,2
+sfC,malurus_cyaneus,Malurus cyaneus,3,75.75,3
+sfC,malurus_cyaneus,Malurus cyaneus,4,94.59,4
+sfC,malurus_cyaneus,Malurus cyaneus,4A,48.56,4A
+sfC,malurus_cyaneus,Malurus cyaneus,5,86.62,5
+sfC,malurus_cyaneus,Malurus cyaneus,6,66.35,6
+sfC,malurus_cyaneus,Malurus cyaneus,7,84.07,7
+sfC,malurus_cyaneus,Malurus cyaneus,8,84.7,8
+sfC,malurus_cyaneus,Malurus cyaneus,9,54.55,9
+sfC,malurus_cyaneus,Malurus cyaneus,10,78.61,10
+sfC,malurus_cyaneus,Malurus cyaneus,11,47.16,11
+sfC,malurus_cyaneus,Malurus cyaneus,12,60.19,12
+sfC,malurus_cyaneus,Malurus cyaneus,13,46.88,13
+sfC,malurus_cyaneus,Malurus cyaneus,14,79.74,14
+sfC,malurus_cyaneus,Malurus cyaneus,15,67.23,15
+sfC,malurus_cyaneus,Malurus cyaneus,17,50.47,17
+sfC,malurus_cyaneus,Malurus cyaneus,18,48.22,18
+sfC,malurus_cyaneus,Malurus cyaneus,20,47.28,20
+sfC,malurus_cyaneus,Malurus cyaneus,21,25.93,21
+sfC,malurus_cyaneus,Malurus cyaneus,23,26.9,23
+sfC,malurus_cyaneus,Malurus cyaneus,27,17.14,27
+sfC,malurus_cyaneus,Malurus cyaneus,28,22.16,28
+sfC,malurus_cyaneus,Malurus cyaneus, Z,72.81, Z
+hh,notiomystis_cincta,Notiomystis cincta,1,108.97,NA
+hh,notiomystis_cincta,Notiomystis cincta,1A,84.75,NA
+hh,notiomystis_cincta,Notiomystis cincta,2,112.22,NA
+hh,notiomystis_cincta,Notiomystis cincta,3,93.56,NA
+hh,notiomystis_cincta,Notiomystis cincta,4,96.24,NA
+hh,notiomystis_cincta,Notiomystis cincta,4A,60.96,NA
+hh,notiomystis_cincta,Notiomystis cincta,5,95.94,NA
+hh,notiomystis_cincta,Notiomystis cincta,6,71.6,NA
+hh,notiomystis_cincta,Notiomystis cincta,7,82.3,NA
+hh,notiomystis_cincta,Notiomystis cincta,8,52.11,NA
+hh,notiomystis_cincta,Notiomystis cincta,9,72.8,NA
+hh,notiomystis_cincta,Notiomystis cincta,10,61.41,NA
+hh,notiomystis_cincta,Notiomystis cincta,11,56.09,NA
+hh,notiomystis_cincta,Notiomystis cincta,12,58.54,NA
+hh,notiomystis_cincta,Notiomystis cincta,13,54.88,NA
+hh,notiomystis_cincta,Notiomystis cincta,14,50.57,NA
+hh,notiomystis_cincta,Notiomystis cincta,15,50.35,NA
+hh,notiomystis_cincta,Notiomystis cincta,17,42.38,NA
+hh,notiomystis_cincta,Notiomystis cincta,18,46.82,NA
+hh,notiomystis_cincta,Notiomystis cincta,19,42.91,NA
+hh,notiomystis_cincta,Notiomystis cincta,20,57.24,NA
+hh,notiomystis_cincta,Notiomystis cincta,21,44.62,NA
+hh,notiomystis_cincta,Notiomystis cincta,22,47.57,NA
+hh,notiomystis_cincta,Notiomystis cincta,23,54.25,NA
+hh,notiomystis_cincta,Notiomystis cincta,24,48.61,NA
+hh,notiomystis_cincta,Notiomystis cincta,26,43.97,NA
+hh,notiomystis_cincta,Notiomystis cincta,27,51.21,NA
+hh,notiomystis_cincta,Notiomystis cincta,28,56.81,NA
+hh,notiomystis_cincta,Notiomystis cincta,Z,106.04,NA
+hs,homo_sapiens,Homo sapiens,1,286.5,1
+hs,homo_sapiens,Homo sapiens,2,263.3,2
+hs,homo_sapiens,Homo sapiens,3,225.1,3
+hs,homo_sapiens,Homo sapiens,4,212.2,4
+hs,homo_sapiens,Homo sapiens,5,208.2,5
+hs,homo_sapiens,Homo sapiens,6,192.2,6
+hs,homo_sapiens,Homo sapiens,7,189,7
+hs,homo_sapiens,Homo sapiens,8,173.3,8
+hs,homo_sapiens,Homo sapiens,9,168.7,9
+hs,homo_sapiens,Homo sapiens,10,173.5,10
+hs,homo_sapiens,Homo sapiens,11,163.8,11
+hs,homo_sapiens,Homo sapiens,12,174.2,12
+hs,homo_sapiens,Homo sapiens,13,128.9,13
+hs,homo_sapiens,Homo sapiens,14,123.8,14
+hs,homo_sapiens,Homo sapiens,15,130.2,15
+hs,homo_sapiens,Homo sapiens,16,134.2,16
+hs,homo_sapiens,Homo sapiens,17,137.5,17
+hs,homo_sapiens,Homo sapiens,18,124.2,18
+hs,homo_sapiens,Homo sapiens,19,112.2,19
+hs,homo_sapiens,Homo sapiens,20,102.5,20
+hs,homo_sapiens,Homo sapiens,21,68.5,21
+hs,homo_sapiens,Homo sapiens,22,86.1,22
+hs,homo_sapiens,Homo sapiens,X,184.8,X
+dm,drosophila_melanogaster,Drosophila melanogaster,X,65.325,X
+dm,drosophila_melanogaster,Drosophila melanogaster,2L,56.8,2L
+dm,drosophila_melanogaster,Drosophila melanogaster,2R,54.1125,2R
+dm,drosophila_melanogaster,Drosophila melanogaster,3L,52.85,3L
+dm,drosophila_melanogaster,Drosophila melanogaster,3R,58.18333333,3R
+ybA,papio_cynocephalus,Papio cynocephalus,1,172,1
+ybA,papio_cynocephalus,Papio cynocephalus,2,115,2
+ybA,papio_cynocephalus,Papio cynocephalus,3,164,3
+ybA,papio_cynocephalus,Papio cynocephalus,4,111,4
+ybA,papio_cynocephalus,Papio cynocephalus,5,133,5
+ybA,papio_cynocephalus,Papio cynocephalus,6,113,6
+ybA,papio_cynocephalus,Papio cynocephalus,7,116,7
+ybA,papio_cynocephalus,Papio cynocephalus,8,93,8
+ybA,papio_cynocephalus,Papio cynocephalus,9,91,9
+ybA,papio_cynocephalus,Papio cynocephalus,10,89,10
+ybA,papio_cynocephalus,Papio cynocephalus,11,88,11
+ybA,papio_cynocephalus,Papio cynocephalus,12,136,12
+ybA,papio_cynocephalus,Papio cynocephalus,13,76,13
+ybA,papio_cynocephalus,Papio cynocephalus,14,126,14
+ybA,papio_cynocephalus,Papio cynocephalus,15,77,15
+ybA,papio_cynocephalus,Papio cynocephalus,16,77,16
+ybA,papio_cynocephalus,Papio cynocephalus,17,69,17
+ybA,papio_cynocephalus,Papio cynocephalus,18,98,18
+ybA,papio_cynocephalus,Papio cynocephalus,19,63,19
+ybA,papio_cynocephalus,Papio cynocephalus,X,84,X

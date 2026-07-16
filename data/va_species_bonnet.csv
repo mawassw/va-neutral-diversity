@@ -1,0 +1,20 @@
+Code,Species,Species,mode_Va,hpd_low_Va,hpd_high_Va
+BTM,Blue tits (Muro),Blue.tits.M,0.492534573,0.277090351,0.700600844
+BTP,Blue tits (Pirio),Blue.tits.P,0.441494575,0.222899431,0.677177025
+BTM,Blue tits (Muro),Blue.tits.R,0.109330111,0.006621269,0.210064738
+GTN,Great tits (NL),Great.tits.N,0.015941319,2.12E-05,0.099365004
+GTU,Great tits (UK),Great.tits.U,0.082466184,0.063471839,0.111375791
+SSP,Song sparrows,Song.sparrows,0.06407193,0.000226236,0.210165485
+CF,Collared flycatchers,Collared.flycatchers,0.018570214,0.000164034,0.054291527
+HT,Hihi (Tiritiri),Hihi.T,0.131849476,9.82E-05,0.342516028
+HK,Hihi (Karori),Hihi.K,0.006645181,2.46E-07,0.225297829
+SFW,Superb fairy wrens,Superb.fairy.wrens,0.016828329,4.52E-05,0.157352306
+AB,Yellow baboons,Amboseli,0.218387795,0.031440674,0.547362127
+CSM,Rhesus macaques,Rhesus.macaques,0.098731126,8.08E-05,0.215891218
+SV,Snow voles,Churwalden,0.003605791,2.96E-06,0.058948343
+KS,Red squirrels,Kluane,0.011723394,6.36E-05,0.230423749
+BHS,Bighorn sheep,Bighorn.sheep,0.26572536,0.064087404,0.571961231
+SSH,Soay sheep,Soay.sheep,0.195488372,0.078565417,0.353089534
+RD,Red deer,Red.deer,0.357764329,0.215786125,0.511689105
+MK,Meerkats,Kalahari,0.029745061,0.000147993,0.269807091
+NH,Spotted hyenas,Ngorongoro,0.459232378,0.146847218,0.810750987

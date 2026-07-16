@@ -1,0 +1,54 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, graphicx, xcolor, nicefrac}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{The Dual Nature of Variance in Fitness: Reinterpreting Adaptive Potential as Evolutionary Constraint in Wild Populations}
+\author{Walid Mawass}
+\date{}
+
+\begin{document}
+
+\section{Methods}
+
+\subsection{Mutation-selection-drift balance variance in log fitness}
+
+Drift incorporates stochasticity on the frequency of a selected variant $q$. The probability that an allele with selection coefficient $s$ segregates at frequency $q$ is (cite Hernandez et al 2026)
+
+\begin{equation}
+    P(q=\frac{j}{2N} | s) = 
+    \begin{cases}
+        C(s)e^{4N(-s)q}q^{4N\mu_d-1}(1-q)^{4N/mu_r-1} & \text{if } j = 1, \ldots, 2N-1 \\
+        e^{-2N/mu_d} \bar{t_s} & \text{if } j = 0, \ldots, 2N
+    \end{cases}
+\end{equation}
+
+Assuming co-dominance, the per-site genetic variance is
+
+\begin{equation}
+    \sigma_{r_i|s}^{2} = 2(s)^2(q|s)(1-q|s)
+\end{equation}
+
+Assuming linkage equilibrium and multiplicative fitness across sites, the mean additive genetic variation summing accross $GP(s)$ sites with selection coefficient $s$ is
+
+\begin{equation}
+    E(\sigma_{r|s}^{2}) = G P(s) E(\sigma_{r_i|s}^{2}) = G P(s) \sum_{j=0}^{j=2N} \sigma_{r_i|s}^{2} P(\frac{j}{2N} | s)   
+\end{equation}
+
+Summing across all sites, the expected total genetic variance in log fitness is
+
+\begin{equation}
+    E(\sigma_{r}^{2}) = \int_{0}^{\infty} E(\sigma_{r|s}^{2}) ds  
+\end{equation}
+
+
+Approximating all sites in the genome with the same selection coefficient yields
+
+\begin{equation}
+    E(\sigma_{r}^{2}) = G E(\sigma_{r_i|s}^{2}) = G \sum_{j=0}^{j=2N} \sigma_{r_i|s}^{2} P(\frac{j}{2N} | s)   
+\end{equation}
+
+
+
+\end{document}
