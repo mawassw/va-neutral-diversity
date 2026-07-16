@@ -1,0 +1,30 @@
+﻿# R artifacts
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj
+
+# LaTeX build artifacts
+manuscript/*.aux
+manuscript/*.log
+manuscript/*.out
+manuscript/*.toc
+manuscript/*.fls
+manuscript/*.fdb_latexmk
+manuscript/*.synctex.gz
+manuscript/*.bbl
+manuscript/*.blg
+
+# Data files too large for Git (add specific filenames if needed)
+# data/raw/*.vcf
+# data/raw/*.bam
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Google Drive conflict files
+* (1)*
+
+manuscript/misc/
+genomic_data/
