@@ -28,3 +28,9 @@ Thumbs.db
 
 manuscript/misc/
 genomic_data/
+
+# Built PDFs (reproducible from source; manuscript/figures/*.pdf stay tracked)
+manuscript/*.pdf
+
+# Claude Code local settings (per-machine permission grants; skills stay tracked)
+.claude/settings.local.json

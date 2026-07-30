@@ -6,6 +6,21 @@ library(bayesplot)
 library(readr)
 library(patchwork)
 
+####### GUARD (CLAUDE.md Rule 1): requires unlinked.R to have been sourced ####
+# This script uses df_va (built in unlinked.R from alldistzip) and
+# posterior.mode()/as.mcmc() from MCMCglmm/coda, which it never libraries
+# itself. Without unlinked.R first, it either errors deep inside a loop or —
+# worse, with RestoreWorkspace: Default — silently reuses a stale df_va from
+# .RData and produces wrong numbers.
+if (!exists("df_va")) {
+  stop("data_gen.R: df_va not found. Source scripts/R/unlinked.R first ",
+       "(it builds df_va and loads MCMCglmm/coda).", call. = FALSE)
+}
+if (!all(sapply(c("posterior.mode", "as.mcmc"), exists))) {
+  stop("data_gen.R: posterior.mode()/as.mcmc() unavailable. Source ",
+       "scripts/R/unlinked.R first (it loads MCMCglmm/coda).", call. = FALSE)
+}
+
 ####### Define Publication Theme ########
 theme_Publication <- function(base_size=14, base_family="serif") {
   theme_classic(base_size=base_size, base_family=base_family) +

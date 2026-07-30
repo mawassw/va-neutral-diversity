@@ -14,6 +14,16 @@ library(GenomicRanges)
 # 1. SETUP PATHS
 # ==============================================================================
 root_dir <- "G:/My Drive/Chicago_project/Chicago_project#3/genomic_data"
+
+# GUARD (CLAUDE.md Rule 3): root_dir above is a stale absolute path from an
+# earlier checkout location. Stop loudly rather than silently mapping over an
+# empty species list and writing a 0-row clean_chromosome_data.csv.
+if (!dir.exists(root_dir)) {
+  stop("data_gen_2.R: root_dir does not exist:\n  ", root_dir,
+       "\nFix it to this checkout's genomic_data/ before running.",
+       call. = FALSE)
+}
+
 species_dirs <- list.dirs(root_dir, recursive = FALSE)
 
 # ==============================================================================
