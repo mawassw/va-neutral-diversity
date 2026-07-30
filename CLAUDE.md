@@ -407,5 +407,14 @@ The repo lives inside a Google Drive folder. `~$*.xlsx`/`~$*.pptx` lock files an
 copies appear routinely — the conflict copies are gitignored, the lock files are not. `.gitattributes`
 routes `*.fna`/`*.gff` through Git LFS; large TIFFs (up to ~30 MB) are nonetheless committed under
 `main/`, `supp/`, and `manuscript/figures/`. `.RData`/`.Rhistory`/`.Rproj` and LaTeX build artifacts
-are gitignored; built PDFs (`manuscript/*.pdf`) are **not** — decide per file whether to commit.
-(`data/figures.tiff` was deleted 2026-07-29 as a confusing stray; do not recreate it.)
+are gitignored. **Built PDFs (`manuscript/*.pdf`) are gitignored as of 2026-07-29** — reproducible from
+source. That pattern matches direct children only, so the tracked `manuscript/figures/*.pdf` are
+unaffected. `.claude/settings.local.json` is also gitignored (per-machine permission grants);
+`.claude/skills/` **is** tracked. (`data/figures.tiff` was deleted 2026-07-29 as a confusing stray; do
+not recreate it.)
+
+## Git workflow
+
+**Commit directly to `main`** (confirmed 2026-07-29). This is a solo research repo; branch-per-change
+adds friction and risks leaving work unmerged and invisible. Do **not** create a branch unless asked.
+Still applies: **commit and push only when the user asks.**
