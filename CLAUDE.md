@@ -10,7 +10,169 @@ The output is a set of publication TIFFs and summary CSVs, not a library or appl
 build system, no test suite, no package structure. The conventions below are enforced — follow them
 when adding code, data, or figures.
 
-## Project framing (agreed 2026-07-29 — supersedes `scratch.tex` Intro)
+## Project framing — CURRENT (agreed 2026-08-04, amended 2026-08-07; supersedes the 2026-07-29 framing below)
+
+**From Jeremy's feedback on the 2026-08-04 lab presentation. This section governs. The 2026-07-29
+framing that follows it is retained as project history — read it for the circularity argument's
+details, which survive as a *methods strength*, not as the project's reason to exist.**
+
+**The anchor is variation in fitness.** Additive genetic variance in fitness is the fundamental
+quantity, and it is the core research interest this project must connect to. Everything else is
+downstream of that.
+
+**The chain, in order:**
+
+1. Linked selection is, at bottom, about **genetic variance in fitness** — that is the quantity doing
+   the work.
+2. Pedigree $V_A$ in relative fitness is **one estimate of that fundamental quantity**, obtained
+   independently of sequence.
+3. Use it to ask how strong linked selection is **across species**, given a direct estimate of the
+   underlying quantity rather than a diversity-calibrated one.
+4. Translate that into an **expectation for neutral diversity**, and compare to observed $\pi$. This
+   tests whether $V_A$ measures for these species yield good estimates of observed $\pi$.
+5. **If not — why not?** That is the interesting question, and it is a question about $V_A$ as an
+   estimate of variance in fitness.
+
+**What changed, explicitly:**
+
+- **Lewontin's paradox is demoted from thesis to venue.** It is where the comparison happens, not
+  what the project is about. The field is moving away from linked selection as *the* explanation for
+  the paradox; do not hitch the project to a receding claim. Linked selection remains worth
+  understanding — that is a separate and still-live interest.
+- **Buffalo 2021 / Corbett-Detig et al. 2015 / Chen et al. 2017 are the *tradition*, not the foil.**
+  Step 4 above is where that connection legitimately lives — it is not the heart of the project. Cite
+  them to locate the comparison. Do **not** position this paper as the other side of Buffalo 2021.
+- **"The two routes fail in opposite directions" is WITHDRAWN.** That was the old headline and it is
+  exactly the Buffalo-mirroring being corrected. It made the project's significance depend on someone
+  else's result.
+- **The circularity argument is demoted, not deleted.** Independence from diversity data is a genuine
+  virtue of the estimator and the **independence audit stays** as a Methods strength. It is no longer
+  the reason the project matters.
+- **$V_{A,\max}$ survives and gets stronger.** It is an inequality on a phenotypic quantity — i.e.
+  directly about variance in fitness — so it fits this framing better than the old one. Still the most
+  citable object in the paper.
+- **The MSD / implied-$s$ contradiction gets more load, not less.** It bears directly on whether
+  reported $V_A$ is a credible estimate of variance in fitness, which is now the central question,
+  and it reaches that conclusion without diversity data at all.
+  **⚠ REVERSED 2026-08-07 — see Amendment F3 below.** Charlesworth (2026) now states this in print,
+  so it is corroboration rather than a finding of ours, and it cannot carry weight.
+
+**The cut (draft — REWRITE IN OWN WORDS before use).** Per `talk/JOB_TALK_RULES.md` §2 step 2, the
+one-sentence statement of the project must be authored by the user, not generated. Two drafts to push
+against, both currently over-long:
+
+- *Pedigree estimates of additive genetic variance in fitness give a sequence-independent handle on
+  the strength of linked selection across species; propagated to neutral diversity they do not
+  reproduce observed $\pi$, which bounds how much of measured $V_A$ can be transmissible.*
+- *Additive genetic variance in fitness is the quantity linked selection is made of, and the pedigree
+  estimates we have of it are too large to be compatible with the diversity those same populations
+  carry.*
+
+### Amendment F3 (2026-08-07) — the bound binds the *directional* component
+
+**This amends the 2026-08-04 framing above; it does not supersede it.** The anchor is unchanged and
+the five-step chain still governs. What changes is the claim made at step 5 and the load carried by
+the MSD strand. Still no equation changes.
+
+**Cause.** Not external feedback — a currency check the user ran pre-emptively, out of the guard
+established on 2026-08-04 ("don't lose the project's identity to someone else's paper"). Recent
+variance-in-fitness literature was pulled from Zotero into
+`job_packet/2026/misc/new_connections.txt` and screened for claims that would make ours evidently
+wrong. Two findings:
+
+1. **The LLM-generated "bridges" in that file were the Buffalo pattern again** — "position your
+   program as the direct answer to this open challenge." Discarded. The knowledge summaries were
+   kept. Recorded here because the failure mode recurs whenever a tool is asked to connect this work
+   to a literature: it reaches for borrowed significance by default.
+2. **A real currency risk.** Connallon & Czuppon (2026) show balancing selection under drift and
+   fluctuating selection maintains substantial $V_A$ for fitness, overturning the classical
+   zero-at-equilibrium result. Charlesworth (2026), commenting on it, states that mutation–selection
+   balance is mathematically insufficient to explain observed $V_{Aw}$, especially wild estimates.
+
+**Why that matters.** That is *our* premise, and the field now has a **competing resolution of it
+that does not require the estimates to be wrong**: the variance is real and reflects non-equilibrium
+displacement, not measurement inflation. It carries Brian Charlesworth's endorsement. Not lethal —
+but asserting inflation without acknowledging the alternative reads as not having read the year's
+most-discussed result on our own premise. That is Grain failure mode one
+(`talk/JOB_TALK_RULES.md` §6) and the same failure Jeremy flagged over Lewontin.
+
+**The resolution — sharpen, do not retreat.** The claim moves from *"measured $V_A$ is inflated"* to
+*"the **directionally consistent** component of $V_A$ cannot be that large."* Fitness variance that
+fluctuates in sign — as balancing and fluctuating selection generate — does not erode diversity
+cumulatively, so the bound does not bind it. The bound binds the directional part, which is what
+pedigree estimates are normally read as measuring.
+
+**Three consequences:**
+
+- **The result becomes a partition, not a contradiction.** Instead of "your number is wrong," the
+  finding is a decomposition of measured $V_A$ into a directional component with a hard diversity-set
+  ceiling and a fluctuating component without one. That is a positive claim and it is testable.
+- **It aligns the claim with the mathematics, and converts the paper's weakest point into its stated
+  scope.** Robertson's result is about the *autocovariance of relative fitness across generations* —
+  i.e. the directional component. Equating that with a single-generation pedigree $V_A$ is the
+  project's largest unstated assumption (flagged as attack surface #3 in
+  `UChicago_projects/DECK_SCRIPT.md` S27). Under F3 it is no longer hidden; it is the scope
+  condition.
+- **The competing explanation becomes a boundary condition on our result, not a threat.** Connallon
+  & Czuppon / Charlesworth argue qualitatively that much fitness variance is non-equilibrium and
+  non-directional. We supply the quantitative ceiling on how much of it *must* be. **Do not cite them
+  as the gap we fill** — that is §1 borrowed significance. State what our bound does; the connection
+  is then visible without being leaned on.
+
+**What F3 costs.** The MSD / implied-$s$ strand loses its novelty (see the ⚠ above). Under F2 it
+gained load; under F3 it is corroboration of a published position and cannot be a headline. The
+originality therefore concentrates on the **diversity-side bound** — $V_{A,\max}$ — which remains
+ours alone.
+
+**Standing test for this project, from `talk/JOB_TALK_RULES.md` §1.** Remove Buffalo 2021: still
+interesting. Remove Lewontin-as-thesis: still interesting. Remove Charlesworth / Connallon & Czuppon:
+still interesting. What survives all three removals is the load-bearing object — *sequence diversity
+places a numerical ceiling on a phenotypic quantity, and measured values sit 2–3 orders of magnitude
+above it.* Anything that fails this test is decoration.
+
+**Emphasis triage under F3** (supersedes the F2 list where they differ):
+
+- **Load-bearing:** $V_{A,\max}$; the unlinked-only result (no map, no annotation, no stationarity —
+  the reason to believe the direction); the directional / non-directional partition; the per-species
+  test.
+- **Supplementary:** $\kappa(\alpha)$; the Haldane $\overline{Q^2}$ machinery; the independence audit
+  (Methods strength); the MSD / implied-$s$ check, now demoted to "consistent with Charlesworth
+  2026."
+- **Locating only, one sentence each:** Lewontin, Buffalo, Corbett-Detig, Chen.
+
+**The cut under F3 (drafts — REWRITE IN OWN WORDS; §2 step 2 is the user's).** The recommended
+construction is the first as the *claim* with the second as its *content*, mirroring the A+B pattern
+the user chose for research-statement Aim 3 on 2026-08-07:
+
+- *Neutral diversity sets a ceiling on how much of a population's fitness variance can be both
+  heritable and consistently directional, and published pedigree estimates sit two to three orders of
+  magnitude above it.*
+- *Most of the fitness variance we measure in wild populations cannot be the directional kind,
+  because the diversity those populations carry would not survive it.*
+
+**Open under F3:**
+
+1. **Add the ~30-word directional caveat wherever the bound is stated** — manuscript and research
+   statement both. Draft: *"Fitness variance that fluctuates in direction, as balancing and
+   fluctuating selection generate, escapes this consequence. The bound binds the directional
+   component, which is what pedigree estimates are normally read as measuring."*
+2. **`references.bib`:** Connallon & Czuppon (2026) and Charlesworth (2026) are **not yet verified
+   against Crossref** and have no entries. Verify before use; flag `% UNVERIFIED:` otherwise
+   (Rule 6 / sign-off item 5).
+3. **Check Matheson et al. (2025)** — logged as corroborating, with one open methodological question
+   not yet identified.
+4. **`scratch.tex` §Discussion** now needs the partition framing, not just the removal of
+   opposite-directions.
+
+**Consequences still to work through:** `scratch.tex`'s Introduction is now **three** framings stale
+(it still argues the pre-2026-07-29 two-claim gap). The Discussion's opening paragraphs lean on the
+opposite-directions framing and on Lewontin-as-thesis; both need re-cutting, and under F3 they need
+the partition framing rather than only the removal of opposite-directions. No equation changes —
+this is framing and emphasis only, same as the previous pivots.
+
+---
+
+## Project framing — HISTORICAL (agreed 2026-07-29) — superseded by the section above
 
 **Problem.** Lewontin's paradox: neutral diversity spans ~3 orders of magnitude across taxa while
 census sizes span more than 8. The consensus proximate explanation is linked selection — background
