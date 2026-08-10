@@ -10,7 +10,7 @@ The output is a set of publication TIFFs and summary CSVs, not a library or appl
 build system, no test suite, no package structure. The conventions below are enforced — follow them
 when adding code, data, or figures.
 
-## Project framing — CURRENT (agreed 2026-08-04, amended 2026-08-07; supersedes the 2026-07-29 framing below)
+## Project framing — CURRENT (agreed 2026-08-04, amended 2026-08-07/08; supersedes the 2026-07-29 framing below)
 
 **From Jeremy's feedback on the 2026-08-04 lab presentation. This section governs. The 2026-07-29
 framing that follows it is retained as project history — read it for the circularity argument's
@@ -68,7 +68,7 @@ against, both currently over-long:
   estimates we have of it are too large to be compatible with the diversity those same populations
   carry.*
 
-### Amendment F3 (2026-08-07) — the bound binds the *directional* component
+### Amendment F3 (2026-08-07, extended 2026-08-08) — the bound binds the *directional* component
 
 **This amends the 2026-08-04 framing above; it does not supersede it.** The anchor is unchanged and
 the five-step chain still governs. What changes is the claim made at step 5 and the load carried by
@@ -113,11 +113,17 @@ pedigree estimates are normally read as measuring.
   project's largest unstated assumption (flagged as attack surface #3 in
   `UChicago_projects/DECK_SCRIPT.md` S27). Under F3 it is no longer hidden; it is the scope
   condition.
-- **The competing explanation becomes a boundary condition on our result, not a threat.** Connallon
-  & Czuppon / Charlesworth argue qualitatively that much fitness variance is non-equilibrium and
-  non-directional. We supply the quantitative ceiling on how much of it *must* be. **Do not cite them
-  as the gap we fill** — that is §1 borrowed significance. State what our bound does; the connection
-  is then visible without being leaned on.
+- **The bound is INDIFFERENT to the competing explanation — it holds either way.** *(Strengthened
+  2026-08-08 from R4; this supersedes the weaker "boundary condition" wording originally recorded
+  here.)* The violation admits two branches: part of measured $V_A$ is not heritable at all (relatives
+  share environments as well as alleles, and the animal model counts that resemblance as genetic), and
+  part may be real but reversing (the sort balancing and fluctuating selection maintain). **The bound
+  does not say which, and holds either way.** Do not defend one branch against the other — owning the
+  disjunction is what makes the result robust, because it cannot be defeated by establishing either
+  one. Connallon & Czuppon / Charlesworth argue qualitatively that much fitness variance is
+  non-equilibrium and non-directional; we supply the quantitative ceiling on how much of it *must* be.
+  **Do not cite them as the gap we fill** — that is §1 borrowed significance. State what the bound
+  does; the connection is then visible without being leaned on.
 
 **What F3 costs.** The MSD / implied-$s$ strand loses its novelty (see the ⚠ above). Under F2 it
 gained load; under F3 it is corroboration of a published position and cannot be a headline. The
@@ -134,28 +140,53 @@ above it.* Anything that fails this test is decoration.
 
 - **Load-bearing:** $V_{A,\max}$; the unlinked-only result (no map, no annotation, no stationarity —
   the reason to believe the direction); the directional / non-directional partition; the per-species
-  test.
+  test; **the forward-compatibility claim** (added 2026-08-08, see below).
+- **Load-bearing — the forward-compatibility claim.** *"It also sets a value that any sequence-based
+  estimate of fitness variance has to come in under, as the field moves off pedigrees."* Added from
+  R4. This is the answer to the strongest available dismissal — *"so pedigree estimates are biased;
+  the field is leaving them behind anyway"* — and it converts $V_{A,\max}$ from a critique of one
+  measurement technique into a standing constraint on **any** estimate of fitness variance, including
+  the temporal-genomic route (Geeta Arun et al. 2026). It also locates the work relative to that
+  literature **without citing it or leaning on it**, which is §1 executed correctly. Treat this as the
+  most durable sentence in the framing: it is what keeps the result alive after pedigrees stop being
+  the standard instrument.
 - **Supplementary:** $\kappa(\alpha)$; the Haldane $\overline{Q^2}$ machinery; the independence audit
   (Methods strength); the MSD / implied-$s$ check, now demoted to "consistent with Charlesworth
   2026."
 - **Locating only, one sentence each:** Lewontin, Buffalo, Corbett-Detig, Chen.
 
-**The cut under F3 (drafts — REWRITE IN OWN WORDS; §2 step 2 is the user's).** The recommended
-construction is the first as the *claim* with the second as its *content*, mirroring the A+B pattern
+**The cut under F3 — SETTLED, no longer a draft (2026-08-08).** These were recorded here as drafts to
+push against. The user has since authored the delivered prose in
+`job_packet/2026/misc/research_statement_3pages_R4.docx`, and the two sentences below survived
+essentially intact. They are now the project's working cut, in the A-claim / C-content construction
 the user chose for research-statement Aim 3 on 2026-08-07:
 
-- *Neutral diversity sets a ceiling on how much of a population's fitness variance can be both
-  heritable and consistently directional, and published pedigree estimates sit two to three orders of
-  magnitude above it.*
-- *Most of the fitness variance we measure in wild populations cannot be the directional kind,
-  because the diversity those populations carry would not survive it.*
+- **The claim (A).** *Neutral diversity sets a ceiling on how much of a population's fitness variance
+  can be both heritable and consistently directional, and published pedigree estimates sit two to
+  three orders of magnitude above it.*
+- **The content (C).** *Most of the fitness variance we measure in the wild cannot be the directional
+  kind, because the diversity these populations carry would not survive it.*
+
+**Reference implementation — `research_statement_3pages_R4.docx`, Past Work 3.** That paragraph is the
+first place this framing exists as finished prose, and it is ahead of this file rather than behind it.
+Read it before re-cutting the manuscript. Three things it settles:
+
+- **The section header is C, not A.** "Most Fitness Variance in the Wild Is Not the Directional Kind"
+  — the partition is the headline; the bound is the lead sentence that supports it. Note the direction
+  of that choice: the *interpretation* leads and the *inequality* backs it up.
+- **Lewontin and Buffalo are absent entirely.** Not demoted to a sentence — absent. Linked selection
+  appears exactly once, as mechanism ("heritable variation in fitness is what linked selection is made
+  of"), never as a contested explanation being adjudicated. This is further than F2 required, and it
+  is the correct end state.
+- **The MSD check is one sentence**, phrased as a second route to the same conclusion. Correctly
+  sized; do not re-inflate it.
 
 **Open under F3:**
 
-1. **Add the ~30-word directional caveat wherever the bound is stated** — manuscript and research
-   statement both. Draft: *"Fitness variance that fluctuates in direction, as balancing and
-   fluctuating selection generate, escapes this consequence. The bound binds the directional
-   component, which is what pedigree estimates are normally read as measuring."*
+1. **Add the directional caveat wherever the bound is stated.** ✅ **Done in the research statement**
+   (R4, 2026-08-08) — and done better than the draft caveat recorded here, by owning both branches
+   rather than carving out an exception. **Still open for the manuscript**: `scratch.tex` states the
+   bound without it. Port R4's two-branch sentences rather than the older draft.
 2. **`references.bib`:** Connallon & Czuppon (2026) and Charlesworth (2026) are **not yet verified
    against Crossref** and have no entries. Verify before use; flag `% UNVERIFIED:` otherwise
    (Rule 6 / sign-off item 5).
