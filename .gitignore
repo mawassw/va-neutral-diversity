@@ -34,3 +34,12 @@ manuscript/*.pdf
 
 # Claude Code local settings (per-machine permission grants; skills stay tracked)
 .claude/settings.local.json
+
+# poster build products (regenerate with python poster/make_poster.py)
+poster/__pycache__/
+poster/assets/
+poster/*.pdf
+
+# external reference copies (re-downloadable; not redistributed here)
+iyag180.pdf
+science.abk0853_data_s1/
