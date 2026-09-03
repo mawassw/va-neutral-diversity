@@ -42,4 +42,22 @@ sign-off; E1 and E2 are new findings of 2026-09-03 and are not recorded anywhere
 | Q4 | **Which $\kappa$ model is primary** in the reported results, A or B? The code implements Model A. | T3 and every reported magnitude. | open |
 | Q5 | **Which `main/` TIFF fills which figure slot.** Several `Theoretical_*.tiff` have no current producer, and both `SuppFig3.tiff` and `SuppFig3_Va_Deflation_Analysis.tiff` exist. Rule 8 says ask rather than guess. | Figure captions and `\includegraphics` at backport. | open |
 | Q6 | **The verdict clause in the Introduction's final paragraph** — read as omitted, per directive v3. Confirm, or insert the labelled alternative. | One sentence. | assumed resolved |
+---
+
+## Theory subsections as drafted
+
+Notes on T1 and T2 as they now stand in `scratch.tex` (committed at `68b19ad`). Both are accepted;
+these are items for the whole-section pass.
+
+| # | item | where | status |
+|---|---|---|---|
+| T-1 | **`\autoref{sec:linkage}` is a dangling reference.** T2's closing sentence forward-references it, but no `\label{sec:...}` exists anywhere in the file. It will compile to `??`. Add `\label{sec:linkage}` to the linked-constraint subsection. | `scratch.tex:61` | trivial, confirmed |
+| T-2 | **"an invariant, parameter-sparse ceiling on the effective population size"** — the sense is right but the wording inverts. The equation gives the *most permissive* $N_e/N$ the model allows, since linkage only lowers it; "ceiling on the effective population size" reads as though $N_e$ could not exceed it for other reasons. Prefer "the most permissive case" or "an upper bound on retained diversity". Same distinction E1 turns on. | `scratch.tex:61` | wording |
+| T-3 | **$I_A \equiv C^2$ is now asserted in both T1 and T2.** Consistent, but $I_A$ (Houle 1992) sits adjacent to the opportunity-for-selection argument that the settled framing struck. Decide once whether the $I_A$ equivalence stays as a named identity or whether $C^2$ alone carries it, and state it in one place only. | `scratch.tex:34`, `:59` | decision |
+| T-4 | **Sweeps handled by a time-averaged $\bar V_A$** — an addition beyond the T2 spec, and a real refinement: it lets the unlinked baseline cover directional sweeps without stationarity. Confirm $\bar V_A$ is either used consistently downstream or explicitly confined to that clause, since no other subsection defines it. | `scratch.tex:61` | verify |
+| T-5 | **T1 derives $Q^2 = 4$**, so T4 must not re-derive it, and T1's displayed equation needs a label if later subsections reference it. | `scratch.tex:41–43` | cohesion |
+| T-6 | **T1's ">85\% achieved within two generations"** is 75% for two terms ($t = 0,1$) and 87.5% for three. Fix the phrasing or the figure. | `scratch.tex:44` | arithmetic |
+
+---
+
 | Q7 | **Were the P3 fixes carried into the final Introduction** — lifetime *breeding* success, two exemplar systems not three, Ram Mountain rather than "Alberta" bighorn, "composite lifetime measure" rather than "fitness itself"? | They were instructions in directive v3, not verified in output. | verify against final text |
