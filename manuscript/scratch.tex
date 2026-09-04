@@ -131,38 +131,34 @@ Weak selection & $\overline{Q^2}_\text{linked}$ & $\infty$ & $4$ \\[2ex]
 \end{tabular}
 \end{table}
 
-\subsection{Total Reduction in Diversity and Genomic Architecture}
-The total, genome-wide reduction in effective population size combines selective interference from physically linked loci on the focal chromosome with the independent background variance segregating across the remainder of the genome. We partition the global additive variance $V_A$ among chromosomes in proportion to their functional target sizes. Assuming the majority of additive variance arises from functional sequence—an assumption we subsequently relax by incorporating conserved non-coding elements—the variance attributable to chromosome $i$ is $v_i = V_A f_i$, where $f_i$ is the fraction of the genome's total functional sequence. A focal neutral allele on chromosome $i$ is physically linked only to selected loci on its own haplotype, which carries variance $v_i/2$. Selected loci on the homologous haplotype and on all other chromosomes segregate independently of the focal allele. These loci contribute to the unlinked background, which carries the remaining variance $V_A - v_i/2$.
+\subsection{Total reduction and genomic architecture}\label{variance_partitioning}
+Under an infinitesimal genetic architecture, heritable fitness variance is distributed across the genome in proportion to functional annotation size. Chromosome $i$ carries total additive variance $v_i = V_A f_i$, where $f_i$ is its fraction of the genome's total functional sequence (coding sequence and conserved non-coding elements). Assuming additive gene action, the heritable variance residing on a single physical haplotype is $v_h = v_i / 2$. Because the homologous chromosome segregates freely at meiosis, its variance ($v_h$) assorts independently of the focal neutral site and enters the unlinked background alongside the variance distributed across all other chromosomes ($V_A - v_i$). The freely assorting variance acting on a neutral site on chromosome $i$ is therefore $(V_A - v_i) + v_h = V_A - v_h$.
 
-These two variance components enter the expected effective population size through distinct biological mechanisms. The linked component converges to an exponential function of the local linked load, $\exp(-\kappa (v_i/2)\,\overline{Q^2}_i)$, because it represents the continuous product of survival probabilities across the physical map of the chromosome. Conversely, the unlinked component accumulates through the aggregate interference of freely segregating loci across the rest of the genome, where independent assortment halves the statistical association between the focal neutral site and the selected background each generation, retaining the functional form of the Robertson geometric series (\autoref{unlinked_mating}). Assuming cross-chromosomal interference is negligible (a standard approximation because independent assortment prevents the sustained multi-generational buildup of linkage disequilibrium between distinct chromosomes), the two components act independently to yield the expected reduction in effective population size for a neutral allele on chromosome $i$:
-
+A focal neutral allele on chromosome $i$ consequently experiences two concurrent selective interference regimes:
+\begin{enumerate}
+    \item \textbf{Linked background selection in cis:} Selected loci on the same physical haplotype maintain gametic linkage disequilibrium that decays under recombination along the chromosome. Compounding this interference across generations yields the exponential background selection reduction, $\exp\left(-\kappa\,\overline{Q^2}_i\,v_h\right)$ (Hudson and Kaplan 1995; Santiago and Caballero 2016).
+    \item \textbf{Unlinked Robertson overdispersion in trans:} All remaining selected loci in the genome—the homologous haplotype and all other autosomes—segregate independently of the focal allele ($r = 1/2$), driving family-size overdispersion through the Robertson geometric series evaluated at the remaining variance, $V_A - v_h$.
+\end{enumerate}
+Because cross-chromosomal linkage disequilibrium is negligible under random mating and independent assortment, these two selective regimes act across independent coalescent branch segments. Their joint effect combines multiplicatively to determine the chromosome-specific relative effective size:
 \begin{equation}
-    \frac{N_e}{N} \approx \frac{\exp\left(-\kappa\,\dfrac{v_i}{2}\,\overline{Q^2}_i\right)}{1 + 4\kappa\left(V_A - \dfrac{v_i}{2}\right)}
-\label{total_red}
+\left(\frac{N_e}{N}\right)_i \approx \frac{\exp\left(-\kappa\,\overline{Q^2}_i\,v_h\right)}{1 + 4\kappa(V_A - v_h)}. \label{total_red}
 \end{equation}
 
-The Relative Linkage Effect, $\Omega_i$, quantifies the proportional reduction in effective population size caused specifically by physical linkage. This isolates the effect of chromosomal architecture from the genome-wide baseline, mirroring recent advances that formally integrate linked and unlinked background selection in finite genomes (Matheson and Masel 2024). It is defined as the ratio of the total chromosome-specific reduction (\autoref{total_red}) to the global unlinked expectation (\autoref{unlinked_mating} evaluated at $V_A$):
-
-\begin{align}
-    \Omega_i &= \frac{(N_e/N)_{\text{full}}}{(N_e/N)_{\text{unlinked}}} \\[4pt]
-    &= \exp\left(-\kappa\,\frac{v_i}{2}\,\overline{Q^2}_i\right)\left(\frac{1 + 4\kappa V_A}{1 + 4\kappa\left(V_A - \dfrac{v_i}{2}\right)}\right)
-\label{linked_penalty}
-\end{align}
-
-Our theoretical framework directly predicts $N_e$, from which neutral diversity can be inferred. Because nucleotide diversity scales proportionally with effective size under the neutral coalescent ($\pi = 4N_e\mu$), $\Omega_i < 1$ implies that the physical architecture of chromosome $i$ depletes local neutral diversity beyond the unlinked expectation. We note that the second factor in \autoref{linked_penalty} is always greater than one: relocating $v_i/2$ from the global unlinked background into the linked term slightly reduces the genome-wide overdispersion of family sizes, partially relieving the unlinked Robertson interference. The net Linkage Effect, $\Omega_i$, reflects the balance between this minor global relief and the severe local interference imposed by physical linkage. This dynamic—where clustering selected sites on a chromosome intensifies local coalescent collapse while modestly reducing their global interference because they no longer segregate independently—is a recognized feature of multi-locus background selection models (Charlesworth et al. 1993).
-
-To generate a genome-wide expectation of $N_e$ comparable to empirical measurements of nucleotide diversity, we weight the chromosome-specific predictions by each chromosome's physical length, $L_i$. This reflects the uniform probability that a random neutral mutation falls anywhere along the sequence. By restricting this integration to the autosomal sequence, we assume the contribution of sex chromosomes to the global variance pool is proportional to their physical length, an assumption we evaluate further in the Discussion.
-
+To isolate the specific reduction imposed by chromosome structure beyond the unlinked baseline, we define the relative linkage penalty, $\Omega_i$, as the ratio of the chromosome-level effective size to the genome-wide unlinked baseline (Equation~\eqref{unlinked_mating}):
 \begin{equation}
-    \mathbb{E}\left[\frac{N_e}{N}\right] = \sum_{i=1}^{n} \frac{L_i}{L_{\text{total}}} \cdot \frac{\exp\left(-\kappa \,\dfrac{v_i}{2}\,\overline{Q^2}_i\right)}{1 + 4\kappa\left(V_A - \dfrac{v_i}{2}\right)}
+\Omega_i \equiv \frac{(N_e/N)_i}{(N_e/N)_\text{unlinked}} = \exp\left(-\kappa\,\overline{Q^2}_i\,v_h\right) \cdot \frac{1 + 4\kappa V_A}{1 + 4\kappa(V_A - v_h)}. \label{linked_penalty}
 \end{equation}
+The second factor in Equation~\eqref{linked_penalty} strictly exceeds unity: sequestering variance $v_h$ onto a physical chromosome slightly relieves the global family-size overdispersion imposed by the unlinked background. The parameter $\Omega_i$ thus represents the net balance between this modest global variance relief and the severe local coalescent compression driven by physical linkage (Charlesworth et al. 1993).
 
-The Global Linkage Effect, $\overline{\Omega}$, summarizes the aggregate impact of genomic architecture across the entire autosomal complement. Because the unlinked baseline is a genome-wide constant, $\overline{\Omega}$ reduces to the length-weighted mean of the individual chromosomal effects:
+Assuming neutral sites are uniformly distributed across the physical genome, the genome-wide expected relative effective size is the physical-length-weighted average across all $n$ autosomes:
 \begin{equation}
-    \overline{\Omega} = \sum_{i=1}^{n} \frac{L_i}{L_{\text{total}}}\,\Omega_i
+\mathbb{E}\left[\frac{N_e}{N}\right] = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}} \left(\frac{N_e}{N}\right)_i = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}} \cdot \frac{\exp\left(-\kappa\,\overline{Q^2}_i\,v_h\right)}{1 + 4\kappa(V_A - v_h)},
 \end{equation}
-
-A value of $\overline{\Omega} = 1$ indicates that the physical organization of the genome—chromosome lengths, recombination rates, and the spatial distribution of selected loci—imposes no interference beyond independent assortment. Values below one quantify the additional reduction in genome-wide effective size caused by physical linkage, providing a single standardized metric of how genomic architecture amplifies the total selective load across species.
+where $L_i$ is the physical length (in base pairs) of autosome $i$, and $L_\text{total} = \sum L_i$. The genome-wide net linkage effect, $\overline{\Omega}$, is the corresponding length-weighted mean:
+\begin{equation}
+\overline{\Omega} = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}} \Omega_i.
+\end{equation}
+A value of $\overline{\Omega} = 1$ indicates that genomic architecture imposes no selective interference beyond independent assortment; values below unity quantify the net coalescent compression attributable directly to physical linkage along chromosomes.
 
 \subsection{The Upper Bound of Heritable Variance in Relative Fitness}
 The framework developed above predicts the genome-wide reduction in effective population size for a given empirical $V_A$. We invert this mapping to derive the maximum additive genetic variance in relative fitness compatible with maintaining a specified fraction of neutral diversity, a diagnostic limit defined as $V_{A,\text{max}}$.
