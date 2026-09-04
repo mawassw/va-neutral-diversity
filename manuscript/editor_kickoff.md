@@ -68,6 +68,166 @@ Come back to me instead of deciding, if:
   currency on purpose, because mixing unlinked and linked figures makes the interval arithmetic
   inconsistent.
 
+## Theory pass — T7 (use a FRESH session)
+
+> You are writing one subsection of the Theory and Model section of a manuscript targeting GENETICS
+> (GSA). Write **T7 only**.
+>
+> **The live Theory section is `manuscript/theory_model.tex`.** T7 replaces its final subsection, "The
+> Upper Bound of Heritable Variance in Relative Fitness". `manuscript/scratch.tex` holds a stale
+> duplicate of the whole section — **do not read or edit it.**
+>
+> Read, in this order:
+>
+> 1. `manuscript/theory_model.tex` — all of it. T1–T6 precede T7.
+> 2. `CLAUDE.md` §*Project framing*, in particular the *Supporting results* entry on
+>    $V_{A,\max}(\delta)$ and the *What is deliberately NOT claimed* table.
+> 3. `walid_authorial_style_guide.md` — sentence construction and diction; Appendix for voice only.
+>
+> **What T7 is.** The inversion of the unlinked baseline into a ceiling on heritable fitness variance,
+> published **as a curve over $\delta$** — the most reusable object in the paper, because anyone with a
+> diversity estimate reads their own limit off it and any future sequence-based estimate of fitness
+> variance has to come in under it.
+>
+> **What T7 is not, and this is the substantive change.** It is not a test that populations pass or
+> fail. The existing subsection frames it that way — "a diagnostic limit", and a paragraph beginning
+> "If a pedigree-based animal-model estimate … exceeds $V_{A,\max}$ … the ecological measurements are
+> irreconcilable". That framing is retired: **no population in the analysed set exceeds the ceiling at
+> a plausible diversity threshold**, and presenting the object as a violation test invites a reader to
+> expect violations that are not there. Present a ceiling function; let the Results section evaluate it.
+>
+> **Two things to cut, and hand to the Discussion.**
+>
+> - **The three-branch disjunction** — non-equilibrium transient loss, cryptic immigration, and
+>   non-additive or environmentally structured covariance. It pre-empts the Discussion, which is
+>   briefed to adjudicate exactly this.
+> - **The whole final paragraph on animal-model mechanisms** — indirect genetic effects, kin-structured
+>   interactions, spatially autocorrelated environments, pedigree-structure sensitivity. Same reason.
+>   Theory states the ceiling; the Discussion argues about what a comparison against it means.
+>
+> **One error to fix.** The subsection currently says a population exceeding the bound is
+> "irreconcilable with the expectations of a rigorous theoretical model **at stable
+> mutation-selection-drift equilibrium**". That contradicts T2, which establishes that the unlinked
+> baseline requires no stationarity of the selected background and holds under
+> mutation–selection–drift balance, sweeps and fluctuating selection alike. Since $V_{A,\max}$ is
+> derived from that baseline, it inherits the same freedom. **Say so explicitly** — the ceiling carries
+> no equilibrium assumption about the selected background. It is one of the object's strengths and the
+> current text gives it away.
+>
+> **It must carry:**
+>
+> 1. The inversion: setting the unlinked expectation equal to a retained-diversity threshold
+>    $\delta \in (0,1)$ and solving for the variance. $\delta$ is defined in T1's notation; use it
+>    consistently and do not redefine it.
+> 2. Why the unlinked baseline is the right thing to invert: $\Omega_i \le 1$, so no arrangement of
+>    recombination or functional architecture restores diversity above the unlinked expectation. The
+>    ceiling is therefore the most permissive case, and a population with linked chromosomes reaches
+>    any given reduction at less variance.
+> 3. The displayed result, $V_{A,\max} = (1-\delta)/(4\kappa\delta)$. **Give it a label** —
+>    `\label{eq:vamax}` — because the Results section references it.
+> 4. That it depends on nothing but $\delta$ and $\kappa$, and that $\kappa = 2$ halves it relative to
+>    $\kappa = 1$, with the biological reading: pairing concentrates the heritable component of
+>    family-size variance across both gametic pools at once.
+> 5. One sentence that the ceiling is reported as a curve over $\delta$ rather than a single defended
+>    value, and that it is evaluated against the published estimates in the Results.
+>
+> **Length: 200–240 words plus the equation.** The existing subsection runs near 600; the two cuts
+> account for most of the difference.
+>
+> **Say which $N_e/N$.** The manuscript distinguishes the variance effective size from the coalescent
+> one, and two different ratios in this literature are both written $N_e/N$. Where $\delta$ is
+> introduced as "equivalent to a target $N_e/N$", make clear it is the diversity-derived ratio.
+>
+> **Also.** Drop "severe" from "the severe coalescent consequences of social pairing" — the magnitude
+> is a Results matter and the adjective belongs to a superseded framing.
+>
+> **Forbidden.** Any count of populations above or below the ceiling, any empirical $\delta$, $\kappa$
+> or $V_A$ value, and any verdict — all Results. Mutation–selection–drift balance as a premise of this
+> subsection (T8 owns it). The Discussion material named above.
+>
+> **Register.** Functional and declarative; the equation carries the load. Open on substance.
+>
+> Do not edit any file. Return: the prose and equation; the word count; confirmation that
+> `\label{eq:vamax}` is present, that the equilibrium claim is corrected, and that both cut paragraphs
+> are gone; and a one-line note of what you removed, so it can be checked against the Discussion brief.
+
+## Theory pass — T6 (use a FRESH session)
+
+> You are writing one subsection of the Theory and Model section of a manuscript targeting GENETICS
+> (GSA). Write **T6 only**.
+>
+> **The manuscript has been restructured.** `manuscript/main.tex` now `\input`s separate section
+> files. **The live Theory section is `manuscript/theory_model.tex`.** T6 replaces its final
+> subsection, "The Architecture of Variance: Infinitesimal and Oligogenic Limits". `manuscript/scratch.tex`
+> still holds a byte-identical duplicate of the whole Theory section — **do not read it or edit it.**
+>
+> Read, in this order:
+>
+> 1. `manuscript/theory_model.tex` — all of it. T1–T5 precede T6.
+> 2. `supp/appendix_C.tex` — authoritative for the $\overline{Q^2}$ integration; do not reproduce it.
+> 3. `manuscript/theory_outline.md` — T6 is specified there; the instructions below take precedence.
+> 4. `walid_authorial_style_guide.md` — sentence construction and diction; Appendix for voice only.
+>
+> **Two mechanical fixes T6 must make.**
+>
+> - **Notation.** T5 established $v_h = v_i/2$ as the haplotype variance. The current subsection writes
+>   $v_i/2$ or $v_i g(x)/2$ in five places, including three times inside the Jensen inequality. **Use
+>   $v_h$ throughout**, including in the Jensen's-gap expression, which becomes proportional to
+>   $(\kappa v_h)^2\,\mathrm{Var}_x[Q^2(x)]$.
+> - **A dangling reference.** The subsection cites `\autoref{average_linked}`; T4's rewrite renamed
+>   that label. The chromosome-averaged integral is now `\label{eq:haldane_avg}`. Fix the reference.
+>
+> **A question that has been resolved, and which changes what this subsection may claim.** The analysis
+> evaluates the chromosome-averaged interference under the **uniform density only**: the pipeline calls
+> a single Haldane-average routine at every call site and never evaluates $Q^2$ at annotated gene
+> positions. Therefore:
+>
+> - **Cut the final two paragraphs and their equation** — the empirical-density substitution
+>   $\overline{Q^2}_i(\hat g_i) = G_i^{-1}\sum_j Q^2(x_j^{(i)})$, and the discussion of annotated gene
+>   counts versus coding length. That machinery is derived but never applied, and it belongs in the
+>   closing "framework breakdown" subsection as a stated extension. Do not write it here.
+> - **Say plainly, in one sentence, that the reported predictions use the uniform density**, so a
+>   reader knows which member of the continuum was actually evaluated.
+>
+> **On the direction of the Jensen result — read carefully, because it is easy to get backwards.** The
+> subsection's existing direction statements are **correct** and should be kept: the uniform density
+> yields the *lower* $N_e$, so a randomly placed causal locus produces a higher average $N_e$ than
+> spreading the same variance uniformly. What is missing is what that is good for.
+>
+> - **Replace the word "conservative".** It is used without saying conservative about what, and it
+>   carried a different meaning under a superseded framing. State the content directly: the uniform
+>   assumption maximises the predicted reduction.
+> - **Add the consequence, in one sentence.** Because the uniform density is the spatial assumption
+>   most favourable to the mechanism, a bound on how much neutral diversity heritable fitness variance
+>   can remove is obtained under the arrangement most generous to it. That is what makes this result
+>   load-bearing rather than a technical aside.
+>
+> **Keep, in this order:** the infinitesimal assumption named and located against the empirically
+> unresolved architecture of fitness (Barton and Keightley 2002); the arbitrary density $g(x)$ and the
+> position-specific profile; the Fubini reduction to $\overline{Q^2}(g) = \int g(x)Q^2(x)dx$, keeping
+> `\label{general_g}`; recovery of the infinitesimal case and the oligogenic discrete mean, keeping
+> `\label{oligogenic_mean}`; that $Q^2(x)$ peaks at the chromosome midpoint and is least at the
+> telomeres, with the reason; the Jensen inequality and its corrected reading; the gap expression; and
+> the reversal condition — enrichment of causal loci in regions of suppressed recombination
+> (Kirkpatrick and Barton 2006; Yeaman 2013) closes the gap and can reverse it.
+>
+> **Length: 280–330 words plus the equations.** The existing subsection runs near 800. Cutting the
+> empirical-density material recovers most of that; the rest comes from tightening.
+>
+> **Two small fixes while you are here.** "here, the symmetry of the kernel" begins a sentence and
+> needs a capital. "However, the true genetic architecture…" opens with a sentence-initial "however";
+> the style guide places it after the subject.
+>
+> **Forbidden.** Reproducing Appendix C. $V_{A,\max}$ (T7). $U_d$, $s^*$ or mutation–selection–drift
+> (T8). The empirical-density substitution, per above. Any magnitude, species value, or verdict.
+>
+> **Register.** Functional and declarative; equations carry the load. Open on substance.
+>
+> Do not edit any file. Return: the prose and equations; the word count; confirmation that no bare
+> $v_i/2$ remains and that `\autoref{eq:haldane_avg}` replaced `\autoref{average_linked}`; and the one
+> sentence you would put in the framework-breakdown subsection to carry the cut empirical-density
+> material.
+
 ## Theory pass — T5 (use a FRESH session)
 
 > You are writing one subsection of the Theory and Model section of a manuscript targeting GENETICS
