@@ -68,6 +68,83 @@ Come back to me instead of deciding, if:
   currency on purpose, because mixing unlinked and linked figures makes the interval arithmetic
   inconsistent.
 
+## Theory pass — T5 (use a FRESH session)
+
+> You are writing one subsection of the Theory and Model section of a manuscript targeting GENETICS
+> (GSA). Write **T5 only**.
+>
+> Read, in this order:
+>
+> 1. `manuscript/scratch.tex` — read all of §Theory and Model. **T1–T4 are written and precede T5.**
+>    T5 replaces "Total Reduction in Diversity and Genomic Architecture". Its existing text is sound
+>    and most of it survives; the work is connecting it to T4's notation and cutting its length.
+> 2. `manuscript/theory_outline.md` — T5 is specified there; the instructions below take precedence.
+> 3. `manuscript/OPEN_ITEMS.md` §*Modelling decisions worth preserving*, item **M-1**. T5 is where M-1
+>    is discharged.
+> 4. `walid_authorial_style_guide.md` — sentence construction and diction; Appendix for voice only.
+>
+> **Three obligations T5 inherits from T4.**
+>
+> - T4 ends with `\autoref{variance_partitioning}`, which resolves to nothing. **Put
+>   `\label{variance_partitioning}` on this subsection.**
+> - T4 introduced $v_h$, the selective variance on the focal haplotype, and deferred its value here.
+>   **T5 must supply it explicitly: $v_h = v_i/2$, where $v_i = V_A f_i$ is the diploid chromosome's
+>   share of the genome-wide additive variance.** State the identity once, in that form.
+> - T4 promised that the homologous haplotype's variance is *reassigned* rather than dropped. **T5
+>   completes that accounting** — the unlinked background carries $V_A - v_h$, and the homologous half
+>   is inside it. Say so in one sentence; it is what makes the equation a partition of one chromosome's
+>   variance rather than two unrelated adjustments.
+>
+> **Use $v_h$ throughout, not $v_i/2$.** Define $v_i = V_A f_i$ and $v_h = v_i/2$ once, then write the
+> exponent as $\exp(-\kappa\,\overline{Q^2}_i\,v_h)$ and the denominator as $1 + 4\kappa(V_A - v_h)$.
+> The existing equations spell out $v_i/2$ in five places; that is the notation drift T4 was written to
+> end.
+>
+> **It must carry:**
+>
+> 1. The partition: $V_A$ apportioned among chromosomes by functional target size, $v_i = V_A f_i$;
+>    then $v_h = v_i/2$ on the focal haplotype, with the remainder in the unlinked background.
+> 2. Why the two components combine multiplicatively and in different functional forms — the linked
+>    component as a product of survival probabilities along the map, the unlinked component retaining
+>    the Robertson geometric series of `unlinked_mating` — under the stated approximation that
+>    cross-chromosomal interference is negligible.
+> 3. The displayed combined result, keeping the label `total_red`.
+> 4. $\Omega_i$, the relative linkage effect, with label `linked_penalty`, and the subtlety worth
+>    keeping: its second factor always exceeds one, because moving $v_h$ out of the unlinked background
+>    slightly relieves genome-wide interference, so $\Omega_i$ is the balance between minor global
+>    relief and local interference (Charlesworth et al. 1993).
+> 5. The length-weighted genome-wide expectation, and $\overline{\Omega}$ as the length-weighted mean
+>    of $\Omega_i$. State plainly what $\overline{\Omega} = 1$ would mean. **End the subsection on
+>    $\overline{\Omega}$** — it is the quantity the Results section reports.
+> 6. Keep the existing sentence restricting the treatment to autosomes and deferring sex chromosomes to
+>    the Discussion.
+>
+> **Length: 300–360 words plus the four equations.** The existing subsection runs near 700. T3 and T4
+> both overran; the section is tracked against ~2,500 words and this is where the slack is.
+>
+> **Cut.** The restatement of $\pi = 4N_e\mu$ — T1 established it. "Our theoretical framework directly
+> predicts $N_e$, from which neutral diversity can be inferred" and any similar self-reference to the
+> framework. The long final sentence of the $\Omega_i$ paragraph can lose about half its length without
+> losing the idea.
+>
+> **Fix while you are here.** The subsection cites "Matheson and Masel 2024"; elsewhere the manuscript
+> cites Matheson and Masel 2025. Use 2025 and flag it `% UNVERIFIED:` if you cannot confirm the year.
+>
+> **Flag, do not resolve.** The text says $f_i$ is the fraction of total functional sequence, while
+> §Methods defines $\hat f_i = G_i/G_{\text{total}}$ from annotated gene counts. These are different
+> quantities. Write T5 using the functional-sequence definition and note the discrepancy in your
+> return; it is a Methods fix, not a T5 fix. Likewise the clause promising the assumption is "relaxed
+> by incorporating conserved non-coding elements" — say it only if you can point to where that is done.
+>
+> **Forbidden.** Jensen or oligogenic architecture (T6). $V_{A,\max}$ (T7). $U_d$, $s^*$ or
+> mutation–selection–drift (T8). Any empirical magnitude, species value, or verdict.
+>
+> **Register.** Functional and declarative; equations carry the load. Open on substance.
+>
+> Do not edit any file. Return: the prose and equations; the word count; confirmation that
+> `\label{variance_partitioning}` is present, that $v_h = v_i/2$ is stated once, and that no bare
+> $v_i/2$ remains in any equation; and any discrepancy you were told to flag rather than fix.
+
 ## Theory pass — T4 (use a FRESH session)
 
 > You are writing one subsection of the Theory and Model section of a manuscript targeting GENETICS
