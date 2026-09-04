@@ -1,0 +1,34 @@
+\ifdefined\isMainDocument
+\else
+    \documentclass{article}
+    \usepackage{fullpage}
+    % \usepackage{geometry}
+    % \geometry{top=0.5in, bottom=0.5in, left=0.5in, right=0.5in}
+    
+    \usepackage{wrapfig}
+    \usepackage{lineno}
+    \usepackage{amsmath, amsthm, amsfonts, amssymb, amscd}
+    \usepackage{bm, bbm, mathrsfs}
+    \usepackage{mathtools}
+    \usepackage{nicefrac}
+    \usepackage{caption}
+    %\usepackage{natbib}
+    \usepackage[style=numeric, sorting=none]{biblatex}
+    \addbibresource{refs.bib}
+    \usepackage[colorinlistoftodos]{todonotes}
+    \usepackage{graphicx}
+    \graphicspath{figures/}
+    \usepackage{setspace}
+    \setstretch{1.5}
+
+    \begin{document}
+    \linenumbers
+\fi
+
+
+
+\ifdefined\isMainDocument
+\else
+    \printbibliography
+    \end{document}
+\fi
