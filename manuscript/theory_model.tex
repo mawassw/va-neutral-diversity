@@ -156,6 +156,52 @@ where $L_i$ is the physical length (in base pairs) of autosome $i$, and $L_\text
 \end{equation}
 A value of $\overline{\Omega} = 1$ indicates that genomic architecture imposes no selective interference beyond independent assortment; values below unity quantify the net coalescent compression attributable directly to physical linkage along chromosomes.
 
+\subsection{The spatial distribution of selective variance}\label{sec:spatial_variance}
+The chromosomal integration developed in \autoref{sec:linkage} spreads additive genetic variance uniformly along the genetic map of each chromosome (i.e., $1/M$). This formalizes a spatially uniform realization of the infinitesimal model, wherein heritable fitness variance arises from a dense continuum of loci with individually negligible effects (Fisher 1918; Barton et al. 2017). Because the true genetic architecture of relative fitness in wild populations remains an unresolved empirical question spanning the continuum from highly polygenic to oligogenic architectures (Barton and Keightley 2002), we treat the uniform assumption as a theoretical baseline and characterize the directional consequences of non-uniform spatial dispersion.
+
+Let $g(x) \ge 0$ represent an arbitrary density of selective variance along chromosome $i$, normalized such that $\int_0^M g(x)\,dx = 1$. The position-specific interference profile experienced by a neutral site at genetic position $y$ is:
+\begin{equation}
+    Q^2(y, g) = \int_0^M g(x)\left(\frac{1}{1 - \dfrac{Z}{2}\left(1 + e^{-2|x-y|}\right)}\right)^2 dx.
+\end{equation}
+Assuming neutral sites are uniformly distributed along the genetic map, the chromosome-wide average interference is $\overline{Q^2}(g) = \frac{1}{M}\int_0^M Q^2(y, g)\,dy$. Because the underlying interference kernel $K(x,y) = \left(1 - \frac{Z}{2}(1 + e^{-2|x-y|})\right)^{-2}$ is symmetric ($K(x,y) = K(y,x)$), Fubini's theorem permits exchanging the order of integration:
+\begin{equation}
+    \overline{Q^2}(g) = \int_0^M g(x) \left[\frac{1}{M}\int_0^M K(x,y)\,dy\right] dx = \int_0^M g(x)\,Q^2(x)\,dx, \label{general_g}
+\end{equation}
+where $Q^2(x) \equiv Q^2(x; g_\text{unif})$ denotes the baseline spatial profile derived in \autoref{sec:linkage} (Equation~\eqref{eq:haldane_avg}). When selective variance is distributed uniformly ($g(x) = 1/M$), Equation~\eqref{general_g} recovers $\overline{Q^2}_i$. 
+
+For an oligogenic architecture comprising $J$ discrete loci of equal effect at map positions $x_1, \ldots, x_J$, the variance density collapses to a sum of Dirac delta functions, $g(x) = \frac{1}{J}\sum_{j=1}^J \delta(x - x_j)$, reducing Equation~\eqref{general_g} to a discrete sample mean:
+\begin{equation}
+    \overline{Q^2}(g) = \frac{1}{J}\sum_{j=1}^J Q^2(x_j). \label{oligogenic_mean}
+\end{equation}
+Because the distance-decay function $f_\text{H}(\ell)$ is strictly decreasing ($f_\text{H}'(\ell) < 0$; see \autoref{app:chromosapp}), the baseline spatial profile $Q^2(x)$ is strictly concave ($d^2 Q^2(x)/dx^2 < 0$). It achieves its unique global maximum at the chromosome midpoint ($x = M/2$) and reaches symmetrical minima at the telomeres ($x \in \{0, M\}$), reflecting that a centrally positioned locus exerts physical interference across two flanking chromosomal arms, whereas a telomeric locus interferes with only one.
+
+The aggregate reduction in effective population size depends on the expectation of the convex function $\exp\left(-\kappa v_h Q^2\right)$. For a single causal locus placed at a uniformly distributed random map position $x_0 \sim \mathrm{Uniform}[0,M]$, Jensen's inequality guarantees:
+\begin{equation}
+    \mathbb{E}_{x_0}\left[\exp\left(-\kappa v_h Q^2(x_0)\right)\right] > \exp\left(-\kappa v_h\,\mathbb{E}[Q^2(x_0)]\right) = \exp\left(-\kappa v_h \overline{Q^2}_i\right).
+\end{equation}
+Because higher values of $(N_e/N)_i$ represent a weaker depression of effective size, a localized locus yields, on average, a smaller reduction in neutral diversity than spreading that same variance uniformly across the chromosome. A second-order Taylor expansion reveals that for an oligogenic architecture of $J$ independently placed loci, this Jensen gap scales inversely with locus number:
+\begin{equation}
+    \mathbb{E}\left[\exp\left(-\kappa v_h \overline{Q^2}(g)\right)\right] - \exp\left(-\kappa v_h \overline{Q^2}_i\right) \approx \frac{(\kappa v_h)^2}{2J}\exp\left(-\kappa v_h \overline{Q^2}_i\right)\mathrm{Var}_x\left[Q^2(x)\right].
+\end{equation}
+Consequently, under random genomic placement, the spatially uniform model maximizes the predicted reduction in neutral diversity. It provides a conservative lower bound on the retained effective size (a theoretical ceiling on the magnitude of selective reduction), ensuring that our analytical baseline does not underestimate diversity losses due to arbitrary polygenic clustering.
+
+This conservative bound holds strictly when causal loci are distributed independently of local recombination rates. If selected alleles are physically concentrated in regions of suppressed recombination—such as pericentromeric heterochromatin or chromosomal inversions, where quantitative trait loci and adaptive variants frequently accumulate (Kirkpatrick and Barton 2006; Yeaman 2013)—their genetic density $g(x)$ spikes sharply in map distance. Such structural clustering elevates local values of $Q^2(x_j)$ above the chromosome-wide average $\overline{Q^2}_i$, closing and potentially reversing the Jensen gap. Where chromosome-level assemblies and fine-scale genetic maps are available, the uniform expectation can be replaced directly by an empirical annotation-based estimator:
+\begin{equation}
+    \overline{Q^2}_i(\hat{g}_i) = \frac{1}{G_i}\sum_{j=1}^{G_i} Q^2(x_j^{(i)}),
+\end{equation}
+where $x_j^{(i)}$ represents the genetic position of the $j$-th annotated functional element (e.g., coding sequence or conserved non-coding element) across the $G_i$ elements on chromosome $i$.
+
+
+
+
+
+
+
+
+
+
+
+
 \subsection{The Upper Bound of Heritable Variance in Relative Fitness}
 The framework developed above predicts the genome-wide reduction in effective population size for a given empirical $V_A$. We invert this mapping to derive the maximum additive genetic variance in relative fitness compatible with maintaining a specified fraction of neutral diversity, a diagnostic limit defined as $V_{A,\text{max}}$.
 
@@ -171,47 +217,7 @@ If a pedigree-based animal-model estimate of $V_A$ in a monitored wild populatio
 
 Because the animal model detects statistical associations between phenotypic similarity and relatedness without identifying the biological mechanism, it is highly susceptible to absorbing indirect genetic effects, localized kin-structured interactions, and spatially autocorrelated environments into the $V_A$ component (Kruuk and Hadfield 2007; Stopher et al. 2012). Furthermore, variance component estimation is sensitive to pedigree structure (Mawass and Milot 2025). These factors inflate the statistical estimate of $V_A$ in the pedigree without generating the proportional, transmissible reproductive advantage required to compress the coalescent timescale, and by extension, deplete observable neutral diversity—two measures that theoretically and empirically track each other closely in genome-wide data (Charlesworth 2009; Buffalo 2021).
 
-\subsection{The Architecture of Variance: Infinitesimal and Oligogenic Limits}
-The continuous integration derived above distributes the chromosome-specific selective variance, $v_i = V_A f_i$ (scaled by its functional target size), uniformly across the genetic map of chromosome $i$. This assumption aligns with the classical infinitesimal model of quantitative genetics, where $V_A$ arises from an infinite number of loci, each of negligible effect. However, the true genetic architecture of fitness in natural populations remains empirically unresolved (Barton and Keightley 2002). To bound the potential outcomes, we must evaluate the continuum from fully infinitesimal to oligogenic, where a small number of loci contribute substantial variance. Because the linked interference profile $Q^2(y)$ varies systematically with the genetic position $y$ of the focal neutral site, the aggregate reduction in diversity depends strongly on the spatial distribution of these causal loci.
 
-To formalize this dependence, let $g(x) \geq 0$ define an arbitrary density of selective variance along chromosome $i$, normalized such that $\int_0^M g(x)\,dx =1$. The selective variance per unit map length at the selected locus position $x$ is $v_i g(x)/2$. The position-specific interference profile at a neutral site $y$ becomes:
-\begin{equation}
-    Q^2(y,\,g) = \int_0^M g(x)\left(\frac{1}{1-\dfrac{Z}{2}\left(1 + e^{-2|x-y|}\right)}\right)^2dx
-\end{equation}
-
-Averaging over all neutral sites under the uniform density $1/M$ and exchanging the order of integration via Fubini's theorem yields:
-
-\begin{align}
-    \overline{Q^2}(g) &= \int_0^M g(x)\left[\frac{1}{M}\int_0^M K(x,y)\,dy\right]dx \\
-    &= \int_0^M g(x)\,Q^2(x)\,dx \label{general_g}
-\end{align}
-here, the symmetry of the kernel $K(x,y)$ allows the inner integral to resolve to $Q^2(x)$. \autoref{general_g} establishes that the chromosome-averaged interference is simply the $g$-weighted average of the spatial interference profile $Q^2(x)$.
-
-Under the infinitesimal model ($g(x) = \nicefrac{1}{M}$), \autoref{general_g} recovers $\overline{Q^2}_i$ as derived previously (\autoref{average_linked}). Under an oligogenic model comprising $J$ loci of equal effect at positions $x_1,\dots, x_J$, the density is $g(x)= J^{-1} \sum_{j=1}^J \delta (x - x_j)$, and the chromosome-averaged interference resolves to a discrete mean:
-
-\begin{equation}
-    \overline{Q^2}(g) = \frac{1}{J}\sum_{j=1}^J Q^2(x_j) \label{oligogenic_mean}
-\end{equation}
-
-The magnitude of the linked reduction therefore depends directly on whether causal loci occupy regions of high or low $Q^2(x)$. Because $Q^2(x)$ is maximized at the chromosome midpoint $M/2$ and minimized at the telomeres—a consequence of centrally located loci being physically linked to sequence on both chromosome arms, whereas telomeric loci are linked to only one—centrally located causal loci contribute disproportionately to the chromosome-averaged reduction in diversity.
-
-The implications for model bias are governed by the convexity of the exponential linked reduction term, $\exp(-\kappa v_i \,\overline{Q^2}(g)/2)$. Because the second derivative of this function with respect to $\overline{Q^2}(g)$ is positive, Jensen's inequality bounds the expectation for a single oligogenic locus at a uniformly random position $x_0 \sim \text{Uniform}[0,M]$:
-
-\begin{equation}
-    \mathbb{E}_{x_0}\left[\exp\left(-\frac{\kappa v_i}{2}\,Q^2(x_0)\right)\right] > \exp\left(-\frac{\kappa v_i}{2}\,\mathbb{E}[Q^2(x_0)]\right) = \exp\left(-\frac{\kappa v_i}{2}\,\overline{Q^2}_i\right)
-\end{equation}
-
-Biologically, because the interference effect scales exponentially, placing a selected locus in a region of high interference (the chromosome center) reduces $N_e$ far more than placing it in a region of low interference (the telomere) relieves it. Consequently, the average effective population size produced by a randomly placed causal locus is always greater than the effective size produced by spreading that same variance uniformly across the chromosome. This inequality constitutes a formal proof that the continuous infinitesimal model is conservative when evaluated against randomly positioned oligogenic variation. The magnitude of this Jensen's gap is proportional to $(\kappa v_i/2)^2 \cdot \text{Var}_x[Q^2(x)]$. Thus, the infinitesimal model most underestimates $N_e$ on chromosomes carrying substantial selective variance and exhibiting steep spatial gradients in $Q^2(x)$.
-
-However, this conservatism assumes causal loci are positioned randomly with respect to the recombination landscape. If causal loci are systematically enriched in regions of reduced recombination—such as pericentromeric domains or inversions, where empirical quantitative trait loci are frequently mapped (Kirkpatrick and Barton 2006; Yeaman 2013)—the local interference $Q^2(x_j)$ systematically exceeds the chromosome-wide average $\overline{Q^2}_i$. Such non-random spatial enrichment rapidly closes the Jensen's gap and can reverse it, rendering the infinitesimal model an underestimate of the actual reduction in effective population size.
-
-While the Jensen's inequality framework evaluates unobservable causal loci, the integration in \autoref{general_g} accommodates empirical functional densities in place of theoretical uniform distributions. At the chromosome level, using annotated protein-coding gene counts, $G_i$, to define the functional partition coefficients ($\hat{f}_i = G_i / G_{\text{total}}$) provides only a minor refinement over using physical coding sequence length, as the two metrics are highly correlated across vertebrate karyotypes. The critical architectural uncertainty lies within the chromosome. For species with integrated physical-to-genetic maps, the spatial distribution of selective variance can be localized to the specific genetic positions of annotated genes, $x_j^{(i)}$. Substituting this empirical architecture into \autoref{oligogenic_mean} yields:
-
-\begin{equation}
-    \overline{Q^2}_i\left(\hat{g}_i\right) = \frac{1}{G_i}\sum_{j=1}^{G_i} Q^2\left(x_j^{(i)}\right)
-\end{equation}
-
-This substitution replaces the assumption of uniform variance per unit genetic distance with uniform variance per coding gene. While this parameterization resolves the spatial clustering of functional targets along the recombination map, it does not identify which specific genes harbor the variance estimated by the animal model. The unobservable identity of the causal loci remains the fundamental source of theoretical uncertainty, governing the ultimate direction and magnitude of the Jensen's gap.
 
 \ifdefined\isMainDocument
 \else
