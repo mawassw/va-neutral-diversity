@@ -68,6 +68,87 @@ Come back to me instead of deciding, if:
   currency on purpose, because mixing unlinked and linked figures makes the interval arithmetic
   inconsistent.
 
+## Theory pass — T4 (use a FRESH session)
+
+> You are writing one subsection of the Theory and Model section of a manuscript targeting GENETICS
+> (GSA). Write **T4 only**. It is the most technical subsection in the paper.
+>
+> Read, in this order:
+>
+> 1. `manuscript/scratch.tex` — read all of §Theory and Model. **T1, T2 and T3 are written and precede
+>    T4.** T4 replaces "Integration of Linked Constraint Across the Genetic Map". **Appendix C** is
+>    authoritative for the integration and must not be reproduced.
+> 2. `manuscript/theory_outline.md` — T4 is specified there; the instructions below take precedence.
+> 3. `walid_authorial_style_guide.md` — sentence construction and diction; Appendix for voice only.
+> 4. `CLAUDE.md` §*Project framing* — current as of commit `6f9721e`.
+>
+> **What precedes T4 and must not be repeated:** $V_A$'s definition and the $N_{eV} = N_{eC}$ bridge
+> (T1); the derivation of $Q = \sum_t (1/2)^t = 2$ and hence $Q^2 = 4$ (T1); the Wright–Fisher benchmark
+> and the Robertson mechanism (T2); `unlinked_baseline` and its scope condition (T2); $\kappa(\alpha)$,
+> both models, and `unlinked_mating` (T3).
+>
+> **Two obligations T4 inherits.**
+>
+> - T2 forward-references `\autoref{sec:linkage}`, which currently resolves to nothing. **Put
+>   `\label{sec:linkage}` on this subsection.**
+> - T2 promised that everything from here on needs stationarity assumptions it did not need. **T4
+>   discharges that promise**, via the survival parameter. Make it read as the discharge of a promise,
+>   not as a fresh caveat.
+>
+> **It must carry:**
+>
+> 1. $Q$ generalized. T1 derived it under free assortment; present $Q$ here as the temporal scaling
+>    factor summing the per-generation covariance between a neutral locus and its selected background,
+>    weighted by the joint survival of the physical association and the selective variance, giving
+>    $N_e/N = 1/(1+Q^2V_A)$ — of which T1's $Q^2 = 4$ is the free-recombination limit. **Do not
+>    re-derive $Q^2 = 4$.**
+> 2. The survival parameter $Z = 1 - V_m/V_A$, and that defining it presupposes a stationary selected
+>    background — satisfied under mutation–selection–drift balance, violated by episodic sweeps
+>    (Barton 2000). One clause that under House-of-Cards balance $V_m/V_A \approx s$ and so
+>    $Z \approx 1-s$, with a forward reference to the mutation–selection–drift subsection. **Do not
+>    derive House of Cards here.**
+> 3. The Haldane mapping $r(\ell) = \tfrac12(1-e^{-2\ell})$ and why not the linear approximation: the
+>    integration runs over whole chromosomes, many exceeding 0.5 M, where a linear map inflates the
+>    contribution of distant sites; Haldane saturates correctly at $r \to 1/2$.
+> 4. The joint single-generation survival $(1-r(\ell))Z$, the geometric sum, the position-specific
+>    profile $Q^2(y)$, and the chromosome-average $\overline{Q^2}_{\text{linked}}$ reduced to a single
+>    integral over pairwise distances. **State that this integral is evaluated numerically for each
+>    chromosome.** The closed form under the linear approximation is in **Appendix C** — a validation
+>    check only. Cite Appendix C, not Appendix A.
+> 5. **The haplotype variance, with its own symbol.** Write the chromosome-level reduction as
+>    $\exp(-\kappa\,\overline{Q^2}_{\text{linked}}\,v_h)$, where $v_h$ is the selective variance
+>    residing on the **focal haplotype**. Justify it here, because it is a fact about linkage and not
+>    about the partition: a focal neutral allele is physically linked only to selected loci on its own
+>    haplotype, and associations with the homologous background arise only through recombination.
+>    Buffalo and Kern (2024) put it directly — only half the fitness variation in a diploid can stay
+>    associated with a neutral allele across generations. **One sentence on the difference in
+>    treatment, as a modelling choice and not a claim of superiority:** they neglect the homologous
+>    ($Q''$) associations, whereas here that variance is reassigned to the unlinked background rather
+>    than dropped. **Defer the value of $v_h$ to T5**, which supplies $v_h = v_i/2$ with $v_i = V_A f_i$
+>    the diploid-chromosome variance. Do not write $v_i$ or $v_i/2$ in this subsection.
+> 6. The limits table: $\overline{Q^2} \to (1-Z)^{-2}$ as $M \to 0$ and $(1-Z/2)^{-2}$ as
+>    $M \to \infty$, under strong ($Z = 1-s$) and weak ($Z \to 1$) selection, with the resulting local
+>    $N_e/N$. Keep the existing table; update its notation to $v_h$.
+> 7. The asymmetry the table establishes, in two sentences: linked interference is sensitive to the
+>    strength of purifying selection on short chromosomes and converges toward the Robertson baseline
+>    on long ones. One sentence that avian microchromosomes fall below the saturation scale — **and no
+>    stronger claim**, because the analysis pipeline currently applies a 20 Mb chromosome filter that
+>    excludes them. Do not assert that microchromosomes drive the result.
+>
+> **Length: 400–460 words plus the table.** T3 came in near 400 against a 250 budget; the section is
+> tracked against ~2,500 words and T4 is the last place that can absorb overrun.
+>
+> **Forbidden.** Reproducing Appendix C's integration. The partition $v_i = V_A f_i$, $\Omega_i$, or
+> genome-wide aggregation (T5). Jensen or oligogenic architecture (T6). $V_{A,\max}$ (T7). $U_d$,
+> $s^*$, or the House-of-Cards derivation (T8). Any empirical magnitude, species value, or verdict.
+>
+> **Register.** Functional and declarative; equations carry the load. Announce each assumption where it
+> is used. Open on substance, not on a statement of intent.
+>
+> Do not edit any file. Return: the prose and the table; the word count; what you referenced from
+> T1–T3 and how; every forward reference you created with the label it needs; and confirmation that
+> `\label{sec:linkage}` is present and that $v_h$ appears without $v_i$.
+
 ## Theory pass — T1 (use a FRESH session)
 
 > You are writing one subsection of the Theory and Model section of a manuscript targeting GENETICS
