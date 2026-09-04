@@ -1,0 +1,43 @@
+\ifdefined\isMainDocument
+\else
+    \documentclass{article}
+    \usepackage{fullpage}
+    % \usepackage{geometry}
+    % \geometry{top=0.5in, bottom=0.5in, left=0.5in, right=0.5in}
+    
+    \usepackage{wrapfig}
+    \usepackage{lineno}
+    \usepackage{amsmath, amsthm, amsfonts, amssymb, amscd}
+    \usepackage{bm, bbm, mathrsfs}
+    \usepackage{mathtools}
+    \usepackage{nicefrac}
+    \usepackage{caption}
+    % \usepackage{natbib}
+    \usepackage{biblatex}
+    \addbibresource{references.bib}
+    \usepackage[colorinlistoftodos]{todonotes}
+    \usepackage{graphicx}
+    \graphicspath{figures/}
+    \usepackage{setspace}
+    \setstretch{1.5}
+
+    \begin{document}
+    \linenumbers
+\fi
+
+\section*{Additional Information}
+\subsection*{Code Availability}
+All code related to the simulations, data analysis, and figure production in this paper is available in the
+github repository \textbf{TBD}
+\subsection*{Author Contributions}
+WM led the development of the analytical framework with input from JJB. WM conducted the analysis of models and the generation of visuals. JB developed the simulation pipeline. AS provided mathematical support in deriving the genealogical. WM drafted the manuscript with support from JJB. 
+\subsection*{Acknowledgments}
+We extend our thanks to members of the Berg Lab for their input on this project: Vivaswat Shastry, Sharon Zhou, and Kellen Riall. We also thank members of the University of Chicago's popgen supergroup for their comments and support, with special thanks to John Novembre. This work was supported by NIH R35 grant GM151257 to JJB. 
+\subsection*{Competing Interests}
+All authors declare no competing interests.
+
+\ifdefined\isMainDocument
+\else
+    \printbibliography
+    \end{document}
+\fi

@@ -1,0 +1,220 @@
+\ifdefined\isMainDocument
+\else
+    \documentclass{article}
+    \usepackage{fullpage}
+    % \usepackage{geometry}
+    % \geometry{top=0.5in, bottom=0.5in, left=0.5in, right=0.5in}
+    
+    \usepackage{wrapfig}
+    \usepackage{lineno}
+    \usepackage{amsmath, amsthm, amsfonts, amssymb, amscd}
+    \usepackage{bm, bbm, mathrsfs}
+    \usepackage{mathtools}
+    \usepackage{nicefrac}
+    \usepackage{caption}
+    %\usepackage{natbib}
+    \usepackage[style=numeric, sorting=none]{biblatex}
+    \addbibresource{refs.bib}
+    \usepackage[colorinlistoftodos]{todonotes}
+    \usepackage{graphicx}
+    \graphicspath{figures/}
+    \usepackage{setspace}
+    \setstretch{1.5}
+
+    \begin{document}
+    \linenumbers
+\fi
+
+\section{Theory and Model}
+\subsection{The quantity and the two equilibria that constrain it}
+The central quantity is the additive genetic variance in relative fitness, $V_A$: the variance of individual additive genetic breeding values for lifetime reproductive contribution, standardized to mean fitness ($\bar{w} = 1$). This corresponds to the mean-standardized additive variance $I_A$ (Crow 1958; Houle 1992) and matches Santiago and Caballero's (1995) $C^2$, providing a unified currency across all models evaluated below.
+
+Both theoretical constraints require the long-run equilibrium value of this variance. Because pairwise nucleotide diversity ($\pi = 4 N_e \mu$) reflects neutral genealogies with an expected coalescent time of $2N_e$ generations (and a total pairwise branch length of $4N_e$ generations), standing diversity integrates the history of fitness variance over thousands of generations. Similarly, mutation–selection–drift balance defines the stationary distribution of standing variance under recurrent mutation and purging, rather than a transient, single-generation realization.
+
+These dynamics operate across two distinct persistence windows:
+\begin{enumerate}
+    \item \textbf{The transmission memory ($Q$):} For a neutral site assorting independently of all selected loci, the inherited parental breeding value halves each generation due to Mendelian segregation. The cumulative transmission factor,
+    \begin{equation}
+    Q = \sum_{t=0}^{\infty} \left(\frac{1}{2}\right)^t = 2 \implies Q^2 = 4,
+    \end{equation}
+    is dominated by the earliest generational steps ($>85\%$ achieved within two generations). Consequently, establishing the unlinked Robertson baseline requires only that the direction of selective advantages remains consistent across roughly two consecutive generations—a condition satisfied under mutation–selection–drift balance, directional sweeps, and temporally fluctuating selection provided environmental fluctuations are positively autocorrelated across generations ($\tau_{\text{env}} \ge 2$).
+    \item \textbf{The coalescent memory ($\pi$):} In contrast, the timescale required for neutral diversity to reach mutation–drift equilibrium following a shift in variance is categorically longer, requiring on the order of $2N_e$ to $4N_e$ generations.
+\end{enumerate}
+
+Connecting these frameworks requires equating two definitions of effective population size. Santiago and Caballero's derivation yields the asymptotic variance effective size, $N_{eV}$, which quantifies the per-generation rate of neutral drift resulting from the inherited compounding of family-size overdispersion. Nucleotide diversity measures the coalescent effective size, $N_{eC}$, which determines the timescale of the neutral genealogy. Under long-run demographic and selective equilibrium, the asymptotic rates of drift, inbreeding, and coalescence converge ($N_{eV} = N_{eC} = N_e$), providing the mathematical bridge that allows neutral diversity to constrain the standing additive variance in fitness. Key notation is summarized in Table~1.
+
+\subsection{The unlinked Robertson baseline}
+In an idealized diploid Wright--Fisher population of constant census size $N$, family size follows a binomial distribution that converges to Poisson in large populations ($V_k \approx \bar{k} = 2$), yielding an effective size approximately equal to the census adult size, $N_e \approx N$ (Wright 1938; Crow and Kimura 1970). This neutral benchmark assumes that variance in reproductive success is entirely non-heritable: each parent's genetic contribution represents an independent draw, generating no persistent fitness differences among genealogical lineages.
+
+The Robertson effect (Robertson 1961) formalizes the consequence of violating that assumption. When reproductive success has an additive genetic basis, high-fitness parents transmit their favorable alleles to their offspring, establishing positive multi-generational autocovariance in lineage reproductive success (Buffalo and Coop 2020). In a population of constant size, the sustained compounding of high-fitness lineages accelerates the extinction of low-fitness lineages. This inflates the long-term variance of ancestral genetic contributions far beyond the Poisson expectation, depressing the asymptotic variance effective size, $N_e$, below the number of breeding adults.
+
+For a neutral allele assorting independently of all selected loci ($r = 1/2$), Appendix~A integrates these selective-variance contributions across generations alongside baseline neutral sampling drift. Substituting the cumulative transmission factor established above ($Q^2 = 4$) yields the Santiago and Caballero (1995) unlinked baseline:
+\begin{equation}
+\frac{N_e}{N} = \frac{1}{1 + 4V_A}, \label{unlinked_baseline}
+\end{equation}
+where $V_A$ is the mean-standardized additive genetic variance in relative fitness ($I_A \equiv C^2$), evaluated in an otherwise Poisson demographic background.
+
+Equation~\eqref{unlinked_baseline} carries an important scope condition. Because it depends strictly on the Mendelian dilution of transmitted breeding values under free assortment, it requires no assumptions regarding the genealogical persistence or haplotype structure of the selected background. It therefore applies across diverse selective regimes—including mutation-selection-drift balance, directional sweeps (with $V_A$ interpreted as the time-averaged variance, $\bar{V}_A$), and autocorrelated fluctuating selection—without requiring the stationarity parameters introduced below. Everything from \autoref{sec:linkage} onward requires explicit parameterization of haplotype longevity and recombination architecture; Equation~\eqref{unlinked_baseline} serves as an invariant, parameter-sparse ceiling on the effective population size.
+
+\subsection{Mating system structure and extra-pair paternity}
+In a dioecious population with separate sexes, the asymptotic variance effective size depends on the pooled sampling variance of gametic contributions across both sexes (Hill 1979; Caballero 1994):
+\begin{equation}
+    N_e = \frac{8N}{V_{km} + V_{kf} + 2\,\text{Cov}(k_m, k_f)}, \label{ne_sexes}
+\end{equation}
+where $V_{km}$ and $V_{kf}$ are the variances in male and female offspring numbers, and $\text{Cov}(k_m, k_f)$ is the reproductive covariance between mated pairs. Under strict monogamy, the reproductive outputs of social mates are coupled: heritable variation in female quality (e.g., clutch size or provisioning) loads simultaneously onto both the maternal and paternal gametic pools, generating positive reproductive covariance between sexes. Extra-pair paternity (EPP) at rate $\alpha$ breaks this constraint by decoupling a male's realized siring success from his social partner's fecundity.
+
+In Appendix~B, we partition total gametic variance into within-pair and extra-pair components as a function of $\alpha$. This introduces a mating-system scalar, $\kappa(\alpha)$, that scales the effective selective variance driving the Robertson effect:
+\begin{equation}
+    \frac{N_e}{N} = \frac{1}{1 + 4\kappa(\alpha)V_A}, \label{unlinked_mating}
+\end{equation}
+where $V_A$ is the sex-specific additive genetic variance in relative fitness ($I_A$). The functional form of $\kappa(\alpha)$ depends on the genetic architecture of extra-pair mating:
+\begin{enumerate}
+    \item \textbf{Model A (Non-selective EPP):} If extra-pair siring operates as a demographic lottery independent of male genetic quality, male selective variance arises solely from defended within-pair young:
+    \begin{equation}
+    \kappa(\alpha) = 1 + (1-\alpha)^2.
+    \end{equation}
+    Here, $\kappa(\alpha)$ declines monotonically from $\kappa(0) = 2$ under strict monogamy to $\kappa(1) = 1$ when all offspring are sired through extra-pair copulations, recovering the single-sex selection baseline.
+    \item \textbf{Model B (Selective EPP):} If females selectively allocate extra-pair fertilizations to males of high heritable fitness, a male's reproductive success reflects both his defended within-pair young and his earned extra-pair success:
+    \begin{equation}
+    \kappa(\alpha) = 2(1 - \alpha + \alpha^2).
+    \end{equation}
+    This scalar satisfies $\kappa(0) = 2$ under strict monogamy and returns to $\kappa(1) = 2$ under complete extra-pair siring (where selection operates fully and independently on both sexes). It attains a global minimum of $\kappa(0.5) = 1.5$ at intermediate paternity, where a male's reproductive success is partitioned equally across two uncorrelated genetic components (social mate quality and own quality), maximizing variance dilution.
+\end{enumerate}
+
+Across both models, strict monogamy yields $\kappa(0) = 2$, doubling the coefficient on $V_A$ relative to the panmictic baseline ($1 + 8V_A$). Consequently, a socially monogamous population incurs any given depression in neutral diversity at half the fitness variance required in a randomly mating population. Because the long-term avian pedigrees that dominate empirical vertebrate estimates are socially monogamous systems with low-to-moderate extra-pair rates ($\alpha \lesssim 0.2$), their demographic architecture places them near the upper bound ($\kappa \approx 1.6\text{--}2.0$), maximizing the selective reduction of neutral diversity.
+
+\subsection{Linked interference along the genetic map}\label{sec:linkage}
+For a neutral site physically linked to loci affecting fitness, statistical associations do not halve unconditionally each generation. Recombination only partially breaks gametic linkage disequilibrium, causing ancestral selective advantages to persist across multiple generations and amplifying selective interference far beyond the unlinked baseline. 
+
+Generalizing this process along a chromosome requires compounding the per-generation covariance between a focal neutral site and its linked background, weighted by the joint probability that their physical linkage and the background's selective variance survive into the next generation. That joint persistence requires the survival parameter $Z = 1 - V_m/V_A$, where $V_m$ is the per-generation mutational influx of fitness variance and $V_A$ is standing additive fitness variance. Defining $Z$ presupposes a stationary selected background—an assumption unnecessary for the unlinked baseline, but met at mutation--selection--drift balance (Barton 1998, 2000). Under strong purifying selection ($2N_e s_\text{het} \gg 1$), mutational variance input ($V_m \approx U_d \mathbb{E}[s_\text{het}^2]$) balances standing variance ($V_A \approx U_d \bar{s}_\text{het}$), yielding $V_m/V_A \approx \bar{s}_\text{het}$ and simplifying the parameter to $Z \approx 1 - \bar{s}_\text{het}$. More generally, $Z$ can be parameterized directly from empirical estimates of $V_m$ and $V_A$, or adjusted for finite population size via the neutral drift loss rate ($1/(2N_e)$), as detailed in \autoref{msdb}.
+
+Physical map distance $\ell$ (in Morgans) translates to recombination frequency via the Haldane mapping function, $r(\ell) = \frac{1}{2}(1 - e^{-2\ell})$. While a linear approximation ($r \approx \ell$) suffices across short genetic intervals, our integration spans complete chromosomes that frequently exceed $0.5\text{ M}$. Beyond this scale, a linear map artificially allows recombination frequencies to exceed $0.5$, which overestimates recombination and erroneously purges the persistent selective interference of distant loci ($Q^2 \to 0$). In contrast, Haldane's function correctly saturates at independent assortment ($r \to 1/2$).
+
+The joint probability that a neutral--selected association survives one generation of recombination and selection is $(1 - r(\ell))Z = \frac{Z}{2}(1 + e^{-2\ell})$. Summing the geometric series of this survival probability across generations and integrating over selected loci uniformly distributed along a chromosome of map length $M$ yields the position-specific interference profile for a neutral site at position $y$:
+\begin{equation}
+Q^2(y) = \frac{1}{M}\int_0^M \left(\frac{1}{1 - \dfrac{Z}{2}(1 + e^{-2|x-y|})}\right)^2 dx.
+\end{equation}
+Averaging this profile over all neutral positions reduces the double integral to a single integral over pairwise genetic distances $\ell = |x - y|$ weighted by the triangular density $(M - \ell)$ (Appendix~C):
+\begin{equation}
+\overline{Q^2}_\text{linked} = \frac{2}{M^2}\int_0^M (M - \ell)\left(\frac{1}{1 - \dfrac{Z}{2}(1 + e^{-2\ell})}\right)^2 d\ell. \label{eq:haldane_avg}
+\end{equation}
+We evaluate Equation~\eqref{eq:haldane_avg} numerically for each chromosome. A closed-form expression derived under the linear recombination approximation is provided in Appendix~C as an analytical lower bound and validation benchmark.
+
+Because a neutral allele resides physically on a single chromosome, it is linked in cis only to selected loci on its own haplotype; associations with the homologous chromosome segregate freely at meiosis and do not generate directional linkage disequilibrium across generations (Buffalo and Kern 2024). Across dense genetic maps, linked background selection operates as an inhomogeneous Poisson process along the chromosome (Hudson and Kaplan 1995; Santiago and Caballero 2016). Integrating these infinitesimal linked contributions yields an exponential reduction in effective size for chromosome $i$, scaled by the mating-system parameter $\kappa(\alpha)$ and the focal haplotype fitness variance $v_h$:
+\begin{equation}
+\left(\frac{N_e}{N}\right)_i \approx \exp\left(-\kappa\,\overline{Q^2}_\text{linked}\,v_h\right). \label{eq:ne_chrom}
+\end{equation}
+While Buffalo and Kern (2024) omitted homologous ($Q''$) associations entirely, we reassign that homologous variance to the unlinked background rather than discarding it—an accounting detailed alongside the parameterization of $v_h$ in \autoref{variance_partitioning}.
+
+As summarized in Table~1, linked interference is highly sensitive to the strength of purifying selection on short chromosomes, but converges toward the unlinked Robertson baseline on long ones ($M \to \infty$). Avian microchromosomes ($<20\text{ Mb}$) fall below the $0.5\text{ M}$ saturation scale and inhabit this highly sensitive regime; our analysis excludes them via a $20\text{ Mb}$ physical-length filter, ensuring that downstream conclusions rest securely on well-characterized macrochromosomal architectures.
+
+\begin{table}[h!]
+\centering
+\caption{Limiting values of chromosome-wide selective interference ($\overline{Q^2}_\text{linked}$) and the resulting chromosome-level relative effective size ($(N_e/N)_i$) under strong ($Z = 1 - s_\text{het}$) and weak ($Z \to 1$) purifying selection across chromosome-length extremes. Here, $v_h$ denotes the additive genetic variance in relative fitness residing on the focal haplotype, and $\kappa$ is the mating-system scalar.}
+\label{tab:linked_limits}
+\begin{tabular}{llcc}
+\toprule
+Regime & Metric & Complete linkage & Free recombination \\
+& & ($M \to 0$) & ($M \to \infty$) \\
+\midrule
+Strong selection & $\overline{Q^2}_\text{linked}$ & $s_\text{het}^{-2}$ & $\dfrac{4}{(1 + s_\text{het})^2}$ \\[2ex]
+($Z = 1 - s_\text{het}$) & $(N_e/N)_i$ & $\exp\!\left(-\dfrac{\kappa v_h}{s_\text{het}^2}\right)$ & $\exp\!\left(-\dfrac{4\kappa v_h}{(1 + s_\text{het})^2}\right)$ \\
+\addlinespace[1.5ex]
+\midrule
+Weak selection & $\overline{Q^2}_\text{linked}$ & $\infty$ & $4$ \\[2ex]
+($Z \to 1$) & $(N_e/N)_i$ & $0$ & $\exp(-4\kappa v_h)$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Total reduction and genomic architecture}\label{variance_partitioning}
+Under an infinitesimal genetic architecture, heritable fitness variance is distributed across the genome in proportion to functional annotation size. Chromosome $i$ carries total additive variance $v_i = V_A f_i$, where $f_i$ is its fraction of the genome's total functional sequence (coding sequence and conserved non-coding elements). Assuming additive gene action, the heritable variance residing on a single physical haplotype is $v_h = v_i / 2$. Because the homologous chromosome segregates freely at meiosis, its variance ($v_h$) assorts independently of the focal neutral site and enters the unlinked background alongside the variance distributed across all other chromosomes ($V_A - v_i$). The freely assorting variance acting on a neutral site on chromosome $i$ is therefore $(V_A - v_i) + v_h = V_A - v_h$.
+
+A focal neutral allele on chromosome $i$ consequently experiences two concurrent selective interference regimes:
+\begin{enumerate}
+    \item \textbf{Linked background selection in cis:} Selected loci on the same physical haplotype maintain gametic linkage disequilibrium that decays under recombination along the chromosome. Compounding this interference across generations yields the exponential background selection reduction, $\exp\left(-\kappa\,\overline{Q^2}_i\,v_h\right)$ (Hudson and Kaplan 1995; Santiago and Caballero 2016).
+    \item \textbf{Unlinked Robertson overdispersion in trans:} All remaining selected loci in the genome—the homologous haplotype and all other autosomes—segregate independently of the focal allele ($r = 1/2$), driving family-size overdispersion through the Robertson geometric series evaluated at the remaining variance, $V_A - v_h$.
+\end{enumerate}
+Because cross-chromosomal linkage disequilibrium is negligible under random mating and independent assortment, these two selective regimes act across independent coalescent branch segments. Their joint effect combines multiplicatively to determine the chromosome-specific relative effective size:
+\begin{equation}
+\left(\frac{N_e}{N}\right)_i \approx \frac{\exp\left(-\kappa\,\overline{Q^2}_i\,v_h\right)}{1 + 4\kappa(V_A - v_h)}. \label{total_red}
+\end{equation}
+
+To isolate the specific reduction imposed by chromosome structure beyond the unlinked baseline, we define the relative linkage penalty, $\Omega_i$, as the ratio of the chromosome-level effective size to the genome-wide unlinked baseline (Equation~\eqref{unlinked_mating}):
+\begin{equation}
+\Omega_i \equiv \frac{(N_e/N)_i}{(N_e/N)_\text{unlinked}} = \exp\left(-\kappa\,\overline{Q^2}_i\,v_h\right) \cdot \frac{1 + 4\kappa V_A}{1 + 4\kappa(V_A - v_h)}. \label{linked_penalty}
+\end{equation}
+The second factor in Equation~\eqref{linked_penalty} strictly exceeds unity: sequestering variance $v_h$ onto a physical chromosome slightly relieves the global family-size overdispersion imposed by the unlinked background. The parameter $\Omega_i$ thus represents the net balance between this modest global variance relief and the severe local coalescent compression driven by physical linkage (Charlesworth et al. 1993).
+
+Assuming neutral sites are uniformly distributed across the physical genome, the genome-wide expected relative effective size is the physical-length-weighted average across all $n$ autosomes:
+\begin{equation}
+\mathbb{E}\left[\frac{N_e}{N}\right] = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}} \left(\frac{N_e}{N}\right)_i = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}} \cdot \frac{\exp\left(-\kappa\,\overline{Q^2}_i\,v_h\right)}{1 + 4\kappa(V_A - v_h)},
+\end{equation}
+where $L_i$ is the physical length (in base pairs) of autosome $i$, and $L_\text{total} = \sum L_i$. The genome-wide net linkage effect, $\overline{\Omega}$, is the corresponding length-weighted mean:
+\begin{equation}
+\overline{\Omega} = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}} \Omega_i.
+\end{equation}
+A value of $\overline{\Omega} = 1$ indicates that genomic architecture imposes no selective interference beyond independent assortment; values below unity quantify the net coalescent compression attributable directly to physical linkage along chromosomes.
+
+\subsection{The Upper Bound of Heritable Variance in Relative Fitness}
+The framework developed above predicts the genome-wide reduction in effective population size for a given empirical $V_A$. We invert this mapping to derive the maximum additive genetic variance in relative fitness compatible with maintaining a specified fraction of neutral diversity, a diagnostic limit defined as $V_{A,\text{max}}$.
+
+Let $\delta \in (0,1)$ denote this minimum retained fraction of diversity. This threshold is equivalent to a target ratio of $N_e/N$, inferred under the standard coalescent assumption that the observed level of genome-wide nucleotide diversity scales proportionally with the effective population size. The unlinked baseline (\autoref{unlinked_mating}) provides the foundation for this theoretical limit. Because any degree of physical linkage amplifies selective interference ($\Omega_i \leq 1$), the unlinked expectation defines the absolute upper boundary of achievable diversity for any given $V_A$. No arrangement of recombination rates or functional architecture can restore diversity above this baseline. Consequently, $V_{A,\text{max}}$ derived from the unlinked model represents the most biologically permissive scenario; the reality of linked chromosomes dictates that a population will experience an even steeper reduction in effective population size at a given level of heritable variance. Setting the unlinked expectation equal to the threshold $\delta$ and solving directly for the maximum variance yields:
+
+\begin{equation}
+    V_{A,\text{max}} = \frac{1 - \delta}{4\kappa \delta}
+\end{equation}
+
+This limit depends exclusively on the specified diversity threshold $\delta$ and the mating-system scalar $\kappa$. Obligate monogamy ($\kappa = 2$) halves the sustainable $V_{A,\text{max}}$ relative to a randomly mating population with separate sexes ($\kappa = 1$). This reduction reflects the severe coalescent consequences of social pairing: by locking reproductive outcomes between partners, monogamy concentrates the heritable component of family-size variance simultaneously across both the male and female gametic pools, halving the magnitude of $V_A$ required to substantially deplete genome-wide diversity.
+
+If a pedigree-based animal-model estimate of $V_A$ in a monitored wild population exceeds $V_{A,\text{max}}$ evaluated at the population's empirically observed $N_e/N$, the ecological measurements are irreconcilable with the expectations of a rigorous theoretical model at stable mutation-selection-drift equilibrium. In such cases, at least one of the following biological or methodological conditions must hold: (i) the population is not at equilibrium and is undergoing an active, transient loss of neutral variation; (ii) the true effective breeding population substantially exceeds the monitored census via cryptic immigration from unsampled, unstructured demes; or (iii) the statistical fit of the animal model captures non-additive or environmentally structured covariance among relatives.
+
+Because the animal model detects statistical associations between phenotypic similarity and relatedness without identifying the biological mechanism, it is highly susceptible to absorbing indirect genetic effects, localized kin-structured interactions, and spatially autocorrelated environments into the $V_A$ component (Kruuk and Hadfield 2007; Stopher et al. 2012). Furthermore, variance component estimation is sensitive to pedigree structure (Mawass and Milot 2025). These factors inflate the statistical estimate of $V_A$ in the pedigree without generating the proportional, transmissible reproductive advantage required to compress the coalescent timescale, and by extension, deplete observable neutral diversity—two measures that theoretically and empirically track each other closely in genome-wide data (Charlesworth 2009; Buffalo 2021).
+
+\subsection{The Architecture of Variance: Infinitesimal and Oligogenic Limits}
+The continuous integration derived above distributes the chromosome-specific selective variance, $v_i = V_A f_i$ (scaled by its functional target size), uniformly across the genetic map of chromosome $i$. This assumption aligns with the classical infinitesimal model of quantitative genetics, where $V_A$ arises from an infinite number of loci, each of negligible effect. However, the true genetic architecture of fitness in natural populations remains empirically unresolved (Barton and Keightley 2002). To bound the potential outcomes, we must evaluate the continuum from fully infinitesimal to oligogenic, where a small number of loci contribute substantial variance. Because the linked interference profile $Q^2(y)$ varies systematically with the genetic position $y$ of the focal neutral site, the aggregate reduction in diversity depends strongly on the spatial distribution of these causal loci.
+
+To formalize this dependence, let $g(x) \geq 0$ define an arbitrary density of selective variance along chromosome $i$, normalized such that $\int_0^M g(x)\,dx =1$. The selective variance per unit map length at the selected locus position $x$ is $v_i g(x)/2$. The position-specific interference profile at a neutral site $y$ becomes:
+\begin{equation}
+    Q^2(y,\,g) = \int_0^M g(x)\left(\frac{1}{1-\dfrac{Z}{2}\left(1 + e^{-2|x-y|}\right)}\right)^2dx
+\end{equation}
+
+Averaging over all neutral sites under the uniform density $1/M$ and exchanging the order of integration via Fubini's theorem yields:
+
+\begin{align}
+    \overline{Q^2}(g) &= \int_0^M g(x)\left[\frac{1}{M}\int_0^M K(x,y)\,dy\right]dx \\
+    &= \int_0^M g(x)\,Q^2(x)\,dx \label{general_g}
+\end{align}
+here, the symmetry of the kernel $K(x,y)$ allows the inner integral to resolve to $Q^2(x)$. \autoref{general_g} establishes that the chromosome-averaged interference is simply the $g$-weighted average of the spatial interference profile $Q^2(x)$.
+
+Under the infinitesimal model ($g(x) = \nicefrac{1}{M}$), \autoref{general_g} recovers $\overline{Q^2}_i$ as derived previously (\autoref{average_linked}). Under an oligogenic model comprising $J$ loci of equal effect at positions $x_1,\dots, x_J$, the density is $g(x)= J^{-1} \sum_{j=1}^J \delta (x - x_j)$, and the chromosome-averaged interference resolves to a discrete mean:
+
+\begin{equation}
+    \overline{Q^2}(g) = \frac{1}{J}\sum_{j=1}^J Q^2(x_j) \label{oligogenic_mean}
+\end{equation}
+
+The magnitude of the linked reduction therefore depends directly on whether causal loci occupy regions of high or low $Q^2(x)$. Because $Q^2(x)$ is maximized at the chromosome midpoint $M/2$ and minimized at the telomeres—a consequence of centrally located loci being physically linked to sequence on both chromosome arms, whereas telomeric loci are linked to only one—centrally located causal loci contribute disproportionately to the chromosome-averaged reduction in diversity.
+
+The implications for model bias are governed by the convexity of the exponential linked reduction term, $\exp(-\kappa v_i \,\overline{Q^2}(g)/2)$. Because the second derivative of this function with respect to $\overline{Q^2}(g)$ is positive, Jensen's inequality bounds the expectation for a single oligogenic locus at a uniformly random position $x_0 \sim \text{Uniform}[0,M]$:
+
+\begin{equation}
+    \mathbb{E}_{x_0}\left[\exp\left(-\frac{\kappa v_i}{2}\,Q^2(x_0)\right)\right] > \exp\left(-\frac{\kappa v_i}{2}\,\mathbb{E}[Q^2(x_0)]\right) = \exp\left(-\frac{\kappa v_i}{2}\,\overline{Q^2}_i\right)
+\end{equation}
+
+Biologically, because the interference effect scales exponentially, placing a selected locus in a region of high interference (the chromosome center) reduces $N_e$ far more than placing it in a region of low interference (the telomere) relieves it. Consequently, the average effective population size produced by a randomly placed causal locus is always greater than the effective size produced by spreading that same variance uniformly across the chromosome. This inequality constitutes a formal proof that the continuous infinitesimal model is conservative when evaluated against randomly positioned oligogenic variation. The magnitude of this Jensen's gap is proportional to $(\kappa v_i/2)^2 \cdot \text{Var}_x[Q^2(x)]$. Thus, the infinitesimal model most underestimates $N_e$ on chromosomes carrying substantial selective variance and exhibiting steep spatial gradients in $Q^2(x)$.
+
+However, this conservatism assumes causal loci are positioned randomly with respect to the recombination landscape. If causal loci are systematically enriched in regions of reduced recombination—such as pericentromeric domains or inversions, where empirical quantitative trait loci are frequently mapped (Kirkpatrick and Barton 2006; Yeaman 2013)—the local interference $Q^2(x_j)$ systematically exceeds the chromosome-wide average $\overline{Q^2}_i$. Such non-random spatial enrichment rapidly closes the Jensen's gap and can reverse it, rendering the infinitesimal model an underestimate of the actual reduction in effective population size.
+
+While the Jensen's inequality framework evaluates unobservable causal loci, the integration in \autoref{general_g} accommodates empirical functional densities in place of theoretical uniform distributions. At the chromosome level, using annotated protein-coding gene counts, $G_i$, to define the functional partition coefficients ($\hat{f}_i = G_i / G_{\text{total}}$) provides only a minor refinement over using physical coding sequence length, as the two metrics are highly correlated across vertebrate karyotypes. The critical architectural uncertainty lies within the chromosome. For species with integrated physical-to-genetic maps, the spatial distribution of selective variance can be localized to the specific genetic positions of annotated genes, $x_j^{(i)}$. Substituting this empirical architecture into \autoref{oligogenic_mean} yields:
+
+\begin{equation}
+    \overline{Q^2}_i\left(\hat{g}_i\right) = \frac{1}{G_i}\sum_{j=1}^{G_i} Q^2\left(x_j^{(i)}\right)
+\end{equation}
+
+This substitution replaces the assumption of uniform variance per unit genetic distance with uniform variance per coding gene. While this parameterization resolves the spatial clustering of functional targets along the recombination map, it does not identify which specific genes harbor the variance estimated by the animal model. The unobservable identity of the causal loci remains the fundamental source of theoretical uncertainty, governing the ultimate direction and magnitude of the Jensen's gap.
+
+\ifdefined\isMainDocument
+\else
+    \printbibliography
+    \end{document}
+\fi

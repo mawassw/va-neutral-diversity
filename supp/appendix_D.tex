@@ -1,0 +1,228 @@
+\ifdefined\isMainDocument
+\else
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{bm}
+\usepackage{bbm}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\usepackage{etoolbox}
+\usepackage{nicefrac}
+\usepackage{wrapfig}
+\usepackage{lineno}
+\usepackage{caption}
+\usepackage{graphicx}
+\graphicspath{}
+
+\usepackage{geometry}
+\geometry{top=0.5in, bottom=0.5in, left=0.5in, right=0.5in}
+% \geometry{top=1.0in, bottom=1.0in, left=1.0in, right=1.0in}
+
+\usepackage{setspace}
+\setstretch{1.5}
+
+% \usepackage{helvet}
+% \renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % Clear all headers and footers
+% \fancyfoot[R]{\thepage} % Set the page number on the right side of the footer
+\renewcommand{\headrulewidth}{0pt} % Remove header rule
+\setlength{\footskip}{0pt}
+
+\usepackage[backend=bibtex, style=numeric, sorting=none, sortcites=true, maxnames=5]{biblatex}
+\DeclareNameAlias{default}{last-first}
+\DeclareFieldFormat{pages}{#1}
+\DeclareCiteCommand{\cite}
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \printtext[bibhyperref]{\textsuperscript{\textbf{\printfield{labelnumber}}}}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+\renewbibmacro{in:}{}
+\renewcommand*{\multicitedelim}{\textsuperscript{,}}
+\addbibresource{refs/refs.bib}
+\begin{document}
+\appendix
+\fi
+
+%---------------------------------------------------------------------
+
+\section{Appendix D: Stationary Equilibrium and Implied Selection Coefficients}
+\label{app:msdbapp}
+\linenumbers
+
+To determine whether the magnitude of additive genetic variance, $V_A$, estimated from contemporary pedigrees can be stably maintained under neutral sequence diversity, we analyze the balance of evolutionary forces at stationarity. At equilibrium, the per-generation influx of variance from novel mutation is exactly offset by the depletion of variance through purifying selection and genetic drift:
+
+\begin{equation}
+    \Delta V_{\text{mut}} + \Delta V_{\text{sel}} + \Delta V_{\text{drift}} = 0
+\end{equation}
+
+We derive each flux term, assuming a common additive heterozygous effect, $s$, across all loci, before extending the analysis to full empirical distributions of fitness effects (DFE).
+
+\paragraph{Mutational influx.} In a population of size $N$, $U_d N$ new deleterious mutations occur each generation across the genome, where $U_d$ is the diploid deleterious mutation rate. A single new mutation arises at initial frequency $q_0 = 1/(2N)$. For an allele with additive heterozygous effect $s$, its contribution to additive variance at low frequency ($q \ll 1$) is $2q(1-q)s^2 \approx 2qs^2$. The initial variance contributed by a single new mutation is therefore $2q_0 s^2 = s^2/N$. Summing this contribution across all $U_d N$ new mutations yields the total mutational influx:
+\begin{equation}
+    \Delta V_{\text{mut}} = (U_d N) \cdot \frac{s^2}{N} = U_d s^2 \equiv V_m
+\end{equation}
+
+\paragraph{Depletion by purifying selection.} For a rare segregating deleterious allele ($q \ll 1$), the per-locus additive variance is $v \approx 2qs^2$. The per-generation change in frequency driven by additive directional selection is $\Delta q = -sq(1-q) \approx -sq$. The corresponding change in the per-locus variance is:
+
+\begin{equation}
+    \Delta v_{\text{sel}} = 2s^2 \Delta q = 2s^2(-sq) = -s(2qs^2) = -sv
+\end{equation}
+
+Summing the per-locus depletion across all segregating sites yields the total selective depletion of genome-wide variance:
+\begin{equation}
+    \Delta V_{\text{sel}} = -s V_A
+\end{equation}
+
+\paragraph{Depletion by genetic drift.} In a population of effective size $N_e$, stochastic gametic sampling erodes heterozygosity at a rate of $1/(2N_e)$ per generation ($\Delta H = -H/(2N_e)$). Because per-locus additive variance scales directly with heterozygosity ($v = s^2 H$), drift depletes $V_A$ at exactly the same rate:
+\begin{equation}
+    \Delta V_{\text{drift}} = -\frac{V_A}{2N_e}
+\end{equation}
+
+\paragraph{Equilibrium solution.} Setting the net flux to zero and solving for the stationary variance $V_A$:
+\begin{equation}
+    U_d s^2 - s V_A - \frac{V_A}{2N_e} = 0
+    \quad \Rightarrow \quad
+    V_A = \frac{2N_e U_d s^2}{1 + 2N_e s}
+\label{eq:VA_MSD}
+\end{equation}
+
+This deterministic balance holds under the assumptions of rare alleles, additive effects, and constant population size. We verify its equivalence to classical continuous diffusion theory in Section D.4 below.
+
+\subsection{The Implied Selection Coefficient}
+
+By rearranging Equation (\ref{eq:VA_MSD}) as a quadratic in $s$:
+
+\begin{equation}
+    2N_e U_d s^2 - 2N_e V_A s - V_A = 0
+\end{equation}
+
+we isolate the positive root, determining the precise selection coefficient $s^*$ required to maintain a given empirical $V_A$ at stationary equilibrium:
+
+\begin{equation}
+    s^* = \frac{V_A + \sqrt{V_A^2 + 2U_d V_A/N_e}}{2U_d}
+\label{eq:s_implied}
+\end{equation}
+
+This general expression bridges the strong-selection and near-neutral boundaries, allowing us to evaluate the biological plausibility of pedigree-derived variance estimates across all selective regimes.
+
+\subsection{The Strong-Selection Boundary ($N_e s \gg 1$)}
+
+When directional selection overwhelms genetic drift, the drift term $V_A/(2N_e)$ becomes negligible compared to selective depletion ($sV_A$). In this limit, Equation (\ref{eq:VA_MSD}) collapses to the classic House of Cards approximation (Turelli 1984; Bürger 2000):
+
+\begin{equation}
+    V_A \approx U_d s \qquad (N_e s \gg 1)
+\end{equation}
+
+Here, deterministic mutation-selection balance maintains deleterious alleles at frequency $q \approx \mu/s$. Solving for the implied selection coefficient:
+
+\begin{equation}
+    s^*_{\text{strong}} = \frac{V_A}{U_d}
+\label{eq:sHoC}
+\end{equation}
+
+\paragraph{Self-consistency check.} For this approximation to hold, the biological premise $N_e s \gg 1$ must be satisfied when evaluating the implied selection coefficient:
+\begin{equation}
+    N_e s^*_{\text{strong}} = \frac{N_e V_A}{U_d} \gg 1
+\end{equation}
+
+For all wild vertebrate populations in our dataset, the observed $V_A$ and $N_e$ (derived from $\pi$) yield $N_e V_A / U_d \gg 1$. Therefore, the strong-selection limit is mathematically self-consistent for these data.
+
+\paragraph{Connection to linkage decay ($Z$).} Substituting the equilibrium variance ($V_A \approx U_d s$) into the per-generation variance survival rate defined in the main text ($Z = 1 - V_m/V_A$) yields:
+
+\begin{equation}
+    Z = 1 - \frac{U_d s^2}{U_d s} = 1 - s \qquad (N_e s \gg 1)
+\end{equation}
+This establishes that under strong selection, the decay of statistical associations driving selective interference across the coalescent is governed directly by the selection coefficient (see also Buffalo and Kern 2024).
+
+\paragraph{Biological Failure Mode.} While mathematically consistent, this limit is biologically irreconcilable with known sequence evolution. Evaluating Equation (\ref{eq:sHoC}) using pedigree-derived $V_A$ (typically 0.10–0.30) and plausible, yet conservative, vertebrate mutation rates ($U_d \approx 1$) necessitates an average selection coefficient of $s^*_{\text{strong}} \approx 0.10–0.30$. This implied value exceeds the mean heterozygous selection coefficient established from empirical vertebrate DFEs ($\bar{s} \approx 10^{-3}–10^{-2}$; Eyre-Walker and Keightley 2007; Huber et al. 2017) by one to two orders of magnitude. For pedigree $V_A$ to represent stable genetic architecture under this limit, the entire variance must be driven by semi-lethal mutations, contradicting genomic data.
+
+\subsection{The Weak-Selection Boundary ($N_e s \ll 1$)}
+Conversely, if selection is extremely weak relative to drift, alleles drift nearly neutrally and selective depletion ($sV_A$) becomes negligible compared to stochastic loss ($V_A/(2N_e)$). Equation (\ref{eq:VA_MSD}) reduces to:
+
+\begin{equation}
+    V_A \approx 2N_e U_d s^2 \qquad (N_e s \ll 1)
+\end{equation}
+
+Solving for the implied near-neutral selection coefficient:
+
+\begin{equation}
+    s^*_{\text{weak}} = \sqrt{\frac{V_A}{2N_e U_d}}
+\label{eq:sneut}
+\end{equation}
+
+\paragraph{Self-consistency failure.} We test whether the assumption $N_e s \ll 1$ holds when parameterized by empirical data:
+
+\begin{equation}
+    N_e s^*_{\text{weak}} = \sqrt{\frac{N_e V_A}{2U_d}} \ll 1 \quad \Rightarrow \quad N_e \ll \frac{2U_d}{V_A}
+\end{equation}
+
+Using standard values ($V_A = 0.20$ and $U_d = 1$), this inequality demands an effective population size $N_e \ll 10$. Because all monitored populations in our dataset maintain sequence-derived $N_e$ orders of magnitude larger than this, the weak-selection limit collapses under these parameters. Attempting to fit the data to this regime yields $N_e s^*_{\text{weak}} \gg 1$, violating the foundational premise of near-neutral drift.
+
+\subsection{Equivalence with Single-Locus Diffusion Theory}
+To verify that the discrete-generation balance model above is robust, we map it to classical continuous-time diffusion theory. For a single locus, the stationary allele frequency reflects a flux balance between mutational influx, $\mu$, selective removal, $s \cdot \mathbb{E}[q]$, and stochastic loss due to genetic drift, $\mathbb{E}[q]/(2N_e)$. Setting this net flux to zero yields the expected allele frequency:
+
+\begin{equation}
+    \mu = \mathbb{E}[q]\left(s + \frac{1}{2N_e}\right) \quad \Rightarrow \quad \mathbb{E}[q] = \frac{\mu}{s + \frac{1}{2N_e}}
+\end{equation}
+(Crow and Kimura 1970). The per-locus additive variance is $2s^2 \mathbb{E}[q]$. Expanding this to the genome-wide variance by summing across $L = U_d/(2\mu)$ independent haploid functional targets:
+
+\begin{equation}
+    V_A = \left( \frac{U_d}{2\mu} \right) \left( 2s^2 \right) \left( \frac{\mu}{s + \frac{1}{2N_e}} \right) = \frac{U_d s^2}{s + \frac{1}{2N_e}} = \frac{2N_e U_d s^2}{2N_e s + 1}
+\end{equation}
+
+This recovers Equation (\ref{eq:VA_MSD}), confirming that the discrete-time derivation aligns perfectly with classical diffusion approximations under the assumption of rare, additive alleles.
+
+\subsection{Generalization to Empirical Fitness Architectures (DFE)}
+The preceding derivations assume a uniform selection coefficient, $s$, across all functional sites. However, empirical vertebrate architectures are governed by complex distributions of fitness effects (DFE). To evaluate the boundary conditions under biological architecture, we integrate across the DFE following the framework of Rettelbach et al. (2025).
+
+\paragraph{Reconciling Pedigree $V_A$ with Empirical DFEs.}
+Under House of Cards mutation-selection balance, the per-locus variance contribution of a deleterious mutation (with heterozygous disadvantage $t \equiv s$; we use the symbol $t$ to be consistent with the Rettelbach et al. derivations) at equilibrium frequency ($q \approx \mu/t$) is $v_A \approx 2\mu t$. Integrating this variance contribution across the probability density function of fitness effects, $\phi(t)$, yields the total genome-wide variance:
+
+\begin{equation}
+    V_A = U_d \int_0^\infty \phi(t), t, dt = U_d\bar{t}
+\label{eq:VA_DFE}
+\end{equation}
+
+Solving for the implied mean selection coefficient required to support the observed $V_A$:
+
+\begin{equation}
+    \bar{t}^* = \frac{V_A}{U_d}
+\label{eq:tbar_implied}
+\end{equation}
+
+This confirms that the single-locus House of Cards result ($V_A \approx U_d s$) holds for the arithmetic mean of the DFE. For the empirical $V_A \in [V_{A,\text{min}}, V_{A,\text{max}}]$ and $U_d \approx \text{[XX]}$ in our dataset, this relationship requires an average selection coefficient $\bar{t}^* \in [\text{XX}, \text{XX}]$. Because this vastly exceeds the empirical vertebrate DFE mean ($\bar{t} \approx 10^{-3}–10^{-2}$), this DFE-parameterized derivation provides an independent validation that pedigree-derived variance magnitudes cannot be maintained at mutation-selection-drift equilibrium.
+
+\paragraph{Forward Prediction of Stable Variance.}
+Alternatively, we can use established empirical DFE parameters to predict the maximum sustainable variance. Parameterizing the four-class uniform DFE of Rettelbach et al. (2025) and integrating only across classes governed by deterministic selection ($2N_e t > 1$):
+\begin{equation}
+    V_A^{\text{DFE}} = U_d \sum_{i=1}^{3} f_i \cdot \frac{t_{i+1} + t_i}{2}
+\label{eq:VA_forward}
+\end{equation}
+where $f_i$ denotes the frequency of weakly, moderately, and strongly deleterious classes. Populating this with vertebrate-calibrated parameters yields $V_A^{\text{DFE}} \approx \text{[XX]}$. Because this theoretically sustainable variance is substantially lower than the contemporary $V_A$ estimated from pedigrees, the structural mismatch remains regardless of the assumed fitness architecture.
+
+\paragraph{Strong-Selection Correction for Unlinked Interference.}
+When variance is disproportionately driven by strongly deleterious mutations, or the "tail" of the DFE, the Robertson formulation slightly overestimates the severity of selective interference on unlinked neutral sites. Because strongly deleterious alleles are purged rapidly ($q \approx \mu/t \to 0$), they generate minimal multi-generational linkage disequilibrium despite their large instantaneous variance contribution.
+
+The corrected unlinked interference factor derived from diffusion theory is:
+\begin{equation}
+    B_\text{unlinked} \approx \exp\left(-4U_d\int_0^\infty \phi(t)\frac{t}{(1+t)^2},dt\right) = \exp(-4U_d\bar{t}_{\text{eff}})
+\label{eq:B_corrected}
+\end{equation}
+
+The effective mean driving this suppression is:
+
+\begin{equation}
+    \bar{t}_{\text{eff}} = \int_0^\infty \phi(t)\frac{t}{(1+t)^2}\,dt < \bar{t}
+\end{equation}
+
+Because $\bar{t}_{\text{eff}} < \bar{t}$, the true unlinked suppression ($B_\text{unlinked}^\text{corrected}$) is weaker than the baseline Robertson expectation ($B_\text{unlinked} = \exp(-4V_A)$). At the highly elevated $\bar{t}^*$ values implied by pedigree data, the fractional correction is approximately $1/(1+\bar{t}^*)^2 \in [\text{XX}, \text{XX}]$, meaning the Robertson formula overstates unlinked suppression by XX\%–XX\%. Therefore, the interference predictions generated in the main text are strictly conservative bounds: the true coalescent suppression at the implied high selection coefficients is weaker than predicted, and implementing this DFE-based correction fails to rescue the predicted $N_e$ back to empirically observed sequence diversity levels.
+
+\ifdefined\isMainDocument
+\else
+    \end{document}
+\fi

@@ -1,0 +1,131 @@
+\ifdefined\isMainDocument
+\else
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{bm}
+\usepackage{bbm}
+\usepackage{mathtools}
+\usepackage{mathrsfs}
+\usepackage{etoolbox}
+\usepackage{nicefrac}
+\usepackage{wrapfig}
+\usepackage{lineno}
+\usepackage{caption}
+\usepackage{graphicx}
+\graphicspath{}
+
+\usepackage{geometry}
+\geometry{top=0.5in, bottom=0.5in, left=0.5in, right=0.5in}
+% \geometry{top=1.0in, bottom=1.0in, left=1.0in, right=1.0in}
+
+\usepackage{setspace}
+\setstretch{1.5}
+
+% \usepackage{helvet}
+% \renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % Clear all headers and footers
+% \fancyfoot[R]{\thepage} % Set the page number on the right side of the footer
+\renewcommand{\headrulewidth}{0pt} % Remove header rule
+\setlength{\footskip}{0pt}
+
+\usepackage[backend=bibtex, style=numeric, sorting=none, sortcites=true, maxnames=5]{biblatex}
+\DeclareNameAlias{default}{last-first}
+\DeclareFieldFormat{pages}{#1}
+\DeclareCiteCommand{\cite}
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \printtext[bibhyperref]{\textsuperscript{\textbf{\printfield{labelnumber}}}}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+\renewbibmacro{in:}{}
+\renewcommand*{\multicitedelim}{\textsuperscript{,}}
+\addbibresource{refs/refs.bib}
+\begin{document}
+\appendix
+\fi
+
+%---------------------------------------------------------------------
+
+\section{Appendix B: Variance Partitioning and the Mating System Scalar ($\kappa$)}
+\label{app:matingapp}
+\linenumbers
+
+To quantify how mating system structure modifies the Robertson effect, we must partition the heritable variance in reproductive success between male and female gametic contributions. Because alleles pass alternately through male and female life histories, sex-specific differences in the mapping of additive genetic quality to realized offspring number dictate the total selective interference exerted on the neutral genome.
+
+We evaluate a diploid, outcrossing population with a constant census size $N$, an equal sex ratio, and discrete generations. To maintain stationary demography, the mean family size for both males and females is $\bar{k}_m = \bar{k}_f = 2$.
+
+Let female reproductive success be defined as $k_f = 2 + x_f + \epsilon_f$. Here, $x_f$ represents the heritable breeding value for fitness with variance $\text{Var}(x_f) = V_A$, and $\epsilon_f$ captures stochastic environmental noise yielding a neutral Poisson demographic baseline. Consequently, the female gametic contribution to selective interference is governed entirely by $V_A$. We assume that total pair fecundity is biologically limited by female quality (e.g., through maternal provisioning or egg production). The male benefits from his social mate's quality via within-pair paternity, but does not contribute an independent additive genetic effect to the total clutch size. This assumption holds broadly for socially monogamous passerines and is relaxed below in Model B to allow male genetic quality to drive extra-pair siring success.
+
+Male reproductive success, $k_m$, comprises within-pair (WP) offspring sired with his social mate and extra-pair (EP) offspring sired with other females in the population. Let $\alpha$ represent the population-wide rate of extra-pair paternity. The male's within-pair success is directly coupled to his social mate's breeding value, $x_{f,\,\text{pair}}$, proportionally scaled by the fraction of the clutch he successfully defends, $1-\alpha$.
+
+\subsubsection{Model A: Random Extra-Pair Paternity}
+In Model A, extra-pair siring success operates as a demographic lottery, entirely decoupled from the male's own additive genetic quality. This condition applies when extra-pair copulations are driven by random spatial encounters rather than female choice for "good genes."
+
+Under this dynamic, the selective component of a male's reproductive success relies exclusively on the fraction of his social mate's reproductive output that he secures:
+\begin{equation}
+    x_{m,\,\text{selective}} = (1-\alpha)x_{f,\,\text{pair}}
+\end{equation}
+
+Because scaling a random variable by a constant scales its variance by the square of that constant, the selective variance in the male gametic contribution is:
+\begin{equation}
+    \text{Var}(x_{m,\,\text{selective}}) = (1-\alpha)^2 \text{Var}(x_f) = (1-\alpha)^2 V_A
+\end{equation}
+
+The total effective selective variance driving allele frequency change in the population is the sum of the independent female and male components. Factoring out $V_A$ defines the mating system multiplier $\kappa$:
+\begin{equation}
+    V_{\text{total, selective}} = V_A + (1-\alpha)^2 V_A = \left[ 1 + (1-\alpha)^2 \right] V_A
+\end{equation}
+
+Thus, under random extra-pair mating:
+\begin{equation}
+    \kappa(\alpha) = 1 + (1-\alpha)^2
+\end{equation}
+
+\subsubsection{Model B: Selective Extra-Pair Paternity}
+In Model B, females selectively allocate extra-pair copulations to males with high heritable fitness. We formalize this by defining a male's extra-pair siring success as directly proportional to his own breeding value, $x_m$, bounded by the population-wide availability of EP offspring, $\alpha$.
+
+The selective component of a male's reproductive success is therefore the sum of his defended within-pair success and his earned extra-pair success:
+\begin{equation}
+    x_{m,\,\text{selective}} = (1-\alpha)x_{f,\,\text{pair}} + \alpha x_m
+\end{equation}
+
+To calculate the variance of this sum, we must specify the covariance between the male's breeding value, $x_m$, and his social mate's breeding value, $x_{f,\,\text{pair}}$. Assuming random social pair formation (no assortative mating for fitness), this covariance is strictly zero. The variance therefore expands additively:
+\begin{equation}
+    \text{Var}(x_{m,\,\text{selective}}) = (1-\alpha)^2 \text{Var}(x_f) + \alpha^2 \text{Var}(x_m)
+\end{equation}
+
+Assuming the underlying additive genetic variance for fitness is symmetric across sexes ($\text{Var}(x_f) = \text{Var}(x_m) = V_A$), the male selective variance resolves to:
+
+\begin{equation}
+    \text{Var}(x_{m,\,\text{selective}}) = \left( 1 - 2\alpha + \alpha^2 + \alpha^2 \right) V_A = \left( 1 - 2\alpha + 2\alpha^2 \right) V_A
+\end{equation}
+
+Summing the female and male selective gametic contributions yields the multiplier $\kappa$ for Model B:
+\begin{equation}
+    V_{\text{total, selective}} = V_A + \left( 1 - 2\alpha + 2\alpha^2 \right) V_A = \left( 2 - 2\alpha + 2\alpha^2 \right) V_A
+\end{equation}
+
+Factoring out the constant establishes the final scalar:
+\begin{equation}
+    \kappa(\alpha) = 2(1 - \alpha + \alpha^2)
+\end{equation}
+
+Evaluating the limits of Model B confirms its biological boundaries. Under strict social monogamy ($\alpha = 0$), $\kappa = 2$, reflecting that the female's quality perfectly dictates both her own and her mate's success. At the opposite boundary of complete extra-pair siring ($\alpha = 1$, functionally equivalent to a lekking system where social pairing does not constrain paternity), the model mathematically recovers $\kappa = 2$. Biologically, full extra-pair paternity shifts the entire male selective variance directly onto male genetic quality, perfectly restoring the total selective variance to the monogamous baseline.
+
+The scalar reaches its minimum at $\alpha = 0.5$ ($\kappa = 1.5$). At this precise intermediate frequency, male reproductive success is partitioned equally between two independent genetic metrics (social mate quality and own quality). This orthogonal splitting maximizes the dilution of variance, minimizing the aggregate selective interference exerted on the coalescent.
+
+The quantity $V_{\text{total, selective}} = \kappa(\alpha) V_A$ encapsulates the effective heritable variance in family size, unified across both sexes, that drives the Robertson geometric decay. Substituting $\kappa(\alpha) V_A$ into the unlinked baseline derivation yields the mating-system-corrected expectation for the reduction in effective population size:
+
+\begin{equation}
+    \frac{N_e}{N} = \frac{1}{1 + 4\kappa(\alpha) V_A}
+\end{equation}
+which corresponds to Equation (5) in the main text.
+
+\ifdefined\isMainDocument
+\else
+    \end{document}
+\fi
