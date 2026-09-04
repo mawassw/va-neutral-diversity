@@ -68,6 +68,78 @@ Come back to me instead of deciding, if:
   currency on purpose, because mixing unlinked and linked figures makes the interval arithmetic
   inconsistent.
 
+## Theory pass — T8 (use a FRESH session)
+
+> You are writing one subsection of the Theory and Model section of a manuscript targeting GENETICS
+> (GSA). Write **T8 only**. **It is new** — there is no existing text to revise.
+>
+> **The live Theory section is `manuscript/theory_model.tex`.** T8 is appended after its current final
+> subsection, "The coalescent ceiling on heritable fitness variance". `manuscript/scratch.tex` holds a
+> stale duplicate of the section — **do not read or edit it.**
+>
+> Read, in this order:
+>
+> 1. `manuscript/theory_model.tex` — all of it. T1–T7 precede T8.
+> 2. `supp/appendix_D.tex` — **authoritative for every step of this derivation.** T8 states results and
+>    points there; it reproduces nothing.
+> 3. `manuscript/theory_outline.md` — T8 is specified there; the instructions below take precedence.
+> 4. `walid_authorial_style_guide.md` — sentence construction and diction; Appendix for voice only.
+>
+> **Why T8 exists.** The paper puts one measured quantity through two independent equilibrium
+> comparisons. The first — propagation to neutral diversity — occupies T2 through T7. The second, what
+> mutation and selection can sustain, currently appears nowhere in the main text; it lives only in
+> Appendix D. A reader of the Theory section presently meets one engine and not the other. T8 supplies
+> the second.
+>
+> **An obligation T8 must discharge.** T4 forward-references `\autoref{msdb}`, which resolves to
+> nothing — it is the only dangling reference left in the manuscript. **Put `\label{msdb}` on this
+> subsection.**
+>
+> **It must carry:**
+>
+> 1. The three fluxes acting on standing additive variance in fitness, named and given in one line
+>    each rather than derived: mutational influx $V_m = U_d s^2$; depletion by purifying selection;
+>    depletion by drift at rate $1/(2N_e)$. Point to Appendix D for the derivation.
+> 2. The stationary solution, displayed: $V_A = 2N_eU_ds^2/(1 + 2N_es)$.
+> 3. The strong-selection limit, displayed: when selection overwhelms drift the expression collapses to
+>    the House-of-Cards form $V_A \approx U_d s$ (Turelli 1984; Bürger 2000).
+> 4. **The inversion, which is what the Results use.** Solving for the coefficient a reported variance
+>    implies. Note that Appendix D gives the exact positive root, and that under strong selection it
+>    reduces to $s^{*} = V_A/U_d$, the form carried forward.
+> 5. **The logical direction, explicitly.** $s^{*}$ is a consequence read off a reported variance, not
+>    an estimate of selection fitted to sequence, site-frequency or diversity data. Without this
+>    sentence a reader takes T8 for a DFE inference method.
+> 6. $U_d = 4\mu L_{\text{coding}}$, with the factor of four accounted for: $2\mu$ for a diploid rate,
+>    and a further doubling because the regulatory target is taken equal in length to the annotated
+>    exome. State it as the diploid deleterious mutation rate. A referee will ask why four and not two.
+> 7. **The weak-selection branch, and that it fails on its own terms.** Solving the near-neutral
+>    relation and evaluating it returns $N_es \gg 1$, contradicting the premise of the approximation
+>    used to obtain it. One or two sentences; Appendix D has the check.
+> 8. **The connection back to $Z$, which closes a loop T4 left open.** Under this balance
+>    $V_m/V_A \approx s$, so the per-generation survival of selective variance is $Z \approx 1-s$ —
+>    the parameterization T4 used and forward-referenced here.
+>
+> **Length: 320–380 words plus the three displayed equations.**
+>
+> **Forbidden.** Any empirical value: no $U_d$ range, no $s^{*}$ range, no comparison against
+> vertebrate DFE estimates, and no statement about whether the implied coefficient is plausible. All of
+> that is the Results section, and stating it here converts a derivation into a verdict. Re-deriving
+> anything Appendix D derives. Restating T1's equilibrium requirement or the two persistence windows.
+> The distribution-of-fitness-effects generalisation — mention that Appendix D treats it, in at most a
+> clause, and stop.
+>
+> **Register.** Functional and declarative; equations carry the load. Announce each assumption where it
+> is used. Open on substance — the subsection's first sentence should be about what sustains standing
+> fitness variance, not about what the section is going to do.
+>
+> **Note for the author, not for the prose.** Appendix D currently quotes pedigree $V_A$ as "typically
+> 0.10–0.30" and an implied $s^*_{\text{strong}} \approx 0.10$–$0.30$. Both are stale against the actual
+> posterior modes. Flag this in your return; do not fix the appendix.
+>
+> Do not edit any file. Return: the prose and equations; the word count; confirmation that
+> `\label{msdb}` is present and that no empirical magnitude appears; and the list of places where you
+> pointed to Appendix D rather than deriving.
+
 ## Theory pass — T7 (use a FRESH session)
 
 > You are writing one subsection of the Theory and Model section of a manuscript targeting GENETICS
