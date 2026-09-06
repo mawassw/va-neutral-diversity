@@ -68,6 +68,73 @@ Come back to me instead of deciding, if:
   currency on purpose, because mixing unlinked and linked figures makes the interval arithmetic
   inconsistent.
 
+## Theory pass — T9 (use a FRESH session)
+
+> You are writing the final subsection of the Theory and Model section of a manuscript targeting
+> GENETICS (GSA). Write **T9 only**. **It is new** — there is no existing text to revise.
+>
+> **The live Theory section is `manuscript/theory_model.tex`.** T9 is appended after its current final
+> subsection, "The variance sustainable at mutation--selection--drift balance". `manuscript/scratch.tex`
+> holds a stale duplicate — **do not read or edit it.**
+>
+> Read, in this order:
+>
+> 1. `manuscript/theory_model.tex` — all of it. T1–T8 precede T9 and T9 closes the section.
+> 2. `manuscript/theory_outline.md` — T9 is specified there; the instructions below take precedence.
+> 3. `walid_authorial_style_guide.md` — sentence construction and diction; Appendix for voice only.
+>
+> **What T9 is, and the model to follow.** A published GENETICS theory paper (Lee and Terhorst 2026)
+> closes its Theory section with a subsection titled "Framework breakdown": two short paragraphs that
+> decompose the derivation into replaceable components and name what each could be swapped for. Its
+> register is flat and unapologetic — "an alternative population-genetic model can be adopted in the
+> framework by replacing this SFS component, for example with a nonequilibrium demography that
+> generalizes the constant-size panmictic assumption." Write that kind of subsection.
+>
+> **What T9 is not.** It is not a caveat list. The Discussion owns limitations — iteroparity, sex
+> chromosomes, non-equilibrium populations, the census instrument, biases in animal-model estimates.
+> None of that belongs here. T9 says what the framework is *made of*, so a reader can see which parts
+> are load-bearing and which are substitutable.
+>
+> **First paragraph — the two engines are independent, and that is the point.**
+>
+> The section has built two constructions that constrain the same quantity, and they rest on different
+> conditions. The coalescent engine's unlinked component needs only that the sign of the selective
+> advantage persist across the few generations over which associations decay, and requires no
+> stationarity of the selected background; its linked component does require stationarity, entering
+> through the survival parameter. The maintenance engine requires equilibrium and a single selection
+> coefficient across deleterious loci. **Neither borrows an assumption from the other.** Say so
+> plainly: that independence is what makes the two comparisons separate tests of one quantity rather
+> than one test performed twice.
+>
+> **Second paragraph — what is replaceable, and in which direction it moves the result.** Three
+> components, one sentence each:
+>
+> 1. **The spatial density of selective variance.** The reported predictions distribute variance
+>    uniformly per Morgan. Wherever integrated physical-to-genetic maps exist, an empirical density can
+>    be substituted at the annotated positions of coding loci, using the general form already derived.
+>    *(This carries the material cut from the spatial-distribution subsection; one sentence, no
+>    equation.)*
+> 2. **The distribution of fitness effects.** The single coefficient can be replaced by a full
+>    distribution. **State the direction:** because large-effect alleles dominate standing variance
+>    under House-of-Cards balance, a leptokurtic distribution makes the implied coefficient less
+>    plausible rather than more, so the uniform treatment understates the mismatch rather than creating
+>    it. Appendix D treats the generalisation.
+> 3. **The demographic backdrop.** The constant-size Wright–Fisher assumption underlying the neutral
+>    benchmark can be replaced by a non-equilibrium demography, at the cost of the correspondence
+>    between the variance and coalescent effective sizes that T1 establishes.
+>
+> **Length: 200–260 words. No equations.** Two paragraphs.
+>
+> **Forbidden.** Any empirical magnitude, species value, or verdict. Any caveat belonging to the
+> Discussion. Re-deriving or restating results from T1–T8 — reference them. A closing sentence that
+> summarises the section; the subsection ends when the third component has been named.
+>
+> **Register.** Flat, declarative, unhedged. "This component can be replaced by X" rather than "future
+> work could consider X". No apology for what the framework does not do.
+>
+> Do not edit any file. Return: the prose; the word count; and confirmation that no caveat from the
+> Discussion's territory has crept in.
+
 ## Theory pass — T8 (use a FRESH session)
 
 > You are writing one subsection of the Theory and Model section of a manuscript targeting GENETICS
