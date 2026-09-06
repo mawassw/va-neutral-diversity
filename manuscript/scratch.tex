@@ -219,6 +219,28 @@ Critically, Equation~\eqref{eq:vamax} establishes a conservative, most-permissiv
 
 Because $V_{A,\text{max}}$ is derived directly from the unlinked Mendelian transmission baseline ($Q^2 = 4$), it inherits that result's independence from the fine-scale dynamics of the selected background. It holds under stationary mutation--selection--drift balance, during directional sweeps (where $V_A$ represents the coalescent time-averaged variance, $\bar{V}_A$), and under fluctuating selection provided generational fitness autocovariances are non-negative ($\tau_\text{env} \ge 2$). In the Results, we evaluate Equation~\eqref{eq:vamax} across the continuum $\delta \in (0, 1]$, confronting published vertebrate pedigree estimates directly against the coalescent boundaries imposed by their census and genomic diversity.
 
+\subsection{The variance sustainable at mutation--selection--drift balance}\label{msdb}
+Three evolutionary fluxes govern the standing additive genetic variance in relative fitness at stationarity. New mutations enter the diploid genome at rate $V_m = U_d \mathbb{E}[s_\text{het}^2]$, where $U_d$ is the total diploid deleterious mutation rate and $s_\text{het}$ is the heterozygous selection coefficient. Purifying selection depletes standing variance at rate $s_\text{het} V_A$ per generation as deleterious alleles are purged, while genetic drift removes variance through stochastic gametic sampling at rate $V_A/(2N_e)$. Setting the net flux to zero ($\Delta V_\text{mut} + \Delta V_\text{sel} + \Delta V_\text{drift} = 0$) and solving for the stationary variance yields (Appendix~D):
+\begin{equation}
+V_A = \frac{2N_e U_d s_\text{het}^2}{1 + 2N_e s_\text{het}}. \label{eq:VA_MSD}
+\end{equation}
+
+When purifying selection dominates genetic drift ($2N_e s_\text{het} \gg 1$), the drift term $1/(2N_e)$ becomes negligible compared to selective purging, and Equation~\eqref{eq:VA_MSD} collapses to the classical mutation--selection balance regime (Crow 1970; Charlesworth 1990):
+\begin{equation}
+V_A \approx U_d s_\text{het} \qquad (2N_e s_\text{het} \gg 1). \label{eq:HoC}
+\end{equation}
+In this deterministic regime, deleterious alleles are held at rare mutation--selection equilibrium ($q \approx \mu/s_\text{het}$), and standing variance reflects the product of the mutational influx rate and the selective effect size. Inverting Equation~\eqref{eq:VA_MSD} yields the exact positive root as a quadratic in $s_\text{het}$ (Appendix~D); under the strong-selection limit, this reduces directly to:
+\begin{equation}
+s^* = \frac{V_A}{U_d}. \label{eq:sstar}
+\end{equation}
+Crucially, when integrated across a continuous distribution of fitness effects (DFE) with density $\phi(s)$, the linearity of the approximation ensures that $V_A \approx U_d \int_0^\infty s \phi(s)\,ds = U_d \bar{s}_\text{het}$. The quantity $s^*$ is therefore not an abstract single-locus toy parameter, but the implied arithmetic mean of the vertebrate DFE ($\bar{s}_\text{het}^*$) necessary to maintain the observed variance at stationary balance.
+
+To evaluate Equation~\eqref{eq:sstar}, we set the diploid deleterious mutation rate to $U_d = 4\mu L_\text{coding}$: a baseline of $2\mu$ per base pair for the diploid genome, multiplied by an additional factor of two to account for functional non-coding regulatory sequences of equal aggregate length to the annotated exome ($L_\text{coding}$). Assuming that all mutations across this combined functional target are deleterious ($f_d = 1$) maximizes $U_d$, thereby minimizing $s^*$ and rendering our evaluation against empirical DFE estimates strictly conservative.
+
+The alternative boundary condition where selection is weak ($2N_e s_\text{het} \ll 1$) reduces Equation~\eqref{eq:VA_MSD} to $V_A \approx 2N_e U_d s_\text{het}^2$. Solving for the implied selection coefficient yields $s^*_\text{weak} = \sqrt{V_A / (2N_e U_d)}$. Testing the foundational premise of this regime requires $2N_e s^*_\text{weak} \ll 1$, which demands an effective population size $N_e \ll U_d / (2V_A) \approx 5\text{--}10$. Because all monitored vertebrate populations maintain sequence-derived $N_e$ orders of magnitude larger than this threshold, the near-neutral regime refutes its own premise and collapses (Appendix~D).
+
+Finally, under stationary strong selection, the ratio of mutational influx to standing variance simplifies to $V_m/V_A \approx (U_d s_\text{het}^2)/(U_d s_\text{het}) = s_\text{het}$. This formalizes the per-generation survival of selective variance as $Z = 1 - V_m/V_A \approx 1 - s_\text{het}$, closing the analytical loop with the linked chromosome integration developed in \autoref{sec:linkage}. If alleles are as strongly selected as pedigree estimates require ($s^* \sim 0.1\text{--}0.3$), ancestral associations decay even faster than under neutral Mendelian segregation ($Q(s) = 2/(1+s) < 2$; Appendix~D), further confirming that the baseline Robertson model ($Q^2 = 4$) represents a strictly conservative upper bound on selective interference.
+
 
 
 
