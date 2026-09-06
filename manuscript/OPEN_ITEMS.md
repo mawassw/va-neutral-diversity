@@ -22,7 +22,8 @@ sign-off; E1 and E2 are new findings of 2026-09-03 and are not recorded anywhere
 | E7 | **Standardisation placeholder is answerable.** No standardisation was required — Bonnet et al. report observed-scale $V_A(w)$ via $\mathbf{d}^\top\mathbf{G}\mathbf{d}$. Say so and delete it. | `scratch.tex:235` | not fixed |
 | E8 | **Appendix D `[XX]` placeholders are computable now.** $U_d$ = 0.69–1.19 (median 1.07); $s^*$ = 0.019–0.313 (median 0.145), or 0.092 at the upper CI on $\mu$. | Appendix D | not fixed |
 | E9 | **The 20 Mb macrochromosome filter is undescribed in Methods** and excludes precisely the avian microchromosomes the Discussion leans on. Either describe and justify it, or scope those claims to macrochromosomes. | code vs §Methods | not fixed |
-| E10 | **`s_het` hardcoded at 0.01** in the R code while Methods states $s$ is inferred, not fixed. The code implements the opposite logical direction to the Methods. | `data_gen.R` vs §Methods | not fixed |
+| E10 | **RESOLVED 2026-09-06 (author).** No contradiction: $s^{*}$ *is* inferred by inversion for the maintenance comparison. The hardcoded `s_het = 0.01` belongs to separate blocks exploring the $Z$ and $Q$ parameter space, taken from a Kim et al. DFE, and does not feed the maintenance result. **The code redraft must keep the two uses visibly separate and label them.** | `data_gen.R` | **resolved** |
+| E10-x | **`s_het` hardcoded at 0.01** in the R code while Methods states $s$ is inferred, not fixed. The code implements the opposite logical direction to the Methods. | `data_gen.R` vs §Methods | not fixed |
 | E11 | **The 136/27/14 factors are computed against the eight-population median $V_A$ = 0.146**, not the nineteen-population median 0.0997. Against 0.0997 they are 93/19/9. Name the set wherever they appear. | Results R5 as briefed | flagged before drafting |
 | E12 | **The four-branch disjunction and the branch-(i) mechanisms sit in §Theory**, pre-empting the Discussion. | `scratch.tex` §Upper Bound | T7 removes them |
 | E13 | **Title asserts the retired claim** — "predicts severe depletion of neutral diversity". | `scratch.tex:9` | not fixed |
@@ -96,3 +97,39 @@ than the closest prior work at the point where that work says its approximation 
 partition supplied in T5. **Not** as a claim of superiority over Buffalo and Kern, and not in the
 Introduction or Abstract — it is a difference in bookkeeping, not a result, and inflating it is the
 borrowed-significance failure mode `CLAUDE.md` warns about.
+
+---
+
+## Diversity data — coverage assessment, 2026-09-06
+
+`data/lewin_eyre_walker_2026_data.xlsx` (Lewin and Eyre-Walker 2026) arrived. STable1 carries
+`mean_pi`, a mutation rate with 95% bounds, and an $N_e$ for 131 species. STable5 carries
+density × range census figures for 90 species, Buffalo-2021 style.
+
+**Coverage against this project's populations is thin, and this is decisive for scope.**
+
+| status | populations | species |
+|---|---|---|
+| exact species match with $\pi$ | BTR, BTP, BTM, CF, CSM | *Cyanistes caeruleus*, *Ficedula albicollis*, *Macaca mulatta* |
+| congener or subspecies proxy only | RD, AB | *Cervus elaphus yarkandensis*; *Papio anubis* for our *P. cynocephalus* |
+| absent from the workbook entirely | SSH, BHS, GTU, GTN, SV, NH, SFW, SSP, HT, HK, KS, MK | no *Ovis*, no *Parus*, no *Chionomys*, *Crocuta*, *Malurus*, *Melospiza*, *Notiomystis*, *Sciurus*/*Tamiasciurus*, *Suricata* |
+
+**Against the eight-population linked-analysis set (RD, BHS, AB, SSH, CSM, GTU, CF, GTN): two exact
+matches, two proxies, four absent.** Soay sheep, bighorn sheep and both great tit populations — four of
+the eight — have no diversity estimate in this source. Great tit and Soay sheep are among the
+best-studied vertebrate populations in the world, so their absence is a property of this compilation
+rather than of the literature; other sources may cover them.
+
+**Consequences.**
+
+1. **A per-population $\pi_{\text{pred}}$ versus $\pi_{\text{obs}}$ test cannot carry the diversity
+   side.** Two to four populations is not a comparative result.
+2. **Q3 is effectively decided.** The diversity side is stated as the ceiling curve
+   $V_{A,\max}(\delta)$ plus what the mechanism can remove at measured $V_A$, benchmarked against the
+   deficit range the comparative literature reports. The per-population test becomes an illustration
+   on whichever populations have data, not the result.
+3. **The census problem is unchanged.** STable5's density × range figures are contemporary, which
+   scope condition 4 explicitly deprioritises in favour of a long-term or historical census scaled by
+   a breeder fraction.
+4. **Worth one search before settling:** whether *Parus major* and *Ovis aries* diversity estimates
+   exist elsewhere. Both are heavily sequenced and their absence here is surprising.
