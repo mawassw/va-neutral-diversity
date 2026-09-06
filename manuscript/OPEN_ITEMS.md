@@ -23,7 +23,6 @@ sign-off; E1 and E2 are new findings of 2026-09-03 and are not recorded anywhere
 | E8 | **Appendix D `[XX]` placeholders are computable now.** $U_d$ = 0.69–1.19 (median 1.07); $s^*$ = 0.019–0.313 (median 0.145), or 0.092 at the upper CI on $\mu$. | Appendix D | not fixed |
 | E9 | **The 20 Mb macrochromosome filter is undescribed in Methods** and excludes precisely the avian microchromosomes the Discussion leans on. Either describe and justify it, or scope those claims to macrochromosomes. | code vs §Methods | not fixed |
 | E10 | **RESOLVED 2026-09-06 (author).** No contradiction: $s^{*}$ *is* inferred by inversion for the maintenance comparison. The hardcoded `s_het = 0.01` belongs to separate blocks exploring the $Z$ and $Q$ parameter space, taken from a Kim et al. DFE, and does not feed the maintenance result. **The code redraft must keep the two uses visibly separate and label them.** | `data_gen.R` | **resolved** |
-| E10-x | **`s_het` hardcoded at 0.01** in the R code while Methods states $s$ is inferred, not fixed. The code implements the opposite logical direction to the Methods. | `data_gen.R` vs §Methods | not fixed |
 | E11 | **The 136/27/14 factors are computed against the eight-population median $V_A$ = 0.146**, not the nineteen-population median 0.0997. Against 0.0997 they are 93/19/9. Name the set wherever they appear. | Results R5 as briefed | flagged before drafting |
 | E12 | **The four-branch disjunction and the branch-(i) mechanisms sit in §Theory**, pre-empting the Discussion. | `scratch.tex` §Upper Bound | T7 removes them |
 | E13 | **Title asserts the retired claim** — "predicts severe depletion of neutral diversity". | `scratch.tex:9` | not fixed |
@@ -133,3 +132,36 @@ rather than of the literature; other sources may cover them.
    a breeder fraction.
 4. **Worth one search before settling:** whether *Parus major* and *Ovis aries* diversity estimates
    exist elsewhere. Both are heavily sequenced and their absence here is surprising.
+
+### M-2 · Nucleotide diversity compartment: genome-wide autosomal averages are acceptable
+
+**Decided 2026-09-06**, from Lewin and Eyre-Walker (2026) directly.
+
+**What their compilation does.** Of 131 species, the primary diversity estimate is genome-wide for 81,
+4-fold degenerate for 16, synonymous for 15, silent for 4, unspecified for 9, and non-coding,
+intergenic, neutral or heterozygosity for the remaining 6. Genome-wide is the modal choice by a wide
+margin, and their sources are Leffler et al. (2012), Romiguier et al. (2014), Corbett-Detig et al.
+(2015), Chen et al. (2017), Buffalo (2021) and the wider literature.
+
+**Their justification, which is empirical rather than assumed.** "We find no significant difference
+between genome-wide and synonymous site estimates in those species for which we have both (22 species;
+geometric means of 0.0066 (genome-wide) and 0.0079 (synonymous))." Genome-wide therefore runs at about
+84% of synonymous — a factor of 1.2.
+
+**Why that is immaterial here.** The mechanism removes at most ~20-fold and the deficits under
+discussion are $10^2$–$10^6$. A 20% compartment effect cannot move a conclusion at those magnitudes.
+
+**What to do.**
+
+1. Use whole-genome **autosomal** averages, matching both the source compilation and the model's
+   autosome-only restriction. Mixing compartments across populations is acceptable; cite their
+   equivalence test for it.
+2. **Record the compartment per population** in the Methods table.
+3. State the direction once: genome-wide $\pi$ includes constrained sites, so it sits below neutral
+   $\pi$, lowering $\delta$ and widening the apparent deficit — the direction that flatters this
+   paper's conclusion. Already a row in the bias table.
+4. One clause acknowledging that $\pi_{\text{pred}}$ is a neutral prediction while genome-wide
+   $\pi_{\text{obs}}$ is mildly depressed by selection at constrained sites. Same 20%, same
+   immateriality, better stated than discovered.
+5. **Do not pool per-individual "genome-wide heterozygosity" entries** with population $\pi$; two
+   species in the compilation use that statistic and it is not the same quantity.
