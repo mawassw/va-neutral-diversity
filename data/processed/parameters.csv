@@ -1,0 +1,16 @@
+name,value,unit,source,used_in
+Ud_target_multiplier,4,,Methods: U_d = 4 mu L_coding,MSD side
+s_het_default,0.01,,Kim et al. DFE (E10); Z/Q exploration only,linked term
+s_het_grid_low,0.005,,sensitivity grid,linked term
+s_het_grid_high,0.02,,sensitivity grid,linked term
+s_dfe_benchmark_1,0.001,,"vertebrate DFE mean, lower",MSD forward reading
+s_dfe_benchmark_2,0.005,,"vertebrate DFE mean, mid",MSD forward reading
+s_dfe_benchmark_3,0.01,,"vertebrate DFE mean, upper",MSD forward reading
+Z_cap,0.995,,numerical guard at Z -> 1,linked term
+macro_min_length_bp,20000000,bp,"macrochromosome filter (undescribed, E9)",linked term
+cne_multiplier_none,1,,coding only,linked term
+cne_multiplier_bird,2,,"conserved non-coding, birds",linked term
+cne_multiplier_mammal,4,,"conserved non-coding, mammals",linked term
+cne_multiplier_max,5,,maximum-rescue,linked term
+kappa_min,1,,"Theory: kappa in [1,2]",all
+kappa_max,2,,"Theory: kappa in [1,2]",all
