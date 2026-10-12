@@ -8,81 +8,159 @@ Rscript scripts/R/00_prepare_data.R      # from the repo root; ~10 s; rebuilds d
 
 ```r
 source("scripts/R/load_data.R")          # analysis and plotting scripts read data through this only
-pops  <- load_populations("msd")         # "va" (19) | "msd" (16) | "linked" (8)
+pops  <- load_populations("msd")         # "va" (19) | "msd" (18) | "linked" (9)
 va    <- load_va_draws(long = TRUE)      # 4000 draws x 19 populations
 chrom <- load_chromosomes()              # autosomal, mapped, >= 20 Mb by default; adds f_bp, f_gene, L_weight
 obs   <- load_diversity()                # pi and census, gaps as NA
 p     <- load_parameters()               # model constants
 ```
 
-`data/processed/` is derived. Never edit it by hand: change a source or `00_prepare_data.R` and rebuild.
-The build stops if the chromosome table fails to reproduce `master_chromosome_recomb_data.csv`.
+`data/processed/` is derived. Never edit it by hand: change a source or a script and rebuild.
+The build stops if the chromosome table fails to reproduce the curated rows of
+`master_chromosome_recomb_data.csv`.
 
-## Sources (inputs to `00_prepare_data.R`)
+### The pipeline, in run order
+
+| step | script | needs network | output (tracked) |
+|---|---|---|---|
+| 1 | `fetch_extract_assemblies.R` | yes, first run only | `assembly_stats_added.csv` |
+| 2 | `lg_orthology.R` | yes, first run only | `lg_orthology.csv` |
+| 3 | `census_buffalo.R` | yes (GBIF) | `census/census_buffalo_method.csv` |
+| 4 | `00_prepare_data.R` | no | `processed/*.csv` |
+
+Steps 1–3 only need rerunning if an assembly, a map, or the census method changes; their outputs are
+committed, so step 4 alone rebuilds everything from a fresh clone. NCBI zips live in
+`genomic_data/<species>/<accession>.zip` (gitignored, streamed, never unpacked) via `ncbi_helpers.R`.
+
+## Sources
 
 | file | content | provenance |
 |---|---|---|
 | `../alldistzip` | MCMCglmm posteriors, 4000 draws per variance component, 19 populations; `$id` is $V_A$ | Bonnet et al. 2022, back-transformed to observed-scale relative fitness |
-| `species_EPP.csv` | mating system, EPP rate $\alpha$, $\mu$ (two sets, 95% CI), legacy $U_d$, unnamed last column = log10 census | compiled by WM. `mu_2` equals Lewin & Eyre-Walker 2026 `u_mean` wherever both exist; **`mu_1` (used by the code) has no recorded source**. The census column matches `log10_popsize` in `raw/mutation_rate_literature_updating3.xlsx` (Buffalo 2021) for 4 species; the rest are undocumented |
-| `raw/clean_chromosome_data.csv` | per-chromosome physical length, collapsed CDS bp, gene count, 11 assemblies | `data_gen_2.R` from NCBI GFF/GTF. **A live intermediate despite living in `raw/`** |
-| `recomb_data.csv` | linkage-group cM per species, matched to an assembly chromosome where curated | linkage-map sources listed in `raw/species.xlsx` Sheet1 |
-| `genomic_parameters_summary.csv` | genome-wide assembly stats, incl. blue tit and hihi | copied from gitignored `genomic_data/` so the build works from a clone |
+| `species_EPP.csv` | mating system, EPP, two mutation rates with 95% CI, legacy $U_d$, unnamed last column = Buffalo 2021 log10 census | compiled by WM (see *Mutation rates* and *Census* below) |
+| `mutation_rate_sources.csv` | which species each direct mutation rate comes from, and its relation to the population's species | added 2026-10-10 |
+| `raw/clean_chromosome_data.csv` | per-chromosome length, collapsed CDS bp, gene count, 11 assemblies | `data_gen_2.R`. **A live input despite living in `raw/`.** Its `sciurus_vulgaris` rows are the wrong species and are ignored |
+| `assembly_stats_added.csv` | same, for blue tit (GCF_971803275.1), red squirrel (GCA_057657825.1), hyena (GCF_008692635.1, genome total only) | `fetch_extract_assemblies.R`, added 2026-10-10 |
+| `recomb_data.csv` | linkage-group cM, matched to an assembly chromosome where curated | linkage-map sources in `raw/species.xlsx` Sheet1 |
+| `lg_orthology.csv` | song sparrow assembly chromosome ↔ linkage group, via gene symbols shared with great tit | `lg_orthology.R`, added 2026-10-10 |
+| `genomic_parameters_summary.csv` | genome-wide assembly stats (used for hihi) | copied from gitignored `genomic_data/` |
 | `lewin_eyre_walker_2026_data.xlsx` | $\pi$, $\mu$, $N_e$ (STable1), $\pi$ compartments (STable3), density and range (STable5) | Lewin & Eyre-Walker 2026, *Mol. Ecol.* |
-| `master_chromosome_recomb_data.csv` | legacy joined table | **validation target only**, superseded by `processed/chromosomes.csv` |
+| `pi_literature.csv` | literature π (and single-genome heterozygosity) for the 12 populations Lewin & Eyre-Walker lack, with compartment, sample, DOI and verbatim evidence per row | literature search, added 2026-10-10 |
+| `census/damuth1987.tsv` | density–body mass data | Damuth 1987, via Buffalo's repository |
+| `master_chromosome_recomb_data.csv` | legacy joined table | **validation target only** |
 
-`va_species_bonnet.csv` is superseded by `processed/populations.csv`. It mislabels the Rouvière blue tits
-(`Blue.tits.R`) as `BTM`, which duplicates that code. Not read by any script.
+`va_species_bonnet.csv` is superseded and read by nothing. It mislabels the Rouvière blue tits as `BTM`.
 
-## Outputs (`processed/`)
+## Decisions encoded here (2026-10-10)
 
-**`populations.csv`**: one row per population.
-Identity: `code`, `bonnet_code`, `common_name`, `location`, `scientific_name`, `species_flag`.
-Mating system: `mating_system`, `epp_alpha`, `alpha_is_placeholder`, `kappa_A`, `kappa_B`.
-Mutation: `mu_1`, `mu_1_lo`, `mu_1_hi`, `mu_2`, `mu_2_lo`, `mu_2_hi` (per bp per generation).
-$V_A$: `va_mode` (MCMCglmm `posterior.mode`, as in `unlinked.R`), `va_median`, `va_mean`, `va_hpd95_lo/hi`.
-Genome: `genome_sp`, `genome_accession`, `L_coding_bp` (primary), `L_coding_source`,
-`L_coding_autosomal_bp`, `L_coding_mapped_autosomal_bp`, `L_coding_genomewide_bp`, chromosome counts.
-$U_d = 4\mu_1 L_{\text{coding}}$: `U_d`, `U_d_lo`, `U_d_hi`; `Ud_legacy` is the old column, kept for comparison.
-Sets: `in_set_va`, `in_set_msd`, `in_set_linked`, `in_set_linked_legacy`.
+**Mating system and κ.** The EPP rate α is a measurement only for socially monogamous systems. For
+polygynous and polygynandrous systems, `species_EPP.csv` codes EPP = 1 to mean "no social pair constrains
+paternity". That isn't a measured rate, so `epp_alpha` is NA for those systems (the source value is kept
+in `epp_alpha_source`). Their κ is the α = 1 limit of each model, which is exactly where the two
+mechanisms disagree most:
 
-**`va_posterior.csv`**: `draw` plus one column per population code.
+- `kappa_A = 1`: a male's siring success is independent of his own breeding value.
+- `kappa_B = 2`: a male's siring success is as heritable as a female's.
 
-**`chromosomes.csv`**: one row per assembled chromosome per population. Assembly stats, `is_autosome`,
-`is_macro` (≥ 20 Mb), `has_map`, `Total_cM`, `M_morgans`, `map_note`.
+**Primary κ is Model B for every population** (`kappa` column; decided 2026-10-10). In harem and
+dominance systems a male's success tracks his quality, and the same argument applies to extra-pair
+sires, so one model is used throughout and Model A (`kappa_A`) is the sensitivity bound. The two
+nearly coincide at low α (great tit 1.91 vs 1.91) and part most at high α (fairy-wren 1.64 vs 1.06;
+hihi 1.50 vs 1.29).
 
-**`diversity_census.csv`**: `lewin_match` (exact / proxy / none), `pi_obs`, `pi_primary_compartment`,
-`pi_primary_source`, `lewin_mu`, `lewin_Ne`, `density_per_km2`, `range_km2`, `Nc_density_range`,
-`log10_Nc_legacy`, `N_breeders` (all NA), `N_breeders_instrument`.
+**Mutation rates: both carried, not averaged.**
 
-**`parameters.csv`**: model constants (`s_het` grid, DFE benchmarks, CNE multipliers, `Z_cap`, 20 Mb filter).
+- `mu_phylo` (`mu_1` in the source) is the phylogenetic mixed-model prediction, consistent with Wang &
+  Obbard 2023 (*Evol. Lett.*; their `mutation_meta3.R` predicts rates with CIs for tips and nodes).
+- `mu_direct` (`mu_2`) is a direct pedigree or trio estimate, for the species itself or its closest
+  relative, from Lewin & Eyre-Walker 2026. The relative used is recorded in `mutation_rate_sources.csv`.
 
-## Coverage, as of 2026-10-10
+They aren't averaged, for two reasons. The phylogenetic model is fitted to those same direct estimates,
+so the two aren't independent. And averaging two CI bounds doesn't produce a CI. Results should be
+reported under both. `mu_phylo` runs 7–60% above `mu_direct`.
+
+**U_d uses autosomes only:** $U_d = 4\mu L_{\text{coding}}$, with $L_{\text{coding}}$ the collapsed CDS on
+assembled autosomes. Hyena and hihi have no chromosome-level annotated assembly, so their genome-wide
+CDS total is scaled by the autosomal CDS share of the nearest chromosome-level relative:
+
+| species | relative used for the scaling | autosomal share |
+|---|---|---|
+| hyena | meerkat | 0.965 |
+| hihi | mean of the four chromosome-level passerines | 0.948 |
+
+**Census N_c follows Buffalo 2021:**
+
+- `log10_Nc`: his published value, own species only (10 populations).
+- `log10_Nc_congener`: his value for a congener (SFW uses *Malurus melanocephalus*, AB uses *Papio
+  anubis*). Not used as primary.
+- `log10_Nc_provisional`: our reimplementation of his method for the species he lacks
+  (`census_buffalo.R`). **Not validated and not pursued further (decided 2026-10-10); do not use.**
+  See *Census reimplementation* below.
+- `Nc_caveat`: per-population caveat on the published value, to be stated in the manuscript where
+  N_c is used. Bird values are likely understated (length-predicted mass, below). The Soay value is
+  Buffalo's species-wide *Ovis aries*, which is domestic sheep, not the St Kilda population.
+- No breeding-adult N, and no historical census scaled by a breeder fraction (decided 2026-10-10:
+  not for the preprint). Using N_c in place of N lowers δ by the breeder fraction (a factor of
+  2–10), which cannot move a comparison between a mechanism removing at most ~20× and deficits of
+  10²–10⁶.
+
+## Coverage
 
 | input | have | missing |
 |---|---|---|
 | $V_A$ posterior | 19 / 19 | — |
-| $\alpha$, $\kappa$ | 19 / 19 | per-species EPP citations; non-monogamous systems coded $\alpha = 1$ (placeholder) |
-| $\mu$ with CI | 19 / 19 | source for `mu_1` |
-| $L_{\text{coding}}$, $U_d$ | 16 / 19 | NH (*Crocuta*), SFW (*Malurus*), KS (*Tamiasciurus*) assemblies |
-| linkage map joined to assembly | 8 / 19 | SSP (map present, needs LG↔chromosome curation), blue tits ×3 (map present, no per-chromosome assembly table), hihi ×2 (scaffold assembly), SFW (map, no assembly), SV/MK/NH/KS (no map) |
-| $\pi_{\text{obs}}$ | 7 / 19 (5 exact, 2 proxy) | SSH, BHS, GTU, GTN, SSP, SFW, HT, HK, SV, NH, KS, MK |
+| mating system, κ | 19 / 19 | per-species EPP citations |
+| $\mu$ (both estimates) | 19 / 19 | KS `mu_phylo` was predicted under *Sciurus vulgaris* |
+| $L_{\text{coding}}$, $U_d$ (autosomal) | **18 / 19** | SFW: the only *Malurus cyaneus* assembly (GCA_009741485.1) is unannotated |
+| linkage map joined to assembly | **9 / 19** | blue tits ×3 (map too fragmentary), hihi ×2 (scaffold assembly), SFW (unannotated), SV/NH/KS/MK (no map) |
+| $\pi_{\text{obs}}$ | 7 / 19 | SSH, BHS, GTU, GTN, SSP, SFW, HT, HK, SV, NH, KS, MK |
+| $\pi$, literature (`pi_lit`, not study population) | 4 / 12 missing | great tit ×2 (medium), bighorn and song sparrow (low: MAF-filtered lower bounds); SSH, SFW, KS nothing; HT/HK, SV, NH, MK single-genome heterozygosity only |
+| census $N_c$ (Buffalo, own species) | 10 / 19 | RD, SV, NH, SFW, HT, HK, AB, KS, MK |
 | breeding-adult $N$ | 0 / 19 | all |
 
-## Known data issues (flagged, not silently fixed)
+## Census reimplementation: what it does and why it isn't used
 
-1. **KS is the wrong species.** `species_EPP.csv` lists *Sciurus vulgaris*. The Kluane population is the
-   North American red squirrel, *Tamiasciurus hudsonicus*, so `genomic_data/sciurus_vulgaris` is not
-   used and KS has no $U_d$.
-2. **The $\alpha = 1$ placeholder.** For polygynous and polygynandrous systems, $\alpha = 1$ gives
-   $\kappa_A = 1$ (sensible) but $\kappa_B = 2$, which is an artefact of the placeholder. Report
-   Model B only for socially monogamous populations, or recode.
-3. **Flycatcher LG35 was double-counted** in the legacy master table: linkage groups Fal35 and Fal36
-   both map to assembly LG35. `chromosomes.csv` keeps Fal35 and records the collision. It's a 0.25 Mb
-   chromosome, so it is outside the macro set and doesn't affect current results.
-4. **$U_d$ depends on which coding length is used.** Earlier quoted values (0.69–1.19, median 1.07)
-   summed the master table, which includes X/Z. Autosomes only gives 0.65–1.19, median 1.04, on the
-   same 8 populations. Blue tits and hihi use genome-wide totals because they have no per-chromosome
-   table.
-5. **Two census sources disagree for collared flycatcher:** Lewin STable5 density × range gives
-   3.5 × 10⁷, while the legacy log10 column gives 1.4 × 10⁹. Both are contemporary density × range
-   figures, which scope condition 4 deprioritises.
+`census_buffalo.R` computes density × range:
+
+- **Density** comes from Damuth's (1987) allometry, using measured adult body mass (AnAge; Amniote
+  Database; hihi 36 g from Walker et al. 2014).
+- **Range** is an alpha hull (α = 8°, Buffalo's terrestrial default) around GBIF density-tile cells,
+  clipped to land.
+
+It was checked against four species Buffalo published:
+
+| check species | density (ours / Buffalo) | range |
+|---|---|---|
+| bighorn sheep | −0.01 / 0.07 | 6.74 / 6.65 |
+| rhesus macaque | 0.97 / 1.19 | 7.06 / 6.76 |
+| blue tit | 3.96 / 2.76 | 7.22 / 6.84 |
+| collared flycatcher | 3.91 / 2.70 | 7.40 / 6.46 |
+
+All values are log10. The two mammals agree; the two birds don't. Two reasons:
+
+1. **Bird densities.** Damuth's data contain no birds. Buffalo predicts body mass from body *length*,
+   and for a blue tit that chain implies roughly 150 g against a true 11 g. His published bird
+   densities are therefore about 1.2 orders of magnitude below what measured mass gives. **This also
+   affects his published bird censuses used as primary here:** if anything, they understate $N_c$
+   for birds.
+2. **Ranges.** GBIF-wide hulls include wintering grounds (flycatcher in Africa), introductions (red
+   deer), and occasional vagrants. Hihi is a managed, reintroduced species, so a range-based census is
+   meaningless for it.
+
+Making this usable would need either Buffalo's length → mass step, with body lengths sourced per
+species, or breeding-range polygons. **Not pursued (2026-10-10):** the length → mass step is the
+source of the bird bias, so copying it would reproduce a known error. The finding is kept as a
+caveat on Buffalo's published bird censuses instead.
+
+## Known data issues still open
+
+1. **Blue tit coding length (30.5 Mb autosomal) is well above great tit's (25.1 Mb).** It comes from a
+   newer RefSeq annotation release, so part of the difference across species reflects annotation, not
+   biology. U_d inherits it.
+2. **Song sparrow chromosome 25 matches its linkage group at only 0.59 gene share.** Great tit splits
+   that chromosome into 25LG1 and 25LG2. Chromosome 31 (LGE22) matches at 0.92. Both are
+   microchromosomes.
+3. **SV's `mu_direct` (5.35e-9) matches no single Lewin entry.** It is close to a Wang & Obbard
+   compilation value for *Mus musculus*.
+4. **The red squirrel assembly is 5.7 Gb.** That's genuinely large; its coding density is therefore
+   low, but its CDS total (36 Mb autosomal) is typical for a mammal.

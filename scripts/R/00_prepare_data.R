@@ -14,6 +14,13 @@
 #   data/raw/clean_chromosome_data.csv          per-chromosome assembly stats
 #                                               (data_gen_2.R output; live
 #                                               intermediate despite living in raw/)
+#   data/assembly_stats_added.csv               assemblies added 2026-10-10
+#                                               (fetch_extract_assemblies.R)
+#   data/lg_orthology.csv                       map LG <-> assembly chromosome for
+#                                               size-numbered assemblies (lg_orthology.R)
+#   data/mutation_rate_sources.csv              which species each direct mu comes from
+#   data/census/census_buffalo_method.csv       census for species Buffalo 2021 lacks
+#                                               (census_buffalo.R)
 #   data/recomb_data.csv                        linkage-map cM per linkage group
 #   data/master_chromosome_recomb_data.csv      legacy joined table (validation only)
 #   data/genomic_parameters_summary.csv         genome-wide assembly stats
@@ -61,7 +68,9 @@ crosswalk <- tribble(
   ~code, ~bonnet_code, ~map_code, ~genome_sp,             ~lewin_sp,                     ~lewin_match,
   "RD",  "rdR",        "rdR",     "cervus_elaphus",       "Cervus_elaphus_yarkandensis", "proxy",
   "SV",  "svG",        NA,        "chionomys_nivalis",    NA,                            "none",
-  "NH",  "shN",        NA,        NA,                     NA,                            "none",
+  "NH",  "shN",        NA,        "crocuta_crocuta",      NA,                            "none",
+  # Blue tit map (bt) is fragmentary (chromosomes split into lettered pieces,
+  # many at 0 cM); it is not joined to the assembly. map_code kept for reference.
   "BTR", "btR",        "bt",      "cyanistes_caeruleus",  "Cyanistes_caeruleus",         "exact",
   "BTP", "btP",        "bt",      "cyanistes_caeruleus",  "Cyanistes_caeruleus",         "exact",
   "BTM", "btM",        "bt",      "cyanistes_caeruleus",  "Cyanistes_caeruleus",         "exact",
@@ -76,11 +85,10 @@ crosswalk <- tribble(
   "AB",  "ybA",        "ybA",     "papio_cynocephalus",   "Papio_anubis",                "proxy",
   "GTU", "gtW",        "gtW",     "parus_major",          NA,                            "none",
   "GTN", "gtH",        "gtH",     "parus_major",          NA,                            "none",
-  # KS: species_EPP.csv says Sciurus vulgaris, but the Kluane Red Squirrel
-  # Project studies the North American red squirrel, Tamiasciurus hudsonicus.
-  # The sciurus_vulgaris assembly in genomic_data/ is therefore the wrong
-  # species; it is NOT used here. See species_flag in populations.csv.
-  "KS",  "rsK",        NA,        NA,                     NA,                            "none",
+  # KS: the Kluane population is Tamiasciurus hudsonicus (corrected 2026-10-10
+  # from Sciurus vulgaris; the sciurus_vulgaris rows in clean_chromosome_data
+  # are the wrong species and are not used).
+  "KS",  "rsK",        NA,        "tamiasciurus_hudsonicus", NA,                         "none",
   "MK",  "mkK",        NA,        "suricata_suricatta",   NA,                            "none"
 )
 stopifnot(!anyDuplicated(crosswalk$code), nrow(crosswalk) == 19)
@@ -120,62 +128,94 @@ epp <- epp_raw %>%
     location        = Location,
     scientific_name = `Scientific name`,
     mating_system   = `Mating system`,
-    epp_alpha       = EPP,
+    epp_alpha_source = EPP,
     Ud_legacy       = Ud,
-    mu_1 = mu_1, mu_1_lo = `95ci_lower_1`, mu_1_hi = `95ci_upper_1`,
-    mu_2 = mu_2, mu_2_lo = `95ci_lower_2`, mu_2_hi = `95ci_upper_2`,
-    log10_Nc_legacy = suppressWarnings(as.numeric(log10_Nc_legacy))
+    # Two mutation-rate estimates, methodologically distinct. Not averaged: the
+    # phylogenetic model is fitted to the direct estimates, so they are not
+    # independent, and averaging CI bounds does not give a CI.
+    #   mu_phylo  : species_EPP mu_1, phylogenetic mixed-model prediction
+    #               (Wang & Obbard 2023, Evol. Lett.)
+    #   mu_direct : species_EPP mu_2, direct pedigree/trio estimate of the
+    #               species or its closest relative (Lewin & Eyre-Walker 2026)
+    mu_phylo  = mu_1, mu_phylo_lo  = `95ci_lower_1`, mu_phylo_hi  = `95ci_upper_1`,
+    mu_direct = mu_2, mu_direct_lo = `95ci_lower_2`, mu_direct_hi = `95ci_upper_2`,
+    log10_Nc_buffalo = suppressWarnings(as.numeric(log10_Nc_legacy))
   )
 stopifnot(setequal(epp$code, crosswalk$code))
 
-# kappa (scratch.tex Theory, Appendix B). For non-monogamous systems the source
-# codes EPP = 1 as a placeholder meaning "paternity not constrained by a social
-# pair"; Model A then gives kappa = 1, but Model B gives kappa = 2, which is an
-# artefact of the placeholder, not a prediction. Flagged, not altered.
+# kappa (Theory section, Appendix B). The EPP rate alpha is a measurement only
+# for socially monogamous systems. For polygynous/polygynandrous systems the
+# source codes EPP = 1 to mean "no social pair constrains paternity"; that is not
+# a measured rate, so epp_alpha is NA here. Their kappa is the alpha = 1 limit of
+# each model, which is where the two mechanisms differ most:
+#   kappa_A = 1  male siring success independent of his own breeding value
+#   kappa_B = 2  male siring success as heritable as female success
+# Primary kappa is Model B for every population (decided 2026-10-10): in harem
+# and dominance systems male success tracks male quality, and the same argument
+# applies to extra-pair sires, so one model is used throughout. Model A is the
+# sensitivity bound. The two differ little at low alpha (great tit 1.91 vs 1.91)
+# and most at high alpha (fairy-wren 1.64 vs 1.06).
 kappa_A <- function(a) 1 + (1 - a)^2
 kappa_B <- function(a) 2 * (1 - a + a^2)
 epp <- epp %>%
   mutate(
-    alpha_is_placeholder = mating_system != "monogamous",
-    kappa_A = kappa_A(epp_alpha),
-    kappa_B = kappa_B(epp_alpha)
-  )
+    pair_bond = if_else(mating_system == "monogamous", "social_monogamy", "no_pair_bond"),
+    epp_alpha = if_else(pair_bond == "social_monogamy", epp_alpha_source, NA_real_),
+    kappa_A = if_else(pair_bond == "social_monogamy", kappa_A(epp_alpha), 1),
+    kappa_B = if_else(pair_bond == "social_monogamy", kappa_B(epp_alpha), 2),
+    kappa = kappa_B
+  ) %>%
+  left_join(read_csv("data/mutation_rate_sources.csv", show_col_types = FALSE),
+            by = "code")
 
 # ------------------------------------------------------------------------------
 # 4. Chromosomes: assembly stats x linkage maps, per population
 # ------------------------------------------------------------------------------
 sex_or_organelle <- c("X", "Y", "Z", "W", "MT", "M", "MITO", "W1", "Z1")
 
+added <- read_csv("data/assembly_stats_added.csv", show_col_types = FALSE,
+                  col_types = cols(NCBI_Chromosome = col_character()))
 assembly <- read_csv("data/raw/clean_chromosome_data.csv", show_col_types = FALSE,
                      col_types = cols(NCBI_Chromosome = col_character())) %>%
+  filter(Species != "sciurus_vulgaris") %>%            # wrong species for KS
+  mutate(accession = NA_character_) %>%
+  bind_rows(added %>% filter(Assembly_Level == "Chromosome")) %>%
   filter(!toupper(NCBI_Chromosome) %in% c("MT", "M", "MITO"))
+stopifnot(!anyDuplicated(assembly[c("Species", "NCBI_Chromosome")]))
+genome_totals <- added %>% filter(Assembly_Level == "Genome_total")
 
 maps <- read_csv("data/recomb_data.csv", show_col_types = FALSE,
                  col_types = cols(NCBI_Chromosome = col_character(),
                                   Linkage_Group = col_character())) %>%
-  mutate(Code = trimws(Code)) %>%
-  # Maps for bt, hh, spM were never matched to assembly chromosomes
-  # (NCBI_Chromosome = NA). Name matching is NOT a safe fallback: the song
-  # sparrow assembly numbers chromosomes 1-31 sequentially while its map uses
-  # avian names (1A, 4A, LGE22). Those maps stay unjoined until curated.
+  mutate(Code = trimws(Code),
+         map_match = if_else(is.na(NCBI_Chromosome), NA_character_, "curated"))
+
+# Song sparrow: its assembly numbers chromosomes by size, its map uses avian
+# homology names, so the join goes through gene-symbol orthology to great tit
+# (lg_orthology.R). Name matching would mis-assign.
+orth <- read_csv("data/lg_orthology.csv", show_col_types = FALSE,
+                 col_types = cols(NCBI_Chromosome = col_character(),
+                                  Linkage_Group = col_character()))
+maps <- maps %>%
+  left_join(orth %>% select(Code = map_code, Linkage_Group, orth_chr = NCBI_Chromosome,
+                            orth_share = share),
+            by = c("Code", "Linkage_Group")) %>%
+  mutate(map_match = if_else(is.na(NCBI_Chromosome) & !is.na(orth_chr),
+                             sprintf("gene orthology to great tit (share %.2f)", orth_share),
+                             map_match),
+         NCBI_Chromosome = coalesce(NCBI_Chromosome, orth_chr)) %>%
   filter(!is.na(NCBI_Chromosome)) %>%
-  # Collared flycatcher: linkage groups Fal35 and Fal36 both map to assembly
-  # LG35 (NC_021702.1, 0.25 Mb), so the legacy master table counts that
-  # chromosome twice. Keep the first (Fal35) and record the collision.
-  group_by(Code, NCBI_Chromosome) %>%
-  mutate(map_note = if_else(n() > 1,
-           paste0("multiple linkage groups map here: ",
-                  paste(Linkage_Group, collapse = ";"), "; first kept"),
-           NA_character_)) %>%
-  slice(1) %>%
-  ungroup()
+  select(-orth_chr, -orth_share)
+# One linkage group per assembly chromosome. (Flycatcher Fal36 was mapped to
+# LG35 alongside Fal35; corrected in recomb_data.csv on 2026-10-10.)
+stopifnot(!anyDuplicated(maps[c("Code", "NCBI_Chromosome")]))
 
 chromosomes <- crosswalk %>%
   filter(!is.na(genome_sp)) %>%
   select(code, genome_sp, map_code) %>%
   inner_join(assembly, by = c("genome_sp" = "Species"), relationship = "many-to-many") %>%
   left_join(maps %>% select(map_code = Code, NCBI_Chromosome, Linkage_Group,
-                            Total_cM, map_note),
+                            Total_cM, map_match),
             by = c("map_code", "NCBI_Chromosome")) %>%
   mutate(
     is_autosome = !toupper(NCBI_Chromosome) %in% sex_or_organelle,
@@ -185,7 +225,7 @@ chromosomes <- crosswalk %>%
   ) %>%
   select(code, genome_sp, NCBI_Chromosome, SeqID, Assembly_Level,
          Physical_Length_bp, L_coding_bp, Gene_Count,
-         is_autosome, is_macro, has_map, map_note, Linkage_Group,
+         is_autosome, is_macro, has_map, map_match, Linkage_Group,
          Total_cM, M_morgans) %>%
   arrange(code, suppressWarnings(as.numeric(NCBI_Chromosome)), NCBI_Chromosome)
 
@@ -196,7 +236,7 @@ write_csv(chromosomes, file.path(out_dir, "chromosomes.csv"))
 master <- read_csv("data/master_chromosome_recomb_data.csv", show_col_types = FALSE,
                    col_types = cols(NCBI_Chromosome = col_character()))
 chk <- master %>%
-  distinct(Code, NCBI_Chromosome, .keep_all = TRUE) %>%   # drop the LG35 duplicate
+  distinct(Code, NCBI_Chromosome, .keep_all = TRUE) %>%   # master counts LG35 twice
   select(code = Code, NCBI_Chromosome, m_len = Physical_Length_bp,
          m_cds = L_coding_bp, m_M = M_morgans) %>%
   left_join(chromosomes, by = c("code", "NCBI_Chromosome"))
@@ -208,14 +248,40 @@ if (any(is.na(chk$M_morgans)) ||
 }
 
 # ------------------------------------------------------------------------------
-# 5. Functional target size and U_d per population
+# 5. Functional target size and U_d per population — AUTOSOMES ONLY
 # ------------------------------------------------------------------------------
-# Primary: collapsed CDS bp summed over assembled autosomes (chromosome-level
-# assemblies). Fallback for assemblies with no per-chromosome table: the
-# genome-wide total in genomic_parameters_summary.csv (includes sex chromosomes
-# and unplaced scaffolds, so slightly larger; flagged in L_coding_source).
+# Sex chromosomes are excluded from the model, so U_d counts autosomal coding
+# sequence only: collapsed CDS bp summed over assembled autosomes.
+# Two species have no chromosome-level annotated assembly (hyena, hihi). Their
+# genome-wide CDS total is scaled by the autosomal share of CDS in the closest
+# chromosome-level relative in the data:
+#   crocuta_crocuta    <- suricata_suricatta (both Feliformia)
+#   notiomystis_cincta <- mean of the chromosome-level passerines
 genome_summary <- read_csv("data/genomic_parameters_summary.csv",
                            show_col_types = FALSE)
+
+auto_share <- assembly %>%
+  group_by(Species) %>%
+  summarise(share = sum(L_coding_bp[!toupper(NCBI_Chromosome) %in% sex_or_organelle]) /
+                    sum(L_coding_bp), .groups = "drop")
+passerines <- c("ficedula_albicollis", "parus_major", "melospiza_melodia", "cyanistes_caeruleus")
+share_proxy <- tribble(
+  ~genome_sp,           ~auto_share_proxy,                                        ~auto_share_from,
+  "crocuta_crocuta",    auto_share$share[auto_share$Species == "suricata_suricatta"], "suricata_suricatta",
+  "notiomystis_cincta", mean(auto_share$share[auto_share$Species %in% passerines]),  paste(passerines, collapse = "+")
+)
+
+genome_totals_all <- bind_rows(
+  genome_summary %>% transmute(genome_sp = Species, L_coding_genomewide_bp = L_coding_bp,
+                               genome_accession = Source_GCF),
+  genome_totals %>% transmute(genome_sp = Species, L_coding_genomewide_bp = L_coding_bp,
+                              genome_accession = accession)
+) %>%
+  # assemblies added 2026-10-10 supersede the summary's older accession
+  left_join(added %>% distinct(genome_sp = Species, added_acc = accession), by = "genome_sp") %>%
+  mutate(genome_accession = coalesce(added_acc, genome_accession)) %>%
+  select(-added_acc) %>%
+  distinct(genome_sp, .keep_all = TRUE)
 
 L_auto <- chromosomes %>%
   filter(is_autosome) %>%
@@ -231,40 +297,39 @@ populations <- crosswalk %>%
   left_join(epp, by = "code") %>%
   left_join(va_summary, by = "code") %>%
   left_join(L_auto, by = "code") %>%
-  left_join(genome_summary %>%
-              select(genome_sp = Species, L_coding_genomewide_bp = L_coding_bp,
-                     genome_accession = Source_GCF, scaffold_N50 = Scaffold_N50),
-            by = "genome_sp") %>%
+  left_join(genome_totals_all, by = "genome_sp") %>%
+  left_join(share_proxy, by = "genome_sp") %>%
   mutate(
-    L_coding_bp = coalesce(L_coding_autosomal_bp, L_coding_genomewide_bp),
+    L_coding_bp = coalesce(L_coding_autosomal_bp, L_coding_genomewide_bp * auto_share_proxy),
     L_coding_source = case_when(
-      !is.na(L_coding_autosomal_bp)  ~ "autosomal_chromosomes",
-      !is.na(L_coding_genomewide_bp) ~ "genome_wide_summary",
+      !is.na(L_coding_autosomal_bp) ~ "autosomal_chromosomes",
+      !is.na(auto_share_proxy) ~ sprintf("genome_total x autosomal share %.3f (%s)",
+                                         auto_share_proxy, auto_share_from),
       TRUE ~ NA_character_),
     # Methods: U_d = 4 mu L_coding (2 mu per bp diploid x 2 for a regulatory
-    # target equal to the exome). Carried for mu_1 with its 95% CI.
-    U_d    = 4 * mu_1    * L_coding_bp,
-    U_d_lo = 4 * mu_1_lo * L_coding_bp,
-    U_d_hi = 4 * mu_1_hi * L_coding_bp,
-    species_flag = if_else(code == "KS",
-      "species_EPP.csv lists Sciurus vulgaris; Kluane population is Tamiasciurus hudsonicus",
-      NA_character_),
+    # target equal to the exome), under each mutation-rate estimate.
+    U_d_phylo     = 4 * mu_phylo     * L_coding_bp,
+    U_d_phylo_lo  = 4 * mu_phylo_lo  * L_coding_bp,
+    U_d_phylo_hi  = 4 * mu_phylo_hi  * L_coding_bp,
+    U_d_direct    = 4 * mu_direct    * L_coding_bp,
+    U_d_direct_lo = 4 * mu_direct_lo * L_coding_bp,
+    U_d_direct_hi = 4 * mu_direct_hi * L_coding_bp,
     # Analysis sets
     in_set_va     = TRUE,
-    in_set_msd    = !is.na(U_d),
+    in_set_msd    = !is.na(L_coding_bp),
     in_set_linked = !is.na(n_mapped_macro_autosomes) & n_mapped_macro_autosomes > 0,
     in_set_linked_legacy = code %in% unique(master$Code)
   ) %>%
   select(code, bonnet_code, common_name, bonnet_label, location, scientific_name,
-         species_flag, mating_system, epp_alpha, alpha_is_placeholder,
-         kappa_A, kappa_B,
-         mu_1, mu_1_lo, mu_1_hi, mu_2, mu_2_lo, mu_2_hi,
+         mating_system, pair_bond, epp_alpha, epp_alpha_source, kappa, kappa_A, kappa_B,
+         mu_phylo, mu_phylo_lo, mu_phylo_hi,
+         mu_direct, mu_direct_lo, mu_direct_hi, mu_direct_species, mu_direct_relation,
          va_mode, va_median, va_mean, va_hpd95_lo, va_hpd95_hi, va_n_draws,
-         genome_sp, genome_accession, scaffold_N50, L_coding_bp, L_coding_source,
+         genome_sp, genome_accession, L_coding_bp, L_coding_source,
          L_coding_autosomal_bp, L_coding_mapped_autosomal_bp, L_coding_genomewide_bp,
          n_autosomes, n_mapped_autosomes, n_mapped_macro_autosomes,
-         U_d, U_d_lo, U_d_hi, Ud_legacy,
-         map_code, in_set_va, in_set_msd, in_set_linked, in_set_linked_legacy)
+         U_d_phylo, U_d_phylo_lo, U_d_phylo_hi, U_d_direct, U_d_direct_lo, U_d_direct_hi,
+         Ud_legacy, map_code, in_set_va, in_set_msd, in_set_linked, in_set_linked_legacy)
 
 stopifnot(nrow(populations) == 19, !anyDuplicated(populations$code))
 write_csv(populations, file.path(out_dir, "populations.csv"))
@@ -296,14 +361,66 @@ diversity <- crosswalk %>%
                               range_km2 = suppressWarnings(as.numeric(range_area_km2)),
                               range_source = ref_range),
             by = "lewin_sp") %>%
-  left_join(epp %>% select(code, log10_Nc_legacy), by = "code") %>%
+  left_join(epp %>% select(code, scientific_name, log10_Nc_buffalo), by = "code") %>%
   mutate(
-    Nc_density_range = density_per_km2 * range_km2,
-    pi_source = if_else(!is.na(pi_obs), "Lewin & Eyre-Walker 2026 STable1 mean_pi", NA_character_),
+    Nc_density_range_lewin = density_per_km2 * range_km2,
+    pi_source = if_else(!is.na(pi_obs), "Lewin & Eyre-Walker 2026 STable1 mean_pi", NA_character_)
+  )
+
+# Literature pi for populations Lewin & Eyre-Walker lack (data/pi_literature.csv,
+# compiled 2026-10-10). Kept apart from pi_obs: none is from the study population,
+# and the bighorn and song sparrow values are MAF-filtered lower bounds. Single-
+# genome heterozygosity is a different statistic and is carried separately.
+pi_lit <- read_csv("data/pi_literature.csv", show_col_types = FALSE) %>%
+  transmute(code, pi_lit = pi, pi_lit_compartment = compartment,
+            pi_lit_population = sample_population, pi_lit_citation = citation,
+            pi_lit_doi = doi, pi_lit_confidence = confidence,
+            het_individual_lit = heterozygosity_individual)
+diversity <- diversity %>% left_join(pi_lit, by = "code")
+
+# Census N_c (density x range, Buffalo 2021).
+#   log10_Nc          primary: Buffalo's published value, own species only
+#   log10_Nc_congener Buffalo's published value for a congener (SFW: Malurus
+#                     melanocephalus; AB: Papio anubis), not used as primary
+#   log10_Nc_provisional  our reimplementation of his method (census_buffalo.R)
+#                     for species he lacks. NOT validated: it reproduces his
+#                     mammal densities but not his bird densities (he predicts
+#                     mass from body length), and GBIF-wide ranges exceed his for
+#                     3 of 4 check species. See data/README.md.
+buffalo_species <- c(BTR = "Cyanistes caeruleus", BTP = "Cyanistes caeruleus",
+                     BTM = "Cyanistes caeruleus", CF = "Ficedula albicollis",
+                     CSM = "Macaca mulatta", SFW = "Malurus melanocephalus",
+                     SSP = "Melospiza melodia", SSH = "Ovis aries", BHS = "Ovis canadensis",
+                     AB = "Papio anubis", GTU = "Parus major", GTN = "Parus major")
+census_method <- read_csv("data/census/census_buffalo_method.csv", show_col_types = FALSE) %>%
+  filter(role == "new") %>%
+  select(scientific_name = species, log10_Nc_provisional = log10_Nc,
+         provisional_mass_g = mass_g, provisional_n_cells = n_cells)
+diversity <- diversity %>%
+  mutate(buffalo_species = unname(buffalo_species[code])) %>%
+  left_join(census_method, by = "scientific_name") %>%
+  mutate(
+    # compare binomials ("Parus major (UK)" -> "Parus major")
+    buffalo_exact = !is.na(buffalo_species) &
+      buffalo_species == sub("^(\\S+ \\S+).*", "\\1", scientific_name),
+    log10_Nc = if_else(buffalo_exact, log10_Nc_buffalo, NA_real_),
+    log10_Nc_congener = if_else(!buffalo_exact & !is.na(buffalo_species), log10_Nc_buffalo, NA_real_),
+    Nc_source = case_when(buffalo_exact ~ "Buffalo 2021 (published, own species)",
+                          TRUE ~ NA_character_),
+    # Caveats on the published values (stated in the manuscript where N_c is used).
+    # Buffalo predicts bird body mass from body length (blue tit ~150 g vs 11 g
+    # measured), which lowers predicted density by ~1.2 orders, so his bird N_c is
+    # likely understated. His Ovis aries value is domestic sheep worldwide, not
+    # the St Kilda Soay population.
+    Nc_caveat = case_when(
+      code == "SSH" ~ "domestic Ovis aries range, not the Soay population",
+      buffalo_exact & code %in% c("BTR", "BTP", "BTM", "CF", "SFW", "SSP", "HT", "HK", "GTU", "GTN") ~ "bird density from length-predicted mass: likely understated",
+      TRUE ~ NA_character_),
     # Breeding-adult N (the N in delta) is not available from any source yet.
     N_breeders = NA_real_,
     N_breeders_instrument = NA_character_
-  )
+  ) %>%
+  select(-log10_Nc_buffalo)
 write_csv(diversity, file.path(out_dir, "diversity_census.csv"))
 
 # ------------------------------------------------------------------------------
@@ -339,5 +456,5 @@ message("Analysis sets: V_A ", sum(populations$in_set_va),
         " | linked (mapped macro-autosomes) ", sum(populations$in_set_linked),
         " [legacy linked set ", sum(populations$in_set_linked_legacy), "]")
 message("Observed pi: ", sum(!is.na(diversity$pi_obs)), " of 19 (",
-        sum(diversity$lewin_match == "exact"), " exact-species matches); ",
-        "breeding-adult N: 0 of 19")
+        sum(diversity$lewin_match == "exact"), " exact-species matches); census N_c: ",
+        sum(!is.na(diversity$log10_Nc)), " of 19; breeding-adult N: 0 of 19")

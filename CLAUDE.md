@@ -128,6 +128,7 @@ rather than a 2×2 link-scale $\mathbf{G}$: those posteriors are post-back-trans
 | cryptic immigration into the study area | ↑ | ↑ | narrows |
 | census timescale mismatch (contemporary $N$ for a long-run $\pi$) | — | ∓ | either way; state the instrument |
 | using total census $N_c$ rather than breeding adults (factor 2–10) | — | ↓ | widens |
+| Buffalo's bird $N_c$: density from length-predicted mass (blue tit ~150 g vs 11 g), ~1.2 orders low | — | ↑ | narrows |
 | background selection at the "neutral" sites used for $\pi$ | ↓ | ↓ | widens |
 | $\mu$ misestimated | — | ∓ | either way; does not close the gap |
 
@@ -212,6 +213,22 @@ The observed side, and nothing else. Five numbers per population; three are in h
 2. **$N$, breeding adults — missing**, and subject to scope condition 4. Buffalo 2021 has census sizes
    for some species; for the rest, recover his density/body-size allometry.
 3. $\mu$ ✅ · 4. $V_A$ ✅ · 5. $\kappa$ ✅
+
+**Data decisions of 2026-10-10** (full record in `data/README.md`; the data layer is
+`scripts/R/00_prepare_data.R` → `data/processed/`, read through `scripts/R/load_data.R`):
+
+- **κ: Model B is primary for every population**, Model A the sensitivity bound. Non-monogamous
+  systems have no measured α and sit at the α = 1 limit, κ = 2: in harem and dominance systems male
+  success tracks male quality.
+- **μ: both estimates carried, not averaged** — `mu_phylo` (Wang & Obbard 2023 PGLMM) and
+  `mu_direct` (Lewin & Eyre-Walker 2026, own species or closest relative). The PGLMM is fitted to
+  the direct estimates, so they are not independent, and averaged CI bounds are not a CI.
+- **$U_d$ is autosomal only.**
+- **$N_c$ is Buffalo 2021's published value, own species only (10 of 19).** The reimplementation of
+  his method for the rest is not pursued, and **no breeder-fraction or historical $N$ for the
+  preprint.** State in the manuscript, where $N_c$ is used, that his bird densities come from
+  length-predicted mass and are likely ~1.2 orders low, and that his *Ovis aries* value is domestic
+  sheep, not Soay. This supersedes scope condition 4's preference for the preprint.
 
 **Confirmed 2026-08-19 and still true: there is no diversity data anywhere in the repo.**
 `science.abk0853_data_s1/` is the Bonnet et al. 2022 pedigree archive (19 populations, raw `LBS` plus
