@@ -71,21 +71,21 @@ In Appendix~B, we partition total gametic variance into within-pair and extra-pa
 \begin{equation}
     \frac{N_e}{N} = \frac{1}{1 + 4\kappa(\alpha)V_A}, \label{unlinked_mating}
 \end{equation}
-where $V_A$ is the sex-specific additive genetic variance in relative fitness ($I_A$). The functional form of $\kappa(\alpha)$ depends on the genetic architecture of extra-pair mating:
+where $V_A$ is the additive genetic variance in relative fitness, common to both sexes, as estimated by Bonnet et al. (2022). Without a pair bond (polygynous and polygynandrous systems) each parent's family size depends on its own breeding value alone, and separating the sexes leaves Appendix A unchanged: $\kappa = 1$. In socially monogamous systems both partners' breeding values set the productivity of a shared nest, and the functional form of $\kappa(\alpha)$ depends on how extra-pair siring relates to male breeding value:
 \begin{enumerate}
-    \item \textbf{Model A (Non-selective EPP):} If extra-pair siring operates as a demographic lottery independent of male genetic quality, male selective variance arises solely from defended within-pair young:
+    \item \textbf{Model A (Non-selective EPP):} extra-pair siring is a lottery independent of male breeding value:
     \begin{equation}
-    \kappa(\alpha) = 1 + (1-\alpha)^2.
+    \kappa_A(\alpha) = \frac{(4-\alpha)^2\left[1+(1-\alpha)^2\right] + (4-3\alpha+\alpha^2)^2 + (4-3\alpha)^2}{32},
     \end{equation}
-    Here, $\kappa(\alpha)$ declines monotonically from $\kappa(0) = 2$ under strict monogamy to $\kappa(1) = 1$ when all offspring are sired through extra-pair copulations, recovering the single-sex selection baseline.
-    \item \textbf{Model B (Selective EPP):} If females selectively allocate extra-pair fertilizations to males of high heritable fitness, a male's reproductive success reflects both his defended within-pair young and his earned extra-pair success:
+    falling from $\kappa_A(0) = 2$ to $\kappa_A(1) = 7/16$.
+    \item \textbf{Model B (Selective EPP):} extra-pair gains are proportional to male breeding value and replace the within-pair loss, so a male's breeding value enters his own success with the same weight as a female's:
     \begin{equation}
-    \kappa(\alpha) = 2(1 - \alpha + \alpha^2).
+    \kappa_B(\alpha) = 2 - \tfrac{3}{2}\alpha + \tfrac{5}{8}\alpha^2,
     \end{equation}
-    This scalar satisfies $\kappa(0) = 2$ under strict monogamy and returns to $\kappa(1) = 2$ under complete extra-pair siring (where selection operates fully and independently on both sexes). It attains a global minimum of $\kappa(0.5) = 1.5$ at intermediate paternity, where a male's reproductive success is partitioned equally across two uncorrelated genetic components (social mate quality and own quality), maximizing variance dilution.
+    falling monotonically from $\kappa_B(0) = 2$ to $\kappa_B(1) = 9/8$.
 \end{enumerate}
 
-Across both models, strict monogamy yields $\kappa(0) = 2$, doubling the coefficient on $V_A$ relative to the panmictic baseline ($1 + 8V_A$). Consequently, a socially monogamous population incurs any given depression in neutral diversity at half the fitness variance required in a randomly mating population. Because the long-term avian pedigrees that dominate empirical vertebrate estimates are socially monogamous systems with low-to-moderate extra-pair rates ($\alpha \lesssim 0.2$), their demographic architecture places them near the upper bound ($\kappa \approx 1.6\text{--}2.0$), maximizing the selective reduction of neutral diversity.
+Under strict monogamy both models give $\kappa = 2$, which is the pair-mated base model of Santiago and Caballero (1995): each nest pools two independent breeding values, so the variance of family fitness is $2V_A$. A socially monogamous population therefore incurs a given depression in neutral diversity at half the fitness variance required without a pair bond. The eleven socially monogamous populations in our data have extra-pair rates of 5--46\%, which places them at $\kappa_B = 1.44\text{--}1.93$.
 
 \subsection{Linked interference along the genetic map}\label{sec:linkage}
 For a neutral site physically linked to loci affecting fitness, statistical associations do not halve unconditionally each generation. Recombination only partially breaks gametic linkage disequilibrium, causing ancestral selective advantages to persist across multiple generations and amplifying selective interference far beyond the unlinked baseline. 
@@ -368,6 +368,12 @@ Integrating this effect over time yields the total cumulative change in the neut
     \Delta p_{\text{total}}^{\text{sel}} = \sum_{t=0}^{\infty} \left(\frac{1}{2}\right)^t \Delta p^{\text{sel}} = 2 \Delta p^{\text{sel}}
 \end{equation}
 
+This series is a special case. Santiago and Caballero (1995; reviewed in Wang et al. 2016) give the general cumulative factor
+\begin{equation}
+    Q = \sum_{i=0}^{\infty} \left[\frac{G(1+r_{mf})}{2}\right]^i = \frac{2}{2 - G(1+r_{mf})},
+\end{equation}
+where $G$ is the fraction of additive variance remaining among selected parents and $r_{mf}$ is the correlation between the expected selective values of male and female parents. (We write $r_{mf}$ to keep it apart from the recombination fraction $r$.) The series above sets $G = 1$ and $r_{mf} = 0$, and both are assumptions. $G = 1$ requires that one generation of selection removes a negligible share of the additive variance it acts on, which holds when $V_A \ll 1$. $r_{mf} = 0$ requires that mates pair at random with respect to their breeding values for fitness; under random mating Santiago and Caballero give $r_{mf} = -1/(N-1)$. Each departure moves $Q$ in a known direction. Selection strong enough to deplete variance within a generation ($G < 1$) lowers $Q$ below 2 and weakens the reduction in $N_e$. Assortative mating for fitness ($r_{mf} > 0$) raises it.
+
 Assuming $V_A$ remains stationary under mutation-selection-drift equilibrium, a new influx of selective variance of magnitude $V_A p(1-p)/(2N)$ is generated each generation. The long-run footprint of each generation's selective variation resolves to $2\Delta p^{\text{sel}}$.
 
 The total selective variance in allele frequency change is the variance of this cumulative sum. Because the selective association persists across multiple generations, the variance of the cumulative effect scales with the square of the cumulative sum:
@@ -392,76 +398,55 @@ Dividing by the common neutral variance term $p(1-p)$ and multiplying by 2 yield
 \end{equation}
 This baseline establishes the minimum selective interference generated by heritable fitness variance, irrespective of spatial chromosomal architecture. The extension to separate sexes and structured mating systems is derived in Appendix B, where the additive variance $V_A$ is scaled by the mating system parameter $\kappa(\alpha)$, yielding $N_e/N = 1/(1+4\kappa V_A)$.
 
-\section{Appendix B: Variance Partitioning and the Mating System Scalar ($\kappa$)}
+\section{Appendix B: Separate Sexes and the Mating System Scalar ($\kappa$)}
 
-To quantify how mating system structure modifies the Robertson effect, we must partition the heritable variance in reproductive success between male and female gametic contributions. Because alleles pass alternately through male and female life histories, sex-specific differences in the mapping of additive genetic quality to realized offspring number dictate the total selective interference exerted on the neutral genome.
+Appendix A treats every individual as both a carrier of fitness genes and a parent whose own breeding value sets its family size. With separate sexes and pair bonds this fails in two ways: a parent's family size can depend on its mate's breeding value, and the two sexes must be combined into a single effective size. Neither requires new theory. We use the expected long-term genetic contributions of Woolliams, Bijma and Villanueva (1999), which regress an ancestor's lasting gene flow on its selective advantages separately by sex, and the two-sex combination of Santiago and Caballero (1995). What follows applies that machinery to the mating systems in our data.
 
-We evaluate a diploid, outcrossing population with a constant census size $N$, an equal sex ratio, and discrete generations. To maintain stationary demography, the mean family size for both males and females is $\bar{k}_m = \bar{k}_f = 2$.
+\paragraph{Setup and the meaning of $V_A$.} The population is diploid with discrete generations, constant size $N$ and an equal sex ratio. Each individual carries an additive effect $a$ on relative lifetime breeding success, and $\mathrm{Var}(a) = V_A$ in both sexes. This is the quantity Bonnet et al. (2022) estimate: one animal model per population, both sexes in the data, sex fitted as a fixed effect, and a single additive variance on the observed scale. Social partners pair at random with respect to $a$.
 
-Let female reproductive success be defined as $k_f = 2 + x_f + \epsilon_f$. Here, $x_f$ represents the heritable breeding value for fitness with variance $\text{Var}(x_f) = V_A$, and $\epsilon_f$ captures stochastic environmental noise yielding a neutral Poisson demographic baseline. Consequently, the female gametic contribution to selective interference is governed entirely by $V_A$. We assume that total pair fecundity is biologically limited by female quality (e.g., through maternal provisioning or egg production). The male benefits from his social mate's quality via within-pair paternity, but does not contribute an independent additive genetic effect to the total clutch size. This assumption holds broadly for socially monogamous passerines and is relaxed below in Model B to allow male genetic quality to drive extra-pair siring success.
-
-Male reproductive success, $k_m$, comprises within-pair (WP) offspring sired with his social mate and extra-pair (EP) offspring sired with other females in the population. Let $\alpha$ represent the population-wide rate of extra-pair paternity. The male's within-pair success is directly coupled to his social mate's breeding value, $x_{f,\,\text{pair}}$, proportionally scaled by the fraction of the clutch he successfully defends, $1-\alpha$.
-
-\subsubsection{Model A: Random Extra-Pair Paternity}
-In Model A, extra-pair siring success operates as a demographic lottery, entirely decoupled from the male's own additive genetic quality. This condition applies when extra-pair copulations are driven by random spatial encounters rather than female choice for "good genes."
-
-Under this dynamic, the selective component of a male's reproductive success relies exclusively on the fraction of his social mate's reproductive output that he secures:
+\paragraph{The cumulative advantage of a gene copy.} Follow a neutral gene copy carried by an individual $X$ of sex $q$. Its expected number of transmitted copies is $1 + u_X$, where $u_X$ is the relative selective advantage of $X$. Its carriers in the next generation have expected breeding value $h_1$, and from then on that expectation halves each generation through Mendelian segregation with random mates (Appendix A). The cumulative expected advantage of the copy is
 \begin{equation}
-    x_{m,\,\text{selective}} = (1-\alpha)x_{f,\,\text{pair}}
+    L_X = u_X + \sum_{t \ge 1} \bar{m}\, h_t = u_X + 2\bar{m}\, h_1,
+\end{equation}
+where $\bar{m}$ is the sex-averaged coefficient with which a carrier's own breeding value enters its selective advantage. $L_X$ is, up to scale, the regression of the expected long-term contribution of $X$ on its selective advantages (Woolliams et al. 1999, Equation 6b). Under the assumption $G = 1$ of Appendix A, the variance contributed by selection to the drift of the copy's frequency is $\mathrm{Var}(L_X)\,p(1-p)/(2N)$. Santiago and Caballero (1995) combine the sexes through $1/N_e = 1/(4N_{e,m}) + 1/(4N_{e,f})$ (after Crow and Denniston 1988). With equal sex ratio this is a mean over the two sexes, not a sum:
+\begin{equation}
+    \frac{N}{N_e} = 1 + \tfrac{1}{2}\left[\mathrm{Var}(L_f) + \mathrm{Var}(L_m)\right] \equiv 1 + 4\kappa V_A. \label{eq:kappa_def}
 \end{equation}
 
-Because scaling a random variable by a constant scales its variance by the square of that constant, the selective variance in the male gametic contribution is:
+\paragraph{No pair bond: $\kappa = 1$.} In polygynous and polygynandrous systems each parent's family size depends on its own breeding value alone, $u = a$ in both sexes. A carrier's offspring have expected breeding value $h_1 = a/2$, since mates are random, and $\bar{m} = 1$. So $L = a + 2 \cdot a/2 = 2a$ in both sexes, $\mathrm{Var}(L) = 4V_A$, and $\kappa = 1$. This is Appendix A unchanged: with both sexes expressing the same $V_A$, separating them changes nothing. It is also the $\beta_q = 2\alpha_q$ solution of Woolliams et al. (1999) for two categories with equal selection.
+
+\paragraph{Social monogamy with extra-pair paternity.} In a socially monogamous system the unit of productivity is the nest, and both social partners contribute to it: a female's relative offspring number is $u_f = a_f + a_s$, where $a_s$ is her social mate's breeding value. Extra-pair paternity at rate $\alpha$ moves paternity but not productivity. A male sires a fraction $1-\alpha$ of his own nest's offspring and gains extra-pair offspring elsewhere,
 \begin{equation}
-    \text{Var}(x_{m,\,\text{selective}}) = (1-\alpha)^2 \text{Var}(x_f) = (1-\alpha)^2 V_A
+    u_m = (1-\alpha)(a_m + a_{f'}) + \alpha\gamma\, a_m,
 \end{equation}
+where $a_{f'}$ is his social mate's breeding value and $\gamma$ is the dependence of extra-pair success on his own breeding value. Model A sets $\gamma = 0$ (extra-pair siring is a lottery). Model B sets $\gamma = 1$, so that extra-pair gains replace exactly the within-pair loss. Model B is the only version in which a male's breeding value enters his own breeding success with the same weight as a female's at every $\alpha$, as Bonnet et al.'s single-variance model assumes.
 
-The total effective selective variance driving allele frequency change in the population is the sum of the independent female and male components. Factoring out $V_A$ defines the mating system multiplier $\kappa$:
+A carrier's own breeding value then enters its advantage with weight 1 in females and $m = 1 - \alpha + \alpha\gamma$ in males, so $\bar{m} = (1+m)/2$. Offspring of a female carrier are sired by her social mate with probability $1-\alpha$, and offspring of a male carrier come from his social mate with weight $1-\alpha$. To first order, therefore,
 \begin{equation}
-    V_{\text{total, selective}} = V_A + (1-\alpha)^2 V_A = \left[ 1 + (1-\alpha)^2 \right] V_A
+    h_1^{(f)} = \tfrac{1}{2}\left[a_f + (1-\alpha)a_s\right], \qquad h_1^{(m)} = \tfrac{1}{2}\left[a_m + (1-\alpha)a_{f'}\right].
 \end{equation}
-
-Thus, under random extra-pair mating:
+Substituting,
+\begin{align}
+    L_f &= (1+\bar{m})\,a_f + \left[1 + \bar{m}(1-\alpha)\right] a_s, \\
+    L_m &= (m+\bar{m})\,a_m + (1+\bar{m})(1-\alpha)\,a_{f'},
+\end{align}
+and, since partners' breeding values are independent, Equation~\eqref{eq:kappa_def} gives
 \begin{equation}
-    \kappa(\alpha) = 1 + (1-\alpha)^2
+    \kappa(\alpha) = \frac{(1+\bar{m})^2\left[1+(1-\alpha)^2\right] + \left[1+\bar{m}(1-\alpha)\right]^2 + (m+\bar{m})^2}{8}.
 \end{equation}
+For the two models:
+\begin{align}
+    \text{Model A } (\gamma = 0):&\quad \kappa_A(\alpha) = \frac{(4-\alpha)^2\left[1+(1-\alpha)^2\right] + (4-3\alpha+\alpha^2)^2 + (4-3\alpha)^2}{32}, \\
+    \text{Model B } (\gamma = 1):&\quad \kappa_B(\alpha) = 2 - \tfrac{3}{2}\alpha + \tfrac{5}{8}\alpha^2.
+\end{align}
 
-\subsubsection{Model B: Selective Extra-Pair Paternity}
-In Model B, females selectively allocate extra-pair copulations to males with high heritable fitness. We formalize this by defining a male's extra-pair siring success as directly proportional to his own breeding value, $x_m$, bounded by the population-wide availability of EP offspring, $\alpha$.
+\paragraph{Limits and what is not new.} Under strict monogamy ($\alpha = 0$) both models give $\kappa = 2$. This is the base model of Santiago and Caballero (1995) itself: $N/2$ pair-mated families sharing a family fitness whose variance is $C^2 = \mathrm{Var}(a_f + a_s) = 2V_A$, so that $N/N_e = 1 + Q^2 C^2 = 1 + 8V_A$. The factor of 2 arises because each nest pools two independent breeding values. It is not a second application of the same variance. As $\alpha$ rises, $\kappa_B$ falls monotonically to $9/8$ at $\alpha = 1$; it stays above 1 because the social male still contributes to nest productivity. $\kappa_A$ falls to $7/16$, because males then gain nothing from their own breeding value.
 
-The selective component of a male's reproductive success is therefore the sum of his defended within-pair success and his earned extra-pair success:
+$\kappa$ is distinct from the mate correlation $r_{mf}$ in Santiago and Caballero's $Q$ (Appendix A). $r_{mf}$ is the correlation between the breeding values that mates bring to a new family, and it is zero under random pairing. $\kappa$ arises from the sharing of a nest between independent partners, which in their framework enters through the family-level $C^2$. Assortative pairing for fitness would add $r_{mf} > 0$ on top of $\kappa$ and is assumed absent.
+
+\paragraph{Assumptions.} The derivation is first order in $a$ (weak selection per lineage, $V_A \ll 1$), sets $G = 1$, assumes random pairing with respect to $a$ and an equal sex ratio, and lets the social male's breeding value contribute to all of his nest's productivity whether or not he sires the offspring. Combining Equation~\eqref{eq:kappa_def} with Appendix A yields the mating-system-corrected unlinked expectation,
 \begin{equation}
-    x_{m,\,\text{selective}} = (1-\alpha)x_{f,\,\text{pair}} + \alpha x_m
-\end{equation}
-
-To calculate the variance of this sum, we must specify the covariance between the male's breeding value, $x_m$, and his social mate's breeding value, $x_{f,\,\text{pair}}$. Assuming random social pair formation (no assortative mating for fitness), this covariance is strictly zero. The variance therefore expands additively:
-\begin{equation}
-    \text{Var}(x_{m,\,\text{selective}}) = (1-\alpha)^2 \text{Var}(x_f) + \alpha^2 \text{Var}(x_m)
-\end{equation}
-
-Assuming the underlying additive genetic variance for fitness is symmetric across sexes ($\text{Var}(x_f) = \text{Var}(x_m) = V_A$), the male selective variance resolves to:
-
-\begin{equation}
-    \text{Var}(x_{m,\,\text{selective}}) = \left( 1 - 2\alpha + \alpha^2 + \alpha^2 \right) V_A = \left( 1 - 2\alpha + 2\alpha^2 \right) V_A
-\end{equation}
-
-Summing the female and male selective gametic contributions yields the multiplier $\kappa$ for Model B:
-\begin{equation}
-    V_{\text{total, selective}} = V_A + \left( 1 - 2\alpha + 2\alpha^2 \right) V_A = \left( 2 - 2\alpha + 2\alpha^2 \right) V_A
-\end{equation}
-
-Factoring out the constant establishes the final scalar:
-\begin{equation}
-    \kappa(\alpha) = 2(1 - \alpha + \alpha^2)
-\end{equation}
-
-Evaluating the limits of Model B confirms its biological boundaries. Under strict social monogamy ($\alpha = 0$), $\kappa = 2$, reflecting that the female's quality perfectly dictates both her own and her mate's success. At the opposite boundary of complete extra-pair siring ($\alpha = 1$, functionally equivalent to a lekking system where social pairing does not constrain paternity), the model mathematically recovers $\kappa = 2$. Biologically, full extra-pair paternity shifts the entire male selective variance directly onto male genetic quality, perfectly restoring the total selective variance to the monogamous baseline.
-
-The scalar reaches its minimum at $\alpha = 0.5$ ($\kappa = 1.5$). At this precise intermediate frequency, male reproductive success is partitioned equally between two independent genetic metrics (social mate quality and own quality). This orthogonal splitting maximizes the dilution of variance, minimizing the aggregate selective interference exerted on the coalescent.
-
-The quantity $V_{\text{total, selective}} = \kappa(\alpha) V_A$ encapsulates the effective heritable variance in family size, unified across both sexes, that drives the Robertson geometric decay. Substituting $\kappa(\alpha) V_A$ into the unlinked baseline derivation yields the mating-system-corrected expectation for the reduction in effective population size:
-
-\begin{equation}
-    \frac{N_e}{N} = \frac{1}{1 + 4\kappa(\alpha) V_A}
+    \frac{N_e}{N} = \frac{1}{1 + 4\kappa V_A},
 \end{equation}
 which corresponds to Equation (5) in the main text.
 

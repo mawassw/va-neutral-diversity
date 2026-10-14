@@ -42,7 +42,7 @@ Three properties, and all three must survive any edit to the framing:
    what makes the result robust to the standard criticism of pedigree $V_A$ (that the animal model
    absorbs environmental covariance among relatives).
 3. **The two ends do not meet.** Accounting for a hundredfold diversity deficit needs
-   $V_A \gtrsim 25$; MSD compatibility needs $V_A \lesssim 10^{-2}$. **No value satisfies both.** So the
+   $V_A \gtrsim 12$ at $\kappa = 2$ ($\gtrsim 25$ at $\kappa = 1$); MSD compatibility needs $V_A \lesssim 10^{-2}$. **No value satisfies both.** So the
    gap exists in the model independently of the measurement, and the measurement locates where reality
    sits inside it: one to two orders above the MSD end, and far short of the diversity end.
 
@@ -59,17 +59,18 @@ appears in the Discussion as an interpretive point and never as a premise.
 
 **Diversity side — measured $V_A$ is too weak.** Unlinked, $N_e/N = 1/(1+4\kappa V_A)$ is *linear* in
 $N_e$ and therefore caps the whole effect; there is no compounding over generations once at
-equilibrium. From the 19 posterior modes in `alldistzip` at $\kappa = 1$:
+equilibrium. From the 19 posterior modes in `alldistzip`, at the primary Model B $\kappa$ (κ = 2 for
+non-monogamous systems; decided 2026-10-10, recomputed 2026-10-13 from `data/processed/`):
 
 ```
 Va posterior modes, n = 19:  min 0.0029  Q1 0.0172  median 0.0997  Q3 0.2484  max 0.4963
-  median Va -> Ne/N = 0.717 -> 1.39x reduction
-  max    Va -> Ne/N = 0.335 -> 2.99x reduction
-adding the linked term (genome-wide Omega 0.1-0.85):  ~20x total, at the most extreme
+  reduction 1 + 4 kappa Va:  median 1.69x, max 4.58x (hyena); max at the upper 95% HPD 7.5x
+adding the linked term (Omega 0.1-0.85, computed at kappa = 1, macro only): ~20x -- TO RECOMPUTE
 ```
 
-Observed deficits for these taxa are $10^{2}$–$10^{6}$. **⚠ That range is from the literature, not
-computed here — observed $\pi$ and a census $N$ are still missing (see *What is missing*).**
+Observed deficits $1/\delta$, for the 9 populations with $\pi$ and a Buffalo $N_c$ (6 independent
+species; 4 of the 9 use literature $\pi$ from another population, `data/pi_literature.csv`):
+**230× to 38,000×**, so $V_{A,\max}$ = 29 to 6,000 against measured $V_A \le 0.5$.
 
 **MSD side — measured $V_A$ is too large.** `scratch.tex` Appendix D (lines 616–698) derives this
 correctly and labels the pieces: influx $V_m = U_d s^2$; standing variance
@@ -83,6 +84,16 @@ s*   = 0.019 - 0.313 (median 0.145);  at the upper 95% CI on mu, median 0.092
   against vertebrate DFE mean heterozygous s ~ 1e-3 to 1e-2
 read forward, V_A(MSD) = U_d*s:   s = 1e-3 / 5e-3 / 1e-2
   measured V_A is larger by        136x /   27x /  14x
+```
+
+**Superseded 2026-10-13** by the data layer (18 populations, autosomal $L_{\text{coding}}$, both μ):
+
+```
+U_d (direct mu) 0.34 - 1.26;  (phylo mu) 0.49 - 1.35
+s* = V_A/U_d, direct mu: 0.006 - 0.78, median 0.16  (phylo: median 0.12)
+P(s* > 0.01) > 0.89 in 17 of 18 posteriors (snow vole 0.71); P(s* > 0.001) > 0.96 in all 18
+measured V_A / (U_d s), median:  s = 1e-3 / 5e-3 / 1e-2  ->  160x / 32x / 16x
+2 N_e s* (N_e = pi/4mu, where pi exists) = 9,400 - 390,000: the strong-selection limit holds
 ```
 
 **Both sides are in the same units and need no conversion.** Bonnet et al. 2022 fitted a zero-inflated
@@ -219,7 +230,10 @@ The observed side, and nothing else. Five numbers per population; three are in h
 
 - **κ: Model B is primary for every population**, Model A the sensitivity bound. Non-monogamous
   systems have no measured α and sit at the α = 1 limit, κ = 2: in harem and dominance systems male
-  success tracks male quality.
+  success tracks male quality. **⚠ Superseded on branch `worktree-kappa-appendix-b` (2026-10-14),
+  pending the user's review:** the re-derived Appendix B gives κ = 1 for non-monogamous systems and
+  $\kappa_B = 2 - \tfrac32\alpha + \tfrac58\alpha^2$ for social monogamy. See the Rule 5 log entry
+  of that date.
 - **μ: both estimates carried, not averaged** — `mu_phylo` (Wang & Obbard 2023 PGLMM) and
   `mu_direct` (Lewin & Eyre-Walker 2026, own species or closest relative). The PGLMM is fitted to
   the direct estimates, so they are not independent, and averaged CI bounds are not a CI.
@@ -624,6 +638,33 @@ $V_{A,\max}$ comparison is likewise not insulated** — it is an inequality test
 can flip an individual population across the bound. The MSD side is unaffected by either: it uses
 $U_d$, $\mu$ and the posterior $V_A$, none of which touch `s_het` or the chromosome filter.
 
+**Logged 2026-10-14 — Appendix B's κ re-derived (scratch.tex changed on branch
+`worktree-kappa-appendix-b`; code and data NOT yet changed).**
+
+- **What was wrong.** The old Appendix B *summed* female and male selective variances. Santiago &
+  Caballero 1995 combine the sexes as $1/N_e = 1/4N_{e,m} + 1/4N_{e,f}$, which is a *mean*. For
+  non-monogamous systems that double-counted: κ = 2 should be **κ = 1** (Appendix A unchanged). Its
+  female-limited story ("male has no own additive effect") was also inconsistent with its own κ(0) = 2.
+  That story gives 0.625, and it is incompatible with Bonnet's single-variance, both-sexes estimand.
+- **What replaced it.** It is built on Woolliams, Bijma & Villanueva 1999 (expected long-term
+  contributions by sex, their Eq. 6b; PDF at repo root) and SC 1995 (two-sex combination; pair-mated
+  base model). The social-monogamy model is nest productivity $= a_f + a_s$, shared by both partners.
+  It gives $\kappa_B = 2 - \tfrac32\alpha + \tfrac58\alpha^2$ and a longer closed form for $\kappa_A$.
+  κ(0) = 2 is SC's pair-family $C^2 = 2V_A$, not a double count. Per population, $\kappa_B$ =
+  1.44–1.93 for the 11 monogamous populations (old 1.50–1.91) and 1 for the 8 non-monogamous ones
+  (old 2).
+- **κ vs SC's $r$ (named $r_{mf}$ in Appendix A):** distinct. $r_{mf}$ is the correlation between
+  mates' breeding values, zero under random pairing. κ comes from nest sharing, which SC carry in the
+  family-level $C^2$. No double counting.
+- **Stale until propagated:** the `kappa`/`kappa_A`/`kappa_B` columns from `00_prepare_data.R`,
+  `scripts/R/fig1_gap.R` and `fig2_rescaling.R` outputs, `unlinked.R` / `data_gen.R` `calc_kappa()`,
+  Model conventions' κ formulas, and every κ-dependent number in Project framing (median 1.69×, max
+  4.58×, $V_A \gtrsim 12$ at κ = 2).
+- **Simulation:** to be built in **SLiM** once it is installed (user decision 2026-10-14; not R). First
+  test is monogamy + EPP under Models A and B, then $1/(1+4V_A)$ over $V_A$ = 0.01–1, measuring $G$.
+- **Not yet checked:** Woolliams & Bijma 2000 (*Genetics*, ΔF from contributions). The nest-sharing
+  term is an indirect genetic (partner) effect; check the IGE literature before claiming any novelty.
+
 **Logged 2026-08-26** (found while settling the framing).
 
 - **The analysis set is 8 populations, not 19, for anything needing $U_d$, maps or annotations.** The
@@ -739,9 +780,20 @@ not recreate it.)
 
 ## Git workflow
 
-**Commit directly to `main`** (confirmed 2026-07-29). This is a solo research repo; branch-per-change
-adds friction and risks leaving work unmerged and invisible. Do **not** create a branch unless asked.
-Still applies: **commit and push only when the user asks.**
+**Plan and execute in a worktree; merge only on the user's say-so** (changed 2026-10-14, replacing the
+2026-07-29 commit-to-`main` rule). An agent may create a worktree under `.claude/worktrees/`, do the
+work there and commit it on the worktree branch. Nothing reaches `main` until the user has reviewed it
+and **explicitly** asks for it to be merged into `main` and checked out in the main checkout. Pushing
+`main` still happens only when the user asks.
+
+Two consequences to keep in mind, both from the 2026-08-26 lesson below:
+
+- **One open worktree per thread of work, merged or abandoned promptly.** The failure mode was
+  worktrees accumulating divergent `scratch.tex` edits that never merged. When a worktree is
+  abandoned, tag its tip (`archive/<name>`) before deleting the branch.
+- **Uncommitted changes in the main checkout block the merge.** If the worktree carries a file that is
+  also modified in the main checkout (typically this file), say so in the hand-off. The main copy must
+  be discarded or committed before `git merge` will run.
 
 ### Overleaf sync hazard — near-miss 2026-09-03
 
@@ -781,8 +833,7 @@ unmerged branch makes its commits unreachable; a tag keeps them.** The branches 
 gone. `origin/worktree-f3-structural-blueprint` still exists on the remote and was left alone.
 
 **Lesson worth keeping:** three worktrees accumulated a month of divergent `scratch.tex` work that
-never merged, which is exactly what the commit-to-`main` rule above exists to prevent. Do not create
-worktrees for this repo.
+never merged. The 2026-10-14 rule above permits worktrees again, but only with prompt merge-or-archive.
 
 Also noted: `~$species.xlsx` and `~$unlinked.pptx` (Google Drive / Office lock files) are **tracked**
 in git, not merely un-ignored. They should almost certainly be `git rm --cached`'d and added to
