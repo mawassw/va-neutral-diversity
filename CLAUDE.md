@@ -799,11 +799,15 @@ the primary literature); fixes on branch `worktree-theory-fixes-cd`.**
      - `\phi(t), t, dt` typo fixed.
      - "Conservative" changed to "lower bound" in Appendix C.
      - `[XX]` in Appendix D §D.2 and the Discussion $s^*$ sentence filled from the data layer.
-- **Open — error 5, awaiting the user's decision:** $\overline\Omega \le 1$ is not guaranteed as
-  written. The linked term uses $Z$ and the unlinked denominator uses $Q = 2$; e.g. $s = 0.3$,
-  $M = 10^3$ gives Ω = 1.005. Recommendation: use the same persistence in both
-  (unlinked $Q = 2/(2-Z)$), which makes Ω ≤ 1 exact. Flagged with `% OPEN` in `scratch.tex` and
-  `theory_model.tex`.
+- **Error 5 — RESOLVED 2026-10-15 (user approved).** Ω ≤ 1 failed as written: the linked term used $Z$
+  while the unlinked denominator used $Q = 2$. Over a 675-point grid, Ω > 1 in 136 cases, up to 1.08.
+  **Decision: the composite model uses the same persistence in both terms**, with unlinked $Q_u =
+  2/(2-Z)$ (the M → ∞ limit of $\overline{Q^2}$):
+  $(N_e/N)_i = \exp(-\kappa_\text{cis}\overline{Q^2}v_h)/[1 + Q_u^2(\kappa V_A - \kappa_\text{own}v_h)]$.
+  Ω ≤ 1 is then exact, with a two-line proof in Theory (max 0.99999 on the same grid). The headline
+  unlinked-only result keeps $Q = 2$ ($G = 1$, the upper bound). Code: `Qu2()` in `kappa.R`;
+  `data_gen.R`'s composite denominators and Ω baselines use it, but its line-505 headline baseline
+  keeps 4. At the code's $s_\text{het} = 0.01$ the change is about 0.1%.
 - **Unverified references flagged in the text:** SC 1998 Eq. 8 (taken from B&K S1); Kimura 1969
   equation number; Rettelbach et al. 2025 (not located; maybe 2019); whether Huber et al. 2017 /
   Kim et al. 2017 report homozygous $s$.

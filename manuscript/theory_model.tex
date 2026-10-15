@@ -134,19 +134,19 @@ A focal neutral allele on chromosome $i$ consequently experiences two concurrent
 \end{enumerate}
 Because cross-chromosomal linkage disequilibrium is negligible under random mating and independent assortment, these two selective regimes act across independent coalescent branch segments. Their joint effect combines multiplicatively to determine the chromosome-specific relative effective size:
 \begin{equation}
-\left(\frac{N_e}{N}\right)_i \approx \frac{\exp\left(-\kappa_\text{cis}\,\overline{Q^2}_i\,v_h\right)}{1 + 4\kappa V_A - 4\kappa_\text{own}\,v_h}, \label{total_red}
+\left(\frac{N_e}{N}\right)_i \approx \frac{\exp\left(-\kappa_\text{cis}\,\overline{Q^2}_i\,v_h\right)}{1 + Q_u^2(\kappa V_A - \kappa_\text{own}\,v_h)}, \label{total_red}
 \end{equation}
-which under Model B, and without a pair bond, is $\exp(-\overline{Q^2}_i v_h)/(1 + 4\kappa V_A - 4v_h)$.
+which under Model B, and without a pair bond, is $\exp(-\overline{Q^2}_i v_h)/[1 + Q_u^2(\kappa V_A - v_h)]$. Here $Q_u = 2/(2-Z)$ is the unlinked cumulative factor with the same per-generation persistence $Z$ as the linked term: it is the $M \to \infty$ limit of $\overline{Q^2}_\text{linked}$ (Appendix~C), and it returns Appendix A's $Q = 2$ at $Z = 1$. Using one persistence for both terms is what makes $\Omega_i \le 1$ hold exactly (below).
 
 To isolate the specific reduction imposed by chromosome structure beyond the unlinked baseline, we define the relative linkage penalty, $\Omega_i$, as the ratio of the chromosome-level effective size to the genome-wide unlinked baseline (Equation~\eqref{unlinked_mating}):
 \begin{equation}
-\Omega_i \equiv \frac{(N_e/N)_i}{(N_e/N)_\text{unlinked}} = \exp\left(-\kappa_\text{cis}\,\overline{Q^2}_i\,v_h\right) \cdot \frac{1 + 4\kappa V_A}{1 + 4\kappa V_A - 4\kappa_\text{own}\,v_h}. \label{linked_penalty}
+\Omega_i \equiv \frac{(N_e/N)_i}{(N_e/N)_\text{unlinked}} = \exp\left(-\kappa_\text{cis}\,\overline{Q^2}_i\,v_h\right) \cdot \frac{1 + Q_u^2\kappa V_A}{1 + Q_u^2(\kappa V_A - \kappa_\text{own}\,v_h)}. \label{linked_penalty}
 \end{equation}
 The second factor in Equation~\eqref{linked_penalty} strictly exceeds unity: sequestering variance $v_h$ onto a physical chromosome slightly relieves the global family-size overdispersion imposed by the unlinked background. The parameter $\Omega_i$ thus represents the net balance between this modest global variance relief and the severe local coalescent compression driven by physical linkage (Charlesworth et al. 1993).
 
 Assuming neutral sites are uniformly distributed across the physical genome, the genome-wide expected relative effective size is the physical-length-weighted average across all $n$ autosomes:
 \begin{equation}
-\mathbb{E}\left[\frac{N_e}{N}\right] = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}} \left(\frac{N_e}{N}\right)_i = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}} \cdot \frac{\exp\left(-\kappa_\text{cis}\,\overline{Q^2}_i\,v_h\right)}{1 + 4\kappa V_A - 4\kappa_\text{own}\,v_h},
+\mathbb{E}\left[\frac{N_e}{N}\right] = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}} \left(\frac{N_e}{N}\right)_i = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}} \cdot \frac{\exp\left(-\kappa_\text{cis}\,\overline{Q^2}_i\,v_h\right)}{1 + Q_u^2(\kappa V_A - \kappa_\text{own}\,v_h)},
 \end{equation}
 where $L_i$ is the physical length (in base pairs) of autosome $i$, and $L_\text{total} = \sum L_i$. The genome-wide net linkage effect, $\overline{\Omega}$, is the corresponding length-weighted mean:
 \begin{equation}
@@ -203,11 +203,7 @@ This ceiling depends exclusively on the observed diversity fraction $\delta$ and
 
 Critically, Equation~\eqref{eq:vamax} establishes a conservative, most-permissive ceiling on heritable fitness variance due to two structural properties:
 \begin{enumerate}
-    % OPEN 2026-10-15 (audit error 5, awaiting the user's decision): Omega <= 1 is not guaranteed as
-    % written. The linked term uses persistence Z = 1 - s while the unlinked denominator uses Q = 2
-    % (G = 1); e.g. s = 0.3, M = 1e3, V_A = 0.1, v_h = 0.01 gives Omega = 1.005. With the same
-    % persistence in both terms (unlinked Q = 2/(2 - Z)) Omega <= 1 holds exactly.
-    \item \textbf{Monotonic compression by linkage ($\overline{\Omega} \le 1$):} Because physical linkage can only intensify selective interference along chromosomes (\autoref{variance_partitioning}), accounting for genome architecture strictly lowers the allowable variance:
+    \item \textbf{Monotonic compression by linkage ($\overline{\Omega} \le 1$):} Because physical linkage can only intensify selective interference along chromosomes (\autoref{variance_partitioning}), accounting for genome architecture strictly lowers the allowable variance. The bound is exact when both terms use the same persistence $Z$, as in Equation~\eqref{total_red}. Write $x = \kappa_\text{cis}\overline{Q^2}_iv_h$, $y = \kappa_\text{own}Q_u^2v_h$ and $K = Q_u^2\kappa V_A$. Then $x \ge y$, because $\overline{Q^2}_i \ge Q_u^2$ and $\kappa_\text{cis} = \kappa_\text{own}$ in the primary model. Also $K \ge y$. Since $e^{-x} \le 1/(1+x)$, $\Omega_i \le (1+K)/[(1+y)(1+K-y)] \le 1$. Mixing persistences breaks this: with $Z < 1$ in the linked term but $Q = 2$ in the unlinked one, $\Omega_i$ exceeds 1 on long maps at large $1 - Z$ (up to 1.08 for $1 - Z \le 0.6$).
     \begin{equation}
     V_{A,\text{max}}^{(\text{linked})} = \frac{\overline{\Omega} - \delta}{4\kappa(\alpha)\,\delta} \le \frac{1 - \delta}{4\kappa(\alpha)\,\delta} = V_{A,\text{max}}.
     \end{equation}

@@ -125,10 +125,10 @@ for(sp_code in valid_codes) {
       linked_exp <- exp(-kappa_cis_val * (v_i / 2) * Q2_bar)
       
       # Total Ne/N for this specific chromosome
-      chrom_Ne_N <- linked_exp / (1 + 4 * kappa_val * mode_Va - 4 * kappa_own_val * (v_i / 2))
+      chrom_Ne_N <- linked_exp / (1 + Qu2(Z_val) * (kappa_val * mode_Va - kappa_own_val * (v_i / 2)))
       
       # Global unlinked baseline Ne/N
-      unlinked_Ne_N <- 1 / (1 + 4 * kappa_val * mode_Va)
+      unlinked_Ne_N <- 1 / (1 + Qu2(Z_val) * kappa_val * mode_Va)
       
       # Relative Linkage Penalty (Omega_i)
       Omega_i <- chrom_Ne_N / unlinked_Ne_N
@@ -237,8 +237,8 @@ for(sp_code in valid_codes) {
       Q2_bar <- calc_avg_Q2_vec(M_i, Z_val)
       
       linked_exp <- exp(-kappa_cis_val * (v_i / 2) * Q2_bar)
-      chrom_Ne_N <- linked_exp / (1 + 4 * kappa_val * mode_Va - 4 * kappa_own_val * (v_i / 2))
-      unlinked_Ne_N <- 1 / (1 + 4 * kappa_val * mode_Va)
+      chrom_Ne_N <- linked_exp / (1 + Qu2(Z_val) * (kappa_val * mode_Va - kappa_own_val * (v_i / 2)))
+      unlinked_Ne_N <- 1 / (1 + Qu2(Z_val) * kappa_val * mode_Va)
       
       Omega_i <- chrom_Ne_N / unlinked_Ne_N
       
@@ -359,7 +359,7 @@ calculate_Ne_N_shift <- function(sp_code) {
       Q2_bar <- calc_avg_Q2_vec(M_i, Z)
       
       linked_exp <- exp(-kappa_cis_val * (v_i / 2) * Q2_bar)
-      unlinked_denom <- 1 + 4 * kappa_val * Va - 4 * kappa_own_val * (v_i / 2)
+      unlinked_denom <- 1 + Qu2(Z) * (kappa_val * Va - kappa_own_val * (v_i / 2))
       
       # Total Chromosome-level Ne/N (incorporating both linked and unlinked)
       chrom_Ne_N <- linked_exp / unlinked_denom
@@ -513,7 +513,7 @@ calculate_deconstruction <- function(sp_code) {
     Q2_bar <- calc_avg_Q2_vec(M_i, Z)
     
     linked_exp <- exp(-kappa_cis_val * (v_i / 2) * Q2_bar)
-    unlinked_denom <- 1 + 4 * kappa_val * Va - 4 * kappa_own_val * (v_i / 2)
+    unlinked_denom <- 1 + Qu2(Z) * (kappa_val * Va - kappa_own_val * (v_i / 2))
     
     chrom_Ne_N <- linked_exp / unlinked_denom
     
@@ -675,10 +675,10 @@ calculate_mu_uncertainty_bounds <- function(sp_code) {
       Q2_bar <- calc_avg_Q2_vec(M_i, Z)
       
       linked_exp <- exp(-kappa_cis_val * (v_i / 2) * Q2_bar)
-      unlinked_denom <- 1 + 4 * kappa_val * Va - 4 * kappa_own_val * (v_i / 2)
+      unlinked_denom <- 1 + Qu2(Z) * (kappa_val * Va - kappa_own_val * (v_i / 2))
       
       chrom_Ne_N <- linked_exp / unlinked_denom
-      global_unlinked_Ne_N <- 1 / (1 + 4 * kappa_val * Va)
+      global_unlinked_Ne_N <- 1 / (1 + Qu2(Z) * kappa_val * Va)
       chrom_Omega_i <- chrom_Ne_N / global_unlinked_Ne_N
       
       species_Total_Ne_N[i] <- sum(L_weight * chrom_Ne_N)
@@ -884,8 +884,8 @@ calc_regime_Omega <- function(f_vector, M_vector) {
   v_vector <- mean_Va * f_vector
   Q2_vector <- calc_avg_Q2_vec(M_vector, Z_val)
   linked_exp <- exp(-kappa_cis_val * (v_vector / 2) * Q2_vector)
-  chrom_Ne_N <- linked_exp / (1 + 4 * kappa_val * mean_Va - 4 * kappa_own_val * (v_vector / 2))
-  unlinked_Ne_N <- 1 / (1 + 4 * kappa_val * mean_Va)
+  chrom_Ne_N <- linked_exp / (1 + Qu2(Z_val) * (kappa_val * mean_Va - kappa_own_val * (v_vector / 2)))
+  unlinked_Ne_N <- 1 / (1 + Qu2(Z_val) * kappa_val * mean_Va)
   return(chrom_Ne_N / unlinked_Ne_N)
 }
 

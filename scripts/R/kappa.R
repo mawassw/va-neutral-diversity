@@ -19,6 +19,10 @@
 
 # Santiago & Caballero's cumulative factor, Q = 2 / (2 - G (1 + r_mf))
 Q_sc <- function(G = 1, rho = 0) 2 / (2 - G * (1 + rho))
+# Unlinked Q^2 with the same per-generation persistence Z as the linked term
+# (main text, total_red; decided 2026-10-15). Equals the M -> infinity limit of the
+# linked Q2bar, so Omega <= 1 holds exactly. Z = 1 recovers Appendix A's 4.
+Qu2 <- function(Z) (2 / (2 - Z))^2
 
 # No pair bond (polygynous, polygynandrous): each parent's family size depends on
 # its own breeding value only, so kappa = Q^2 / 4 (= 1 at G = 1, rho = 0).
