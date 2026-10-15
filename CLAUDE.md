@@ -206,7 +206,18 @@ paper exists, and none should appear in the title or the first paragraph of the 
   assortment. Built on Woolliams, Bijma & Villanueva 1999 and Santiago & Caballero 1995; cite, don't
   re-derive. Supplementary.
 - **The DFE correction on the MSD side** — a leptokurtic DFE makes $s^*$ *less* plausible, not more, so
-  it does not rescue MSD balance. Robustness check.
+  it does not rescue MSD balance. Robustness check. **Mechanism corrected 2026-10-15:** in the
+  strong-selection limit $V_A = U_d\bar s$ whatever the DFE's shape, so $s^*$ estimates the
+  arithmetic mean. Shape enters only through nearly neutral mutations ($4N_es \lesssim 1$), which
+  contribute less than $U_ds$; more leptokurtic at a fixed mean means lower sustainable $V_A$. It is
+  *not* "large-effect alleles dominate $V_A$". The variance-weighted $E[s^2]/E[s]$ governs $V_m/V_A$
+  and $Z$, not $s^*$.
+- **Precedent for the MSD verdict — must be in the re-cut Introduction (user, 2026-10-15).**
+  Charlesworth 2015 (PNAS 112:1662) already set observed $V_A$ in *Drosophila* fitness components
+  against mutation–selection balance and concluded there is too much of it. A colleague raised the
+  same point independently. The paper's MSD side is the application of that test to total-fitness
+  $V_A$ in wild vertebrates, stated as $s^*$; Johnson & Barton 2005 is the related review. This is
+  prior work on the same test, so acknowledge it plainly. Do not turn it into borrowed significance.
 - **Independence of the inputs from diversity data** — $V_A$, $\alpha$, $M_i$, $f_i$ and $\mu$ each come
   from a separate body of data and none from observed $\pi$. This is a genuine methods strength and
   should be a short Methods subsection. **It is not the reason the paper matters** and must not be
@@ -254,10 +265,10 @@ The observed side, and nothing else. Five numbers per population; three are in h
 
 - **κ: Model B is primary for every population**, Model A the sensitivity bound. Non-monogamous
   systems have no measured α and sit at the α = 1 limit, κ = 2: in harem and dominance systems male
-  success tracks male quality. **⚠ Superseded on branch `worktree-kappa-appendix-b` (2026-10-14),
-  pending the user's review:** the re-derived Appendix B gives κ = 1 for non-monogamous systems and
-  $\kappa_B = 2 - \tfrac32\alpha + \tfrac58\alpha^2$ for social monogamy. See the Rule 5 log entry
-  of that date.
+  success tracks male quality. **Superseded 2026-10-14 (merged 2026-10-15):** the re-derived
+  Appendix B gives κ = 1 for non-monogamous systems and $\kappa_B = 2 - \tfrac32\alpha +
+  \tfrac58\alpha^2$ for social monogamy. Model B stays primary. See the Rule 5 log entries of
+  2026-10-14 and 2026-10-15.
 - **μ: both estimates carried, not averaged** — `mu_phylo` (Wang & Obbard 2023 PGLMM) and
   `mu_direct` (Lewin & Eyre-Walker 2026, own species or closest relative). The PGLMM is fitted to
   the direct estimates, so they are not independent, and averaged CI bounds are not a CI.
@@ -316,7 +327,13 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
 2. **Re-cut `scratch.tex`'s Introduction and Discussion to the claim above.** The Introduction is
    several framings stale and line 25 asserts the retired 2–3 order claim. The Discussion carries the
    overshoot language. The salvaged prose (from `archive/prose-edit-scratch`, adopted 2026-08-26)
-   improved the prose throughout but did not change the framing.
+   improved the prose throughout but did not change the framing. **The Introduction must
+   acknowledge Charlesworth 2015 as the precedent for the MSD verdict** (Supporting results, above).
+   The Discussion still carries retired claims; the 2026-10-15 audit fixed only its math slips.
+3a. **Methods reviewer pass — after the theory is final** (user, 2026-10-15). A reviewer fixes the
+   Methods section once the derivations and the Theory and model section are settled. Known Methods
+   items: the linear-map closed-form description of $Q^2$ (Rule 5 log), the hard-coded "Equation (19)"
+   and "Equations (3) and (4)" style references, and "conservative" wording.
 3. **Fill Appendix D's `[XX]` placeholders** with the $U_d$ and $s^*$ values above, and fix
    `scratch.tex` line 309's $V_A \in [0.10, 0.30]$ against the real posterior modes.
 4. **Fill `scratch.tex:235`** — the standardisation placeholder. Answer: none required; Bonnet et al.
@@ -575,6 +592,10 @@ the code implements, not necessarily what `scratch.tex` now specifies.
   TRUE)` the $G = 1 - V_A$ sensitivity. `species_EPP.csv` codes no-pair-bond systems as EPP = 1, so
   `data_gen.R`'s `calc_kappa()` maps α ≥ 1 to κ = 1 and otherwise uses Model B (it used Model A, at
   the old formula, until 2026-10-14). Do not re-type the formulas in a new script; source `kappa.R`.
+- **The linked term does not carry κ** (2026-10-15). It is
+  `exp(-kappa_cis * (v_i/2) * Q2_bar) / (1 + 4*kappa*Va - 4*kappa_own*(v_i/2))`, with `kappa_cis =
+  kappa_own = 1` under Model B and without a pair bond (`kappa_own()`, `kappa_cis()` in `kappa.R` for
+  Model A). Before 2026-10-15 the code had `exp(-kappa * ...)` and `1 + 4*kappa*(Va - v_i/2)`.
 - **$\overline{Q^2}$ is numeric under a Haldane map** (`integrand_avg_Q2` / `calc_avg_Q2_haldane`),
   with `Z` capped at 0.995 to avoid the singularity at perfect mutation-selection balance. The
   `main.tex` closed form is the linear-map approximation.
@@ -655,15 +676,18 @@ Resolve toward `scratch.tex`, not the code.
   so. **The R code uses `v_i/2`, matching `total_red`.** That is a factor of 2 in the exponent and it
   sits directly on the linked magnitude — the "~20×" figure on the diversity side of the claim — so
   resolve it before the Theory section is backported: either label `chrom_reduc` as pre-partition or carry the halving into it.
-  **NOT FIXED.**
+  **RESOLVED (checked 2026-10-15):** `chrom_reduc` no longer exists; `eq:ne_chrom` and `total_red`
+  both use $v_h = v_i/2$.
 
 - **$\overline{Q^2}$ method contradiction.** §Theory states the integral is **evaluated numerically
   under the Haldane** function, and argues *against* the linear approximation for chromosomes > 0.5 M.
   But §Methods (Genetic Map Lengths) describes the $Q^2$ expressions as **closed-form under the linear
   approximation** $r \approx |x-y|$ and discusses its bias. **These cannot both describe what was
-  run.**
+  run.** **Still open; deferred to the Methods reviewer pass (user, 2026-10-15).** Theory and Appendix
+  C now say the Haldane integral has a closed form and the linear form is a lower bound.
 - **Appendix cross-ref.** §Theory points to **Appendix A** for the closed-form linear-limit
   approximation; it is actually in **Appendix C**. Appendix A is the unlinked-baseline derivation.
+  **RESOLVED** (now points to Appendix C).
 
 **Blast radius — what these can and cannot move.** The hardcoded `s_het` and the 20 Mb filter
 **can change the reported numbers**, and under the settled claim the tolerance is tighter than it used
@@ -735,6 +759,54 @@ $U_d$, $\mu$ and the posterior $V_A$, none of which touch `s_het` or the chromos
   families (probably a dropped "+4"), and nothing referenced its label.
 - **Fig. 2 numbers at the new κ:** ratio 1 at c = 0.073 (MSD) and 1.1 × 10⁴ (diversity); best
   compromise c = 27, ratio 373.
+
+**Logged 2026-10-15 — audit of Appendices C and D (two independent reviewers, both checked against
+the primary literature); fixes on branch `worktree-theory-fixes-cd`.**
+
+- **Priority: neither appendix is mostly original, and both now say so.**
+  - **Appendix C.** The kernel $1/(1-(1-r)Z)$ is SC 2016 and Buffalo & Kern 2024 (Eq. 3). With
+    $Z = 1-s$ it is the background-selection kernel $1/(s + r(1-s))$ (Hudson & Kaplan 1995; Nordborg
+    et al. 1996). The squared-and-halved exponential is B&K Eq. 2. The intermediate-M form $2/(M(1-Z))$
+    is SC 1998 Eq. 8 and Barton 1995. What is ours: Haldane evaluation and position averaging, the
+    closed forms, and the lower-bound proof.
+  - **Appendix D.** $V_m = U_ds^2$ (Charlesworth 2015 Eq. 1); $U_ds$ (Mukai et al. 1972; Charlesworth
+    2012); $2N_eV_m$ (Lynch & Hill 1986); interpolation (cf. Bürger et al. 1989); exact diffusion
+    (Kimura 1969); $Q(s) = 2/(1+s)$ (Charlesworth 2012 Appendix; SC 1998). Ours is the application to
+    wild-vertebrate total-fitness $V_A$ as $s^*$.
+- **Fixed:**
+  1. **κ no longer multiplies the linked term.** The partner's genes are never in cis. Appendix B now
+     splits $\kappa = \kappa_\text{own} + \kappa_\text{partner}$ and defines $\kappa_\text{cis}$.
+     The chromosome-level form is $\exp(-\kappa_\text{cis}\overline{Q^2}v_h)/(1 + 4\kappa V_A -
+     4\kappa_\text{own}v_h)$, with $\kappa_\text{cis} = \kappa_\text{own} = 1$ under Model B and
+     without a pair bond. Code: `kappa.R` (`kappa_own`, `kappa_partner`, `kappa_cis`) and `data_gen.R`
+     (all 12 linked expressions). **`data_gen.R` not re-run** (line 479 bug), so its `main/` outputs
+     are stale. The "~20×" linked figure was computed at κ = 1, so the linked magnitude is unchanged.
+  2. **D.4 "equivalence with diffusion" replaced** by the exact $V_A = U_ds[1 - 4N_es/(e^{4N_es}-1)]$
+     (Kimura 1969; equation number UNVERIFIED). The interpolation is up to 29% low at $4N_es \approx
+     3$; irrelevant here, since $2N_es^* \ge 9{,}400$.
+  3. **$Z \approx 1 - E[s^2]/E[s]$**, not $1 - \bar s$ (main text, Theory).
+  4. **DFE mechanism corrected** (Appendix D, Discussion).
+  6. **Limits stated on their real scales:** complete linkage needs $M \ll 1-Z$, free recombination
+     $M \gg 1/(1-Z)$, real chromosomes sit near $2/(M(1-Z))$. Microchromosomes have map lengths of
+     ≥ ~0.5 M (obligate crossover). Table 1 relabelled.
+  7. **The Haldane $\overline{Q^2}$ has a closed form** (dilogarithm), matching quadrature to 10 digits.
+  8. **Smaller fixes:**
+     - "House of Cards" renamed.
+     - Duplicate labels removed: Appendix labels `eq:C_haldane_avg`, `eq:D_VA_interp`.
+     - `app:chromosapp` now defined in `scratch.tex`; zero undefined references.
+     - Hard-coded "Equation (5)/(10)/(C.x)" replaced.
+     - Discussion factor-of-2 slip fixed ($t/(1+t)^2$), and κ added.
+     - `\phi(t), t, dt` typo fixed.
+     - "Conservative" changed to "lower bound" in Appendix C.
+     - `[XX]` in Appendix D §D.2 and the Discussion $s^*$ sentence filled from the data layer.
+- **Open — error 5, awaiting the user's decision:** $\overline\Omega \le 1$ is not guaranteed as
+  written. The linked term uses $Z$ and the unlinked denominator uses $Q = 2$; e.g. $s = 0.3$,
+  $M = 10^3$ gives Ω = 1.005. Recommendation: use the same persistence in both
+  (unlinked $Q = 2/(2-Z)$), which makes Ω ≤ 1 exact. Flagged with `% OPEN` in `scratch.tex` and
+  `theory_model.tex`.
+- **Unverified references flagged in the text:** SC 1998 Eq. 8 (taken from B&K S1); Kimura 1969
+  equation number; Rettelbach et al. 2025 (not located; maybe 2019); whether Huber et al. 2017 /
+  Kim et al. 2017 report homozygous $s$.
 
 **Logged 2026-08-26** (found while settling the framing).
 

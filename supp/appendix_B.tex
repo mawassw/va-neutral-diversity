@@ -54,6 +54,7 @@
 \label{app:matingapp}
 \linenumbers
 
+
 Appendix A treats every individual as both a carrier of fitness genes and a parent whose own breeding value sets its family size. With separate sexes and pair bonds this fails in two ways: a parent's family size can depend on its mate's breeding value, and the two sexes must be combined into a single effective size. Neither requires new theory. We use the expected long-term genetic contributions of Woolliams, Bijma and Villanueva (1999), which regress an ancestor's lasting gene flow on its selective advantages separately by sex, and the two-sex combination of Santiago and Caballero (1995). What follows applies that machinery to the mating systems in our data.
 
 \paragraph{Setup and the meaning of $V_A$.} The population is diploid with discrete generations, constant size $N$ and an equal sex ratio. Each individual carries an additive effect $a$ on relative lifetime breeding success, and $\mathrm{Var}(a) = V_A$ in both sexes. This is the quantity Bonnet et al. (2022) estimate: one animal model per population, both sexes in the data, sex fitted as a fixed effect, and a single additive variance on the observed scale. Social partners pair at random with respect to $a$.
@@ -110,11 +111,24 @@ For $G$, Equation~\eqref{eq:G} applies sex by sex, with $b$ the weight of a pare
 
 $\kappa$ and $r_{mf}$ are different quantities. $r_{mf}$ measures assortative pairing on breeding value and lengthens the persistence of an association. $\kappa$ arises from nest sharing between partners, which in Santiago and Caballero's framework enters through the family-level $C^2$. The mating system therefore enters through three measurable features: whether a pair bond shares productivity, the extra-pair rate $\alpha$, and assortment $r_{mf}$. We set $r_{mf} = 0$ for want of estimates; positive assortment would raise $\kappa$.
 
+\paragraph{Own, partner and linked components.} The linked term of the main text needs $\kappa$ taken apart, because only some of the variance it counts can be linked to a focal gene copy. With $r_{mf} = 0$, $\mathrm{Var}(L_f) + \mathrm{Var}(L_m)$ separates into the carrier's own breeding value and its social partner's:
+\begin{equation}
+    \kappa = \kappa_\text{own} + \kappa_\text{partner}, \quad
+    \kappa_\text{own} = \frac{(1+\Phi)^2 + (m+\Phi)^2}{8}, \quad
+    \kappa_\text{partner} = \frac{\left[1+\Phi(1-\alpha)\right]^2 + (1-\alpha)^2(1+\Phi)^2}{8}.
+\label{eq:kappa_split}
+\end{equation}
+The partner's genes are never on the focal copy's haplotype, so the partner component is wholly unlinked. Of the own component, the share on the focal haplotype ($v_h$) moves to the linked term. There a selected locus whose association survives a generation with probability $\rho = (1-r)Z$ contributes $w_0 + \bar{m}\,\rho/(1-\rho)$ to the copy's cumulative advantage, where $w_0$ is the carrier's own weight (1 in females, $m$ in males) and later carriers average $\bar{m}$. Relative to the unweighted $1/(1-\rho)$, this gives
+\begin{equation}
+    \kappa_\text{cis}(\rho) = \frac{\left[1 + \bar{m}X\right]^2 + \left[m + \bar{m}X\right]^2}{2(1+X)^2}, \qquad X = \frac{\rho}{1-\rho},
+\end{equation}
+which falls from $(1+m^2)/2$ as $\rho \to 0$ to $\bar{m}^2$ under tight linkage. Without a pair bond, and under Model B, $m = 1$, so $\kappa_\text{own} = \kappa_\text{cis} = 1$ and $\kappa_\text{partner} = \kappa - 1$. The chromosome-level reduction of the main text (Equation~\eqref{total_red}) uses this split: $\kappa_\text{cis}$ on the linked term, and $1 + 4\kappa V_A - 4\kappa_\text{own}v_h$ for the unlinked background.
+
 \paragraph{Assumptions.} The derivation is first order in $a$ (weak selection per lineage), sets $G = 1$ and $r_{mf} = 0$ in the primary results, assumes an equal sex ratio, and lets the social male's breeding value contribute to all of his nest's productivity whether or not he sires the offspring. Combining Equation~\eqref{eq:kappa_def} with Appendix A yields the mating-system-corrected unlinked expectation,
 \begin{equation}
     \frac{N_e}{N} = \frac{1}{1 + 4\kappa V_A},
 \end{equation}
-which corresponds to Equation (5) in the main text.
+which is Equation~\eqref{unlinked_mating} of the main text.
 
 \ifdefined\isMainDocument
 \else

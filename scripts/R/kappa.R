@@ -42,6 +42,24 @@ kappa_A <- function(alpha)
   ((4 - alpha)^2 * (1 + (1 - alpha)^2) + (4 - 3 * alpha + alpha^2)^2 + (4 - 3 * alpha)^2) / 32
 kappa_B <- function(alpha) 2 - 1.5 * alpha + 0.625 * alpha^2
 
+# Split of kappa for the linked term (Appendix B, "Own, partner and linked
+# components"; G = 1, rho = 0). kappa = own + partner. The partner's breeding
+# value is never in cis with a focal copy, so only the own part loses v_h to the
+# linked term, and the linked exponent carries kappa_cis, not kappa:
+#   (N_e/N)_i = exp(-kappa_cis Q2bar v_h) / (1 + 4 kappa V_A - 4 kappa_own v_h).
+# Without a pair bond, and under Model B (gamma = 1), own = cis = 1.
+kappa_own <- function(alpha, gamma = 1) {
+  m <- 1 - alpha + alpha * gamma; Phi <- (1 + m) / 2
+  ((1 + Phi)^2 + (m + Phi)^2) / 8
+}
+kappa_partner <- function(alpha, gamma = 1) kappa_pair(alpha, gamma) - kappa_own(alpha, gamma)
+# cis weight for a linked locus with per-generation persistence rho = (1 - r) Z;
+# between mbar^2 (tight linkage) and (1 + m^2)/2 (loose); 1 when m = 1
+kappa_cis <- function(alpha, gamma = 1, rho) {
+  m <- 1 - alpha + alpha * gamma; mb <- (1 + m) / 2; X <- rho / (1 - rho)
+  ((1 + mb * X)^2 + (m + mb * X)^2) / (2 * (1 + X)^2)
+}
+
 # G under fecundity selection on Gaussian breeding values (Appendix A): a parent
 # whose expected family size is 1 + b a has selected-parent variance
 # V_A - b^2 V_A^2, so G = 1 - b^2 V_A. Sexes averaged (Santiago & Caballero 1995).

@@ -86,7 +86,7 @@ Under strict monogamy both models give $\kappa = 2$, which is the pair-mated bas
 \subsection{Linked interference along the genetic map}\label{sec:linkage}
 For a neutral site physically linked to loci affecting fitness, statistical associations do not halve unconditionally each generation. Recombination only partially breaks gametic linkage disequilibrium, causing ancestral selective advantages to persist across multiple generations and amplifying selective interference far beyond the unlinked baseline. 
 
-Generalizing this process along a chromosome requires compounding the per-generation covariance between a focal neutral site and its linked background, weighted by the joint probability that their physical linkage and the background's selective variance survive into the next generation. That joint persistence requires the survival parameter $Z = 1 - V_m/V_A$, where $V_m$ is the per-generation mutational influx of fitness variance and $V_A$ is standing additive fitness variance. Defining $Z$ presupposes a stationary selected background—an assumption unnecessary for the unlinked baseline, but met at mutation--selection--drift balance (Barton 1998, 2000). Under strong purifying selection ($2N_e s_\text{het} \gg 1$), mutational variance input ($V_m \approx U_d \mathbb{E}[s_\text{het}^2]$) balances standing variance ($V_A \approx U_d \bar{s}_\text{het}$), yielding $V_m/V_A \approx \bar{s}_\text{het}$ and simplifying the parameter to $Z \approx 1 - \bar{s}_\text{het}$. More generally, $Z$ can be parameterized directly from empirical estimates of $V_m$ and $V_A$, or adjusted for finite population size via the neutral drift loss rate ($1/(2N_e)$), as detailed in \autoref{msdb}.
+Generalizing this process along a chromosome requires compounding the per-generation covariance between a focal neutral site and its linked background, weighted by the joint probability that their physical linkage and the background's selective variance survive into the next generation. That joint persistence requires the survival parameter $Z = 1 - V_m/V_A$, where $V_m$ is the per-generation mutational influx of fitness variance and $V_A$ is standing additive fitness variance. Defining $Z$ presupposes a stationary selected background—an assumption unnecessary for the unlinked baseline, but met at mutation--selection--drift balance (Barton 1998, 2000). Under strong purifying selection ($2N_e s_\text{het} \gg 1$), mutational variance input ($V_m \approx U_d \mathbb{E}[s_\text{het}^2]$) balances standing variance ($V_A \approx U_d \bar{s}_\text{het}$), yielding $V_m/V_A \approx \mathbb{E}[s_\text{het}^2]/\mathbb{E}[s_\text{het}] = \bar{s}_\text{het}(1 + \mathrm{CV}_s^2)$ and $Z \approx 1 - \mathbb{E}[s_\text{het}^2]/\mathbb{E}[s_\text{het}]$. This reduces to $1 - s_\text{het}$ only when all effects are equal. For a leptokurtic DFE it is much smaller: $1 - 6\bar{s}_\text{het}$ for a gamma DFE of shape 0.2 (Appendix D). More generally, $Z$ can be parameterized directly from empirical estimates of $V_m$ and $V_A$, or adjusted for finite population size via the neutral drift loss rate ($1/(2N_e)$), as detailed in \autoref{msdb}.
 
 Physical map distance $\ell$ (in Morgans) translates to recombination frequency via the Haldane mapping function, $r(\ell) = \frac{1}{2}(1 - e^{-2\ell})$. While a linear approximation ($r \approx \ell$) suffices across short genetic intervals, our integration spans complete chromosomes that frequently exceed $0.5\text{ M}$. Beyond this scale, a linear map artificially allows recombination frequencies to exceed $0.5$, which overestimates recombination and erroneously purges the persistent selective interference of distant loci ($Q^2 \to 0$). In contrast, Haldane's function correctly saturates at independent assortment ($r \to 1/2$).
 
@@ -98,31 +98,32 @@ Averaging this profile over all neutral positions reduces the double integral to
 \begin{equation}
 \overline{Q^2}_\text{linked} = \frac{2}{M^2}\int_0^M (M - \ell)\left(\frac{1}{1 - \dfrac{Z}{2}(1 + e^{-2\ell})}\right)^2 d\ell. \label{eq:haldane_avg}
 \end{equation}
-We evaluate Equation~\eqref{eq:haldane_avg} numerically for each chromosome. A closed-form expression derived under the linear recombination approximation is provided in Appendix~C as an analytical lower bound and validation benchmark.
+The kernel inside this integral is the standard one: with $Z = 1 - s$ it is the background-selection kernel $1/[s + r(1-s)]$ (Hudson and Kaplan 1995; Nordborg et al. 1996; Santiago and Caballero 1998, 2016; Buffalo and Kern 2024). Equation~\eqref{eq:haldane_avg} has a closed form, with a dilogarithm (Appendix~C). The linear-map form given there is a lower bound.
 
-Because a neutral allele resides physically on a single chromosome, it is linked in cis only to selected loci on its own haplotype; associations with the homologous chromosome segregate freely at meiosis and do not generate directional linkage disequilibrium across generations (Buffalo and Kern 2024). Across dense genetic maps, linked background selection operates as an inhomogeneous Poisson process along the chromosome (Hudson and Kaplan 1995; Santiago and Caballero 2016). Integrating these infinitesimal linked contributions yields an exponential reduction in effective size for chromosome $i$, scaled by the mating-system parameter $\kappa(\alpha)$ and the focal haplotype fitness variance $v_h$:
+Because a neutral allele resides physically on a single chromosome, it is linked in cis only to selected loci on its own haplotype; associations with the homologous chromosome segregate freely at meiosis and do not generate directional linkage disequilibrium across generations (Buffalo and Kern 2024). Across dense genetic maps, linked background selection operates as an inhomogeneous Poisson process along the chromosome (Hudson and Kaplan 1995; Santiago and Caballero 2016). Integrating these infinitesimal linked contributions yields an exponential reduction in effective size for chromosome $i$, set by the focal haplotype fitness variance $v_h$:
 \begin{equation}
-\left(\frac{N_e}{N}\right)_i \approx \exp\left(-\kappa\,\overline{Q^2}_\text{linked}\,v_h\right). \label{eq:ne_chrom}
+\left(\frac{N_e}{N}\right)_i \approx \exp\left(-\kappa_\text{cis}\,\overline{Q^2}_\text{linked}\,v_h\right). \label{eq:ne_chrom}
 \end{equation}
+The linked term does not carry the full mating-system scalar. In socially monogamous systems, $\kappa > 1$ comes from the social partner's breeding value, and the partner's genes are never in cis with the focal copy. Only the carrier's own breeding value is linked to it, and $\kappa_\text{cis}$ is the weight that value has in the carrier's family size (Appendix~B). That weight is 1 without a pair bond and under Model B, so $\kappa_\text{cis} = 1$ in all primary results. Under Model A it lies between $[(2-\alpha)/2]^2$ under tight linkage and $[1+(1-\alpha)^2]/2$ under loose linkage.
 While Buffalo and Kern (2024) omitted homologous ($Q''$) associations entirely, we reassign that homologous variance to the unlinked background rather than discarding it—an accounting detailed alongside the parameterization of $v_h$ in \autoref{variance_partitioning}.
 
-As summarized in Table~1, linked interference is highly sensitive to the strength of purifying selection on short chromosomes, but converges toward the unlinked Robertson baseline on long ones ($M \to \infty$). Avian microchromosomes ($<20\text{ Mb}$) fall below the $0.5\text{ M}$ saturation scale and inhabit this highly sensitive regime; our analysis excludes them via a $20\text{ Mb}$ physical-length filter, ensuring that downstream conclusions rest securely on well-characterized macrochromosomal architectures.
+Table~1 gives the two limits, but neither is reached by real chromosomes. Complete linkage requires the whole map to lie within the kernel's decay distance, $M \ll 1 - Z$. Free recombination requires $M \gg 1/(1-Z)$ Morgans: at $Z = 0.99$ and $M = 10$, $\overline{Q^2}_\text{linked} = 24.8$ against the limit 3.9. Chromosomes in between sit near $\overline{Q^2}_\text{linked} \approx 2/[M(1-Z)]$ (Santiago and Caballero 1998; Appendix~C), so interference scales inversely with map length and with $1 - Z$. With one obligate crossover per bivalent, even avian microchromosomes have map lengths of order 0.5 M or more and do not approach complete linkage. Our analysis excludes chromosomes shorter than 20 Mb.
 
 \begin{table}[h!]
 \centering
-\caption{Limiting values of chromosome-wide selective interference ($\overline{Q^2}_\text{linked}$) and the resulting chromosome-level relative effective size ($(N_e/N)_i$) under strong ($Z = 1 - s_\text{het}$) and weak ($Z \to 1$) purifying selection across chromosome-length extremes. Here, $v_h$ denotes the additive genetic variance in relative fitness residing on the focal haplotype, and $\kappa$ is the mating-system scalar.}
+\caption{Limiting values of chromosome-wide selective interference ($\overline{Q^2}_\text{linked}$) and the resulting chromosome-level relative effective size ($(N_e/N)_i$) under strong ($Z = 1 - s_\text{het}$, uniform effects) and weak ($Z \to 1$) purifying selection. The limits are reached only for $M \ll 1 - Z$ and $M \gg 1/(1-Z)$ respectively; real chromosomes lie between, near $\overline{Q^2}_\text{linked} \approx 2/[M(1-Z)]$. Here $v_h$ is the additive variance in relative fitness on the focal haplotype, and $\kappa_\text{cis}$ ($= 1$ in primary results) is the weight of the carrier's own breeding value (Appendix B).}
 \label{tab:linked_limits}
 \begin{tabular}{llcc}
 \toprule
 Regime & Metric & Complete linkage & Free recombination \\
-& & ($M \to 0$) & ($M \to \infty$) \\
+& & ($M \ll 1-Z$) & ($M \gg 1/(1-Z)$) \\
 \midrule
 Strong selection & $\overline{Q^2}_\text{linked}$ & $s_\text{het}^{-2}$ & $\dfrac{4}{(1 + s_\text{het})^2}$ \\[2ex]
-($Z = 1 - s_\text{het}$) & $(N_e/N)_i$ & $\exp\!\left(-\dfrac{\kappa v_h}{s_\text{het}^2}\right)$ & $\exp\!\left(-\dfrac{4\kappa v_h}{(1 + s_\text{het})^2}\right)$ \\
+($Z = 1 - s_\text{het}$) & $(N_e/N)_i$ & $\exp\!\left(-\dfrac{\kappa_\text{cis} v_h}{s_\text{het}^2}\right)$ & $\exp\!\left(-\dfrac{4\kappa_\text{cis} v_h}{(1 + s_\text{het})^2}\right)$ \\
 \addlinespace[1.5ex]
 \midrule
 Weak selection & $\overline{Q^2}_\text{linked}$ & $\infty$ & $4$ \\[2ex]
-($Z \to 1$) & $(N_e/N)_i$ & $0$ & $\exp(-4\kappa v_h)$ \\
+($Z \to 1$) & $(N_e/N)_i$ & $0$ & $\exp(-4\kappa_\text{cis} v_h)$ \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -132,23 +133,24 @@ Under an infinitesimal genetic architecture, heritable fitness variance is distr
 
 A focal neutral allele on chromosome $i$ consequently experiences two concurrent selective interference regimes:
 \begin{enumerate}
-    \item \textbf{Linked background selection in cis:} Selected loci on the same physical haplotype maintain gametic linkage disequilibrium that decays under recombination along the chromosome. Compounding this interference across generations yields the exponential background selection reduction, $\exp\left(-\kappa\,\overline{Q^2}_i\,v_h\right)$ (Hudson and Kaplan 1995; Santiago and Caballero 2016).
-    \item \textbf{Unlinked Robertson overdispersion in trans:} All remaining selected loci in the genome—the homologous haplotype and all other autosomes—segregate independently of the focal allele ($r = 1/2$), driving family-size overdispersion through the Robertson geometric series evaluated at the remaining variance, $V_A - v_h$.
+    \item \textbf{Linked background selection in cis:} Selected loci on the same physical haplotype maintain gametic linkage disequilibrium that decays under recombination along the chromosome. Compounding this interference across generations yields the exponential background selection reduction, $\exp\left(-\kappa_\text{cis}\,\overline{Q^2}_i\,v_h\right)$ (Hudson and Kaplan 1995; Santiago and Caballero 2016).
+    \item \textbf{Unlinked Robertson overdispersion in trans:} All remaining selected loci in the genome—the homologous haplotype and all other autosomes—segregate independently of the focal allele ($r = 1/2$), driving family-size overdispersion through the Robertson geometric series evaluated at the remaining variance, $V_A - v_h$. Under social monogamy the trans background also includes the social partner's entire breeding value. Appendix~B splits $\kappa = \kappa_\text{own} + \kappa_\text{partner}$ accordingly. Only the own part loses $v_h$ to the cis term, and $\kappa_\text{own} = 1$ without a pair bond and under Model B.
 \end{enumerate}
 Because cross-chromosomal linkage disequilibrium is negligible under random mating and independent assortment, these two selective regimes act across independent coalescent branch segments. Their joint effect combines multiplicatively to determine the chromosome-specific relative effective size:
 \begin{equation}
-    \left(\frac{N_e}{N}\right)_i \approx \frac{\exp\left(-\kappa\,\overline{Q^2}_i\,v_h\right)}{1 + 4\kappa(V_A - v_h)}. \label{total_red}
+    \left(\frac{N_e}{N}\right)_i \approx \frac{\exp\left(-\kappa_\text{cis}\,\overline{Q^2}_i\,v_h\right)}{1 + 4\kappa V_A - 4\kappa_\text{own}\,v_h}, \label{total_red}
 \end{equation}
+which under Model B, and without a pair bond, is $\exp(-\overline{Q^2}_i v_h)/(1 + 4\kappa V_A - 4v_h)$.
 
 To isolate the specific reduction imposed by chromosome structure beyond the unlinked baseline, we define the relative linkage penalty, $\Omega_i$, as the ratio of the chromosome-level effective size to the genome-wide unlinked baseline (Equation~\eqref{unlinked_mating}):
 \begin{equation}
-    \Omega_i \equiv \frac{(N_e/N)_i}{(N_e/N)_\text{unlinked}} = \exp\left(-\kappa\,\overline{Q^2}_i\,v_h\right) \cdot \frac{1 + 4\kappa V_A}{1 + 4\kappa(V_A - v_h)}. \label{linked_penalty}
+    \Omega_i \equiv \frac{(N_e/N)_i}{(N_e/N)_\text{unlinked}} = \exp\left(-\kappa_\text{cis}\,\overline{Q^2}_i\,v_h\right) \cdot \frac{1 + 4\kappa V_A}{1 + 4\kappa V_A - 4\kappa_\text{own}\,v_h}. \label{linked_penalty}
 \end{equation}
 The second factor in Equation~\eqref{linked_penalty} strictly exceeds unity: sequestering variance $v_h$ onto a physical chromosome slightly relieves the global family-size overdispersion imposed by the unlinked background. The parameter $\Omega_i$ thus represents the net balance between this modest global variance relief and the severe local coalescent compression driven by physical linkage (Charlesworth et al. 1993).
 
 Assuming neutral sites are uniformly distributed across the physical genome, the genome-wide expected relative effective size is the physical-length-weighted average across all $n$ autosomes:
 \begin{equation}
-    \mathbb{E}\left[\frac{N_e}{N}\right] = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}} \left(\frac{N_e}{N}\right)_i = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}} \cdot \frac{\exp\left(-\kappa\,\overline{Q^2}_i\,v_h\right)}{1 + 4\kappa(V_A - v_h)},
+    \mathbb{E}\left[\frac{N_e}{N}\right] = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}} \left(\frac{N_e}{N}\right)_i = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}} \cdot \frac{\exp\left(-\kappa_\text{cis}\,\overline{Q^2}_i\,v_h\right)}{1 + 4\kappa V_A - 4\kappa_\text{own}\,v_h},
 \end{equation}
 where $L_i$ is the physical length (in base pairs) of autosome $i$, and $L_\text{total} = \sum L_i$. The genome-wide net linkage effect, $\overline{\Omega}$, is the corresponding length-weighted mean:
 \begin{equation}
@@ -175,13 +177,13 @@ For an oligogenic architecture comprising $J$ discrete loci of equal effect at m
 \end{equation}
 Because the distance-decay function $f_\text{H}(\ell)$ is strictly decreasing ($f_\text{H}'(\ell) < 0$; see \autoref{app:chromosapp}), the baseline spatial profile $Q^2(x)$ is strictly concave ($d^2 Q^2(x)/dx^2 < 0$). It achieves its unique global maximum at the chromosome midpoint ($x = M/2$) and reaches symmetrical minima at the telomeres ($x \in \{0, M\}$), reflecting that a centrally positioned locus exerts physical interference across two flanking chromosomal arms, whereas a telomeric locus interferes with only one.
 
-The aggregate reduction in effective population size depends on the expectation of the convex function $\exp\left(-\kappa v_h Q^2\right)$. For a single causal locus placed at a uniformly distributed random map position $x_0 \sim \mathrm{Uniform}[0,M]$, Jensen's inequality guarantees:
+The aggregate reduction in effective population size depends on the expectation of the convex function $\exp\left(-\kappa_\text{cis} v_h Q^2\right)$. For a single causal locus placed at a uniformly distributed random map position $x_0 \sim \mathrm{Uniform}[0,M]$, Jensen's inequality guarantees:
 \begin{equation}
-    \mathbb{E}_{x_0}\left[\exp\left(-\kappa v_h Q^2(x_0)\right)\right] > \exp\left(-\kappa v_h\,\mathbb{E}[Q^2(x_0)]\right) = \exp\left(-\kappa v_h \overline{Q^2}_i\right).
+    \mathbb{E}_{x_0}\left[\exp\left(-\kappa_\text{cis} v_h Q^2(x_0)\right)\right] > \exp\left(-\kappa_\text{cis} v_h\,\mathbb{E}[Q^2(x_0)]\right) = \exp\left(-\kappa_\text{cis} v_h \overline{Q^2}_i\right).
 \end{equation}
 Because higher values of $(N_e/N)_i$ represent a weaker depression of effective size, a localized locus yields, on average, a smaller reduction in neutral diversity than spreading that same variance uniformly across the chromosome. A second-order Taylor expansion reveals that for an oligogenic architecture of $J$ independently placed loci, this Jensen gap scales inversely with locus number:
 \begin{equation}
-    \mathbb{E}\left[\exp\left(-\kappa v_h \overline{Q^2}(g)\right)\right] - \exp\left(-\kappa v_h \overline{Q^2}_i\right) \approx \frac{(\kappa v_h)^2}{2J}\exp\left(-\kappa v_h \overline{Q^2}_i\right)\mathrm{Var}_x\left[Q^2(x)\right].
+    \mathbb{E}\left[\exp\left(-\kappa_\text{cis} v_h \overline{Q^2}(g)\right)\right] - \exp\left(-\kappa_\text{cis} v_h \overline{Q^2}_i\right) \approx \frac{(\kappa_\text{cis} v_h)^2}{2J}\exp\left(-\kappa_\text{cis} v_h \overline{Q^2}_i\right)\mathrm{Var}_x\left[Q^2(x)\right].
 \end{equation}
 Consequently, under random genomic placement, the spatially uniform model maximizes the predicted reduction in neutral diversity. It provides a conservative lower bound on the retained effective size (a theoretical ceiling on the magnitude of selective reduction), ensuring that our analytical baseline does not underestimate diversity losses due to arbitrary polygenic clustering.
 
@@ -205,6 +207,10 @@ This ceiling depends exclusively on the observed diversity fraction $\delta$ and
 
 Critically, Equation~\eqref{eq:vamax} establishes a conservative, most-permissive ceiling on heritable fitness variance due to two structural properties:
 \begin{enumerate}
+    % OPEN 2026-10-15 (audit error 5, awaiting the user's decision): Omega <= 1 is not guaranteed as
+    % written. The linked term uses persistence Z = 1 - s while the unlinked denominator uses Q = 2
+    % (G = 1); e.g. s = 0.3, M = 1e3, V_A = 0.1, v_h = 0.01 gives Omega = 1.005. With the same
+    % persistence in both terms (unlinked Q = 2/(2 - Z)) Omega <= 1 holds exactly.
     \item \textbf{Monotonic compression by linkage ($\overline{\Omega} \le 1$):} Because physical linkage can only intensify selective interference along chromosomes (\autoref{variance_partitioning}), accounting for genome architecture strictly lowers the allowable variance:
     \begin{equation}
     V_{A,\text{max}}^{(\text{linked})} = \frac{\overline{\Omega} - \delta}{4\kappa(\alpha)\,\delta} \le \frac{1 - \delta}{4\kappa(\alpha)\,\delta} = V_{A,\text{max}}.
@@ -235,7 +241,7 @@ To evaluate Equation~\eqref{eq:sstar}, we set the diploid deleterious mutation r
 
 The alternative boundary condition where selection is weak ($2N_e s_\text{het} \ll 1$) reduces Equation~\eqref{eq:VA_MSD} to $V_A \approx 2N_e U_d s_\text{het}^2$. Solving for the implied selection coefficient yields $s^*_\text{weak} = \sqrt{V_A / (2N_e U_d)}$. Testing the foundational premise of this regime requires $2N_e s^*_\text{weak} \ll 1$, which demands an effective population size $N_e \ll U_d / (2V_A) \approx 5\text{--}10$. Because all monitored vertebrate populations maintain sequence-derived $N_e$ orders of magnitude larger than this threshold, the near-neutral regime refutes its own premise and collapses (Appendix~D).
 
-Finally, under stationary strong selection, the ratio of mutational influx to standing variance simplifies to $V_m/V_A \approx (U_d s_\text{het}^2)/(U_d s_\text{het}) = s_\text{het}$. This formalizes the per-generation survival of selective variance as $Z = 1 - V_m/V_A \approx 1 - s_\text{het}$, closing the analytical loop with the linked chromosome integration developed in \autoref{sec:linkage}. If alleles are as strongly selected as pedigree estimates require ($s^* \sim 0.1\text{--}0.3$), ancestral associations decay even faster than under neutral Mendelian segregation ($Q(s) = 2/(1+s) < 2$; Appendix~D), further confirming that the baseline Robertson model ($Q^2 = 4$) represents a strictly conservative upper bound on selective interference.
+Finally, under stationary strong selection, the ratio of mutational influx to standing variance simplifies to $V_m/V_A \approx (U_d s_\text{het}^2)/(U_d s_\text{het}) = s_\text{het}$. This formalizes the per-generation survival of selective variance as $Z = 1 - V_m/V_A \approx 1 - s_\text{het}$, closing the analytical loop with the linked chromosome integration developed in \autoref{sec:linkage}. If alleles are as strongly selected as pedigree estimates require ($s^*$ median 0.16, range 0.006--0.78), ancestral associations decay even faster than under neutral Mendelian segregation ($Q(s) = 2/(1+s) < 2$; Charlesworth 2012, Appendix; Appendix~D), further confirming that the baseline Robertson model ($Q^2 = 4$) represents a strictly conservative upper bound on selective interference.
 
 
 
@@ -290,7 +296,7 @@ Because the distribution of fitness effects of deleterious mutations is not inde
 \subsection{Intragenomic Variation in Reduction}
 While the expected species-wide diversity, $\mathbb{E}[N_e/N]$, provides a global summary of evolutionary constraint, the continuous spatial framework predicts highly heterogeneous topographies of diversity within the genome. By evaluating the Main Equation across independent chromosomes, we can analytically partition the sources of intragenomic variance.
 
-For a focal chromosome $i$, the genome-wide unlinked baseline generated by independent assortment is captured by the denominator of the Main Equation: $1 + 4\kappa(V_A - v_i/2)$. Because the variance segregating on a single haplotype represents a minor fraction of the genome-wide total or $v_i/2 \ll V_A$, this unlinked constraint is effectively uniform across the genome. Consequently, any predicted variance in standing neutral diversity between chromosomes is driven strictly by the localized, constraint of physical linkage.
+For a focal chromosome $i$, the genome-wide unlinked baseline generated by independent assortment is captured by the denominator of the Main Equation: $1 + 4\kappa V_A - 4\kappa_\text{own}\,v_i/2$. Because the variance segregating on a single haplotype represents a minor fraction of the genome-wide total or $v_i/2 \ll V_A$, this unlinked constraint is effectively uniform across the genome. Consequently, any predicted variance in standing neutral diversity between chromosomes is driven strictly by the localized, constraint of physical linkage.
 
 Because the localized selective variance is proportional to the functional target size of the chromosome, i.e. $v_i = V_A f_i$, the survival of neutral lineages is governed by the structural ratio of functional density to recombinational map length. Chromosomes with high coding densities and restricted recombination suffer severe exponential decay in local $N_e$, driving rapid lineage sorting. Conversely, chromosomes with expansive map lengths and sparse functional targets effectively isolate neutral alleles from selective backgrounds. These structural dynamics predict the existence of macro-genomic regions that maintain robust neutral diversity even when the global, genome-wide constraint is strong.
 
@@ -302,7 +308,7 @@ The magnitude of this discrepancy persists even under permissive parameterizatio
 
 Furthermore, because the Relative Linkage Effect ($\Omega_i$) is bounded at or below one, no spatial arrangement of selected loci can restore neutral diversity above the global unlinked expectation. Physical linkage can only exacerbate the interference imposed by independent assortment; it cannot relieve it. The Global Linkage Effect ($\overline{\Omega}$) ranges from [XX] to [XX] across species, confirming that chromosomal architecture universally amplifies the unlinked reduction in $N_e$, with the most severe interference localized to gene-dense chromosomes possessing short genetic map lengths.
 
-This dynamic is starkly evident in the avian taxa: the bimodal avian karyotype sequesters a substantial fraction of functional targets on microchromosomes. Because these microchromosomes frequently exhibit map lengths well below 0.5 Morgans—the scale at which the Haldane mapping function fails to saturate and interference approaches the limit of complete linkage ($\overline{Q^2}_\text{linked} \to (1-Z)^{-2}$)—the predicted reduction in local diversity becomes highly sensitive to the parameterization of $Z$, and by extension, the assumed distribution of fitness effects for deleterious mutations. The inability of bounding parameterizations to resolve this mismatch in any species establishes a fundamental incompatibility between the magnitude of ecologically estimated fitness variance and the mechanics of the neutral coalescent.
+This dynamic is starkly evident in the avian taxa: the bimodal avian karyotype sequesters a substantial fraction of functional targets on microchromosomes. With one obligate crossover per bivalent, microchromosomes still have map lengths of order 0.5 Morgans or more. They are far from complete linkage, which requires $M \ll 1 - Z$. But in the intermediate regime $\overline{Q^2}_\text{linked} \approx 2/[M(1-Z)]$, so the predicted reduction in local diversity scales with $1/(1-Z)$ and is sensitive to the parameterization of $Z$, and through it to the assumed distribution of fitness effects ($Z \approx 1 - \mathbb{E}[s^2]/\mathbb{E}[s]$). The inability of bounding parameterizations to resolve this mismatch in any species establishes a fundamental incompatibility between the magnitude of ecologically estimated fitness variance and the mechanics of the neutral coalescent.
 
 This incompatibility bears directly on Lewontin’s paradox: the observation that genome-wide nucleotide diversity varies across taxa by far less than their census population sizes would predict, implying a systematic, non-linear decoupling of effective and census sizes (Lewontin 1974). Extensive comparative genomic surveys confirm that $N_e$ inferred from nucleotide diversity varies by roughly three orders of magnitude, whereas census sizes span more than eight (Leffler et al. 2012; Buffalo 2021). Linked selection—comprising background selection against recurrent deleterious mutations and interference from selective sweeps—is the consensus proximate mechanism suppressing $N_e$ relative to $N$. Furthermore, the magnitude of this reduction ($N_e/N$) correlates positively with species-level proxies for the total intensity of linked selection (Corbett-Detig et al. 2015).
 
@@ -322,11 +328,11 @@ A final resolution involves violations of the stationarity assumption underlying
 
 Rapidly oscillating environmental optima, interannual variation in favored genotypes, frequency-dependent dynamics, and shifting spatial fitness gradients can all generate this required attenuation in wild populations. Genomic evidence tracking temporal allele-frequency changes confirms the operation of selective interference at genome-wide scales, yet the observed magnitudes fall well below the expectations generated by pedigree-derived $V_A$ (Buffalo and Coop 2020). If temporally fluctuating selection drives this paradox, it demonstrates that pedigree-based $V_A$ estimated over short observation windows systematically overstates the temporal mean selective autocovariance governing the neutral coalescent. The relevant parameter for coalescent predictions is not the instantaneous statistical $V_A$ isolated in a single generation, but the long-run, time-averaged transmissible component. Because these three resolutions—pedigree estimation bias, metapopulation gene flow, and temporally fluctuating selection—are not mutually exclusive, identifying their relative contributions remains a major empirical challenge. By defining the theoretical limits of sustainable variance, the $V_{A,\text{max}}$ diagnostic framework provides a quantitative baseline to structure this empirical program.
 
-The implied selection coefficients (Appendix D) demonstrate that contemporary $V_A$ estimates are incompatible with steady-state mutation-selection-drift balance. Under the House of Cards approximation—the strong-selection limit where new mutations exert large effects relative to pre-existing standing variation—the equilibrium variance $V_A \approx U_d s$ defines the required average heterozygous selection coefficient as $s^* = V_A/U_d$. Given reported $V_A \in [0.10, 0.30]$ and empirical diploid deleterious mutation rates of $U_d \approx [XX]$ for the analyzed vertebrates, this relationship necessitates $s^* \approx [XX]–[XX]$. This expectation exceeds empirical estimates of the mean heterozygous selection coefficient by one to two orders of magnitude, as vertebrate distributions of fitness effects consistently cluster around $\bar{s} \approx 10^{-3}–10^{-2}$ (Eyre-Walker and Keightley 2007; Huber et al. 2017). The Robertson formula compounds this implausibility: it treats $V_A$ as a sufficient statistic for the unlinked interference effect, but this equivalence holds only in the small-$t$ limit where heterozygous selection coefficients are well below one. When fitness variance is concentrated in alleles of large heterozygous effect—precisely the regime implied by $\bar{t}^* = V_A/U_d$ at the reported $V_A$ magnitudes—the per-locus interference at unlinked sites scales as 2$t/(1+t)^2$ rather than $t$, so that strongly deleterious alleles contribute less genome-wide interference per unit variance than the Robertson formula predicts (Charlesworth 2012; Rettelbach et al. 2025). As shown in Appendix D, this DFE correction partially relieves the Robertson-predicted suppression at large $\bar{t}^*$ but does not resolve the paradox: the corrected $N_e/N$ predictions remain orders of magnitude below observation for all species in the dataset.
+The implied selection coefficients (Appendix D) demonstrate that contemporary $V_A$ estimates are incompatible with steady-state mutation-selection-drift balance. In the strong-selection limit, the deterministic rare-allele balance $V_A \approx U_d s$ (Mukai et al. 1972; Charlesworth 2012) defines the required average heterozygous selection coefficient as $s^* = V_A/U_d$. Given posterior modes of $V_A$ from 0.003 to 0.50 (median 0.10) and diploid deleterious mutation rates of $U_d = 0.34$--$1.26$ for the analyzed vertebrates, this relationship requires $s^* = 0.006$--$0.78$ (median 0.16). This expectation exceeds empirical estimates of the mean heterozygous selection coefficient by one to two orders of magnitude, as vertebrate distributions of fitness effects consistently cluster around $\bar{s} \approx 10^{-3}–10^{-2}$ (Eyre-Walker and Keightley 2007; Huber et al. 2017). The Robertson formula compounds this implausibility: it treats $V_A$ as a sufficient statistic for the unlinked interference effect, but this equivalence holds only in the small-$t$ limit where heterozygous selection coefficients are well below one. When fitness variance is concentrated in alleles of large heterozygous effect—precisely the regime implied by $\bar{t}^* = V_A/U_d$ at the reported $V_A$ magnitudes—the per-locus interference at unlinked sites scales as $t/(1+t)^2$ rather than $t$ (equivalently $8\mu t/(1+t)^2$ against $8\mu t$ per site), so that strongly deleterious alleles contribute less genome-wide interference per unit variance than the Robertson formula predicts (Charlesworth 2012, Appendix; Santiago and Caballero 1998). As shown in Appendix D, this correction multiplies the unlinked term $4\kappa V_A$ by about $1/(1+\bar{t}^*)^2$, 0.31--0.99 across populations. It lowers the predicted reduction in diversity, so it widens the diversity gap rather than closing it.
 
 The weak-selection regime is similarly incompatible. Solving for the implied selection coefficient under the near-neutral approximation ($V_A \approx 2N_e U_d s^2$) and substituting the resultant values yields $N_e s \gg 1$ for all populations in our dataset (Appendix D). Because $N_e s \gg 1$ indicates that directional selection overwhelms genetic drift, this outcome invalidates the foundational premise of the weak-selection limit. Consequently, neither strong-selection nor weak-selection boundaries can recover the reported $V_A$ magnitudes when constrained by empirically calibrated mutation rates and selection coefficients. This inability to reconcile pedigree-derived variance with steady-state mutational limits establishes an independent, demographic-free analogue to the coalescent paradox.
 
-The theoretical framework developed here relies on several structural approximations that define the boundaries of its application. First, the equilibrium derivation (Appendix D) assumes a uniform heterozygous selection coefficient ($s$) across all deleterious loci. Empirical distributions of fitness effects (DFE) in vertebrates, however, are strongly leptokurtic, characterized by a bulk of mildly deleterious mutations and a long tail of large-effect alleles. Because the per-locus contribution to additive variance scales proportionally with $s$ under House of Cards balance, large-effect alleles dominate $V_A$ (Eyre-Walker and Keightley 2007). Consequently, under an empirical DFE, the effective selection coefficient driving the Robertson effect exceeds the DFE mean. This dynamic renders the required selection coefficients ($s^*$) implied by pedigree $V_A$ even more biologically improbable than the uniform-$s$ approximation suggests, indicating that this architectural assumption underestimates the severity of the paradox. Second, the analytical framework models discrete, non-overlapping generations. The wild vertebrate populations analyzed here are iteroparous, necessitating age-structured demographic models that modify the mapping between family-size variance and $N_e$ (Engen et al. 2005). While this age-structure correction is moderate for species with low interannual survival variance, it must be integrated into future demographic modeling of specific iteroparous study systems. Third, the current formulation is restricted to autosomal inheritance. For avian taxa harboring substantial functional content on the Z chromosome, the hemizygous Z in females is transmitted without recombination, placing it in the complete-linkage limit (map length $M = 0$ in the heterogametic sex). Excluding sex chromosomes therefore systematically underestimates the total genome-wide selective interference for these species. Fourth, the spatial distribution of fitness variance within chromosomes is modeled as uniform per Morgan, conforming to the infinitesimal model. As established mathematically via Jensen’s inequality, distributing variance uniformly minimizes local interference compared to randomly positioned large-effect loci, generating an upper bound on $N_e/N$. However, if unobserved causal loci cluster in regions of suppressed recombination, this approximation reverses, underestimating the local interference. Because the empirical genomic locations of loci contributing to pedigree-derived $V_A$ remain unmapped for these monitored populations, this architectural uncertainty imposes a fundamental limit on the precision of spatial interference predictions. Finally, the predictions assume demographic and environmental stationarity. Populations experiencing recent bottlenecks, expansions, or habitat fragmentation violate this assumption. Because several monitored populations in our dataset occupy restricted island habitats or fragmented ranges, their current molecular diversity ($\pi$) reflects non-equilibrium historical demography. In such systems, resolving the fraction of the $N_e$ reduction attributable to historical bottlenecks versus contemporary selective interference requires independent demographic inference prior to applying the equilibrium framework.
+The theoretical framework developed here relies on several structural approximations that define the boundaries of its application. First, the equilibrium derivation (Appendix D) assumes a uniform heterozygous selection coefficient ($s$) across all deleterious loci. Empirical distributions of fitness effects (DFE) in vertebrates, however, are strongly leptokurtic, characterized by a bulk of mildly deleterious mutations and a long tail of large-effect alleles. In the strong-selection limit the sustainable variance is $V_A = U_d\bar{s}$ whatever the shape of the DFE, so $s^* = V_A/U_d$ estimates its arithmetic mean (Appendix D). Shape matters only through nearly neutral mutations ($4N_es \lesssim 1$), which contribute less than $U_ds$. A more leptokurtic DFE with the same mean puts more mass there, lowers the sustainable $V_A$, and widens the gap. The uniform-$s$ approximation therefore understates the mismatch. DFEs inferred from site-frequency spectra do not constrain the strongly deleterious tail, so the comparison of $s^*$ with their mean rests partly on an extrapolation. Second, the analytical framework models discrete, non-overlapping generations. The wild vertebrate populations analyzed here are iteroparous, necessitating age-structured demographic models that modify the mapping between family-size variance and $N_e$ (Engen et al. 2005). While this age-structure correction is moderate for species with low interannual survival variance, it must be integrated into future demographic modeling of specific iteroparous study systems. Third, the current formulation is restricted to autosomal inheritance. For avian taxa harboring substantial functional content on the Z chromosome, the hemizygous Z in females is transmitted without recombination, placing it in the complete-linkage limit (map length $M = 0$ in the heterogametic sex). Excluding sex chromosomes therefore systematically underestimates the total genome-wide selective interference for these species. Fourth, the spatial distribution of fitness variance within chromosomes is modeled as uniform per Morgan, conforming to the infinitesimal model. As established mathematically via Jensen’s inequality, distributing variance uniformly minimizes local interference compared to randomly positioned large-effect loci, generating an upper bound on $N_e/N$. However, if unobserved causal loci cluster in regions of suppressed recombination, this approximation reverses, underestimating the local interference. Because the empirical genomic locations of loci contributing to pedigree-derived $V_A$ remain unmapped for these monitored populations, this architectural uncertainty imposes a fundamental limit on the precision of spatial interference predictions. Finally, the predictions assume demographic and environmental stationarity. Populations experiencing recent bottlenecks, expansions, or habitat fragmentation violate this assumption. Because several monitored populations in our dataset occupy restricted island habitats or fragmented ranges, their current molecular diversity ($\pi$) reflects non-equilibrium historical demography. In such systems, resolving the fraction of the $N_e$ reduction attributable to historical bottlenecks versus contemporary selective interference requires independent demographic inference prior to applying the equilibrium framework.
 
 This study establishes a quantitative bridge between the heritable fitness variance estimated from contemporary pedigrees and the neutral diversity predicted by coalescent theory, demonstrating that these two bodies of empirical data are mutually irreconcilable. By integrating the Robertson effect with mating-system structure, continuous chromosomal architecture, and empirical functional target sizes, this framework derives the theoretical maximum additive genetic variance ($V_{A,\text{max}}$) compatible with maintaining observed nucleotide diversity. The observation that reported $V_A$ exceeds this threshold by factors of [XX]–[XX] across [X\_OUT\_OF\_N] species constitutes a structural incompatibility that persists across all bounding parameterizations. Consequently, pedigree-based animal models likely capture a conflated mixture of stable Mendelian transmission and environmentally structured covariance among relatives. This non-genetic covariance inflates statistical estimates of $V_A$ but fails to generate the multi-generational selective interference necessary to reduce long-term $N_e$. Metapopulation gene flow and temporally fluctuating selection further decouple instantaneous phenotypic variance from long-term coalescent dynamics. Ultimately, these findings establish a fundamental limit on the interpretation of quantitative genetic parameters in wild populations: heritable variance in relative fitness cannot be treated as an isolated ecological metric decoupled from its population-genomic context. The magnitude of variance derived from pedigrees must be evaluated against the consequent reduction in effective population size before it can be interpreted as the stable, transmissible Mendelian variance that drives long-term evolutionary adaptation.
 
@@ -468,347 +474,148 @@ For $G$, Equation~\eqref{eq:G} applies sex by sex, with $b$ the weight of a pare
 
 $\kappa$ and $r_{mf}$ are different quantities. $r_{mf}$ measures assortative pairing on breeding value and lengthens the persistence of an association. $\kappa$ arises from nest sharing between partners, which in Santiago and Caballero's framework enters through the family-level $C^2$. The mating system therefore enters through three measurable features: whether a pair bond shares productivity, the extra-pair rate $\alpha$, and assortment $r_{mf}$. We set $r_{mf} = 0$ for want of estimates; positive assortment would raise $\kappa$.
 
+\paragraph{Own, partner and linked components.} The linked term of the main text needs $\kappa$ taken apart, because only some of the variance it counts can be linked to a focal gene copy. With $r_{mf} = 0$, $\mathrm{Var}(L_f) + \mathrm{Var}(L_m)$ separates into the carrier's own breeding value and its social partner's:
+\begin{equation}
+    \kappa = \kappa_\text{own} + \kappa_\text{partner}, \quad
+    \kappa_\text{own} = \frac{(1+\Phi)^2 + (m+\Phi)^2}{8}, \quad
+    \kappa_\text{partner} = \frac{\left[1+\Phi(1-\alpha)\right]^2 + (1-\alpha)^2(1+\Phi)^2}{8}.
+\label{eq:kappa_split}
+\end{equation}
+The partner's genes are never on the focal copy's haplotype, so the partner component is wholly unlinked. Of the own component, the share on the focal haplotype ($v_h$) moves to the linked term. There a selected locus whose association survives a generation with probability $\rho = (1-r)Z$ contributes $w_0 + \bar{m}\,\rho/(1-\rho)$ to the copy's cumulative advantage, where $w_0$ is the carrier's own weight (1 in females, $m$ in males) and later carriers average $\bar{m}$. Relative to the unweighted $1/(1-\rho)$, this gives
+\begin{equation}
+    \kappa_\text{cis}(\rho) = \frac{\left[1 + \bar{m}X\right]^2 + \left[m + \bar{m}X\right]^2}{2(1+X)^2}, \qquad X = \frac{\rho}{1-\rho},
+\end{equation}
+which falls from $(1+m^2)/2$ as $\rho \to 0$ to $\bar{m}^2$ under tight linkage. Without a pair bond, and under Model B, $m = 1$, so $\kappa_\text{own} = \kappa_\text{cis} = 1$ and $\kappa_\text{partner} = \kappa - 1$. The chromosome-level reduction of the main text (Equation~\eqref{total_red}) uses this split: $\kappa_\text{cis}$ on the linked term, and $1 + 4\kappa V_A - 4\kappa_\text{own}v_h$ for the unlinked background.
+
 \paragraph{Assumptions.} The derivation is first order in $a$ (weak selection per lineage), sets $G = 1$ and $r_{mf} = 0$ in the primary results, assumes an equal sex ratio, and lets the social male's breeding value contribute to all of his nest's productivity whether or not he sires the offspring. Combining Equation~\eqref{eq:kappa_def} with Appendix A yields the mating-system-corrected unlinked expectation,
 \begin{equation}
     \frac{N_e}{N} = \frac{1}{1 + 4\kappa V_A},
 \end{equation}
-which corresponds to Equation (5) in the main text.
+which is Equation~\eqref{unlinked_mating} of the main text.
 
-\section{Appendix C: Analytical Integration of the Chromosome-Wide Constraint}
+\section{Appendix C: Analytical Integration of the Chromosome-Wide Constraint}\label{app:chromosapp}
 
-This appendix derives the chromosome-wide average selective interference, $\overline{Q^2}_\text{linked}$, resulting from heritable fitness variance distributed continuously across a genetic map. The derivation proceeds in two stages. First, we formulate the integral under the exact Haldane mapping function—the expression we numerically evaluate to generate the predictions for every chromosome in our dataset. Second, we derive a closed-form analytical expression under the linear approximation ($r \approx \ell$), formally establishing its biological domain of validity and proving that it provides a strict lower bound on the magnitude of selective interference.
+This appendix evaluates the chromosome-wide interference $\overline{Q^2}_\text{linked}$ used in the main text. The kernel it integrates is established; what follows is its integration along a genetic map. We give closed forms under both the Haldane and the linear mapping function, and show that the linear form is a lower bound.
 
-\subsection*{C.1\quad Position-specific constraint profile}
+\subsection*{C.1\quad The kernel}
 
-Consider a neutral locus located at genetic position $y$ on a chromosome of total map length $M$ Morgans. The cumulative selective interference exerted on this neutral site by a single locus under selection at position $x$ depends on the persistence of their statistical association. The joint probability that this association survives both recombination and the loss of selective variance across one generation is $(1 - r(\ell))Z$, where $\ell = \vert{}x-y\vert{}$ is the pairwise genetic distance.
-
-The cumulative lifetime interference generated by this selected locus is the infinite geometric sum of this survival probability:
-
+Consider a neutral site at map position $y$ on a chromosome of $M$ Morgans, and a selected locus at $x$, a distance $\ell = \vert x-y\vert$ away. An association between them survives one generation with probability $(1-r(\ell))Z$: recombination breaks it with probability $r(\ell)$, and $Z = 1 - V_m/V_A$ is the fraction of selective variance that persists, in the notation of Santiago and Caballero (1998). The cumulative effect of one generation's association is the geometric sum
 \begin{equation}
-    \sum_{t=0}^{\infty}\left[(1 - r(\ell))\,Z\right]^t = \frac{1}{1-(1-r(\ell))Z}
+    \sum_{t=0}^{\infty}\left[(1 - r(\ell))\,Z\right]^t = \frac{1}{1-(1-r(\ell))Z}.
 \label{eq:geom_sum}
 \end{equation}
-
-Assuming selected loci are distributed uniformly across the genetic map (consistent with the infinitesimal model), we obtain the position-specific interference profile $Q^2(y)$ by squaring this cumulative effect and averaging over all possible positions of the selected locus, $x \in [0,M]$:
-
+This is the cumulative factor of Santiago and Caballero (2016) and Buffalo and Kern (2024, their Equation 3). With $Z = 1 - s$ it becomes $1/[s + r(1-s)]$, the background-selection kernel of Hudson and Kaplan (1995) and Nordborg et al. (1996) (Buffalo and Kern 2024, Equation 4). Squaring it, summing over selected loci, and keeping only associations on the focal haplotype gives the exponential reduction of the main text (Buffalo and Kern 2024, Equation 2; their Supplementary Equations 28--31). With selected loci spread uniformly along the map (the infinitesimal model), the profile at $y$ is
 \begin{equation}
-    Q^2(y) = \frac{1}{M}\int_0^M \left(\frac{1}{1-(1-r(|x-y|))Z}\right)^2 dx
+    Q^2(y) = \frac{1}{M}\int_0^M f(\vert x-y\vert)\,dx = \frac{1}{M}\left[F(y) + F(M-y)\right], \qquad F(D) = \int_0^D f(\ell)\,d\ell,
+\label{eq:C_profile}
 \end{equation}
+with $f(\ell) = [1-(1-r(\ell))Z]^{-2}$. The split at $y$ follows Santiago and Caballero (2016) and Buffalo and Kern (2024, Supplementary Equation 32).
 
-Under the Haldane mapping function, $r(\ell) = \frac{1}{2}(1-e^{-2\ell})$, the per-generation survival probability becomes:
+\subsection*{C.2\quad Closed form under the Haldane mapping function}
 
+Under Haldane's function, $r(\ell) = \frac{1}{2}(1-e^{-2\ell})$, the survival probability is $\frac{Z}{2}(1+e^{-2\ell})$ and
 \begin{equation}
-    (1-r(\ell))\,Z = \frac{Z}{2}(1+e^{-2\ell})
+    f_\text{H}(\ell) = \left[A - B e^{-2\ell}\right]^{-2}, \qquad A = 1 - \tfrac{Z}{2}, \quad B = \tfrac{Z}{2}.
 \end{equation}
-
-To resolve the absolute value in the genetic distance $\ell = \vert{}x-y\vert{}$, we split the spatial integral at the focal position $y$, computing the interference contributed by the chromosome arms to the left and right of the neutral site separately:
-
+The substitution $w = e^{-2\ell}$ gives the arm integral in elementary functions,
 \begin{equation}
-    Q^2(y) = \frac{1}{M}\left[\int_0^y f_\text{H}(\ell)\,d\ell + \int_0^{M-y} f_\text{H}(\ell)\,d\ell\right]
+    F_\text{H}(D) = \frac{1}{2}\left\{\frac{2D + \ln\!\left[(A - Be^{-2D})/(1-Z)\right]}{A^2} + \frac{1}{A}\left[\frac{1}{1-Z} - \frac{1}{A - Be^{-2D}}\right]\right\}.
+\label{eq:C_arm}
 \end{equation}
-where $f_\text{H}(\ell) = \left(1 - \frac{Z}{2}(1+e^{-2\ell})\right)^{-2}$. Because $f_\text{H}(\ell)$ is a transcendental function of the genetic distance $\ell$, the antiderivative cannot be expressed using elementary functions. Consequently, Equation (C.4) is evaluated numerically.
-
-\subsection*{C.2\quad Chromosome-wide average under the Haldane mapping function}
-
-To determine the aggregate interference experienced by neutral variation across the entire chromosome, we average the position-specific profile $Q^2(y)$ over all possible neutral-site positions, assuming a uniform physical density of neutral sites ($1/M$):
+Averaging Equation~\eqref{eq:C_profile} over neutral sites, and using the symmetry of $f$ to reduce the double integral to one over pairwise distances, weights each distance by the number of pairs at that distance:
 \begin{equation}
-    \overline{Q^2}_\text{linked} = \frac{1}{M}\int_0^M Q^2(y)\,dy = \frac{1}{M^2}\int_0^M\int_0^M f_\text{H}(|x-y|)\,dx\,dy
-\label{eq:double_int}
+    \overline{Q^2}_\text{H} = \frac{1}{M^2}\int_0^M\!\!\int_0^M f_\text{H}(\vert x-y\vert)\,dx\,dy = \frac{2}{M^2}\int_0^M (M-\ell)\,f_\text{H}(\ell)\,d\ell = \frac{2}{M^2}\int_0^M F_\text{H}(D)\,dD.
+\label{eq:C_haldane_avg}
 \end{equation}
-
-We can reduce this double integral over the spatial domain $[0,M]^2$ to a single integral over all pairwise genetic distances $\ell = \vert{}x-y\vert{}$. Because the interference function is symmetric with respect to direction ($f_\text{H}(\vert{}x-y\vert{}) = f_\text{H}(\vert{}y-x\vert{})$), the contributions from loci where $x > y$ equal those where $x < y$:
-
+This is Equation~\eqref{eq:haldane_avg} of the main text. The last integral is also closed-form, with a dilogarithm $\mathrm{Li}_2$ from $\int_0^M \ln(A - Be^{-2D})\,dD = M\ln A + \frac{1}{2}\left[\mathrm{Li}_2(q e^{-2M}) - \mathrm{Li}_2(q)\right]$, $q = B/A$:
 \begin{equation}
-\overline{Q^2}_\text{linked} = \frac{2}{M^2}\int_0^M\int_0^x f_\text{H}(x-y)\,dy\,dx
+    \overline{Q^2}_\text{H} = \frac{1}{M^2}\left\{\frac{M^2 - M\ln(1-Z) + M\ln A + \tfrac{1}{2}\left[\mathrm{Li}_2(qe^{-2M}) - \mathrm{Li}_2(q)\right]}{A^2} + \frac{1}{A}\left[\frac{M}{1-Z} - \frac{2M + \ln\!\left[(A-Be^{-2M})/(1-Z)\right]}{2A}\right]\right\}.
+\label{eq:C_closed_haldane}
 \end{equation}
-
-Substituting $\ell = x - y$ in the inner integral ($dy = -d\ell$; moving the limits $y \in [0,x]$ to $\ell \in [x,0]$, which reverses the sign):
-
-\begin{equation}
-    = \frac{2}{M^2}\int_0^M\int_0^x f_\text{H}(\ell)\,d\ell\,dx
-\end{equation}
-
-The integration region is $\{(\ell,x) : 0 \leq \ell \leq x \leq M\}$. Exchanging the order of integration to evaluate the spatial limits before the genetic distance:
-
-\begin{equation}
-    \overline{Q^2}_\text{linked} = \frac{2}{M^2}\int_0^M f_\text{H}(\ell)\left(\int_\ell^M dx\right)d\ell = \frac{2}{M^2}\int_0^M (M-\ell)\,f_\text{H}(\ell)\,d\ell
-\label{eq:haldane_avg}
-\end{equation}
-
-The biological intuition behind the linear weight $(M-\ell)$ is straightforward: on a chromosome of finite length $M$, the number of locus pairs separated by a given genetic distance $\ell$ decreases linearly as $\ell$ increases. As the genetic distance approaches the total length of the chromosome ($\ell \to M$), the number of physically possible pairs vanishes. This corresponds to Equation (10) in the main text.
+Equation~\eqref{eq:C_closed_haldane} agrees with numerical quadrature of Equation~\eqref{eq:C_haldane_avg} to ten significant digits for $Z \in [0.5, 0.999]$ and $M \in [0.05, 50]$.
 
 \medskip
-\noindent\textit{Verification of Biological Boundaries.} The integrity of the model requires that it recovers known biological limits. Using the identity $\frac{2}{M^2}\int_0^M(M-\ell)\,d\ell = 1$, we evaluate the boundaries:
-
-\medskip
-\noindent\textit{Complete-linkage limit} ($M \to 0$): For a chromosome with zero recombination (e.g., the avian W or mammalian Y chromosome), all pairwise genetic distances vanish ($\ell \to 0$). The survival function evaluates to $f_\text{H}(0) = (1-Z)^{-2}$ uniformly across the chromosome:
-
+\noindent\textit{Limits, and the scales on which they are reached.} Without recombination every distance vanishes and $\overline{Q^2}_\text{H} \to (1-Z)^{-2}$, the no-recombination background-selection limit ($e^{-U/s}$ for $Z = 1-s$). That limit needs the whole chromosome to lie within the kernel's decay distance, $M \ll 1-Z$, not merely a short map: at $Z = 0.99$ and $M = 0.5$, $\overline{Q^2}_\text{H} = 387$, against $(1-Z)^{-2} = 10^4$. At the other end $f_\text{H}(\ell) \to A^{-2} = [2/(2-Z)]^2$, Santiago and Caballero's (1995) unlinked $Q^2$ with $G$ replaced by $Z$. But the approach is slow:
 \begin{equation}
-    \lim_{M\to 0}\overline{Q^2}_\text{linked} = (1-Z)^{-2}
+    \overline{Q^2}_\text{H} = \left(\frac{2}{2-Z}\right)^2 + \frac{2}{M}\int_0^\infty \left[f_\text{H}(\ell) - A^{-2}\right]d\ell + O(M^{-2}),
 \end{equation}
+and the integral is close to $1/(1-Z)$ (10.3 at $Z = 0.9$, 105 at $Z = 0.99$). The free-recombination value is therefore reached only when $M \gg 1/(1-Z)$ Morgans. At $Z = 0.99$ and $M = 10$, $\overline{Q^2}_\text{H} = 24.8$, against the limit 3.9. Real chromosomes lie between the two limits, in the regime $\overline{Q^2}_\text{H} \approx 2/[M(1-Z)]$, which is Santiago and Caballero's (1998) Equation 8 and the $e^{-2U/R}$ of Barton (1995).
+% UNVERIFIED: SC 1998 equation number taken from Buffalo & Kern 2024 Supplementary Eqs 34-35; SC 1998 body not read.
 
-\noindent\textit{Independent-assortment limit} ($M \to \infty$): For an infinitely long chromosome, the Haldane function saturates at $r \to 1/2$. Consequently, $f_\text{H}(\ell) \to (1-Z/2)^{-2}$ for the vast majority of locus pairs. Because the exponential convergence to this asymptote is rapid, the dominated convergence theorem ensures:
+\subsection*{C.3\quad Closed form under the linear recombination model}
 
+The linear map $r(\ell) \approx \ell$ gives $f_\text{L}(\ell) = (1-Z+\ell Z)^{-2}$ and $F_\text{L}(D) = D/[(1-Z)(1-Z+DZ)]$. The mid-chromosome profile is Buffalo and Kern's (2024) Supplementary Equation 33; averaging Equation~\eqref{eq:C_profile} over all neutral positions gives
 \begin{equation}
-    \lim_{M\to\infty}\overline{Q^2}_\text{linked} = \frac{1}{(1-Z/2)^2}
-\end{equation}
-
-These boundaries establish that as a chromosome becomes infinitely long, the selective interference precisely decays to the Robertson unlinked baseline derived in Appendix A ($Q^2 = 4$ as $Z \to 1$).
-
-\subsection*{C.3\quad Closed-form approximation under the linear recombination model}
-
-For genetic distances sufficiently short that interference is severe ($\ell \ll 0.5$ Morgans), we can approximate the Haldane function with a linear expansion $r(\ell) \approx \ell$. Under this linear mapping, the per-generation survival probability becomes $(1-\ell)Z$, yielding the integrand:
-
-\begin{equation}
-    f_\text{L}(\ell) = \left(\frac{1}{1-Z+\ell Z}\right)^2
-\end{equation}
-
-This approximation allows an analytical antiderivative. Using the substitution $u = 1-Z+\ell Z$, $du = Z\,d\ell$:
-
-\begin{equation}
-    \int_0^D f_\text{L}(\ell)\,d\ell = \frac{1}{Z}\int_{1-Z}^{1-Z+DZ}\frac{du}{u^2} = \frac{D}{(1-Z)(1-Z+DZ)}
-\label{eq:antideriv}
-\end{equation}
-
-Applying this to the left and right chromosome arms ($D = y$ and $D = M-y$) yields the closed-form profile for a specific neutral site:
-
-\begin{equation}
-    Q^2_\text{L}(y) = \frac{1}{M(1-Z)}\left(\frac{y}{1-Z+yZ} + \frac{M-y}{1-Z+(M-y)Z}\right)
-\end{equation}
-
-To determine the chromosome-wide average, we integrate over all neutral-site positions:
-
-\begin{equation}
-    \overline{Q^2}_\text{L} = \frac{1}{M^2(1-Z)}\int_0^M\left(\frac{y}{1-Z+yZ} + \frac{M-y}{1-Z+(M-y)Z}\right)dy
-\end{equation}
-
-By symmetry, both arms contribute identically across the interval $[0,M]$, simplifying the integral to:
-\begin{equation}
-    \overline{Q^2}_\text{L} = \frac{2}{M^2(1-Z)}\int_0^M \frac{y}{1-Z+yZ}\,dy
-\end{equation}
-
-Using the substitution $u = 1-Z+yZ$, $dy = du/Z$, we evaluate the integral:
-
-\begin{align}
-    \int_0^M \frac{y}{1-Z+yZ}\,dy
-    &= \frac{1}{Z^2}\int_{1-Z}^{1-Z+MZ}\left(1 - \frac{1-Z}{u}\right)du \\
-    &= \frac{1}{Z^2}\left[u-(1-Z)\ln u\right]_{1-Z}^{1-Z+MZ}
-\end{align}
-
-Evaluating at the bounds and combining logarithmic terms yields:
-
-\begin{equation}
-    = \frac{M}{Z} - \frac{1-Z}{Z^2}\ln\left(1+\frac{MZ}{1-Z}\right)
-\end{equation}
-
-Substituting this back into the leading coefficient $2/(M^2(1-Z))$ provides the final closed-form expression for chromosome-wide interference under linear recombination:
-
-\begin{equation}
-    \overline{Q^2}_\text{L} = \frac{2}{MZ(1-Z)} - \frac{2}{M^2Z^2}\ln\left(1+\frac{MZ}{1-Z}\right)
+    \overline{Q^2}_\text{L} = \frac{2}{M^2(1-Z)}\int_0^M \frac{y}{1-Z+yZ}\,dy = \frac{2}{MZ(1-Z)} - \frac{2}{M^2Z^2}\ln\!\left(1+\frac{MZ}{1-Z}\right).
 \label{eq:closed_form}
 \end{equation}
+Its leading term is the Santiago and Caballero (1998) result above. Expanding the logarithm gives $\overline{Q^2}_\text{L} = (1-Z)^{-2} - \frac{2}{3}MZ(1-Z)^{-3} + O(M^2)$. The $O(M)$ term is the same under the Haldane map, so the two agree to first order in $M$. As $M \to \infty$, $\overline{Q^2}_\text{L} \to 0$ rather than to the unlinked value: the linear map lets recombination exceed $1/2$, and for $\ell > 1$ it gives a negative survival probability.
 
-\subsection*{C.4\quad Domain of validity and directional bias of the approximation}
+\subsection*{C.4\quad The linear form is a lower bound}
 
-\noindent\textit{Agreement at complete linkage ($M \to 0$).} Setting $\epsilon = MZ/(1-Z)$ and applying a Taylor expansion to the logarithm ($\ln(1+\epsilon) = \epsilon - \epsilon^2/2 + O(\epsilon^3)$) yields:
-
-\begin{align}
-    \overline{Q^2}_\text{L} &= \frac{2}{MZ(1-Z)} - \frac{2}{M^2Z^2}\left[\frac{MZ}{1-Z} - \frac{1}{2}\left(\frac{MZ}{1-Z}\right)^2 + O(\epsilon^3)\right] \\
-    &= \frac{1}{(1-Z)^2} + O(M)
-\end{align}
-
-This confirms that the linear approximation recovers the Haldane expectation in the limit of zero recombination.
-
-\medskip
-\noindent\textit{Failure at independent assortment ($M \to \infty$).} For highly recombining chromosomes, as $M \to \infty$, the leading term $2/(MZ(1-Z)) \to 0$ and the logarithmic correction decays even faster, driving $\overline{Q^2}_\text{L} \to 0$. This violates the biological reality established in (C.10): selective interference cannot decay below the unlinked baseline imposed by independent assortment. The linear approximation assumes recombination rates can exceed $0.5$, artificially purging associations that should persist across unlinked chromosomes.
-
-\medskip
-\noindent\textit{Proof of conservative bias.} Because the exponential decay of physical linkage slows as distance increases, the true recombination fraction is strictly concave ($e^{-2\ell} > 1-2\ell$ for all $\ell > 0$). Therefore, the exact Haldane mapping is always bounded above by the linear approximation:
-
+Because $e^{-2\ell} > 1 - 2\ell$ for all $\ell > 0$, the Haldane recombination fraction is always below the linear one, $r_\text{H}(\ell) < \ell$. For $Z > 0$ the linear map therefore underestimates the survival of every association, so $f_\text{L} < f_\text{H}$ pointwise and
 \begin{equation}
-    r_\text{H}(\ell) = \frac{1}{2}(1-e^{-2\ell}) < \ell = r_\text{L}(\ell)
+    \overline{Q^2}_\text{L} < \overline{Q^2}_\text{H} \qquad \text{for all } M > 0.
 \end{equation}
+Equation~\eqref{eq:closed_form} is a lower bound on interference and hence on the reduction in $N_e$. The gap grows with $M$ and with $1-Z$: $\overline{Q^2}_\text{L}/\overline{Q^2}_\text{H}$ is 0.99, 0.95 and 0.91 at $M = 0.1$, 1 and 3 Morgans for $Z = 0.99$, and 0.99, 0.85 and 0.68 for $Z = 0.9$. All predictions in the main text use the Haldane form, Equation~\eqref{eq:C_haldane_avg}, evaluated by quadrature, which agrees with Equation~\eqref{eq:C_closed_haldane}.
 
-Because the linear approximation overestimates the true recombination rate for any non-zero distance, it systematically underestimates the per-generation survival probability of the statistical association between loci. Consequently, it underestimates the interference function pointwise across the entire chromosome ($f_\text{L}(\ell) < f_\text{H}(\ell)$).
+\section{Appendix D: Stationary Equilibrium and Implied Selection Coefficients}\label{app:msdbapp}
 
-Integrating this strictly lower function guarantees that:
+This appendix states the variance in fitness that recurrent deleterious mutation maintains at mutation--selection--drift balance, and inverts it to the selection coefficient a measured $V_A$ would require. Every result in it is established; we collect them in the notation of the main text and cite their sources. What is ours is the application to wild-vertebrate $V_A$ in total fitness. The comparison itself has a direct precedent: Charlesworth (2015) set observed additive variance in \emph{Drosophila} fitness components against the mutation--selection prediction and concluded that there is too much of it to be explained by mutation--selection balance (see also Johnson and Barton 2005).
 
+\subsection*{D.1\quad Stationary variance}
+
+Let each of $U_d$ new deleterious mutations per diploid genome per generation have heterozygous effect $s$ on relative fitness (fitnesses $1$, $1-s$, $1-2s$), so its average effect is $s$ and a site at frequency $q$ contributes $2q(1-q)s^2$ to $V_A$. A new mutation enters at $q = 1/(2N)$, so the influx of variance is $V_m = U_d s^2$ (Charlesworth 2015, Equation 1). Selection removes a rare allele's variance at rate $s$ and drift removes heterozygosity at rate $1/(2N_e)$, so a flux balance gives
 \begin{equation}
-    \overline{Q^2}_\text{L} < \overline{Q^2}_\text{H} \quad \text{for all } M > 0
+    V_A \approx \frac{V_m}{s + 1/(2N_e)} = \frac{2N_eU_ds^2}{1+2N_es}.
+\label{eq:D_VA_interp}
 \end{equation}
+This interpolates between the mutation--drift limit $V_A = 2N_eV_m$ for $N_es \ll 1$ (Lynch and Hill 1986) and the deterministic rare-allele balance $V_A = U_ds$, $q = \mu/s$, for $N_es \gg 1$ (Mukai et al. 1972; Charlesworth 2012). It has the same form as the stochastic house-of-cards variance of Bürger et al. (1989).
 
-This establishes that the closed-form expression is a lower bound on the true severity of selective interference. When mapping this to the biological prediction, underestimating interference produces a conservative overestimate of the effective population size, or $N_e/N$.
-
-\medskip
-\noindent\textit{Application to empirical data.} The linear approximation is robust when the characteristic distance over which interference decays ($d^* \approx 1-Z$) is small compared to 0.5 Morgans. Biologically, this expression is highly reliable for avian microchromosomes ($M \lesssim 0.3–0.5$ Morgans), where nearly all pairwise locus interactions fall securely within the linear regime. However, for macrochromosomes spanning multiple Morgans, the discrepancy becomes substantial. Therefore, all primary predictions in the main text are derived via numerical integration of the exact Haldane formulation (Equation C.8), utilizing this closed-form expression strictly as an analytical cross-check for localized, short-range behavior.
-
-\section{Appendix D: Stationary Equilibrium and Implied Selection Coefficients}
-To determine whether the magnitude of additive genetic variance, $V_A$, estimated from contemporary pedigrees can be stably maintained under neutral sequence diversity, we analyze the balance of evolutionary forces at stationarity. At equilibrium, the per-generation influx of variance from novel mutation is exactly offset by the depletion of variance through purifying selection and genetic drift:
-
+Equation~\eqref{eq:D_VA_interp} is a heuristic, not the diffusion result. Drift does not change the expected allele frequency, and under irreversible mutation $\mathbb{E}[q]$ has no stationary value, so the balance has to be written for expected heterozygosity. The diffusion solution for a semidominant deleterious allele (Kimura 1969) gives, per site, $\mathbb{E}[H] = 8N_e\mu\left[1/\beta - 1/(e^\beta - 1)\right]$ with $\beta = 4N_es$, and therefore
 \begin{equation}
-    \Delta V_{\text{mut}} + \Delta V_{\text{sel}} + \Delta V_{\text{drift}} = 0
+    V_A = U_d\,s\left[1 - \frac{4N_es}{e^{4N_es}-1}\right].
+\label{eq:D_VA_exact}
 \end{equation}
+% UNVERIFIED: equation number in Kimura (1969) not checked; formula confirmed by quadrature of the sojourn density and a Wright-Fisher simulation (2Ns = 2).
+Both expressions share their two limits. Between them Equation~\eqref{eq:D_VA_interp} is low by up to 29\%, at $4N_es \approx 3$. Our data lie deep in the strong-selection limit ($2N_es^* = 9{,}400$ to $390{,}000$ where $N_e = \pi/4\mu$ is available), where the two agree to better than one part in $10^3$.
 
-We derive each flux term, assuming a common additive heterozygous effect, $s$, across all loci, before extending the analysis to full empirical distributions of fitness effects (DFE).
+\subsection*{D.2\quad The implied selection coefficient}
 
-\paragraph{Mutational influx.} In a population of size $N$, $U_d N$ new deleterious mutations occur each generation across the genome, where $U_d$ is the diploid deleterious mutation rate. A single new mutation arises at initial frequency $q_0 = 1/(2N)$. For an allele with additive heterozygous effect $s$, its contribution to additive variance at low frequency ($q \ll 1$) is $2q(1-q)s^2 \approx 2qs^2$. The initial variance contributed by a single new mutation is therefore $2q_0 s^2 = s^2/N$. Summing this contribution across all $U_d N$ new mutations yields the total mutational influx:
+In the strong-selection limit, Equation~\eqref{eq:D_VA_exact} inverts to
 \begin{equation}
-    \Delta V_{\text{mut}} = (U_d N) \cdot \frac{s^2}{N} = U_d s^2 \equiv V_m
-\end{equation}
-
-\paragraph{Depletion by purifying selection.} For a rare segregating deleterious allele ($q \ll 1$), the per-locus additive variance is $v \approx 2qs^2$. The per-generation change in frequency driven by additive directional selection is $\Delta q = -sq(1-q) \approx -sq$. The corresponding change in the per-locus variance is:
-
-\begin{equation}
-    \Delta v_{\text{sel}} = 2s^2 \Delta q = 2s^2(-sq) = -s(2qs^2) = -sv
-\end{equation}
-
-Summing the per-locus depletion across all segregating sites yields the total selective depletion of genome-wide variance:
-\begin{equation}
-    \Delta V_{\text{sel}} = -s V_A
-\end{equation}
-
-\paragraph{Depletion by genetic drift.} In a population of effective size $N_e$, stochastic gametic sampling erodes heterozygosity at a rate of $1/(2N_e)$ per generation ($\Delta H = -H/(2N_e)$). Because per-locus additive variance scales directly with heterozygosity ($v = s^2 H$), drift depletes $V_A$ at exactly the same rate:
-\begin{equation}
-    \Delta V_{\text{drift}} = -\frac{V_A}{2N_e}
-\end{equation}
-
-\paragraph{Equilibrium solution.} Setting the net flux to zero and solving for the stationary variance $V_A$:
-\begin{equation}
-    U_d s^2 - s V_A - \frac{V_A}{2N_e} = 0
-    \quad \Rightarrow \quad
-    V_A = \frac{2N_e U_d s^2}{1 + 2N_e s}
-\label{eq:VA_MSD}
-\end{equation}
-
-This deterministic balance holds under the assumptions of rare alleles, additive effects, and constant population size. We verify its equivalence to classical continuous diffusion theory in Section D.4 below.
-
-\subsection{The Implied Selection Coefficient}
-
-By rearranging Equation (\ref{eq:VA_MSD}) as a quadratic in $s$:
-
-\begin{equation}
-    2N_e U_d s^2 - 2N_e V_A s - V_A = 0
-\end{equation}
-
-we isolate the positive root, determining the precise selection coefficient $s^*$ required to maintain a given empirical $V_A$ at stationary equilibrium:
-
-\begin{equation}
-    s^* = \frac{V_A + \sqrt{V_A^2 + 2U_d V_A/N_e}}{2U_d}
-\label{eq:s_implied}
-\end{equation}
-
-This general expression bridges the strong-selection and near-neutral boundaries, allowing us to evaluate the biological plausibility of pedigree-derived variance estimates across all selective regimes.
-
-\subsection{The Strong-Selection Boundary ($N_e s \gg 1$)}
-
-When directional selection overwhelms genetic drift, the drift term $V_A/(2N_e)$ becomes negligible compared to selective depletion ($sV_A$). In this limit, Equation (\ref{eq:VA_MSD}) collapses to the classic House of Cards approximation (Turelli 1984; Bürger 2000):
-
-\begin{equation}
-    V_A \approx U_d s \qquad (N_e s \gg 1)
-\end{equation}
-
-Here, deterministic mutation-selection balance maintains deleterious alleles at frequency $q \approx \mu/s$. Solving for the implied selection coefficient:
-
-\begin{equation}
-    s^*_{\text{strong}} = \frac{V_A}{U_d}
+    s^* = \frac{V_A}{U_d}.
 \label{eq:sHoC}
 \end{equation}
+With $U_d = 4\mu L_\text{coding}$ (Methods) and the direct mutation-rate estimates, $U_d = 0.34$--$1.26$ across the 18 populations with an annotated genome. The posterior modes of $V_A$ then give $s^* = 0.006$--$0.78$, median 0.16, and $P(s^* > 0.01) > 0.89$ in 17 of the 18 posteriors (0.71 in the snow vole). The limit is self-consistent: $2N_es^*$ is $9{,}400$ or more in every population where $N_e$ can be computed. The weak-selection branch fails its own premise. $N_es \ll 1$ with $V_A \approx 2N_eU_ds^2$ requires $N_e \ll 2U_d/V_A$, about 10 for the median population.
 
-\paragraph{Self-consistency check.} For this approximation to hold, the biological premise $N_e s \gg 1$ must be satisfied when evaluating the implied selection coefficient:
+Against a mean heterozygous effect of order $10^{-3}$ to $10^{-2}$ in vertebrate DFEs (Eyre-Walker and Keightley 2007; Huber et al. 2017), $s^*$ is one to two orders of magnitude too large. Read forward, $V_A = U_ds$ at $s = 10^{-3}$, $5 \times 10^{-3}$ and $10^{-2}$ falls short of the measured median $V_A$ by factors of 160, 32 and 16.
+% UNVERIFIED: whether Huber et al. 2017 and Kim et al. 2017 report s as the homozygous effect (h = 0.5); if so the heterozygous mean is s/2, which widens the gap.
+
+\paragraph{Persistence of associations.} With uniform $s$, the fraction of standing variance that persists per generation, $Z = 1 - V_m/V_A$, is $1 - s$ in the strong-selection limit ($1 - s - 1/(2N_e)$ with drift). The per-generation persistence $(1-s)(1-r)$ of an association between a neutral site and a deleterious allele is that of Nordborg et al. (1996) and Charlesworth (2012, Appendix). Under a distribution of effects, $V_m/V_A = \mathbb{E}[s^2]/\mathbb{E}[s] = \bar{s}(1 + \mathrm{CV}_s^2)$, so $Z = 1 - \mathbb{E}[s^2]/\mathbb{E}[s]$. That is well below $1 - \bar{s}$ for leptokurtic DFEs: $1 - 6\bar{s}$ for a gamma DFE of shape 0.2.
+
+\subsection*{D.3\quad Distributions of fitness effects}
+
+Let effects follow a density $\phi(t)$, with $t$ the heterozygous effect. In the strong-selection limit each class contributes $U_d\,t$, so
 \begin{equation}
-    N_e s^*_{\text{strong}} = \frac{N_e V_A}{U_d} \gg 1
-\end{equation}
-
-For all wild vertebrate populations in our dataset, the observed $V_A$ and $N_e$ (derived from $\pi$) yield $N_e V_A / U_d \gg 1$. Therefore, the strong-selection limit is mathematically self-consistent for these data.
-
-\paragraph{Connection to linkage decay ($Z$).} Substituting the equilibrium variance ($V_A \approx U_d s$) into the per-generation variance survival rate defined in the main text ($Z = 1 - V_m/V_A$) yields:
-
-\begin{equation}
-    Z = 1 - \frac{U_d s^2}{U_d s} = 1 - s \qquad (N_e s \gg 1)
-\end{equation}
-This establishes that under strong selection, the decay of statistical associations driving selective interference across the coalescent is governed directly by the selection coefficient (see also Buffalo and Kern 2024).
-
-\paragraph{Biological Failure Mode.} While mathematically consistent, this limit is biologically irreconcilable with known sequence evolution. Evaluating Equation (\ref{eq:sHoC}) using pedigree-derived $V_A$ (typically 0.10–0.30) and plausible, yet conservative, vertebrate mutation rates ($U_d \approx 1$) necessitates an average selection coefficient of $s^*_{\text{strong}} \approx 0.10–0.30$. This implied value exceeds the mean heterozygous selection coefficient established from empirical vertebrate DFEs ($\bar{s} \approx 10^{-3}–10^{-2}$; Eyre-Walker and Keightley 2007; Huber et al. 2017) by one to two orders of magnitude. For pedigree $V_A$ to represent stable genetic architecture under this limit, the entire variance must be driven by semi-lethal mutations, contradicting genomic data.
-
-\subsection{The Weak-Selection Boundary ($N_e s \ll 1$)}
-Conversely, if selection is extremely weak relative to drift, alleles drift nearly neutrally and selective depletion ($sV_A$) becomes negligible compared to stochastic loss ($V_A/(2N_e)$). Equation (\ref{eq:VA_MSD}) reduces to:
-
-\begin{equation}
-    V_A \approx 2N_e U_d s^2 \qquad (N_e s \ll 1)
-\end{equation}
-
-Solving for the implied near-neutral selection coefficient:
-
-\begin{equation}
-    s^*_{\text{weak}} = \sqrt{\frac{V_A}{2N_e U_d}}
-\label{eq:sneut}
-\end{equation}
-
-\paragraph{Self-consistency failure.} We test whether the assumption $N_e s \ll 1$ holds when parameterized by empirical data:
-
-\begin{equation}
-    N_e s^*_{\text{weak}} = \sqrt{\frac{N_e V_A}{2U_d}} \ll 1 \quad \Rightarrow \quad N_e \ll \frac{2U_d}{V_A}
-\end{equation}
-
-Using standard values ($V_A = 0.20$ and $U_d = 1$), this inequality demands an effective population size $N_e \ll 10$. Because all monitored populations in our dataset maintain sequence-derived $N_e$ orders of magnitude larger than this, the weak-selection limit collapses under these parameters. Attempting to fit the data to this regime yields $N_e s^*_{\text{weak}} \gg 1$, violating the foundational premise of near-neutral drift.
-
-\subsection{Equivalence with Single-Locus Diffusion Theory}
-To verify that the discrete-generation balance model above is robust, we map it to classical continuous-time diffusion theory. For a single locus, the stationary allele frequency reflects a flux balance between mutational influx, $\mu$, selective removal, $s \cdot \mathbb{E}[q]$, and stochastic loss due to genetic drift, $\mathbb{E}[q]/(2N_e)$. Setting this net flux to zero yields the expected allele frequency:
-
-\begin{equation}
-    \mu = \mathbb{E}[q]\left(s + \frac{1}{2N_e}\right) \quad \Rightarrow \quad \mathbb{E}[q] = \frac{\mu}{s + \frac{1}{2N_e}}
-\end{equation}
-(Crow and Kimura 1970). The per-locus additive variance is $2s^2 \mathbb{E}[q]$. Expanding this to the genome-wide variance by summing across $L = U_d/(2\mu)$ independent haploid functional targets:
-
-\begin{equation}
-    V_A = \left( \frac{U_d}{2\mu} \right) \left( 2s^2 \right) \left( \frac{\mu}{s + \frac{1}{2N_e}} \right) = \frac{U_d s^2}{s + \frac{1}{2N_e}} = \frac{2N_e U_d s^2}{2N_e s + 1}
-\end{equation}
-
-This recovers Equation (\ref{eq:VA_MSD}), confirming that the discrete-time derivation aligns perfectly with classical diffusion approximations under the assumption of rare, additive alleles.
-
-\subsection{Generalization to Empirical Fitness Architectures (DFE)}
-The preceding derivations assume a uniform selection coefficient, $s$, across all functional sites. However, empirical vertebrate architectures are governed by complex distributions of fitness effects (DFE). To evaluate the boundary conditions under biological architecture, we integrate across the DFE following the framework of Rettelbach et al. (2025).
-
-\paragraph{Reconciling Pedigree $V_A$ with Empirical DFEs.}
-Under House of Cards mutation-selection balance, the per-locus variance contribution of a deleterious mutation (with heterozygous disadvantage $t \equiv s$; we use the symbol $t$ to be consistent with the Rettelbach et al. derivations) at equilibrium frequency ($q \approx \mu/t$) is $v_A \approx 2\mu t$. Integrating this variance contribution across the probability density function of fitness effects, $\phi(t)$, yields the total genome-wide variance:
-
-\begin{equation}
-    V_A = U_d \int_0^\infty \phi(t), t, dt = U_d\bar{t}
+    V_A = U_d \int_0^\infty \phi(t)\,t\,dt = U_d\,\bar{t}, \qquad \bar{t}^* = \frac{V_A}{U_d},
 \label{eq:VA_DFE}
 \end{equation}
+whatever the shape of the DFE. The inversion of Equation~\eqref{eq:sHoC} therefore applies to its arithmetic mean. Shape enters only through nearly neutral mutations ($4N_et \lesssim 1$), which contribute less than $U_dt$ (Equation~\eqref{eq:D_VA_exact} applied class by class). A more leptokurtic DFE with the same mean puts more mass there, which lowers the sustainable $V_A$ and widens the gap. Two cautions apply. DFEs inferred from site-frequency spectra do not constrain the strongly deleterious tail, so their mean is partly an extrapolation. And the variance-weighted mean $\mathbb{E}[t^2]/\mathbb{E}[t]$, not $\bar{t}$, governs $V_m/V_A$ and $Z$.
 
-Solving for the implied mean selection coefficient required to support the observed $V_A$:
-
+\paragraph{Forward prediction.} Summing Equation~\eqref{eq:D_VA_exact} over a discretised DFE gives the variance a given DFE can sustain:
 \begin{equation}
-    \bar{t}^* = \frac{V_A}{U_d}
-\label{eq:tbar_implied}
-\end{equation}
-
-This confirms that the single-locus House of Cards result ($V_A \approx U_d s$) holds for the arithmetic mean of the DFE. For the empirical $V_A \in [V_{A,\text{min}}, V_{A,\text{max}}]$ and $U_d \approx \text{[XX]}$ in our dataset, this relationship requires an average selection coefficient $\bar{t}^* \in [\text{XX}, \text{XX}]$. Because this vastly exceeds the empirical vertebrate DFE mean ($\bar{t} \approx 10^{-3}–10^{-2}$), this DFE-parameterized derivation provides an independent validation that pedigree-derived variance magnitudes cannot be maintained at mutation-selection-drift equilibrium.
-
-\paragraph{Forward Prediction of Stable Variance.}
-Alternatively, we can use established empirical DFE parameters to predict the maximum sustainable variance. Parameterizing the four-class uniform DFE of Rettelbach et al. (2025) and integrating only across classes governed by deterministic selection ($2N_e t > 1$):
-\begin{equation}
-    V_A^{\text{DFE}} = U_d \sum_{i=1}^{3} f_i \cdot \frac{t_{i+1} + t_i}{2}
+    V_A^{\text{DFE}} = U_d \sum_i f_i\, \bar{t}_i\left[1 - \frac{4N_e\bar{t}_i}{e^{4N_e\bar{t}_i}-1}\right],
 \label{eq:VA_forward}
 \end{equation}
-where $f_i$ denotes the frequency of weakly, moderately, and strongly deleterious classes. Populating this with vertebrate-calibrated parameters yields $V_A^{\text{DFE}} \approx \text{[XX]}$. Because this theoretically sustainable variance is substantially lower than the contemporary $V_A$ estimated from pedigrees, the structural mismatch remains regardless of the assumed fitness architecture.
+with $f_i$ the fraction of mutations in class $i$ and $\bar{t}_i$ its mean. With vertebrate-calibrated classes (Rettelbach et al. 2025) this yields $V_A^{\text{DFE}} \approx$ [XX].
+% UNVERIFIED: Rettelbach et al. 2025 not located; possibly Rettelbach et al. 2019 (Genetics, collared flycatcher). Check before citing.
 
-\paragraph{Strong-Selection Correction for Unlinked Interference.}
-When variance is disproportionately driven by strongly deleterious mutations, or the "tail" of the DFE, the Robertson formulation slightly overestimates the severity of selective interference on unlinked neutral sites. Because strongly deleterious alleles are purged rapidly ($q \approx \mu/t \to 0$), they generate minimal multi-generational linkage disequilibrium despite their large instantaneous variance contribution.
-
-The corrected unlinked interference factor derived from diffusion theory is:
+\paragraph{Unlinked interference at large $s$.} Strongly deleterious alleles are purged within a few generations, so their associations with unlinked neutral sites decay faster than by Mendelian segregation alone: $Q(t) = 2/(1+t)$ in place of 2. Following Charlesworth (2012, Appendix) and Santiago and Caballero (1998), the unlinked term becomes
 \begin{equation}
-    B_\text{unlinked} \approx \exp\left(-4U_d\int_0^\infty \phi(t)\frac{t}{(1+t)^2},dt\right) = \exp(-4U_d\bar{t}_{\text{eff}})
+    \frac{N}{N_e} = 1 + 4\kappa\,U_d\,\bar{t}_\text{eff}, \qquad \bar{t}_\text{eff} = \int_0^\infty \phi(t)\,\frac{t}{(1+t)^2}\,dt < \bar{t},
 \label{eq:B_corrected}
 \end{equation}
-
-The effective mean driving this suppression is:
-
-\begin{equation}
-    \bar{t}_{\text{eff}} = \int_0^\infty \phi(t)\frac{t}{(1+t)^2}\,dt < \bar{t}
-\end{equation}
-
-Because $\bar{t}_{\text{eff}} < \bar{t}$, the true unlinked suppression ($B_\text{unlinked}^\text{corrected}$) is weaker than the baseline Robertson expectation ($B_\text{unlinked} = \exp(-4V_A)$). At the highly elevated $\bar{t}^*$ values implied by pedigree data, the fractional correction is approximately $1/(1+\bar{t}^*)^2 \in [\text{XX}, \text{XX}]$, meaning the Robertson formula overstates unlinked suppression by XX\%–XX\%. Therefore, the interference predictions generated in the main text are strictly conservative bounds: the true coalescent suppression at the implied high selection coefficients is weaker than predicted, and implementing this DFE-based correction fails to rescue the predicted $N_e$ back to empirically observed sequence diversity levels.
+which replaces $4\kappa V_A = 4\kappa U_d\bar{t}$. This is the $Z = 1 - t$ counterpart of the $G = 1 - V_A$ sensitivity in Appendix A, and it acts in the same direction. At the implied $\bar{t}^*$, the factor $1/(1+\bar{t}^*)^2$ is 0.31--0.99 (median 0.74). The diversity predictions of the main text, which take $Q = 2$, therefore overstate the unlinked reduction at the selection coefficients the measured $V_A$ would require.
 
 \end{document}
