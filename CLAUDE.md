@@ -330,18 +330,28 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
    improved the prose throughout but did not change the framing. **The Introduction must
    acknowledge Charlesworth 2015 as the precedent for the MSD verdict** (Supporting results, above).
    The Discussion still carries retired claims; the 2026-10-15 audit fixed only its math slips.
-3a. **Methods reviewer pass — after the theory is final** (user, 2026-10-15). A reviewer fixes the
-   Methods section once the derivations and the Theory and model section are settled. Known Methods
-   items: the linear-map closed-form description of $Q^2$ (Rule 5 log), the hard-coded "Equation (19)"
-   and "Equations (3) and (4)" style references, and "conservative" wording.
-3. **Fill Appendix D's `[XX]` placeholders** with the $U_d$ and $s^*$ values above, and fix
-   `scratch.tex` line 309's $V_A \in [0.10, 0.30]$ against the real posterior modes.
-4. **Fill `scratch.tex:235`** — the standardisation placeholder. Answer: none required; Bonnet et al.
-   report observed-scale $V_A(w)$ via $\mathbf{d}^\top\mathbf{G}\mathbf{d}$.
-5. **Write the Methods independence-audit subsection** — it does not exist and the claim of
-   diversity-independent inputs currently rests on nothing in the manuscript.
-6. **Resolve the `chrom_reduc` / `total_red` factor of 2** (Rule 5 log) before the Theory section is
-   backported; it sits on the linked magnitude.
+3a. **Methods reviewer pass.** The user asked on 2026-10-15 for Theory and Methods to be updated
+   together, and **Methods was rewritten that day** from the data layer (see the Rule 5 log entry of
+   2026-10-15, "Theory and Methods updated"). A reviewer pass is still wanted. **Author flags left in
+   Methods:**
+   - per-population EPP sources, and whether α is the proportion of offspring or of broods;
+   - whether the linkage maps are sex-averaged;
+   - which $f_i$ partition is primary (coding bp, as the code does, or gene count, as the old Methods
+     said).
+3. ~~Fill Appendix D's `[XX]`~~ **Done 2026-10-15** for $U_d$ and $s^*$, and the $V_A$ range is fixed
+   to the posterior modes in Theory, Methods and Appendix D. Only Appendix D's forward DFE
+   prediction ($V_A^\text{DFE}$) still has an `[XX]`.
+4. ~~Fill `scratch.tex:235`~~ **Done 2026-10-15:** Methods states that no standardization was
+   applied, and why.
+5. ~~Write the Methods independence-audit subsection~~ **Done 2026-10-15** ("Independence of the
+   inputs from diversity data").
+6. ~~Resolve the `chrom_reduc` / `total_red` factor of 2~~ **Resolved:** `chrom_reduc` no longer
+   exists.
+6a. **Rebuild the linked analysis on the data layer.** `data_gen.R` cannot run (line 479), carries its
+   own `arch_map`, and computes $U_d$ as `2 * mu_1 * L_functional` with CNE multipliers, against
+   Methods' $4\mu L_\text{coding}$. Methods now describes the intended pipeline: data-layer inputs,
+   coding-bp $f_i$, Haldane quadrature, $\kappa_\text{cis}$, and the same $Z$ in both terms. Linked
+   numbers (the "~20×", Ω) must be recomputed that way before they are published.
 7. **Check Matheson & Masel (2025)** — logged as corroborating the unlinked component's importance,
    with one methodological question not yet identified. We quantify what they argue qualitatively:
    1.4× at the median reported $V_A$, ~3× at the maximum.
@@ -811,6 +821,45 @@ the primary literature); fixes on branch `worktree-theory-fixes-cd`.**
 - **Unverified references flagged in the text:** SC 1998 Eq. 8 (taken from B&K S1); Kimura 1969
   equation number; Rettelbach et al. 2025 (not located; maybe 2019); whether Huber et al. 2017 /
   Kim et al. 2017 report homozygous $s$.
+
+**Logged 2026-10-15 — Theory and Methods updated to everything settled since 2026-10-14 (user
+request).** In `scratch.tex`, then regenerated into `theory_model.tex`, `methods_materials.tex` and
+`supp/appendix_B–D.tex`, which are now line-identical to `scratch.tex` ignoring whitespace.
+
+- **Theory, §"The quantity":**
+  - Bonnet's $\mathbf d^\top\mathbf G\mathbf d$ estimand, so no rescaling.
+  - **D2**: linearity plus the harmonic-mean $N_e$ make $\bar V_A$ over the coalescent window the
+    target.
+  - Scope condition 2, stated from the estimator's definition.
+  - $c = \bar V_A/\hat V_A$, and that the two comparisons respond to $c$ in opposite directions.
+  - **The stationarity the diversity side assumes is what the MSD side tests.**
+  - The two $N_e/N$ ratios kept apart, and a notation table (`tab:notation`). The old "Table 1"
+    reference pointed at the linked-limits table.
+- **Theory, unlinked baseline:**
+  - "Exact under long-term equilibrium" (scope condition 1), naming the quantity it needs.
+  - Its domain ($V_A \ll 1$, $G = 1$).
+  - The decided wording: "no $V_A$ inside the formula's domain produces a hundredfold reduction", with
+    $\le 2\times$ at $G = 1 - V_A$.
+- **Theory, MSD subsection rewritten:**
+  - Kimura's exact $V_A$ is now `eq:VA_MSD`.
+  - Lynch & Hill / Mukai / Charlesworth limits.
+  - $s^*$ as the DFE arithmetic mean, with the corrected shape argument.
+  - The Charlesworth 2015 precedent.
+  - Weak branch: $N_e \ll U_d/(2V_A) \approx 3$ for the median population (range 0.6–81). The old
+    "5–10" and Appendix D's "about 10" used different premises; both now use $2N_es \ll 1$.
+  - $Z = 1 - E[s^2]/E[s]$.
+- **Methods rewritten from the data layer:**
+  - Bonnet posteriors (mode and HPD); mating system and κ; assemblies and autosomal $L_\text{coding}$
+    with the hyena and hihi scaling; both μ estimates carried; $s^*$ over posterior draws; linked
+    interference (curated map joins, song-sparrow orthology, 9 mapped populations, 20 Mb filter,
+    coding-bp $f_i$, Haldane quadrature, $Z$ grid, consistent $Z$); π (Lewin & Eyre-Walker plus four
+    literature values, with caveats) and Buffalo $N_c$ (with caveats).
+  - The test in π units; the δ ≥ 1 trichotomy (none of the nine); the $c$ rescaling (Fig. 2); the
+    independence audit.
+  - Removed: the $M_i = \bar\rho L_i$ approximation, which the code does not do (unmapped chromosomes
+    are excluded), and the circular "$s_d$ from $V_m = V_A(1-Z)$" step.
+- **Build:** `scratch.tex` and the section files compile with zero errors and zero undefined
+  references.
 
 **Logged 2026-08-26** (found while settling the framing).
 

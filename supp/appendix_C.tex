@@ -89,7 +89,10 @@ Averaging Equation~\eqref{eq:C_profile} over neutral sites, and using the symmet
 \end{equation}
 This is Equation~\eqref{eq:haldane_avg} of the main text. The last integral is also closed-form, with a dilogarithm $\mathrm{Li}_2$ from $\int_0^M \ln(A - Be^{-2D})\,dD = M\ln A + \frac{1}{2}\left[\mathrm{Li}_2(q e^{-2M}) - \mathrm{Li}_2(q)\right]$, $q = B/A$:
 \begin{equation}
-    \overline{Q^2}_\text{H} = \frac{1}{M^2}\left\{\frac{M^2 - M\ln(1-Z) + M\ln A + \tfrac{1}{2}\left[\mathrm{Li}_2(qe^{-2M}) - \mathrm{Li}_2(q)\right]}{A^2} + \frac{1}{A}\left[\frac{M}{1-Z} - \frac{2M + \ln\!\left[(A-Be^{-2M})/(1-Z)\right]}{2A}\right]\right\}.
+\begin{split}
+    \overline{Q^2}_\text{H} = \frac{1}{M^2}\Bigg\{ &\frac{M^2 - M\ln(1-Z) + M\ln A + \tfrac{1}{2}\left[\mathrm{Li}_2(qe^{-2M}) - \mathrm{Li}_2(q)\right]}{A^2} \\
+    &+ \frac{1}{A}\left[\frac{M}{1-Z} - \frac{2M + \ln\!\left[(A-Be^{-2M})/(1-Z)\right]}{2A}\right]\Bigg\}.
+\end{split}
 \label{eq:C_closed_haldane}
 \end{equation}
 Equation~\eqref{eq:C_closed_haldane} agrees with numerical quadrature of Equation~\eqref{eq:C_haldane_avg} to ten significant digits for $Z \in [0.5, 0.999]$ and $M \in [0.05, 50]$.
