@@ -12,5 +12,5 @@ cne_multiplier_none,1,,coding only,linked term
 cne_multiplier_bird,2,,"conserved non-coding, birds",linked term
 cne_multiplier_mammal,4,,"conserved non-coding, mammals",linked term
 cne_multiplier_max,5,,maximum-rescue,linked term
-kappa_min,1,,"Theory: kappa in [1,2]",all
-kappa_max,2,,"Theory: kappa in [1,2]",all
+kappa_min,1,,"Appendix B: Model B kappa in [1,2] (Model A down to 7/16)",all
+kappa_max,2,,Appendix B: strict monogamy,all

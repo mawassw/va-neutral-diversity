@@ -56,17 +56,25 @@ committed, so step 4 alone rebuilds everything from a fresh clone. NCBI zips liv
 **Mating system and κ.** The EPP rate α is a measurement only for socially monogamous systems. For
 polygynous and polygynandrous systems, `species_EPP.csv` codes EPP = 1 to mean "no social pair constrains
 paternity". That isn't a measured rate, so `epp_alpha` is NA for those systems (the source value is kept
-in `epp_alpha_source`). Their κ is the α = 1 limit of each model, which is exactly where the two
-mechanisms disagree most:
+in `epp_alpha_source`).
 
-- `kappa_A = 1`: a male's siring success is independent of his own breeding value.
-- `kappa_B = 2`: a male's siring success is as heritable as a female's.
+**κ re-derived 2026-10-14** (scratch.tex Appendix B; formulas in `scripts/R/kappa.R`). Without a
+pair bond, each parent's own breeding value sets its family size, and Santiago & Caballero's (1995)
+two-sex combination is a mean over the sexes, so **κ = 1** under both models (previously `kappa_B =
+2`, which summed the sexes). Under social monogamy both partners set a shared nest's productivity:
 
-**Primary κ is Model B for every population** (`kappa` column; decided 2026-10-10). In harem and
-dominance systems a male's success tracks his quality, and the same argument applies to extra-pair
-sires, so one model is used throughout and Model A (`kappa_A`) is the sensitivity bound. The two
-nearly coincide at low α (great tit 1.91 vs 1.91) and part most at high α (fairy-wren 1.64 vs 1.06;
-hihi 1.50 vs 1.29).
+- `kappa_A`: extra-pair siring is a lottery. Falls from 2 at α = 0 to 7/16 at α = 1.
+- `kappa_B` $= 2 - 1.5\alpha + 0.625\alpha^2$: extra-pair gains replace the within-pair loss. Falls
+  from 2 to 9/8.
+
+**Primary κ is Model B for every population** (`kappa` column; decided 2026-10-10, kept 2026-10-14
+because it is the only version consistent with Bonnet et al.'s single additive variance across
+sexes). Model A (`kappa_A`) is the sensitivity bound. Both are at G = 1 and $r_{mf}$ = 0. The
+monogamous populations run κ_B = 1.22 (fairy-wren, α = 0.76) to 1.93 (great tits, α = 0.047).
+
+**Reduction columns (added 2026-10-14).** `reduction_G1` = $1 + 4\kappa V_A$ at the posterior mode;
+`G_sym` = $1 - V_A$; `reduction_Gsym` = the same reduction with G = 1 − V_A (Appendix A sensitivity,
+symmetric additive breeding values).
 
 **Mutation rates: both carried, not averaged.**
 

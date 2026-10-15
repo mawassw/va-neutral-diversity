@@ -37,7 +37,7 @@ These dynamics operate across two distinct persistence windows:
     \begin{equation}
     Q = \sum_{t=0}^{\infty} \left(\frac{1}{2}\right)^t = 2 \implies Q^2 = 4,
     \end{equation}
-    is dominated by the earliest generational steps ($>85\%$ achieved within two generations). Consequently, establishing the unlinked Robertson baseline requires only that the direction of selective advantages remains consistent across roughly two consecutive generations—a condition satisfied under mutation–selection–drift balance, directional sweeps, and temporally fluctuating selection provided environmental fluctuations are positively autocorrelated across generations ($\tau_{\text{env}} \ge 2$).
+    is dominated by the earliest generational steps ($>85\%$ achieved within two generations). It is the special case $G = 1$, $r_{mf} = 0$ of Santiago and Caballero's (1995) $Q = 2/[2 - G(1+r_{mf})]$. $G$ is the fraction of additive variance surviving selection in each generation, and $r_{mf}$ is the correlation between mates' breeding values. Unless breeding values for fitness are strongly right-skewed, $G \le 1$, so $G = 1$ gives the largest $Q$ and therefore the largest reduction in $N_e$ (Appendix A). Consequently, establishing the unlinked Robertson baseline requires only that the direction of selective advantages remains consistent across roughly two consecutive generations—a condition satisfied under mutation–selection–drift balance, directional sweeps, and temporally fluctuating selection provided environmental fluctuations are positively autocorrelated across generations ($\tau_{\text{env}} \ge 2$).
     \item \textbf{The coalescent memory ($\pi$):} In contrast, the timescale required for neutral diversity to reach mutation–drift equilibrium following a shift in variance is categorically longer, requiring on the order of $2N_e$ to $4N_e$ generations.
 \end{enumerate}
 
@@ -57,31 +57,27 @@ where $V_A$ is the mean-standardized additive genetic variance in relative fitne
 Equation~\eqref{unlinked_baseline} carries an important scope condition. Because it depends strictly on the Mendelian dilution of transmitted breeding values under free assortment, it requires no assumptions regarding the genealogical persistence or haplotype structure of the selected background. It therefore applies across diverse selective regimes—including mutation-selection-drift balance, directional sweeps (with $V_A$ interpreted as the time-averaged variance, $\bar{V}_A$), and autocorrelated fluctuating selection—without requiring the stationarity parameters introduced below. Everything from \autoref{sec:linkage} onward requires explicit parameterization of haplotype longevity and recombination architecture; Equation~\eqref{unlinked_baseline} serves as an invariant, parameter-sparse ceiling on the effective population size.
 
 \subsection{Mating system structure and extra-pair paternity}
-In a dioecious population with separate sexes, the asymptotic variance effective size depends on the pooled sampling variance of gametic contributions across both sexes (Hill 1979; Caballero 1994):
-\begin{equation}
-    N_e = \frac{8N}{V_{km} + V_{kf} + 2\,\text{Cov}(k_m, k_f)}, \label{ne_sexes}
-\end{equation}
-where $V_{km}$ and $V_{kf}$ are the variances in male and female offspring numbers, and $\text{Cov}(k_m, k_f)$ is the reproductive covariance between mated pairs. Under strict monogamy, the reproductive outputs of social mates are coupled: heritable variation in female quality (e.g., clutch size or provisioning) loads simultaneously onto both the maternal and paternal gametic pools, generating positive reproductive covariance between sexes. Extra-pair paternity (EPP) at rate $\alpha$ breaks this constraint by decoupling a male's realized siring success from his social partner's fecundity.
+With separate sexes, half of every genome passes through each sex, and Santiago and Caballero (1995) combine the two through $1/N_e = 1/(4N_{e,m}) + 1/(4N_{e,f})$ (after Crow and Denniston 1988). With an equal sex ratio this averages the selective variance over the sexes; it does not add it. Mating systems differ in what sets a parent's family size. Without a pair bond, each parent's own breeding value does. Under social monogamy the unit of productivity is the nest, so a parent's family size also carries its social partner's breeding value. Extra-pair paternity (EPP) at rate $\alpha$ moves paternity away from the nest without changing how many offspring it produces.
 
-In Appendix~B, we partition total gametic variance into within-pair and extra-pair components as a function of $\alpha$. This introduces a mating-system scalar, $\kappa(\alpha)$, that scales the effective selective variance driving the Robertson effect:
+Appendix~B applies the expected long-term contributions of Woolliams, Bijma and Villanueva (1999) to these mating systems. The result is a mating-system scalar, $\kappa(\alpha)$, that scales the selective variance driving the Robertson effect:
 \begin{equation}
     \frac{N_e}{N} = \frac{1}{1 + 4\kappa(\alpha)V_A}, \label{unlinked_mating}
 \end{equation}
-where $V_A$ is the sex-specific additive genetic variance in relative fitness ($I_A$). The functional form of $\kappa(\alpha)$ depends on the genetic architecture of extra-pair mating:
+where $V_A$ is the additive genetic variance in relative fitness, common to both sexes, as estimated by Bonnet et al. (2022). Without a pair bond (polygynous and polygynandrous systems) each parent's family size depends on its own breeding value alone, and separating the sexes leaves Appendix A unchanged: $\kappa = 1$. In socially monogamous systems both partners' breeding values set the productivity of a shared nest, and the functional form of $\kappa(\alpha)$ depends on how extra-pair siring relates to male breeding value:
 \begin{enumerate}
-    \item \textbf{Model A (Non-selective EPP):} If extra-pair siring operates as a demographic lottery independent of male genetic quality, male selective variance arises solely from defended within-pair young:
+    \item \textbf{Model A (Non-selective EPP):} extra-pair siring is a lottery independent of male breeding value:
     \begin{equation}
-    \kappa(\alpha) = 1 + (1-\alpha)^2.
+    \kappa_A(\alpha) = \frac{(4-\alpha)^2\left[1+(1-\alpha)^2\right] + (4-3\alpha+\alpha^2)^2 + (4-3\alpha)^2}{32},
     \end{equation}
-    Here, $\kappa(\alpha)$ declines monotonically from $\kappa(0) = 2$ under strict monogamy to $\kappa(1) = 1$ when all offspring are sired through extra-pair copulations, recovering the single-sex selection baseline.
-    \item \textbf{Model B (Selective EPP):} If females selectively allocate extra-pair fertilizations to males of high heritable fitness, a male's reproductive success reflects both his defended within-pair young and his earned extra-pair success:
+    falling from $\kappa_A(0) = 2$ to $\kappa_A(1) = 7/16$.
+    \item \textbf{Model B (Selective EPP):} extra-pair gains are proportional to male breeding value and replace the within-pair loss, so a male's breeding value enters his own success with the same weight as a female's:
     \begin{equation}
-    \kappa(\alpha) = 2(1 - \alpha + \alpha^2).
+    \kappa_B(\alpha) = 2 - \tfrac{3}{2}\alpha + \tfrac{5}{8}\alpha^2,
     \end{equation}
-    This scalar satisfies $\kappa(0) = 2$ under strict monogamy and returns to $\kappa(1) = 2$ under complete extra-pair siring (where selection operates fully and independently on both sexes). It attains a global minimum of $\kappa(0.5) = 1.5$ at intermediate paternity, where a male's reproductive success is partitioned equally across two uncorrelated genetic components (social mate quality and own quality), maximizing variance dilution.
+    falling monotonically from $\kappa_B(0) = 2$ to $\kappa_B(1) = 9/8$.
 \end{enumerate}
 
-Across both models, strict monogamy yields $\kappa(0) = 2$, doubling the coefficient on $V_A$ relative to the panmictic baseline ($1 + 8V_A$). Consequently, a socially monogamous population incurs any given depression in neutral diversity at half the fitness variance required in a randomly mating population. Because the long-term avian pedigrees that dominate empirical vertebrate estimates are socially monogamous systems with low-to-moderate extra-pair rates ($\alpha \lesssim 0.2$), their demographic architecture places them near the upper bound ($\kappa \approx 1.6\text{--}2.0$), maximizing the selective reduction of neutral diversity.
+Under strict monogamy both models give $\kappa = 2$, which is the pair-mated base model of Santiago and Caballero (1995): each nest pools two independent breeding values, so the variance of family fitness is $2V_A$. A socially monogamous population therefore incurs a given depression in neutral diversity at half the fitness variance required without a pair bond. The eleven socially monogamous populations in our data have extra-pair rates of 5--76\%, which places them at $\kappa_B = 1.22\text{--}1.93$; the eight without a pair bond sit at $\kappa = 1$. Both values assume $G = 1$ and random pairing with respect to breeding value ($r_{mf} = 0$); Appendices A and B give the general forms.
 
 \subsection{Linked interference along the genetic map}\label{sec:linkage}
 For a neutral site physically linked to loci affecting fitness, statistical associations do not halve unconditionally each generation. Recombination only partially breaks gametic linkage disequilibrium, causing ancestral selective advantages to persist across multiple generations and amplifying selective interference far beyond the unlinked baseline. 
@@ -201,7 +197,7 @@ which quantifies the coalescent effective size relative to the census adult size
     V_{A,\text{max}} = \frac{1 - \delta}{4\kappa(\alpha)\,\delta}. \label{eq:vamax}
 \end{equation}
 
-This ceiling depends exclusively on the observed diversity fraction $\delta$ and the mating-system scalar $\kappa(\alpha)$. Social monogamy ($\kappa = 2$) exactly halves $V_{A,\text{max}}$ relative to the panmictic expectation ($\kappa = 1$): pairing couples heritable reproductive success across sexes, meaning that the same neutral diversity deficit is generated by half the underlying fitness variance.
+This ceiling depends exclusively on the observed diversity fraction $\delta$ and the mating-system scalar $\kappa(\alpha)$. Strict social monogamy ($\kappa = 2$) exactly halves $V_{A,\text{max}}$ relative to a system without a pair bond ($\kappa = 1$): each nest pools two partners' breeding values, so the same neutral diversity deficit is generated by half the underlying fitness variance. Equation~\eqref{eq:vamax} assumes $G = 1$. With selection depleting the variance it acts on ($G = 1 - V_A$, Appendix A), the unlinked reduction never exceeds $N/N_e = 2$ without a pair bond, or 3 under strict monogamy, for any $V_A$ in the model's domain ($V_A < 1$). Below $\delta = 1/2$ (respectively $1/3$) no $V_A$ in that domain meets the bound, and the ceiling is meaningful only as the $G = 1$ upper limit.
 
 Critically, Equation~\eqref{eq:vamax} establishes a conservative, most-permissive ceiling on heritable fitness variance due to two structural properties:
 \begin{enumerate}

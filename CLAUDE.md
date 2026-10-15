@@ -45,6 +45,18 @@ Three properties, and all three must survive any edit to the framing:
    $V_A \gtrsim 12$ at $\kappa = 2$ ($\gtrsim 25$ at $\kappa = 1$); MSD compatibility needs $V_A \lesssim 10^{-2}$. **No value satisfies both.** So the
    gap exists in the model independently of the measurement, and the measurement locates where reality
    sits inside it: one to two orders above the MSD end, and far short of the diversity end.
+   **Wording decided 2026-10-14:** those 12–25 are the $G = 1$ formula extrapolated beyond its domain
+   ($V_A \ll 1$), so the paper states the diversity end as *"no $V_A$ inside the formula's domain
+   produces a hundredfold deficit; over the measured range the unlinked term gives 1.7× at the median
+   and about 4.5× at the maximum"*. With $G = 1 - V_A$ (Appendix A), no $V_A < 1$ gives more than
+   2× (3× under strict monogamy). The 12–25 may appear only labelled as the $G = 1$ extrapolation.
+   **Present the snapshot problem through $c = \bar V_A/\hat V_A$** (Fig. 2): the diversity side needs
+   $c \gtrsim 10^4$ on average, MSD needs $c \lesssim 0.07$, and no single $c$ satisfies both. The
+   question is the relationship between the estimate and the long-run value, not either number alone.
+   **D2:** because $N/N_e$ is linear in $V_A$ and $\pi$ reflects a harmonic-mean $N_e$ over $\sim 4N_e$
+   generations, the target is exactly the time-averaged $\bar V_A$ over the coalescent window. Make
+   that perspective evident to the reader. **Make explicit that the stationarity of $V_A$ the
+   diversity side assumes is exactly what the MSD side tests.**
 
 **Fisher's theorem is not part of the claim.** FTNS is single-generation — the partial change in mean
 fitness attributable to selection equals $V_A/\bar w$ per generation (`scratch.tex` line 15 states it
@@ -59,12 +71,15 @@ appears in the Discussion as an interpretive point and never as a premise.
 
 **Diversity side — measured $V_A$ is too weak.** Unlinked, $N_e/N = 1/(1+4\kappa V_A)$ is *linear* in
 $N_e$ and therefore caps the whole effect; there is no compounding over generations once at
-equilibrium. From the 19 posterior modes in `alldistzip`, at the primary Model B $\kappa$ (κ = 2 for
-non-monogamous systems; decided 2026-10-10, recomputed 2026-10-13 from `data/processed/`):
+equilibrium. From the 19 posterior modes in `alldistzip`, at the primary Model B $\kappa$ (κ = 1 without
+a pair bond, $\kappa_B$ = 1.22–1.93 for the 11 socially monogamous populations; re-derived and
+recomputed 2026-10-14 from `data/processed/`, columns `reduction_G1`, `reduction_Gsym`):
 
 ```
-Va posterior modes, n = 19:  min 0.0029  Q1 0.0172  median 0.0997  Q3 0.2484  max 0.4963
-  reduction 1 + 4 kappa Va:  median 1.69x, max 4.58x (hyena); max at the upper 95% HPD 7.5x
+Va posterior modes, n = 19:  min 0.0029  Q1 0.0172  median 0.0997  Q3 0.2484  max 0.4970
+  reduction 1 + 4 kappa Va, G = 1:      median 1.67x, max 4.48x (blue tit, Muro); upper 95% HPD 5.9x
+  same with G = 1 - Va (sensitivity):   median 1.54x, max 2.59x;                  upper 95% HPD 2.75x
+  (superseded 2026-10-13 values at kappa = 2 for non-monogamous: median 1.69x, max 4.58x hyena)
 adding the linked term (Omega 0.1-0.85, computed at kappa = 1, macro only): ~20x -- TO RECOMPUTE
 ```
 
@@ -155,7 +170,9 @@ rather than a 2×2 link-scale $\mathbf{G}$: those posteriors are post-back-trans
 | $N_{eC}$ | **coalescent** effective size, what $\pi$ measures: $\pi = 4N_{eC}\mu$ | data-side |
 | $\delta$ | $\pi_{\text{obs}}/(4\mu N)$ — **derived, not measured** | blocked on $\pi$ and $N$ |
 | $V_A$ | additive variance in **relative** fitness, $\bar w = 1$ (S–C's $C^2$) | ✅ 19 posterior modes |
-| $\kappa$ | mating-system scalar, $\in [1,2]$ | ✅ from EPP |
+| $\kappa$ | mating-system scalar: 1 without a pair bond, $\kappa_B \in [9/8, 2]$ under social monogamy | ✅ from EPP |
+| $G$ | fraction of additive variance surviving selection per generation; 1 in primary results | Appendix A |
+| $r_{mf}$ | correlation of mates' breeding values (SC's $r$); 0 in primary results | Appendix A, B |
 
 Two distinct ratios are both called "$N_e/N$" and the project has slid between them before. The
 **demographic** $N_{eV}/N$ (family-size variance, sex ratio) is 0.1–0.5. The **diversity**
@@ -176,11 +193,18 @@ paper exists, and none should appear in the title or the first paragraph of the 
   anyone with a diversity estimate reads their own ceiling off it, and any future sequence-based
   estimate of fitness variance has to come in under it. Publish it as a curve, not a defended point
   estimate. **Report honestly that it is not currently exceeded**: 0 of 19 populations at
-  $\delta \le 0.3$, 5 of 19 at $\delta = 0.5$, 13 of 19 at $\delta = 0.9$.
+  $\delta \le 0.3$, 5 of 19 at $\delta = 0.5$, 13 of 19 at $\delta = 0.9$ (those counts are at κ = 1).
+  **Recomputed 2026-10-14 at the primary κ:** 0 of 19 at δ ≤ 0.2, 2 of 19 at δ = 0.25–0.3 (the Pirio
+  and Muro blue tits, $V_A \approx 0.49$–0.50), 5 at 0.5, 15 at 0.9. Every observed δ is far below
+  these, so the statement "not currently exceeded" stands for the populations with diversity data.
 - **$\overline{Q^2}$ integrated along a Haldane map** — how the linked term is computed from empirical
   recombination maps and annotation-derived functional target sizes. Method, not finding.
-- **$\kappa(\alpha)$, the mating-system scalar** — bounded in $[1,2]$; a factor of 2 in the exponent for
-  the monogamous passerines that dominate the data. Supplementary.
+- **$\kappa(\alpha)$, the mating-system scalar** — 1 without a pair bond, up to 2 under strict
+  monogamy; the monogamous passerines in the data sit at 1.2–1.9. Its purpose (user, 2026-10-14) is not
+  new theory but to make the $N_e/N$ calculation **consistent with Bonnet's single $V_A$ across sexes
+  and across mating systems**, capturing mating-system differences through the pair bond, EPP and
+  assortment. Built on Woolliams, Bijma & Villanueva 1999 and Santiago & Caballero 1995; cite, don't
+  re-derive. Supplementary.
 - **The DFE correction on the MSD side** — a leptokurtic DFE makes $s^*$ *less* plausible, not more, so
   it does not rescue MSD balance. Robustness check.
 - **Independence of the inputs from diversity data** — $V_A$, $\alpha$, $M_i$, $f_i$ and $\mu$ each come
@@ -330,6 +354,9 @@ project#3/
 │   │                     (line 479 BUG — not runnable from a clean session; Rule 5 log)
 │   ├── data_gen_2.R    → data/raw/clean_chromosome_data.csv  (ABSOLUTE-PATH-BROKEN)
 │   ├── supp_fig.R      → SuppFig3 / SuppFig4 (Q vs r, κ vs α, Z vs Vm)
+│   ├── kappa.R         → κ, G and r_mf (Appendices A, B); sourced by every script that needs κ
+│   ├── 00_prepare_data.R → data/processed/ (read via load_data.R)
+│   ├── fig1_gap.R, fig2_rescaling.R → main/Fig1_gap, main/Fig2_rescaling
 │   └── poster_figs.R   → poster/figs/PosterFig_A–D   (POSTER ONLY — Rule 12)
 ├── data/
 │   ├── master_chromosome_recomb_data.csv   # genomic-architecture model input
@@ -345,7 +372,13 @@ project#3/
 │   ├── README.md                            #   δ numbers, data_gen bug, fill-ins
 │   └── assets/, *.pdf                       #   GITIGNORED build products
 └── manuscript/
-    ├── main.tex            # STUB — to be OVERWRITTEN WHOLESALE, section by section
+    ├── main.tex            # OVERLEAF BUILD (commit 8266aff): \input{}s abstract.tex,
+    │                        introduction.tex, theory_model.tex, methods_materials.tex,
+    │                        results.tex, discussion.tex, add_info.tex and
+    │                        supp/appendix_A–D.tex, from the repo root, with biblatex +
+    │                        refs.bib (Overleaf-only). Not buildable locally (TinyTeX lacks
+    │                        babel-english, csquotes). The section files are scratch.tex
+    │                        split by section; propagate scratch.tex edits into them.
     ├── scratch.tex         # OPERATING DOC + AUTHORITATIVE — complete draft:
     │                        intro → theory/model → results → methods →
     │                        discussion → appendices. Outranks main.tex AND the R code.
@@ -536,9 +569,12 @@ the code implements, not necessarily what `scratch.tex` now specifies.
 
 - **Exact form, not the exponential.** Unlinked part is $N_e/N = 1/(1 + 4\kappa V_A)$; only the linked
   part is exponential: `chrom_Ne_N <- linked_exp / (1 + 4 * kappa * (Va - v_i/2))`.
-- **$\kappa$ is quadratic in $\alpha$** (`manuscript/rho_mf_derivation.tex`): Model A (EPP independent
-  of breeding value) $= 1 + (1-\alpha)^2$; Model B (proportional) $= 2(1-\alpha+\alpha^2)$.
-  `calc_kappa()` in `data_gen.R` is Model A.
+- **κ comes from `scripts/R/kappa.R` only** (Appendix B, re-derived 2026-10-14). κ = 1 without a pair
+  bond. Social monogamy: $\kappa_B = 2 - 1.5\alpha + 0.625\alpha^2$ (primary) and the longer $\kappa_A$
+  closed form; `kappa_pair(alpha, gamma, G, rho)` is the general form, `ne_ratio(..., G_correct =
+  TRUE)` the $G = 1 - V_A$ sensitivity. `species_EPP.csv` codes no-pair-bond systems as EPP = 1, so
+  `data_gen.R`'s `calc_kappa()` maps α ≥ 1 to κ = 1 and otherwise uses Model B (it used Model A, at
+  the old formula, until 2026-10-14). Do not re-type the formulas in a new script; source `kappa.R`.
 - **$\overline{Q^2}$ is numeric under a Haldane map** (`integrand_avg_Q2` / `calc_avg_Q2_haldane`),
   with `Z` capped at 0.995 to avoid the singularity at perfect mutation-selection balance. The
   `main.tex` closed form is the linear-map approximation.
@@ -638,8 +674,8 @@ $V_{A,\max}$ comparison is likewise not insulated** — it is an inequality test
 can flip an individual population across the bound. The MSD side is unaffected by either: it uses
 $U_d$, $\mu$ and the posterior $V_A$, none of which touch `s_het` or the chromosome filter.
 
-**Logged 2026-10-14 — Appendix B's κ re-derived (scratch.tex changed on branch
-`worktree-kappa-appendix-b`; code and data NOT yet changed).**
+**Logged 2026-10-14 — Appendix B's κ re-derived (merged to `main` as 3996e63; PROPAGATED
+2026-10-15 on branch `worktree-kappa-propagate`, see the entry after this one).**
 
 - **What was wrong.** The old Appendix B *summed* female and male selective variances. Santiago &
   Caballero 1995 combine the sexes as $1/N_e = 1/4N_{e,m} + 1/4N_{e,f}$, which is a *mean*. For
@@ -651,8 +687,9 @@ $U_d$, $\mu$ and the posterior $V_A$, none of which touch `s_het` or the chromos
   base model). The social-monogamy model is nest productivity $= a_f + a_s$, shared by both partners.
   It gives $\kappa_B = 2 - \tfrac32\alpha + \tfrac58\alpha^2$ and a longer closed form for $\kappa_A$.
   κ(0) = 2 is SC's pair-family $C^2 = 2V_A$, not a double count. Per population, $\kappa_B$ =
-  1.44–1.93 for the 11 monogamous populations (old 1.50–1.91) and 1 for the 8 non-monogamous ones
-  (old 2).
+  **1.22–1.93** for the 11 monogamous populations (α = 0.047–0.76; the "1.44–1.93" first written here
+  inverted the old symmetric κ_B and mis-read fairy-wren α = 0.76 as 0.24) and 1 for the 8
+  non-monogamous ones (old 2).
 - **κ vs SC's $r$ (named $r_{mf}$ in Appendix A):** distinct. $r_{mf}$ is the correlation between
   mates' breeding values, zero under random pairing. κ comes from nest sharing, which SC carry in the
   family-level $C^2$. No double counting.
@@ -664,6 +701,40 @@ $U_d$, $\mu$ and the posterior $V_A$, none of which touch `s_het` or the chromos
   test is monogamy + EPP under Models A and B, then $1/(1+4V_A)$ over $V_A$ = 0.01–1, measuring $G$.
 - **Not yet checked:** Woolliams & Bijma 2000 (*Genetics*, ΔF from contributions). The nest-sharing
   term is an indirect genetic (partner) effect; check the IGE literature before claiming any novelty.
+
+**Logged 2026-10-15 — G and $r_{mf}$ made explicit; κ propagated everywhere (branch
+`worktree-kappa-propagate`).**
+
+- **G (user, 2026-10-15): $G = 1$ needs $V_A \ll 1$, the measured modes are not uniformly ≪ 1, and the
+  long-run $V_A$ the deficit needs is ≫ 1, so $G = 1$ must be stated as an assumption with its
+  sensitivity.** Appendix A now gives the exact selected-parent variance for linear expected fitness,
+  $G = 1 - b^2V_A + b\mu_3/V_A$. Symmetric additive: $G = 1 - V_A$, $Q = 2/(1+V_A)$, $N/N_e = 1 +
+  4V_A/(1+V_A)^2 \le 2$ (≤ 3 at strict monogamy) over the domain $V_A < 1$. Multiplicative (log-link,
+  Bonnet's Poisson part): $G = 1$ exactly. Right skew: $G > 1$. So **$G = 1$ is primary (an upper bound
+  on the reduction unless strongly right-skewed) and $G = 1 - V_A$ the sensitivity bound.** Monte Carlo
+  check: $G = 1 - V_A$ holds while $1 + a > 0$. At $V_A$ = 0.3–0.5, truncation at zero fitness pushes
+  G back toward 1, so the Gaussian-additive form itself strains there (8% of $1 + a$ below 0 at 0.5).
+- **$r_{mf}$ (user, 2026-10-15): it is a mating-system parameter, so it now appears in Appendix B.**
+  General $\kappa(\alpha, \gamma, G, r_{mf})$, checked against SC exactly: α = 0 gives $1 + Q^2C^2$
+  with $C^2 = 2V_A(1+r_{mf})$, and no pair bond gives $Q^2/4$. Set to 0 for want of estimates.
+- **User's statement of Appendix B's purpose (2026-10-15):** not to derive anything new, but to make
+  $N_e/N$ consistent with Bonnet's single $V_A$ across sexes and across mating systems, with EPP as one
+  axis of mating-system difference. Nest sharing is what the user intended from the start. First-order
+  accuracy is accepted.
+- **Propagated:** `scripts/R/kappa.R` (new, single source), `00_prepare_data.R` → `data/processed/`
+  (κ columns changed, `reduction_G1`/`G_sym`/`reduction_Gsym` added), `load_data.R`, `unlinked.R`
+  (re-run; `main/SuppFig1`, `SuppFig2`, `SuppTable1` replaced; MainFig_Baseline and SuppFig3_Va_Deflation
+  are κ = 1 throughout and unchanged), `supp_fig.R` (`main/SuppFig3.tiff` re-rendered), `data_gen.R`
+  (`calc_kappa` → Model B with κ = 1 for EPP = 1; **not re-run**, line 479 bug), `fig1_gap.R` and
+  `fig2_rescaling.R` (re-rendered; Fig. 2 gains the dashed G = 1 − V_A curve). Manuscript:
+  `scratch.tex` plus the Overleaf section files `theory_model.tex`, `methods_materials.tex`,
+  `supp/appendix_A.tex`, `supp/appendix_B.tex`.
+- **Still stale:** every `data_gen.R` output in `main/` (Omega sweeps, μ sensitivity, V_A,max figure)
+  carries the old Model A κ. `poster/` is frozen and keeps old κ by design. The `main.tex` ne_sexes
+  equation $8N/(V_{km}+V_{kf}+2\mathrm{Cov})$ was removed from Theory: it gave $N_e = 2N$ for Poisson
+  families (probably a dropped "+4"), and nothing referenced its label.
+- **Fig. 2 numbers at the new κ:** ratio 1 at c = 0.073 (MSD) and 1.1 × 10⁴ (diversity); best
+  compromise c = 27, ratio 373.
 
 **Logged 2026-08-26** (found while settling the framing).
 

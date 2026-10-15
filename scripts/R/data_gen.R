@@ -54,10 +54,10 @@ calc_avg_Q2_haldane <- function(M, Z) {
 }
 calc_avg_Q2_vec <- Vectorize(calc_avg_Q2_haldane, vectorize.args = c("M", "Z"))
 
-# 3. Mating System Scalar (Model A: BV-Independent EPP)
-calc_kappa <- function(alpha) {
-  return(1 + (1 - alpha)^2)
-}
+# 3. Mating System Scalar: Appendix B Model B (primary), re-derived 2026-10-14.
+# species_EPP.csv codes systems without a pair bond as EPP = 1; their kappa is 1.
+source("scripts/R/kappa.R")
+calc_kappa <- function(alpha) ifelse(alpha >= 1, 1, kappa_B(alpha))
 
 ####### 1. Data Preparation ########
 load("alldistzip")
@@ -778,8 +778,8 @@ delta_seq <- seq(0.01, 1.0, length.out = 300)
 
 df_bounds <- data.frame(
   Delta = rep(delta_seq, 2),
-  # Kappa = 1 (Random Mating), Kappa = 2 (Strict Monogamy)
-  Kappa = rep(c("Random Mating (κ = 1)", "Obligate Monogamy (κ = 2)"), each = length(delta_seq)),
+  # Kappa = 1 (no pair bond), Kappa = 2 (strict social monogamy), Appendix B
+  Kappa = rep(c("No pair bond (κ = 1)", "Strict monogamy (κ = 2)"), each = length(delta_seq)),
   Kappa_val = rep(c(1, 2), each = length(delta_seq))
 ) %>%
   mutate(
@@ -870,7 +870,7 @@ alloc_check <- chrom_data %>%
 # Calculate Omega_i under all three regimes
 mean_Va <- posterior.mode(as.mcmc(df_va[[focal_code]]))
 sp_EPP <- epp_data$EPP[epp_data$Code == focal_code]
-kappa_val <- 1 + (1 - sp_EPP)^2
+kappa_val <- calc_kappa(sp_EPP)
 Ud_val <- epp_data$Ud[epp_data$Code == focal_code]
 Vm <- Ud_val * 0.01^2
 Z_val <- pmax(0, 1 - (Vm / mean_Va))

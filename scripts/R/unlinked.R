@@ -26,15 +26,15 @@ theme_Publication <- function(base_size=16, base_family="serif") {
 
 ####### The Mating System Scalars & Constraint Equations ########
 
-# Model A: Extra-pair siring is independent of male breeding value
-calc_kappa_A <- function(alpha) {
-  return(1 + (1 - alpha)^2)
-}
-
-# Model B: Extra-pair siring is proportional to male breeding value
-calc_kappa_B <- function(alpha) {
-  return(2 * (1 - alpha + alpha^2))
-}
+# Appendix B (re-derived 2026-10-14; formulas in scripts/R/kappa.R). Social
+# monogamy: shared nest, Model A = extra-pair siring independent of male breeding
+# value, Model B = extra-pair gains replace the within-pair loss. No pair bond
+# (species_EPP.csv codes these EPP = 1): kappa = 1 under both models.
+# (aliased: the loop below reuses the names kappa_A / kappa_B for numbers)
+source("scripts/R/kappa.R")
+.kappa_A_fn <- kappa_A; .kappa_B_fn <- kappa_B
+calc_kappa_A <- function(alpha, monogamous = TRUE) ifelse(monogamous, .kappa_A_fn(alpha), 1)
+calc_kappa_B <- function(alpha, monogamous = TRUE) ifelse(monogamous, .kappa_B_fn(alpha), 1)
 
 # General exact constraint for unlinked loci
 # Formula: Ne/N = 1 / (1 + 4 * Va * kappa)
@@ -65,16 +65,17 @@ colnames(ratio_modelB_df) <- colnames(df_va_filtered)
 
 for (sp in valid_species) {
   alpha_actual <- epp_data$EPP[epp_data$Code == sp]
-  
+  mono <- epp_data$Mating.system[epp_data$Code == sp] == "monogamous"
+
   # MAIN TEXT BASELINE: Random mating, no mating system constraint (kappa = 1)
   ratio_baseline_df[[sp]] <- calc_exact_constraint(df_va_filtered[[sp]], kappa = 1)
   
   # MODEL A: Empirical EPP
-  kappa_A <- calc_kappa_A(alpha_actual)
+  kappa_A <- calc_kappa_A(alpha_actual, mono)
   ratio_modelA_df[[sp]] <- calc_exact_constraint(df_va_filtered[[sp]], kappa = kappa_A)
-  
+
   # MODEL B: Empirical EPP
-  kappa_B <- calc_kappa_B(alpha_actual)
+  kappa_B <- calc_kappa_B(alpha_actual, mono)
   ratio_modelB_df[[sp]] <- calc_exact_constraint(df_va_filtered[[sp]], kappa = kappa_B)
 }
 

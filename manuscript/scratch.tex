@@ -41,7 +41,7 @@ These dynamics operate across two distinct persistence windows:
     \begin{equation}
     Q = \sum_{t=0}^{\infty} \left(\frac{1}{2}\right)^t = 2 \implies Q^2 = 4,
     \end{equation}
-    is dominated by the earliest generational steps ($>85\%$ achieved within two generations). Consequently, establishing the unlinked Robertson baseline requires only that the direction of selective advantages remains consistent across roughly two consecutive generations—a condition satisfied under mutation–selection–drift balance, directional sweeps, and temporally fluctuating selection provided environmental fluctuations are positively autocorrelated across generations ($\tau_{\text{env}} \ge 2$).
+    is dominated by the earliest generational steps ($>85\%$ achieved within two generations). It is the special case $G = 1$, $r_{mf} = 0$ of Santiago and Caballero's (1995) $Q = 2/[2 - G(1+r_{mf})]$. $G$ is the fraction of additive variance surviving selection in each generation, and $r_{mf}$ is the correlation between mates' breeding values. Unless breeding values for fitness are strongly right-skewed, $G \le 1$, so $G = 1$ gives the largest $Q$ and therefore the largest reduction in $N_e$ (Appendix A). Consequently, establishing the unlinked Robertson baseline requires only that the direction of selective advantages remains consistent across roughly two consecutive generations—a condition satisfied under mutation–selection–drift balance, directional sweeps, and temporally fluctuating selection provided environmental fluctuations are positively autocorrelated across generations ($\tau_{\text{env}} \ge 2$).
     \item \textbf{The coalescent memory ($\pi$):} In contrast, the timescale required for neutral diversity to reach mutation–drift equilibrium following a shift in variance is categorically longer, requiring on the order of $2N_e$ to $4N_e$ generations.
 \end{enumerate}
 
@@ -61,13 +61,9 @@ where $V_A$ is the mean-standardized additive genetic variance in relative fitne
 Equation~\eqref{unlinked_baseline} carries an important scope condition. Because it depends strictly on the Mendelian dilution of transmitted breeding values under free assortment, it requires no assumptions regarding the genealogical persistence or haplotype structure of the selected background. It therefore applies across diverse selective regimes—including mutation-selection-drift balance, directional sweeps (with $V_A$ interpreted as the time-averaged variance, $\bar{V}_A$), and autocorrelated fluctuating selection—without requiring the stationarity parameters introduced below. Everything from \autoref{sec:linkage} onward requires explicit parameterization of haplotype longevity and recombination architecture; Equation~\eqref{unlinked_baseline} serves as an invariant, parameter-sparse ceiling on the effective population size.
 
 \subsection{Mating system structure and extra-pair paternity}
-In a dioecious population with separate sexes, the asymptotic variance effective size depends on the pooled sampling variance of gametic contributions across both sexes (Hill 1979; Caballero 1994):
-\begin{equation}
-    N_e = \frac{8N}{V_{km} + V_{kf} + 2\,\text{Cov}(k_m, k_f)}, \label{ne_sexes}
-\end{equation}
-where $V_{km}$ and $V_{kf}$ are the variances in male and female offspring numbers, and $\text{Cov}(k_m, k_f)$ is the reproductive covariance between mated pairs. Under strict monogamy, the reproductive outputs of social mates are coupled: heritable variation in female quality (e.g., clutch size or provisioning) loads simultaneously onto both the maternal and paternal gametic pools, generating positive reproductive covariance between sexes. Extra-pair paternity (EPP) at rate $\alpha$ breaks this constraint by decoupling a male's realized siring success from his social partner's fecundity.
+With separate sexes, half of every genome passes through each sex, and Santiago and Caballero (1995) combine the two through $1/N_e = 1/(4N_{e,m}) + 1/(4N_{e,f})$ (after Crow and Denniston 1988). With an equal sex ratio this averages the selective variance over the sexes; it does not add it. Mating systems differ in what sets a parent's family size. Without a pair bond, each parent's own breeding value does. Under social monogamy the unit of productivity is the nest, so a parent's family size also carries its social partner's breeding value. Extra-pair paternity (EPP) at rate $\alpha$ moves paternity away from the nest without changing how many offspring it produces.
 
-In Appendix~B, we partition total gametic variance into within-pair and extra-pair components as a function of $\alpha$. This introduces a mating-system scalar, $\kappa(\alpha)$, that scales the effective selective variance driving the Robertson effect:
+Appendix~B applies the expected long-term contributions of Woolliams, Bijma and Villanueva (1999) to these mating systems. The result is a mating-system scalar, $\kappa(\alpha)$, that scales the selective variance driving the Robertson effect:
 \begin{equation}
     \frac{N_e}{N} = \frac{1}{1 + 4\kappa(\alpha)V_A}, \label{unlinked_mating}
 \end{equation}
@@ -85,7 +81,7 @@ where $V_A$ is the additive genetic variance in relative fitness, common to both
     falling monotonically from $\kappa_B(0) = 2$ to $\kappa_B(1) = 9/8$.
 \end{enumerate}
 
-Under strict monogamy both models give $\kappa = 2$, which is the pair-mated base model of Santiago and Caballero (1995): each nest pools two independent breeding values, so the variance of family fitness is $2V_A$. A socially monogamous population therefore incurs a given depression in neutral diversity at half the fitness variance required without a pair bond. The eleven socially monogamous populations in our data have extra-pair rates of 5--46\%, which places them at $\kappa_B = 1.44\text{--}1.93$.
+Under strict monogamy both models give $\kappa = 2$, which is the pair-mated base model of Santiago and Caballero (1995): each nest pools two independent breeding values, so the variance of family fitness is $2V_A$. A socially monogamous population therefore incurs a given depression in neutral diversity at half the fitness variance required without a pair bond. The eleven socially monogamous populations in our data have extra-pair rates of 5--76\%, which places them at $\kappa_B = 1.22\text{--}1.93$; the eight without a pair bond sit at $\kappa = 1$. Both values assume $G = 1$ and random pairing with respect to breeding value ($r_{mf} = 0$); Appendices A and B give the general forms.
 
 \subsection{Linked interference along the genetic map}\label{sec:linkage}
 For a neutral site physically linked to loci affecting fitness, statistical associations do not halve unconditionally each generation. Recombination only partially breaks gametic linkage disequilibrium, causing ancestral selective advantages to persist across multiple generations and amplifying selective interference far beyond the unlinked baseline. 
@@ -205,7 +201,7 @@ which quantifies the coalescent effective size relative to the census adult size
     V_{A,\text{max}} = \frac{1 - \delta}{4\kappa(\alpha)\,\delta}. \label{eq:vamax}
 \end{equation}
 
-This ceiling depends exclusively on the observed diversity fraction $\delta$ and the mating-system scalar $\kappa(\alpha)$. Social monogamy ($\kappa = 2$) exactly halves $V_{A,\text{max}}$ relative to the panmictic expectation ($\kappa = 1$): pairing couples heritable reproductive success across sexes, meaning that the same neutral diversity deficit is generated by half the underlying fitness variance.
+This ceiling depends exclusively on the observed diversity fraction $\delta$ and the mating-system scalar $\kappa(\alpha)$. Strict social monogamy ($\kappa = 2$) exactly halves $V_{A,\text{max}}$ relative to a system without a pair bond ($\kappa = 1$): each nest pools two partners' breeding values, so the same neutral diversity deficit is generated by half the underlying fitness variance. Equation~\eqref{eq:vamax} assumes $G = 1$. With selection depleting the variance it acts on ($G = 1 - V_A$, Appendix A), the unlinked reduction never exceeds $N/N_e = 2$ without a pair bond, or 3 under strict monogamy, for any $V_A$ in the model's domain ($V_A < 1$). Below $\delta = 1/2$ (respectively $1/3$) no $V_A$ in that domain meets the bound, and the ceiling is meaningful only as the $G = 1$ upper limit.
 
 Critically, Equation~\eqref{eq:vamax} establishes a conservative, most-permissive ceiling on heritable fitness variance due to two structural properties:
 \begin{enumerate}
@@ -256,7 +252,7 @@ Estimates of additive genetic variance in relative fitness ($V_A$) were compiled
 
 \subsection{Mating System Parameterization}
 For each species, the extra-pair paternity rate $\alpha$ was obtained from published molecular parentage analyses of the same or a conspecific monitored population [author: specify source for each species and confirm whether $\alpha$ is defined as the proportion of offspring or the proportion of broods containing at least one extra-pair offspring; the theoretical definition in Equations (3) and (4) is the proportion of offspring, and any conversion should be noted here]. For species lacking a direct estimate of $\alpha$, [author: state whether strict monogamy was assumed or whether those species were excluded from the mating-system-corrected prediction].
-The mating-system scalar $\kappa(\alpha)$ was computed under both the random extra-pair siring model (Equation 3) and the fitness-proportional extra-pair siring model (Equation 4), and predictions are reported under both to bracket the effect of the assumed extra-pair mechanism.
+The mating-system scalar was set to $\kappa = 1$ for the eight populations without a pair bond. For the eleven socially monogamous populations it was computed from $\alpha$ under Model B of Appendix B (primary) and Model A (sensitivity bound), with $G = 1$ and $r_{mf} = 0$. The $G = 1 - V_A$ correction of Appendix A is reported as a sensitivity analysis.
 
 \subsection{Genomic Architecture and Functional Target Size}
 For species with chromosome-level genome assemblies, reference sequences and gene annotation files (GTF or GFF format) were retrieved from NCBI. Analysis was restricted to fully assembled autosomes with unambiguous correspondence to a major linkage group in the published linkage map (see below); unplaced scaffolds, unlocalized contigs, sex chromosomes, and mitochondrial sequence were excluded. Each assembled autosome was assigned to its corresponding linkage group on the basis of marker content and ordering reported in the linkage map source publication.
@@ -374,6 +370,22 @@ This series is a special case. Santiago and Caballero (1995; reviewed in Wang et
 \end{equation}
 where $G$ is the fraction of additive variance remaining among selected parents and $r_{mf}$ is the correlation between the expected selective values of male and female parents. (We write $r_{mf}$ to keep it apart from the recombination fraction $r$.) The series above sets $G = 1$ and $r_{mf} = 0$, and both are assumptions. $G = 1$ requires that one generation of selection removes a negligible share of the additive variance it acts on, which holds when $V_A \ll 1$. $r_{mf} = 0$ requires that mates pair at random with respect to their breeding values for fitness; under random mating Santiago and Caballero give $r_{mf} = -1/(N-1)$. Each departure moves $Q$ in a known direction. Selection strong enough to deplete variance within a generation ($G < 1$) lowers $Q$ below 2 and weakens the reduction in $N_e$. Assortative mating for fitness ($r_{mf} > 0$) raises it.
 
+\paragraph{How far the data sit from $G = 1$.} The measured posterior modes run from 0.003 to 0.50 (median 0.10). That is not uniformly $\ll 1$, so the size of the correction has to be stated rather than assumed away. Let a parent's expected family size be $1 + b\,a$, linear in its breeding value $a$ with mean zero. The additive variance among parents, weighted by their offspring, is then exactly $V_A - b^2V_A^2 + b\,\mu_3$, where $\mu_3$ is the third central moment of $a$. So
+\begin{equation}
+    G = 1 - b^2 V_A + b\,\mu_3/V_A. \label{eq:G}
+\end{equation}
+Three cases bracket the data:
+\begin{enumerate}
+    \item \emph{Symmetric breeding values, fitness additive on the relative scale} ($b = 1$, $\mu_3 = 0$). Here $G = 1 - V_A$, so $Q = 2/(1+V_A)$ (the same form as $Q(s)$ in Appendix D) and
+    \begin{equation}
+        \frac{N}{N_e} = 1 + \frac{4V_A}{(1+V_A)^2}. \label{eq:Gcorrected}
+    \end{equation}
+    This rises with $V_A$ but never exceeds 2 over the domain $V_A < 1$. Against $G = 1$, it shrinks the selective term by 17\% at the median measured $V_A$ and by 56\% at the largest. The additive form itself also strains at the top of the range: at $V_A = 0.5$, 8\% of a Gaussian distribution of $1 + a$ lies below zero.
+    \item \emph{Fitness multiplicative in a Gaussian breeding value}, as in the log-linked conditional-Poisson component of the model Bonnet et al. (2022) fit. Exponential selection on a normal distribution shifts its mean and leaves its variance unchanged, so $G = 1$ exactly for the link-scale breeding value.
+    \item \emph{Right-skewed breeding values}, $\mu_3 > bV_A^2$, give $G > 1$.
+\end{enumerate}
+We therefore keep $G = 1$ throughout and report Equation~\eqref{eq:Gcorrected} as the sensitivity bound. Neither choice rescues the diversity comparison. At $G = 1$, a hundredfold deficit requires a long-run $V_A$ of 12--25, depending on $\kappa$, which is beyond the model's domain. With $G = 1 - V_A$, no $V_A$ within the domain produces more than a twofold reduction (threefold under strict monogamy, Appendix B).
+
 Assuming $V_A$ remains stationary under mutation-selection-drift equilibrium, a new influx of selective variance of magnitude $V_A p(1-p)/(2N)$ is generated each generation. The long-run footprint of each generation's selective variation resolves to $2\Delta p^{\text{sel}}$.
 
 The total selective variance in allele frequency change is the variance of this cumulative sum. Because the selective association persists across multiple generations, the variance of the cumulative effect scales with the square of the cumulative sum:
@@ -430,7 +442,7 @@ Substituting,
     L_f &= (1+\bar{m})\,a_f + \left[1 + \bar{m}(1-\alpha)\right] a_s, \\
     L_m &= (m+\bar{m})\,a_m + (1+\bar{m})(1-\alpha)\,a_{f'},
 \end{align}
-and, since partners' breeding values are independent, Equation~\eqref{eq:kappa_def} gives
+and, with partners' breeding values independent ($r_{mf} = 0$), Equation~\eqref{eq:kappa_def} gives
 \begin{equation}
     \kappa(\alpha) = \frac{(1+\bar{m})^2\left[1+(1-\alpha)^2\right] + \left[1+\bar{m}(1-\alpha)\right]^2 + (m+\bar{m})^2}{8}.
 \end{equation}
@@ -442,9 +454,21 @@ For the two models:
 
 \paragraph{Limits and what is not new.} Under strict monogamy ($\alpha = 0$) both models give $\kappa = 2$. This is the base model of Santiago and Caballero (1995) itself: $N/2$ pair-mated families sharing a family fitness whose variance is $C^2 = \mathrm{Var}(a_f + a_s) = 2V_A$, so that $N/N_e = 1 + Q^2 C^2 = 1 + 8V_A$. The factor of 2 arises because each nest pools two independent breeding values. It is not a second application of the same variance. As $\alpha$ rises, $\kappa_B$ falls monotonically to $9/8$ at $\alpha = 1$; it stays above 1 because the social male still contributes to nest productivity. $\kappa_A$ falls to $7/16$, because males then gain nothing from their own breeding value.
 
-$\kappa$ is distinct from the mate correlation $r_{mf}$ in Santiago and Caballero's $Q$ (Appendix A). $r_{mf}$ is the correlation between the breeding values that mates bring to a new family, and it is zero under random pairing. $\kappa$ arises from the sharing of a nest between independent partners, which in their framework enters through the family-level $C^2$. Assortative pairing for fitness would add $r_{mf} > 0$ on top of $\kappa$ and is assumed absent.
+\paragraph{General form: $G$ and $r_{mf}$.} The results above set $G = 1$ and $r_{mf} = 0$, the two assumptions of Appendix A, and both carry into the mating-system scalar. Let social partners' breeding values correlate $r_{mf}$, and let each generation of selection retain a fraction $G$ of the association between a gene copy and its background. A carrier with expected breeding value $h$ then has expected advantage $\bar{c}\,h$, with $\bar{c} = (1+m)/2 + r_{mf}(2-\alpha)/2$. Its carrier offspring have expected breeding value $\theta h$, with $\theta = (G/2)\left[1 + (1-\alpha)r_{mf}\right]$. Summing the geometric series,
+\begin{align}
+    L_f &= (1+\Phi)\,a_f + \left[1 + \Phi(1-\alpha)\right] a_s, \\
+    L_m &= (m+\Phi)\,a_m + (1+\Phi)(1-\alpha)\,a_{f'}, \qquad \Phi = \frac{\bar{c}\,G/2}{1-\theta},
+\end{align}
+and $\mathrm{Var}(x\,a + y\,b) = V_A(x^2 + y^2 + 2r_{mf}xy)$ for partners. $\Phi = \bar{m}$ at $G = 1$, $r_{mf} = 0$, which recovers the expressions above. Two limits reproduce Santiago and Caballero exactly:
+\begin{itemize}
+    \item Strict monogamy, $\alpha = 0$: $1 + \Phi = 2/[2 - G(1+r_{mf})] = Q$ and $N/N_e = 1 + Q^2C^2$ with $C^2 = 2V_A(1+r_{mf})$, their pair-family model.
+    \item No pair bond: $\kappa = Q^2/4$.
+\end{itemize}
+For $G$, Equation~\eqref{eq:G} applies sex by sex, with $b$ the weight of a parent's own breeding value in its family size (1 in females and in non-monogamous males, $m$ in socially monogamous males). The two sexes are averaged, $G = (G_m + G_f)/2$ (Santiago and Caballero 1995). Under Model B $m = 1$, so $G = 1 - V_A$ in every mating system in the symmetric additive case. Strict monogamy then gives $N/N_e = 1 + 8V_A/(1+V_A)^2 \le 3$.
 
-\paragraph{Assumptions.} The derivation is first order in $a$ (weak selection per lineage, $V_A \ll 1$), sets $G = 1$, assumes random pairing with respect to $a$ and an equal sex ratio, and lets the social male's breeding value contribute to all of his nest's productivity whether or not he sires the offspring. Combining Equation~\eqref{eq:kappa_def} with Appendix A yields the mating-system-corrected unlinked expectation,
+$\kappa$ and $r_{mf}$ are different quantities. $r_{mf}$ measures assortative pairing on breeding value and lengthens the persistence of an association. $\kappa$ arises from nest sharing between partners, which in Santiago and Caballero's framework enters through the family-level $C^2$. The mating system therefore enters through three measurable features: whether a pair bond shares productivity, the extra-pair rate $\alpha$, and assortment $r_{mf}$. We set $r_{mf} = 0$ for want of estimates; positive assortment would raise $\kappa$.
+
+\paragraph{Assumptions.} The derivation is first order in $a$ (weak selection per lineage), sets $G = 1$ and $r_{mf} = 0$ in the primary results, assumes an equal sex ratio, and lets the social male's breeding value contribute to all of his nest's productivity whether or not he sires the offspring. Combining Equation~\eqref{eq:kappa_def} with Appendix A yields the mating-system-corrected unlinked expectation,
 \begin{equation}
     \frac{N_e}{N} = \frac{1}{1 + 4\kappa V_A},
 \end{equation}

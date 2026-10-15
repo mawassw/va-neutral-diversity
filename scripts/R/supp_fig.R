@@ -18,13 +18,18 @@ ggplot() +geom_line(aes(x = r, y = log10(Q1)), col="black")+geom_line(aes(x = r,
   geom_vline(xintercept = 0.5, col="red", alpha=0.5, linetype = "dashed")+ theme_Publication()
 dev.off()
         
+# Appendix B (re-derived 2026-10-14): social monogamy with a shared nest.
+# Model A (orange) = extra-pair siring a lottery; Model B (blue) = extra-pair
+# gains replace the within-pair loss. Grey: no pair bond, kappa = 1.
+source("scripts/R/kappa.R")
 alpha <-  seq(0, 1, length.out = 5000)
-model1 <- 1 + (1 - alpha)^2
-model2 <-  2*(1 - alpha + alpha^2)
+model1 <- kappa_A(alpha)
+model2 <- kappa_B(alpha)
 
 
 tiff("SuppFig3.tiff", units="in", width=5, height=5, res=300)
 ggplot() +geom_line(aes(x = alpha, y = model1), col="#D55E00")+ geom_line(aes(x = alpha, y = model2), col="#0072B2")+
+  geom_hline(yintercept = 1, col = "grey50", linetype = "dashed")+
   xlab(expression("Extra-Pair Paternity, "*alpha))+ylab(expression("Mating System Scalar, "*kappa))+
   theme_Publication()
 dev.off()

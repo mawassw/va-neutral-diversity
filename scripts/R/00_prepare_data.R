@@ -143,26 +143,24 @@ epp <- epp_raw %>%
   )
 stopifnot(setequal(epp$code, crosswalk$code))
 
-# kappa (Theory section, Appendix B). The EPP rate alpha is a measurement only
-# for socially monogamous systems. For polygynous/polygynandrous systems the
-# source codes EPP = 1 to mean "no social pair constrains paternity"; that is not
-# a measured rate, so epp_alpha is NA here. Their kappa is the alpha = 1 limit of
-# each model, which is where the two mechanisms differ most:
-#   kappa_A = 1  male siring success independent of his own breeding value
-#   kappa_B = 2  male siring success as heritable as female success
-# Primary kappa is Model B for every population (decided 2026-10-10): in harem
-# and dominance systems male success tracks male quality, and the same argument
-# applies to extra-pair sires, so one model is used throughout. Model A is the
-# sensitivity bound. The two differ little at low alpha (great tit 1.91 vs 1.91)
-# and most at high alpha (fairy-wren 1.64 vs 1.06).
-kappa_A <- function(a) 1 + (1 - a)^2
-kappa_B <- function(a) 2 * (1 - a + a^2)
+# kappa (Theory section, Appendix B; formulas in scripts/R/kappa.R). The EPP
+# rate alpha is a measurement only for socially monogamous systems. For
+# polygynous/polygynandrous systems the source codes EPP = 1 to mean "no social
+# pair constrains paternity"; that is not a measured rate, so epp_alpha is NA.
+# Without a pair bond each parent's own breeding value sets its family size and
+# the two-sex mean of Santiago & Caballero (1995) leaves Appendix A unchanged:
+# kappa = 1 under both models (re-derived 2026-10-14; was 2 for Model B, which
+# summed the sexes). Under social monogamy both partners set a shared nest's
+# productivity; Model B (primary, decided 2026-10-10) lets extra-pair gains
+# replace the within-pair loss, Model A makes them a lottery. All at G = 1 and
+# r_mf = 0; the G = 1 - V_A sensitivity is computed per population below.
+source("scripts/R/kappa.R")
 epp <- epp %>%
   mutate(
     pair_bond = if_else(mating_system == "monogamous", "social_monogamy", "no_pair_bond"),
     epp_alpha = if_else(pair_bond == "social_monogamy", epp_alpha_source, NA_real_),
     kappa_A = if_else(pair_bond == "social_monogamy", kappa_A(epp_alpha), 1),
-    kappa_B = if_else(pair_bond == "social_monogamy", kappa_B(epp_alpha), 2),
+    kappa_B = if_else(pair_bond == "social_monogamy", kappa_B(epp_alpha), 1),
     kappa = kappa_B
   ) %>%
   left_join(read_csv("data/mutation_rate_sources.csv", show_col_types = FALSE),
@@ -314,6 +312,12 @@ populations <- crosswalk %>%
     U_d_direct    = 4 * mu_direct    * L_coding_bp,
     U_d_direct_lo = 4 * mu_direct_lo * L_coding_bp,
     U_d_direct_hi = 4 * mu_direct_hi * L_coding_bp,
+    # Unlinked reduction N/N_e at the posterior mode, Model B: at G = 1
+    # (primary) and with G = 1 - V_A (Appendix A sensitivity bound)
+    reduction_G1   = 1 + 4 * kappa * va_mode,
+    G_sym          = 1 - va_mode,
+    reduction_Gsym = 1 / mapply(ne_ratio, va_mode, pair_bond == "social_monogamy",
+                                epp_alpha, MoreArgs = list(gamma = 1, G_correct = TRUE)),
     # Analysis sets
     in_set_va     = TRUE,
     in_set_msd    = !is.na(L_coding_bp),
@@ -325,6 +329,7 @@ populations <- crosswalk %>%
          mu_phylo, mu_phylo_lo, mu_phylo_hi,
          mu_direct, mu_direct_lo, mu_direct_hi, mu_direct_species, mu_direct_relation,
          va_mode, va_median, va_mean, va_hpd95_lo, va_hpd95_hi, va_n_draws,
+         reduction_G1, G_sym, reduction_Gsym,
          genome_sp, genome_accession, L_coding_bp, L_coding_source,
          L_coding_autosomal_bp, L_coding_mapped_autosomal_bp, L_coding_genomewide_bp,
          n_autosomes, n_mapped_autosomes, n_mapped_macro_autosomes,
@@ -441,8 +446,8 @@ parameters <- tribble(
   "cne_multiplier_bird",  2,      "",         "conserved non-coding, birds",                 "linked term",
   "cne_multiplier_mammal",4,      "",         "conserved non-coding, mammals",               "linked term",
   "cne_multiplier_max",   5,      "",         "maximum-rescue",                              "linked term",
-  "kappa_min",            1,      "",         "Theory: kappa in [1,2]",                      "all",
-  "kappa_max",            2,      "",         "Theory: kappa in [1,2]",                      "all"
+  "kappa_min",            1,      "",         "Appendix B: Model B kappa in [1,2] (Model A down to 7/16)", "all",
+  "kappa_max",            2,      "",         "Appendix B: strict monogamy",                 "all"
 )
 write_csv(parameters, file.path(out_dir, "parameters.csv"))
 
