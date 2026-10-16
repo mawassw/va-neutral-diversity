@@ -174,6 +174,12 @@ rather than a 2×2 link-scale $\mathbf{G}$: those posteriors are post-back-trans
 | $G$ | fraction of additive variance surviving selection per generation; 1 in primary results | Appendix A |
 | $r_{mf}$ | correlation of mates' breeding values (SC's $r$); 0 in primary results | Appendix A, B |
 
+**Present effective-size results as $N_e/N$, never $N/N_e$ (user, 2026-10-16; field convention).**
+Write $N_e/N = 1/(1 + 4\kappa V_A)$, not "$N/N_e = 1 + 4\kappa V_A$", and state bounds in that form:
+"$N_e/N$ never falls below 1/2", not "the reduction never exceeds 2". "A twofold reduction" is fine as
+prose. Applied throughout the manuscript and the Overleaf section files on 2026-10-16. The R columns
+`reduction_G1`/`reduction_Gsym` are $N/N_e$ internally, so convert before quoting them.
+
 Two distinct ratios are both called "$N_e/N$" and the project has slid between them before. The
 **demographic** $N_{eV}/N$ (family-size variance, sex ratio) is 0.1–0.5. The **diversity**
 $(\pi/4\mu)/N_c$ is $10^{-2}$–$10^{-5}$. **Every sentence containing "$N_e/N$" must say which.**
