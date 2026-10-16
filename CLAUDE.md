@@ -28,6 +28,15 @@ If a claim is not in this section, it is not a claim of this paper.
 
 That is the paper. One measured quantity, two equilibrium comparisons, opposite verdicts.
 
+**How the background is organised (user, 2026-10-16).** The work is about the **effect** and the
+**maintenance** of heritable variation in fitness, and the Introduction presents one literature for
+each. Both tests have precedents. For the effect side these are Buffalo & Kern 2024 (humans) and
+Buffalo & Coop 2019/2020 (*Drosophila*). For maintenance it is Charlesworth 2015 (*Drosophila*).
+The originality has two parts. First, the same tests are applied to wild vertebrates with directly
+measured total-fitness $V_A$. Second, the analysis centres on how a pedigree snapshot must be scaled,
+$c = \bar V_A/\hat V_A$, to fit each model. Buffalo 2021 is comparative and about linked selection,
+so it stays a locating citation for the deficit. Plan: `manuscript/INTRO_REDRAFT_PLAN.md`.
+
 ### Why it holds together
 
 Three properties, and all three must survive any edit to the framing:
@@ -330,6 +339,8 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
    improved the prose throughout but did not change the framing. **The Introduction must
    acknowledge Charlesworth 2015 as the precedent for the MSD verdict** (Supporting results, above).
    The Discussion still carries retired claims; the 2026-10-15 audit fixed only its math slips.
+   **Introduction redrafted 2026-10-16** on branch `worktree-intro-redraft` (scaffolding; needs
+   re-voicing; new citations unverified, see the plan). Discussion still to do.
 3a. **Methods reviewer pass — after the theory is final** (user, 2026-10-15). A reviewer fixes the
    Methods section once the derivations and the Theory and model section are settled. Known Methods
    items: the linear-map closed-form description of $Q^2$ (Rule 5 log), the hard-coded "Equation (19)"
