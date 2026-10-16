@@ -1,4 +1,4 @@
-# Introduction redraft — plan, 2026-10-16
+# Introduction redraft — plan, 2026-10-16 (v2)
 
 The redraft is in `manuscript/scratch.tex` (§Introduction) and mirrored in
 `manuscript/introduction.tex`. Branch `worktree-intro-redraft`. **Generated scaffolding (style guide
@@ -8,90 +8,72 @@ Part 3): re-voice before submission.** The verdict sentence in ¶6 is the author
 
 The paper is about the two classical questions you can ask of heritable variation in fitness:
 **what it does** (its effect on neutral diversity) and **what maintains it** (mutation–selection–drift
-balance). The background should therefore be two literatures, one per question. Each literature has
-answered its question quantitatively, but only in humans or *Drosophila*. This paper's contribution
-has two parts:
+balance). The background is therefore two literatures, one per question. Each literature has answered
+its question quantitatively, but only in humans or *Drosophila*, and with a variance that was inferred
+from sequence data or measured on fitness components. This paper's contribution has two parts:
 
 1. **The taxa and the measurement.** It puts the same two tests to wild vertebrates, using
-   total-fitness $V_A$ measured directly by pedigree. The precedents use $V_A$ inferred from diversity
-   (Buffalo & Kern) or variance in fitness components (Charlesworth).
-2. **The scaling.** Pedigree $V_A$ is a snapshot over a few generations. Both models need the
-   long-run value. The analysis is built on how a snapshot has to be scaled,
-   $c = \bar V_A/\hat V_A$, to fit each model.
+   total-fitness $V_A$ measured directly by pedigree.
+2. **The scaling.** Pedigree $V_A$ is a snapshot over a few generations. Both theories need the
+   long-run value. The paper asks how the snapshot must be scaled to fit each.
 
-This is compatible with the settled claim in CLAUDE.md, which this plan leaves unchanged. It also
-replaces the old Introduction's way of locating the gap ("not evaluated against either constraint")
-with a precedent-first one.
+## Rules the Introduction follows (author, 2026-10-16)
+
+- **¶1–5 contain only published results and derivations.** None of this paper's derivations appear
+  there: no κ, no $V_{A,\max}(\delta)$, no $s^* = V_A/U_d$, no $c$, no time-average argument, and no
+  posterior-mode summary of Bonnet's estimates. The equations used are Santiago–Caballero's
+  $N_e/N$, $V_m = U_ds^2$, $V_A \approx U_d\bar s$, Bonnet's $\mathbf d^\top\mathbf G\mathbf d$, and
+  $\pi = 4N_e\mu$.
+- **This paper's results appear only in ¶6**, GENETICS-style: aims, methods in words, then the
+  verdict and its numbers.
+- **The citations build toward the gap.** Each background paragraph ends on what the literature
+  leaves open for wild vertebrates, and ¶6's aims answer those gaps one for one.
 
 ## Paragraph map
 
-| ¶ | job | content | citations |
+| ¶ | job | gap it ends on | citations |
 |---|---|---|---|
-| 1 | The two questions | Heritable fitness variance has two separable consequences: it depletes neutral diversity, and it must be resupplied. One quantity governs both: $V_A$ in relative fitness. Both questions have been answered, in humans and *Drosophila*. | Robertson 1961 |
-| 2 | Background: **effect** | Santiago–Caballero unlinked form (equation kept, with scope condition 1 at the point of use: "exact when $V_A$ is the long-run equilibrium variance"). Linear, so the effect is modest. Linkage adds the exponential BGS term. **Precedents:** Buffalo & Kern 2024 (humans: diversity → equilibrium fitness variance + DFE); Buffalo & Coop 2019, 2020 (*Drosophila*, temporal). The direction is diversity → $V_A$. Deficits are general across species; the unlinked term has largely been left out of the accounting. | SC 1995, 1998, 2016; Hudson & Kaplan 1995; Nordborg et al. 1996; Buffalo & Kern 2024; Buffalo & Coop 2019, 2020; Leffler 2012; Buffalo 2021; Lewin & Eyre-Walker 2026; Matheson & Masel 2025 |
-| 3 | Background: **maintenance** | MSD balance, $V_m = U_ds^2$, $V_A \approx U_d\bar s$. **Precedent:** Charlesworth 2015 (*Drosophila* fitness components: too much variance for MSB; balancing selection). Stated plainly as prior work on the same test. Both inputs are now measured in vertebrates, and neither comes from diversity. | Mukai et al. 1972; Crow 1970; Charlesworth 2015; Johnson & Barton 2005; Sharp & Agrawal 2018; Bergeron et al. 2023; Eyre-Walker & Keightley 2007; Huber et al. 2017 |
-| 4 | The vertebrate measurement | Animal model; lifetime breeding success as "a composite lifetime measure"; Bonnet et al. 2022: 19 populations, 15 species; $\mathbf d^\top\mathbf G\mathbf d$ = the currency of both models, so nothing is rescaled; modes 0.003–0.50, median 0.10 (fixes E6's wrong range). | Henderson 1975; Kruuk 2004; Wilson et al. 2010; Postma 2014; Bonnet et al. 2022 |
-| 5 | **The scaling** (the originality) | A pedigree $V_A$ is a snapshot: $\mathbf d$ is evaluated at the observed state (scope condition 2, stated as what the estimator is for and not as a criticism). Diversity responds to $\bar V_A$ over ~$4N_e$ generations (D2: linear $N/N_e$ + harmonic-mean $N_e$). MSD needs the stationary value. Hence $c$. The stationarity the diversity side assumes is what the MSD side tests. The paper's spine: the two requirements move in opposite directions, so no common bias reconciles them. | — |
-| 6 | Here we + result | Methods in one sentence each: κ (stated as consistency with Bonnet's single $V_A$, with no claim of new theory), linked map term, $V_{A,\max}(\delta)$ as a curve, $s^*$. Verdict = the approved claim. Numbers: 1.7× median, ~4.5× max (inside the domain, per the 2026-10-14 wording rule) vs. 230–38,000× deficits; $s^* \approx 0.16$ vs. DFE $10^{-3}$–$10^{-2}$; maintenance needs $c \lesssim 0.07$, while diversity needs $c$ beyond the formula's domain. No single $c$ satisfies both. | SC 1995; Woolliams et al. 1999 |
+| 1 | Two consequences of heritable fitness variance, one quantity; the two questions are coupled | Both tested only in humans and *Drosophila*, with $V_A$ inferred or measured on components | Robertson 1961; **Li & Berg 2026** |
+| 2 | **Effect**: SC equation (with its equilibrium condition and $N$ = breeding adults), BGS, inference from diversity in humans and from temporal change in *Drosophila* | These studies run from diversity to $V_A$; the comparative deficit is unexplained; the unlinked term is largely ignored | SC 1995, 1998, 2016; Hudson & Kaplan 1995; Nordborg et al. 1996; Buffalo & Kern 2024; **Buffalo & Coop 2019**, 2020; Leffler et al. 2012; Lewin & Eyre-Walker 2026; Buffalo 2021; Matheson & Masel 2025 |
+| 3 | **Maintenance**: $V_m$, $U_d\bar s$; Charlesworth's test; the experimental test; the inputs are now measured in vertebrates | Tests are in *Drosophila*; vertebrate inputs exist and are independent of diversity | Mukai et al. 1972; Crow 1970; Charlesworth 2015; Johnson & Barton 2005; **Sharp & Agrawal 2018**; Bergeron et al. 2023; Eyre-Walker & Keightley 2007; Huber et al. 2017; Lin et al. 2026 |
+| 4 | **The vertebrate measurement**: animal model, Bonnet's 19 populations, same currency as both theories | **The central gap.** Maintenance has been argued only qualitatively (Connallon & Czuppon, with *Drosophila*-like parameters). Diversity has not been computed per population | Henderson 1975; Kruuk 2004; Wilson et al. 2010; Postma 2014; Bonnet et al. 2022; **Connallon & Czuppon 2026** |
+| 5 | **Time**: pedigree $V_A$ is a snapshot; heritability shifts with environment; both theories take the long-run variance | Any comparison assumes a scaling, and the two theories need not agree on it | Bonnet et al. 2022; **Charmantier & Garant 2005; Wilson et al. 2006**; Wright 1938; Lynch & Hill 1986 |
+| 6 | **Here we**: aims → methods in words → verdict → numbers → the opposite-direction argument | (answers ¶2, ¶4 and ¶5) | SC 1995; Woolliams et al. 1999 |
 
-About 1,200 words, close to the length of the old version.
+## Title
 
-## What was removed, and why
+Old (asserted a retired claim, OPEN_ITEMS E13): *Empirically reported heritable fitness variance
+predicts severe depletion of neutral diversity in wild populations.*
 
-- **The Fisher's-theorem opener.** FTNS is not part of the claim (CLAUDE.md); it belongs in the
-  Discussion as the escapability asymmetry. ¶1 now opens on the two consequences.
-- **"Evolutionary rescue / rate of adaptation" motivation** (Crow 1958; Lande 1982; Gomulkiewicz &
-  Holt 1995). This is significance borrowed from a different question. Restore one clause if you want
-  it.
-- **"which in wild populations remains orders of magnitude below census expectations" + Lewontin
-  1974 as framing.** Kept only as locating citations (Leffler, Buffalo 2021, Lewin & Eyre-Walker).
-  Lewontin is dropped from the Introduction.
-- **$I_A$.** Resolves OPEN_ITEMS T-3 in favour of $C^2$ alone; $I_A$ sits next to the
-  opportunity-for-selection argument, which is retired.
-- **"To our knowledge … not evaluated against either constraint."** Replaced by precedent-first
-  framing: the tests exist, in other taxa and with other measurements.
-- **"systematic discordance among …"** in the closing sentence. Replaced by the claim itself.
-- Model detail (EPP, functional annotations) shortened to one clause each.
+New: **Heritable variance in fitness in wild vertebrates is too small to explain their missing neutral
+diversity and too large for mutation–selection balance.**
 
-## Correction to the premise as stated
+Alternatives if the author wants the scaling in the title:
+- *Pedigree estimates of fitness variance cannot be scaled to fit both neutral diversity and
+  mutation–selection balance*
+- *Too small for diversity, too large for mutation: heritable fitness variance in wild vertebrates*
 
-**Buffalo (2021) is not a humans/*Drosophila* study.** It is comparative across 172 taxa. It asks
-whether linked selection, at the strongest published parameter estimates, can explain why diversity
-varies so little with census size. It does not use $V_A$. In the redraft it is a **locating citation
-for the diversity deficit**, as CLAUDE.md requires ("Buffalo 2021 as the foil" is retired). The
-**effect-side precedents** in humans and *Drosophila* are Buffalo & Kern 2024 and Buffalo & Coop
-2019/2020.
+## Citation status (checked by web search 2026-10-16; Crossref check still due at backport)
 
-## New citations to verify against Crossref before backport (Rule 6)
-
-Not in the old Introduction. Each was checked only by web search on 2026-10-16 or not at all:
-
-- Buffalo & Coop 2019, *Genetics* (linked-selection signature in temporal data). **Unverified.**
-- Buffalo & Coop 2020, *PNAS* (genome-wide contribution of selection to temporal allele-frequency
-  change). **Unverified.** (2020 was already cited in the old intro.)
-- Sharp & Agrawal 2018, *Proc. R. Soc. B*: an experimental test of MSB for fitness components in
-  *Drosophila*. Search-confirmed (author PDF); **volume/pages unverified.**
-- Mukai et al. 1972; Hudson & Kaplan 1995; Nordborg et al. 1996; Woolliams et al. 1999: already
-  cited elsewhere in `scratch.tex`.
-- Buffalo & Kern 2024, *PLoS Genet.* 20(3):e1011144: search-confirmed.
-- Charlesworth 2015, *PNAS* 112:1662–1669: search-confirmed. **Note that it carries a March 2015
-  correction to two numerical statements**; do not quote numbers from it without checking the
-  correction.
-
-**Candidate, not used:** Li & Berg 2026, *PNAS* 123:e2513613123, "Background selection in recombining
-genomes and its consequences for the maintenance of variation in complex traits" (UChicago). It
-couples the effect and maintenance questions for complex traits, so it could take one clause in ¶1
-or the Discussion. The author should decide.
+| work | details found | note |
+|---|---|---|
+| Buffalo & Kern 2024 | *PLoS Genet.* 20(3):e1011144 | |
+| Buffalo & Coop 2019 | *Genetics* 213:1007–1045 | |
+| Buffalo & Coop 2020 | *PNAS* 117 (doi 10.1073/pnas.1919039117) | |
+| Charlesworth 2015 | *PNAS* 112:1662–1669 | has a March 2015 correction to two numbers |
+| Sharp & Agrawal 2018 | *Proc. R. Soc. B* 285:20181864 | MSB sufficient for larval viability, not for male mating success or female fecundity |
+| Li & Berg 2026 | *PNAS* 123:e2513613123 | |
+| Connallon & Czuppon 2026 | *Evolution* 80(5):926 | **Checked:** no quantitative comparison of Bonnet's estimates with $U_d s$; the mutation-shortfall statements are qualitative, citing Charlesworth 2015. Cited as context, **not** as a competing resolution (CLAUDE.md). |
+| Wilson et al. 2006 | *PLoS Biol.* 4:e216 | Soay sheep; environment-dependent maternal genetic variance in birth weight |
+| Charmantier & Garant 2005 | *Proc. R. Soc. B* 272:1415–1425 | heritability higher in favourable conditions; significant for morphometric traits **but not for traits close to fitness**, hence "at least for morphological traits" |
+| Lin et al. 2026 | *PLoS Biol.* | source of `data/dfe_reference.csv` (verified in `data/README.md`) |
 
 ## Decisions for the author
 
-1. **The verdict sentence in ¶6.** OPEN_ITEMS Q6 recorded an earlier directive to omit it. The
-   redraft includes the approved 2026-08-26 claim verbatim, because a GENETICS Introduction normally
-   states its result. Delete it if Q6 still holds.
-2. **¶6's numbers** come from CLAUDE.md's 2026-10-13/14 values. The phrase "beyond the formula's
-   domain" follows the uncommitted `fig2_rescaling.R` change in the main checkout, which stops the
-   diversity curve at the domain edge. If that change is dropped, use "$c \gtrsim 10^4$, as the
-   $G = 1$ extrapolation" instead.
-3. **Named systems** in ¶4: Soay sheep (St Kilda) and great tits (Wytham Woods), two exemplars
-   following Q7.
-4. **The title (E13) still asserts a retired claim.** This plan does not touch it.
+1. **The verdict sentence in ¶6.** It is included verbatim from the approved 2026-08-26 claim. This
+   supersedes OPEN_ITEMS Q6 (omit), following the author's "results in the last paragraph"
+   instruction of 2026-10-16.
+2. **"More than the theory's domain allows"** follows the uncommitted `fig2_rescaling.R` change in
+   the main checkout. If that change is dropped, use "$c \gtrsim 10^4$, as the $G = 1$
+   extrapolation".
+3. **The Discussion still carries retired claims** (E14). It is untouched here.

@@ -36,6 +36,14 @@ The originality has two parts. First, the same tests are applied to wild vertebr
 measured total-fitness $V_A$. Second, the analysis centres on how a pedigree snapshot must be scaled,
 $c = \bar V_A/\hat V_A$, to fit each model. Buffalo 2021 is comparative and about linked selection,
 so it stays a locating citation for the deficit. Plan: `manuscript/INTRO_REDRAFT_PLAN.md`.
+**Introduction rules (user, 2026-10-16):** before its last paragraph, the Introduction shows only
+published derivations and results, and none of ours (no κ, $V_{A,\max}$, $s^*$, $c$). This paper's
+results appear only in the last paragraph, GENETICS-style. Each background paragraph ends on the gap
+it leaves for wild vertebrates. **Title (2026-10-16):** *Heritable variance in fitness in wild
+vertebrates is too small to explain their missing neutral diversity and too large for
+mutation–selection balance.* **Connallon & Czuppon 2026 is now verified** (*Evolution* 80:926). It
+makes no quantitative comparison of Bonnet's $V_A$ with $U_ds$, so the vertebrate MSD shortfall had
+been argued, not computed.
 
 ### Why it holds together
 
