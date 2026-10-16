@@ -46,6 +46,7 @@ committed, so step 4 alone rebuilds everything from a fresh clone. NCBI zips liv
 | `genomic_parameters_summary.csv` | genome-wide assembly stats (used for hihi) | copied from gitignored `genomic_data/` |
 | `lewin_eyre_walker_2026_data.xlsx` | $\pi$, $\mu$, $N_e$ (STable1), $\pi$ compartments (STable3), density and range (STable5) | Lewin & Eyre-Walker 2026, *Mol. Ecol.* |
 | `pi_literature.csv` | literature π (and single-genome heterozygosity) for the 12 populations Lewin & Eyre-Walker lack, with compartment, sample, DOI and verbatim evidence per row | literature search, added 2026-10-10 |
+| `dfe_reference.csv` | measured gamma DFEs of new nonsynonymous mutations (shape α, scale β′ in *s* units, mean *s* = αβ′, heterozygous under semi-dominance); sets Figure 4's per-taxon bands (birds: two flycatchers; mammals: mouse, vaquita, fin whale) | Lin et al. 2026 *PLoS Biol* Table 1, verified 2026-10-15 against the published table and the means stated in its text |
 | `census/damuth1987.tsv` | density–body mass data | Damuth 1987, via Buffalo's repository |
 | `master_chromosome_recomb_data.csv` | legacy joined table | **validation target only** |
 

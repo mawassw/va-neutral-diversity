@@ -45,3 +45,14 @@ iyag180.pdf
 science.abk0853_data_s1/
 pgen.1011144.s001.pdf
 data/census/gbif_cache/
+
+# figure preview scratch
+.figwork/
+
+# agent worktrees (CLAUDE.md Git workflow, 2026-10-14)
+.claude/worktrees/
+
+# reference papers (copyrighted; kept local)
+Lewin and Eyre-Walker - 2026 - *.pdf
+santiago_caballero_1995.pdf
+woolliams_bijma_villanueva_1999.pdf

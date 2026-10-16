@@ -1,0 +1,9 @@
+species,common_name,taxon,Na_syn,s_median,shape_alpha,scale_beta_prime,mean_s,used_for_band,source,doi,note
+Ficedula hypoleuca,pied flycatcher,Birds,246918,0.00012,0.29,0.0018,0.000522,yes,Lin et al. 2026 PLoS Biol Table 1,10.1371/journal.pbio.3003976,mean_s = alpha * beta_prime; beta_prime is in s units (beta / 2 Na); text reports |s|mean = 0.00052
+Ficedula albicollis,collared flycatcher,Birds,138027,0.00026,0.22,0.0097,0.00213,yes,Lin et al. 2026 PLoS Biol Table 1,10.1371/journal.pbio.3003976,text reports |s|mean = 0.0021
+Mus musculus castaneus,house mouse,Mammals,207682,0.0011,0.21,0.048,0.0101,yes,Lin et al. 2026 PLoS Biol Table 1,10.1371/journal.pbio.3003976,text reports |s|mean = 0.010
+Phocoena sinus,vaquita,Mammals,6264,0.00034,0.13,0.096,0.0125,yes,Lin et al. 2026 PLoS Biol Table 1,10.1371/journal.pbio.3003976,mean 2 Na s = 156 (text: 161)
+Balaenoptera physalus,fin whale,Mammals,12411,0.00091,0.14,0.19,0.0266,yes,Lin et al. 2026 PLoS Biol Table 1,10.1371/journal.pbio.3003976,
+Homo sapiens,human,Mammals,7041,0.0012,0.19,0.073,0.0139,no,Lin et al. 2026 PLoS Biol Table 1,10.1371/journal.pbio.3003976,reference only; Kim et al. 2017 gives 0.0066
+Canis lupus lupus,gray wolf,Mammals,45517,0.0017,0.12,0.72,0.0864,no,Lin et al. 2026 PLoS Biol Table 1,10.1371/journal.pbio.3003976,excluded: mean set by an unconstrained heavy tail
+Canis lupus arctos,arctic wolf,Mammals,74139,0.0062,0.11,6.30,0.693,no,Lin et al. 2026 PLoS Biol Table 1,10.1371/journal.pbio.3003976,excluded: mean set by an unconstrained heavy tail

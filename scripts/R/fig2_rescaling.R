@@ -85,41 +85,67 @@ lab_divG <- expression("the same with " * italic(G) == 1 - bar(italic(V))[A] *
 # Domain of 1/(1 + 4 kappa V_A): weak selection, V_A << 1. Its edge, long-run
 # V_A = 1, sits at c = 1 / hat V_A, which differs by species (hat V_A averaged
 # geometrically within species). Grey from the species-average edge; dashed
-# lines at the smallest and largest species edge.
+# lines at the smallest and largest species edge. The diversity ratio is drawn
+# only inside the domain: each population's faint line stops at its own edge,
+# the average at the average edge. No exact form exists beyond it, and every
+# known correction (variance depleted by selection, G < 1, lowers Q) reduces
+# diversity less than the formula does, so agreement would lie further out still.
 c_dom_sp <- d %>% group_by(species) %>% summarise(c_dom = 1 / exp(mean(log(va_mode))))
 c_dom <- exp(mean(log(c_dom_sp$c_dom)))
-# Agreement on the diversity side lies beyond the domain edge, so that regime is
-# not drawn as a regime: it is part of the grey region.
 stopifnot(c_dom < c_div1, c_msd1 < c_dom)
+
+# Diversity ratio at each species' own domain edge (long-run V_A = 1)
+edge_sp <- d %>%
+  mutate(r_edge = deficit / (1 + 4 * kappa)) %>%
+  group_by(species) %>%
+  summarise(r_edge = exp(mean(log(r_edge))), .groups = "drop")
+edge_avg <- 10^approx(log10(filter(avg, side == "div")$c), filter(avg, side == "div")$m,
+                      log10(c_dom))$y
+
+x_max <- 1e3
+curves_draw <- curves %>%
+  left_join(d %>% select(code, va_mode), by = c("code", "va_mode")) %>%
+  filter(c <= x_max, side == "msd" | c <= 1 / va_mode)
+avg_draw <- avg %>% filter(c <= x_max, side == "msd" | c <= c_dom)
 
 # Regimes along c, bounded where the average MSD curve reaches 1 and at the
 # domain edge
 regimes <- tibble::tibble(
-  xmin = c(1e-4, c_msd1, c_dom), xmax = c(c_msd1, c_dom, 1e7),
+  xmin = c(1e-4, c_msd1, c_dom), xmax = c(c_msd1, c_dom, x_max),
   fill = c("msd_ok", "none", "out"),
   # middle label centred left of the first dashed line, so it does not cross it
-  x = sqrt(c(1e-4 * c_msd1, c_msd1 * min(c_dom_sp$c_dom), c_dom * 1e7)),
+  x = sqrt(c(1e-4 * c_msd1, c_msd1 * min(c_dom_sp$c_dom), c_dom * x_max)),
   lab = c("Maintainable, but\nexplains almost none\nof the lost diversity",
           "Not\nmaintainable,\nexplains little",
           ""))   # grey label drawn separately, as plotmath
 
-p <- ggplot(avg, aes(c)) +
-  geom_rect(data = regimes, aes(xmin = xmin, xmax = xmax, ymin = 1e-3, ymax = 1e6, fill = fill),
+lab_edge <- sprintf("%s–%s× at the\ndomain edge",
+                    format(signif(min(edge_sp$r_edge), 2), big.mark = ","),
+                    format(signif(max(edge_sp$r_edge), 2), big.mark = ","))
+
+p <- ggplot(avg_draw, aes(c)) +
+  geom_rect(data = regimes, aes(xmin = xmin, xmax = xmax, ymin = 1e-3, ymax = 1e5, fill = fill),
             inherit.aes = FALSE, show.legend = FALSE) +
   scale_fill_manual(values = c(msd_ok = "#EAF2F8", none = "white", out = "grey88")) +
   geom_hline(yintercept = 1, linewidth = 0.4) +
   geom_vline(xintercept = range(c_dom_sp$c_dom), linetype = "22", linewidth = 0.4,
              colour = "grey40") +
   # individual populations, faint
-  geom_line(data = filter(curves, side != "divG"),
+  geom_line(data = filter(curves_draw, side != "divG"),
             aes(y = ratio, colour = side, group = interaction(code, side)),
             linewidth = 0.3, alpha = 0.3) +
   # species average and 95% CI
-  geom_ribbon(data = filter(avg, side == "msd"), aes(ymin = lo, ymax = hi),
+  geom_ribbon(data = filter(avg_draw, side == "msd"), aes(ymin = lo, ymax = hi),
               fill = col_msd, alpha = 0.2) +
-  geom_ribbon(data = filter(avg, side == "div"), aes(ymin = lo, ymax = hi),
+  geom_ribbon(data = filter(avg_draw, side == "div"), aes(ymin = lo, ymax = hi),
               fill = col_req, alpha = 0.2) +
   geom_line(aes(y = ratio, colour = side, linetype = side), linewidth = 1.1) +
+  # where the diversity ratio leaves the domain
+  annotate("point", x = c_dom, y = edge_avg, size = 1.8, colour = col_req) +
+  annotate("segment", x = c_dom, xend = c_dom * 1.5, y = edge_avg, yend = 2.2e4,
+           linewidth = 0.3, colour = col_req) +
+  annotate("text", x = c_dom * 1.6, y = 2.2e4, label = lab_edge, hjust = 0, vjust = 0.5,
+           size = 2.1, fontface = "bold", lineheight = 0.9, colour = col_req) +
   # regime labels drawn last, on a light backing, so curves pass behind them
   geom_label(data = filter(regimes, lab != ""), aes(x = x, y = 1.6, label = lab),
              inherit.aes = FALSE, size = 2.1, fontface = "bold", lineheight = 0.9, vjust = 0,
@@ -133,11 +159,11 @@ p <- ggplot(avg, aes(c)) +
   scale_linetype_manual(values = c(msd = "solid", div = "solid", divG = "22"),
                         breaks = c("msd", "div", "divG"), labels = list(lab_msd, lab_div, lab_divG),
                         name = NULL) +
-  scale_x_log10(breaks = 10^seq(-4, 7), expand = c(0, 0),
+  scale_x_log10(breaks = 10^seq(-4, 3), expand = c(0, 0),
                 labels = scales::label_math(10^.x, format = log10)) +
-  scale_y_log10(breaks = 10^seq(-3, 6), expand = c(0, 0),
+  scale_y_log10(breaks = 10^seq(-3, 5), expand = c(0, 0),
                 labels = scales::label_math(10^.x, format = log10)) +
-  coord_cartesian(xlim = c(1e-4, 1e7), ylim = c(1e-3, 1e6)) +
+  coord_cartesian(xlim = c(1e-4, x_max), ylim = c(1e-3, 1e5)) +
   labs(x = expression("Long-run " * italic(V)[A] * " as a multiple of the pedigree estimate, " *
                         italic(c) == bar(italic(V))[A] / hat(italic(V))[A]),
        y = "Ratio") +
@@ -158,5 +184,6 @@ if (nzchar(Sys.getenv("FIG_PREVIEW")))
   ggsave(Sys.getenv("FIG_PREVIEW"), p, width = 120, height = 100, units = "mm", dpi = 200,
          device = ragg::agg_png)
 
-cat(sprintf("n = %d species (%d populations)\nratio 1 at c = %.3g (MSD) and %.3g (diversity)\nbest compromise c = %.3g, ratio %.0f\n",
-            n_sp, n_distinct(curves$code), c_msd1, c_div1, c_star, ratio_star))
+cat(sprintf("n = %d species (%d populations)\nMSD ratio 1 at c = %.3g; domain edge c = %.3g (species %.3g-%.3g)\ndiversity ratio at the edge: average %.0f, species %.0f-%.0f; extrapolated agreement c = %.3g\n",
+            n_sp, n_distinct(curves$code), c_msd1, c_dom, min(c_dom_sp$c_dom), max(c_dom_sp$c_dom),
+            edge_avg, min(edge_sp$r_edge), max(edge_sp$r_edge), c_div1))
