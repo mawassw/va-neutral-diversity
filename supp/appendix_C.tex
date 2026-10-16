@@ -1,59 +1,32 @@
 \ifdefined\isMainDocument
 \else
-\documentclass[11pt]{article}
-\usepackage{fullpage}
-\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
-\usepackage{bm}
-\usepackage{bbm}
-\usepackage{mathtools}
-\usepackage{mathrsfs}
-\usepackage{etoolbox}
-\usepackage{nicefrac}
-\usepackage{wrapfig}
-\usepackage{lineno}
-\usepackage{caption}
-\usepackage{graphicx}
-\graphicspath{}
-
-\usepackage{geometry}
-\geometry{top=0.5in, bottom=0.5in, left=0.5in, right=0.5in}
-% \geometry{top=1.0in, bottom=1.0in, left=1.0in, right=1.0in}
-
-\usepackage{setspace}
-\setstretch{1.5}
-
-% \usepackage{helvet}
-% \renewcommand{\familydefault}{\sfdefault}
-
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{} % Clear all headers and footers
-% \fancyfoot[R]{\thepage} % Set the page number on the right side of the footer
-\renewcommand{\headrulewidth}{0pt} % Remove header rule
-\setlength{\footskip}{0pt}
-
-\usepackage[backend=bibtex, style=numeric, sorting=none, sortcites=true, maxnames=5]{biblatex}
-\DeclareNameAlias{default}{last-first}
-\DeclareFieldFormat{pages}{#1}
-\DeclareCiteCommand{\cite}
-  {\usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-   \printtext[bibhyperref]{\textsuperscript{\textbf{\printfield{labelnumber}}}}}
-  {\multicitedelim}
-  {\usebibmacro{postnote}}
-\renewbibmacro{in:}{}
-\renewcommand*{\multicitedelim}{\textsuperscript{,}}
-\addbibresource{refs/refs.bib}
-\begin{document}
-\appendix
+    \documentclass{article}
+    \usepackage{fullpage}
+    \usepackage{wrapfig}
+    \usepackage{lineno}
+    \usepackage{amsmath, amsthm, amsfonts, amssymb, amscd}
+    \usepackage{bm, bbm, mathrsfs}
+    \usepackage{mathtools}
+    \usepackage{nicefrac}
+    \usepackage{caption}
+    \usepackage{float, multirow}
+    \usepackage{textcomp, booktabs}
+    \usepackage{biblatex}
+    \addbibresource{../manuscript/references.bib}
+    \usepackage[colorinlistoftodos]{todonotes}
+    \usepackage{graphicx}
+    \graphicspath{{../main/}{../supp/}}
+    \usepackage{setspace}
+    \usepackage{hyperref}
+    \setstretch{1.5}
+    \begin{document}
+    \linenumbers
+    \appendix
 \fi
+% Source: manuscript/scratch.tex (Appendix C). scratch.tex is authoritative; edit
+% there first and re-split, or keep the two in step by hand.
 
-%---------------------------------------------------------------------
-
-\section{Appendix C: Analytical Integration of the Chromosome-Wide Constraint}
-\label{app:chromosapp}
-\linenumbers
-
+\section{Appendix C: Analytical Integration of the Chromosome-Wide Constraint}\label{app:chromosapp}
 
 This appendix evaluates the chromosome-wide interference $\overline{Q^2}_\text{linked}$ used in the main text. The kernel it integrates is established; what follows is its integration along a genetic map. We give closed forms under both the Haldane and the linear mapping function, and show that the linear form is a lower bound.
 
@@ -121,5 +94,6 @@ Equation~\eqref{eq:closed_form} is a lower bound on interference and hence on th
 
 \ifdefined\isMainDocument
 \else
+    \printbibliography
     \end{document}
 \fi

@@ -1,0 +1,92 @@
+\documentclass{article}
+\usepackage{fullpage}
+% \usepackage{geometry}
+% \geometry{top=0.5in, bottom=0.5in, left=0.5in, right=0.5in}
+
+% Root document, same structure as rmt-pca/main/_main.tex. Each section is its own
+% file, \input{} with paths relative to the REPO ROOT (Overleaf's compile
+% directory). Locally, build from the repo root: latexmk -pdf manuscript/_main.tex
+% The section bodies are split verbatim from manuscript/scratch.tex, which stays
+% authoritative (CLAUDE.md Rule 5).
+
+\usepackage{wrapfig}
+\usepackage{lineno}
+\usepackage[english]{babel}
+\usepackage[autostyle=true]{csquotes}
+\usepackage{placeins}
+\usepackage{amsmath, amsthm, amsfonts, amssymb, amscd}
+\usepackage{bm, bbm, mathrsfs}
+\usepackage{mathtools}
+\usepackage{nicefrac}
+\usepackage{caption}
+\usepackage{float, multirow}
+\usepackage{textcomp}
+% \usepackage{natbib}
+\usepackage[style=numeric, sorting=none]{biblatex}
+\addbibresource{manuscript/references.bib}
+\usepackage[colorinlistoftodos]{todonotes}
+% Faint-blue background marking prose written wholesale by Claude (as opposed to
+% relocated or lightly edited existing prose). Strip all highlights by redefining
+% \claude to just #1.
+\usepackage{soul}
+\definecolor{claudeblue}{RGB}{227,238,252}
+\newcommand{\claude}[1]{{\sethlcolor{claudeblue}\hl{#1}}}
+% Red text marking a passage that may be moved or cut (\movecandidate{...}), with a
+% visible red note (\movenote{...}).
+\newcommand{\movecandidate}[1]{{\color{red!75!black}#1}}
+\newcommand{\movenote}[1]{{\color{red}\textbf{[#1]}}}
+% Gray marking for superseded text kept temporarily for comparison: a visible note
+% (\oldnote{...}) and \begingroup\color{gray!80!black} ... \endgroup around the old text.
+\newcommand{\oldnote}[1]{{\color{gray}\textbf{[#1]}}}
+\usepackage{graphicx}
+\usepackage{appendix}
+\graphicspath{{main/}{supp/}}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{longtable}
+\setstretch{1.5}
+
+% Define variable to indicate this is the main document
+\newcommand{\beginsupplement}{%
+    \setcounter{figure}{0}%
+    \renewcommand{\thefigure}{S\arabic{figure}}%
+}
+\newcommand{\isMainDocument}{}
+
+\begin{document}
+\linenumbers
+
+%HEADER
+% scratch.tex's \title is "Empirically reported heritable fitness variance predicts
+% severe depletion of neutral diversity in wild populations" (retired framing); the
+% title block below is carried over from manuscript/main.tex.
+\begin{center}
+    \LARGE
+    \textbf{Measured Fitness Variance is too Weak to Explain the Missing Diversity}\\
+    \vspace{0.25cm}
+    \Large
+    \vspace{0.1cm}
+    Walid Mawass\\
+    \vspace{0.1cm}
+    \small Department of Human Genetics, University of Chicago, Chicago, IL, USA\\
+    \vspace{0.1cm}
+    Corresponding author: \texttt{mawass@uchicago.edu}\\
+\end{center}
+
+\input{manuscript/abstract}
+\input{manuscript/introduction}
+\input{manuscript/theory_model}
+\input{manuscript/methods_materials}
+\input{manuscript/results}
+\input{manuscript/discussion}
+\input{manuscript/add_info}
+\printbibliography
+\beginsupplement
+
+\appendix
+\input{supp/appendix_A}
+\input{supp/appendix_B}
+\input{supp/appendix_C}
+\input{supp/appendix_D}
+\end{document}

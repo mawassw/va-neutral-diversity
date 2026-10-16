@@ -2,9 +2,6 @@
 \else
     \documentclass{article}
     \usepackage{fullpage}
-    % \usepackage{geometry}
-    % \geometry{top=0.5in, bottom=0.5in, left=0.5in, right=0.5in}
-    
     \usepackage{wrapfig}
     \usepackage{lineno}
     \usepackage{amsmath, amsthm, amsfonts, amssymb, amscd}
@@ -12,18 +9,21 @@
     \usepackage{mathtools}
     \usepackage{nicefrac}
     \usepackage{caption}
-    %\usepackage{natbib}
-    \usepackage[style=numeric, sorting=none]{biblatex}
-    \addbibresource{refs.bib}
+    \usepackage{float, multirow}
+    \usepackage{textcomp, booktabs}
+    \usepackage{biblatex}
+    \addbibresource{references.bib}
     \usepackage[colorinlistoftodos]{todonotes}
     \usepackage{graphicx}
-    \graphicspath{figures/}
+    \graphicspath{{../main/}{../supp/}}
     \usepackage{setspace}
+    \usepackage{hyperref}
     \setstretch{1.5}
-
     \begin{document}
     \linenumbers
 \fi
+% Source: manuscript/scratch.tex (Theory and Model). scratch.tex is authoritative; edit
+% there first and re-split, or keep the two in step by hand.
 
 \section{Theory and Model}
 \subsection{The quantity and the two equilibria that constrain it}\label{sec:quantity}
@@ -134,23 +134,23 @@ A focal neutral allele on chromosome $i$ consequently experiences two concurrent
 \end{enumerate}
 Because cross-chromosomal linkage disequilibrium is negligible under random mating and independent assortment, these two selective regimes act across independent coalescent branch segments. Their joint effect combines multiplicatively to determine the chromosome-specific relative effective size:
 \begin{equation}
-\left(\frac{N_e}{N}\right)_i \approx \frac{\exp\left(-\kappa_\text{cis}\,\overline{Q^2}_i\,v_h\right)}{1 + Q_u^2(\kappa V_A - \kappa_\text{own}\,v_h)}, \label{total_red}
+    \left(\frac{N_e}{N}\right)_i \approx \frac{\exp\left(-\kappa_\text{cis}\,\overline{Q^2}_i\,v_h\right)}{1 + Q_u^2(\kappa V_A - \kappa_\text{own}\,v_h)}, \label{total_red}
 \end{equation}
 which under Model B, and without a pair bond, is $\exp(-\overline{Q^2}_i v_h)/[1 + Q_u^2(\kappa V_A - v_h)]$. Here $Q_u = 2/(2-Z)$ is the unlinked cumulative factor with the same per-generation persistence $Z$ as the linked term: it is the $M \to \infty$ limit of $\overline{Q^2}_\text{linked}$ (Appendix~C), and it returns Appendix A's $Q = 2$ at $Z = 1$. Using one persistence for both terms is what makes $\Omega_i \le 1$ hold exactly (below).
 
 To isolate the specific reduction imposed by chromosome structure beyond the unlinked baseline, we define the relative linkage penalty, $\Omega_i$, as the ratio of the chromosome-level effective size to the genome-wide unlinked baseline (Equation~\eqref{unlinked_mating}):
 \begin{equation}
-\Omega_i \equiv \frac{(N_e/N)_i}{(N_e/N)_\text{unlinked}} = \exp\left(-\kappa_\text{cis}\,\overline{Q^2}_i\,v_h\right) \cdot \frac{1 + Q_u^2\kappa V_A}{1 + Q_u^2(\kappa V_A - \kappa_\text{own}\,v_h)}. \label{linked_penalty}
+    \Omega_i \equiv \frac{(N_e/N)_i}{(N_e/N)_\text{unlinked}} = \exp\left(-\kappa_\text{cis}\,\overline{Q^2}_i\,v_h\right) \cdot \frac{1 + Q_u^2\kappa V_A}{1 + Q_u^2(\kappa V_A - \kappa_\text{own}\,v_h)}. \label{linked_penalty}
 \end{equation}
 The second factor in Equation~\eqref{linked_penalty} strictly exceeds unity: sequestering variance $v_h$ onto a physical chromosome slightly relieves the global family-size overdispersion imposed by the unlinked background. The parameter $\Omega_i$ thus represents the net balance between this modest global variance relief and the severe local coalescent compression driven by physical linkage (Charlesworth et al. 1993).
 
 Assuming neutral sites are uniformly distributed across the physical genome, the genome-wide expected relative effective size is the physical-length-weighted average across all $n$ autosomes:
 \begin{equation}
-\mathbb{E}\left[\frac{N_e}{N}\right] = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}} \left(\frac{N_e}{N}\right)_i = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}} \cdot \frac{\exp\left(-\kappa_\text{cis}\,\overline{Q^2}_i\,v_h\right)}{1 + Q_u^2(\kappa V_A - \kappa_\text{own}\,v_h)},
+    \mathbb{E}\left[\frac{N_e}{N}\right] = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}} \left(\frac{N_e}{N}\right)_i = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}} \cdot \frac{\exp\left(-\kappa_\text{cis}\,\overline{Q^2}_i\,v_h\right)}{1 + Q_u^2(\kappa V_A - \kappa_\text{own}\,v_h)},
 \end{equation}
 where $L_i$ is the physical length (in base pairs) of autosome $i$, and $L_\text{total} = \sum L_i$. The genome-wide net linkage effect, $\overline{\Omega}$, is the corresponding length-weighted mean:
 \begin{equation}
-\overline{\Omega} = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}} \Omega_i.
+    \overline{\Omega} = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}} \Omega_i.
 \end{equation}
 A value of $\overline{\Omega} = 1$ indicates that genomic architecture imposes no selective interference beyond independent assortment; values below unity quantify the net coalescent compression attributable directly to physical linkage along chromosomes.
 
