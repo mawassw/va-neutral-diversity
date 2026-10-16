@@ -28,6 +28,23 @@ If a claim is not in this section, it is not a claim of this paper.
 
 That is the paper. One measured quantity, two equilibrium comparisons, opposite verdicts.
 
+**How the background is organised (user, 2026-10-16).** The work is about the **effect** and the
+**maintenance** of heritable variation in fitness, and the Introduction presents one literature for
+each. Both tests have precedents. For the effect side these are Buffalo & Kern 2024 (humans) and
+Buffalo & Coop 2019/2020 (*Drosophila*). For maintenance it is Charlesworth 2015 (*Drosophila*).
+The originality has two parts. First, the same tests are applied to wild vertebrates with directly
+measured total-fitness $V_A$. Second, the analysis centres on how a pedigree snapshot must be scaled,
+$c = \bar V_A/\hat V_A$, to fit each model. Buffalo 2021 is comparative and about linked selection,
+so it stays a locating citation for the deficit. Plan: `manuscript/INTRO_REDRAFT_PLAN.md`.
+**Introduction rules (user, 2026-10-16):** before its last paragraph, the Introduction shows only
+published derivations and results, and none of ours (no κ, $V_{A,\max}$, $s^*$, $c$). This paper's
+results appear only in the last paragraph, GENETICS-style. Each background paragraph ends on the gap
+it leaves for wild vertebrates. **Title (2026-10-16):** *Heritable variance in fitness in wild
+vertebrates is too small to explain their missing neutral diversity and too large for
+mutation–selection balance.* **Connallon & Czuppon 2026 is now verified** (*Evolution* 80:926). It
+makes no quantitative comparison of Bonnet's $V_A$ with $U_ds$, so the vertebrate MSD shortfall had
+been argued, not computed.
+
 ### Why it holds together
 
 Three properties, and all three must survive any edit to the framing:
@@ -336,6 +353,9 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
    improved the prose throughout but did not change the framing. **The Introduction must
    acknowledge Charlesworth 2015 as the precedent for the MSD verdict** (Supporting results, above).
    The Discussion still carries retired claims; the 2026-10-15 audit fixed only its math slips.
+   **Introduction redrafted 2026-10-16 and merged to `main`** (scaffolding; needs re-voicing;
+   new citations web-checked, Crossref still due; see `manuscript/INTRO_REDRAFT_PLAN.md`).
+   Discussion still to do.
 3a. **Methods reviewer pass.** The user asked on 2026-10-15 for Theory and Methods to be updated
    together, and **Methods was rewritten that day** from the data layer (see the Rule 5 log entry of
    2026-10-15, "Theory and Methods updated"). A reviewer pass is still wanted. **Author flags left in
