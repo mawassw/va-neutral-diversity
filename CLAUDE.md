@@ -353,7 +353,12 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
    improved the prose throughout but did not change the framing. **The Introduction must
    acknowledge Charlesworth 2015 as the precedent for the MSD verdict** (Supporting results, above).
    The Discussion still carries retired claims; the 2026-10-15 audit fixed only its math slips.
-   **Introduction redrafted 2026-10-16 and merged to `main`** (scaffolding; needs re-voicing;
+   **Introduction redrafted again 2026-10-17 (v3)** in `manuscript/introduction.tex`: order is
+   measured V_A → maintenance (a requisite: which model explains it) → genome-wide consequence
+   (Result 1) → linked consequence conditional on the maintenance model (Li & Berg there) → gap and
+   timescale → this work, with results as magnitudes in words and GENETICS register (exemplar
+   `iyag180.pdf`). Adds Charlesworth, Morgan & Charlesworth 1993. Voice is the author's to revise.
+   Earlier: **Introduction redrafted 2026-10-16 and merged to `main`** (scaffolding; needs re-voicing;
    new citations web-checked, Crossref still due; see `manuscript/INTRO_REDRAFT_PLAN.md`).
    Discussion still to do.
 3a. **Methods reviewer pass.** The user asked on 2026-10-15 for Theory and Methods to be updated
@@ -435,8 +440,9 @@ project#3/
     │                        biblatex, soul, todonotes installed 2026-10-16). Each section
     │                        file carries the \ifdefined\isMainDocument guard and compiles
     │                        standalone. Bodies were split VERBATIM from scratch.tex at
-    │                        1eb0116; scratch.tex stays authoritative, so re-split or
-    │                        propagate its edits into the section files.
+    │                        1eb0116. **Since 2026-10-17 (user) scratch.tex is STALE:**
+    │                        the section files are the working copies; edit them
+    │                        directly, not scratch.tex.
     ├── main.tex            # OLDER OVERLEAF ROOT (commit 8266aff), superseded by _main.tex;
     │                        inputs the same section files. Delete once Overleaf's main
     │                        document is switched to manuscript/_main.tex.
