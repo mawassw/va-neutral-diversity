@@ -358,6 +358,15 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
    (Result 1) → linked consequence conditional on the maintenance model (Li & Berg there) → gap and
    timescale → this work, with results as magnitudes in words and GENETICS register (exemplar
    `iyag180.pdf`). Adds Charlesworth, Morgan & Charlesworth 1993. Voice is the author's to revise.
+   **Theory and Model redrafted 2026-10-17** (`manuscript/theory_model.tex`, user-approved plan):
+   order mirrors the Introduction — quantity and timescale (D2, c) → mutation–selection–drift
+   balance (s*, DFE mean, Z defined here) → genome-wide reduction (Result 1) → mating system (κ_B
+   shown, Model A in Appendix B) → V_A,max(δ) → linked term, stated as conditional on MSD. **No data
+   in Theory** (numbers parked as a comment at the top of `results.tex`; U_d justification moved to
+   Methods). The spatial-distribution analysis and the Ω ≤ 1 proof moved to Appendix C (C.6, C.5).
+   **The Overleaf "Synthesis" subsection was deleted** (user); its demography point is parked as a
+   comment in `discussion.tex`. Fixed on the way: hard-coded "Table~1", the ">85% in two
+   generations" arithmetic (T-6), I_A dropped (T-3).
    Earlier: **Introduction redrafted 2026-10-16 and merged to `main`** (scaffolding; needs re-voicing;
    new citations web-checked, Crossref still due; see `manuscript/INTRO_REDRAFT_PLAN.md`).
    Discussion still to do.
