@@ -2,9 +2,6 @@
 \else
     \documentclass{article}
     \usepackage{fullpage}
-    % \usepackage{geometry}
-    % \geometry{top=0.5in, bottom=0.5in, left=0.5in, right=0.5in}
-    
     \usepackage{wrapfig}
     \usepackage{lineno}
     \usepackage{amsmath, amsthm, amsfonts, amssymb, amscd}
@@ -12,18 +9,21 @@
     \usepackage{mathtools}
     \usepackage{nicefrac}
     \usepackage{caption}
-    %\usepackage{natbib}
-    \usepackage[style=numeric, sorting=none]{biblatex}
-    \addbibresource{refs.bib}
+    \usepackage{float, multirow}
+    \usepackage{textcomp, booktabs}
+    \usepackage{biblatex}
+    \addbibresource{references.bib}
     \usepackage[colorinlistoftodos]{todonotes}
     \usepackage{graphicx}
-    \graphicspath{figures/}
+    \graphicspath{{../main/}{../supp/}}
     \usepackage{setspace}
+    \usepackage{hyperref}
     \setstretch{1.5}
-
     \begin{document}
     \linenumbers
 \fi
+% Source: manuscript/scratch.tex (Theory and Model). scratch.tex is authoritative; edit
+% there first and re-split, or keep the two in step by hand.
 
 \section{Theory and Model}
 \subsection{The quantity and the two equilibria that constrain it}\label{sec:quantity}

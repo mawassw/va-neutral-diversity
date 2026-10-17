@@ -425,13 +425,21 @@ project#3/
 │   ├── README.md                            #   δ numbers, data_gen bug, fill-ins
 │   └── assets/, *.pdf                       #   GITIGNORED build products
 └── manuscript/
-    ├── main.tex            # OVERLEAF BUILD (commit 8266aff): \input{}s abstract.tex,
+    ├── _main.tex           # ROOT DOCUMENT (2026-10-17), same structure as
+    │                        rmt-pca/main/_main.tex: \input{}s abstract.tex,
     │                        introduction.tex, theory_model.tex, methods_materials.tex,
     │                        results.tex, discussion.tex, add_info.tex and
-    │                        supp/appendix_A–D.tex, from the repo root, with biblatex +
-    │                        refs.bib (Overleaf-only). Not buildable locally (TinyTeX lacks
-    │                        babel-english, csquotes). The section files are scratch.tex
-    │                        split by section; propagate scratch.tex edits into them.
+    │                        supp/appendix_A–D.tex, paths from the repo root, biblatex +
+    │                        manuscript/references.bib. Builds locally from the root:
+    │                        `latexmk -pdf manuscript/_main.tex` (babel-english, csquotes,
+    │                        biblatex, soul, todonotes installed 2026-10-16). Each section
+    │                        file carries the \ifdefined\isMainDocument guard and compiles
+    │                        standalone. Bodies were split VERBATIM from scratch.tex at
+    │                        1eb0116; scratch.tex stays authoritative, so re-split or
+    │                        propagate its edits into the section files.
+    ├── main.tex            # OLDER OVERLEAF ROOT (commit 8266aff), superseded by _main.tex;
+    │                        inputs the same section files. Delete once Overleaf's main
+    │                        document is switched to manuscript/_main.tex.
     ├── scratch.tex         # OPERATING DOC + AUTHORITATIVE — complete draft:
     │                        intro → theory/model → results → methods →
     │                        discussion → appendices. Outranks main.tex AND the R code.

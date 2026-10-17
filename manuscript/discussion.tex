@@ -2,9 +2,6 @@
 \else
     \documentclass{article}
     \usepackage{fullpage}
-    % \usepackage{geometry}
-    % \geometry{top=0.5in, bottom=0.5in, left=0.5in, right=0.5in}
-    
     \usepackage{wrapfig}
     \usepackage{lineno}
     \usepackage{amsmath, amsthm, amsfonts, amssymb, amscd}
@@ -12,18 +9,21 @@
     \usepackage{mathtools}
     \usepackage{nicefrac}
     \usepackage{caption}
-    %\usepackage{natbib}
-    \usepackage[style=numeric, sorting=none]{biblatex}
-    \addbibresource{refs.bib}
+    \usepackage{float, multirow}
+    \usepackage{textcomp, booktabs}
+    \usepackage{biblatex}
+    \addbibresource{references.bib}
     \usepackage[colorinlistoftodos]{todonotes}
     \usepackage{graphicx}
-    \graphicspath{figures/}
+    \graphicspath{{../main/}{../supp/}}
     \usepackage{setspace}
+    \usepackage{hyperref}
     \setstretch{1.5}
-
     \begin{document}
     \linenumbers
 \fi
+% Source: manuscript/scratch.tex (Discussion). scratch.tex is authoritative; edit
+% there first and re-split, or keep the two in step by hand.
 
 \section{Discussion}
 The synthesis of quantitative genetics and coalescent theory places a fundamental limit on the heritable fitness variance segregating in wild populations: ecological estimates from contemporary pedigrees must be reconcilable with the neutral diversity maintained over deep evolutionary timescales. Integrating the Robertson effect with empirical mating-system structure, continuous chromosomal architecture, and annotation-derived functional target sizes demonstrates that current empirical estimates of $V_A$ routinely violate this limit. Across the [N\_SPECIES] wild vertebrate species in our dataset, the unlinked baseline yields predicted $N_e/N$ ratios from [XX] to [XX] (median [XX]) across the posterior distributions of reported $V_A$. Incorporating the mating-system scalar $\kappa(\alpha)$ and chromosome-specific selective interference further depresses these expectations to genome-wide $N_e/N$ values between [XX] and [XX]. For [X\_OUT\_OF\_N] species, the reported $V_A$ exceeds $V_{A,\text{max}}$, the theoretical ceiling of variance compatible with observed sequence variation. Conversely, based on the standard coalescent expectation that neutral diversity scales proportionally with effective population size ($\pi = 4N_e\mu$), these species maintain empirical genome-wide nucleotide diversity between [XX] and [XX]. This translates to sequence-derived $N_e/N$ estimates of [XX]–[XX] (Corbett-Detig et al. 2015; Buffalo 2021; Lewin and Eyre-Walker 2026)—values two to three orders of magnitude above our theoretical predictions. The magnitude of this mismatch between ecologically estimated fitness variance and coalescent-scale diversity forms a quantitative paradox that cannot be resolved by parametric uncertainty alone.
