@@ -386,6 +386,38 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
 7. **Check Matheson & Masel (2025)** — logged as corroborating the unlinked component's importance,
    with one methodological question not yet identified. We quantify what they argue qualitatively:
    1.4× at the median reported $V_A$, ~3× at the maximum.
+8. **The domain of the $N_e/N$ formula — open for Theory and Results (user, 2026-10-17).**
+   $N_e/N = 1/(1+4\kappa V_A)$ is first order, valid for $V_A \ll 1$. Under the additive map its
+   outer edge is $V_A < 1$, where $G = 1 - V_A$ reaches 0 and about 16% of individuals would have
+   negative fitness. So **asking the formula "what $V_A$ gives a hundredfold deficit" is not
+   legitimate.** The inversion $V_{A,\max} = (1-\delta)/(4\kappa\delta)$ returns 12–25 at $1/\delta =
+   100$, outside the domain, and that number is not a prediction. The legitimate question is how much
+   reduction the model can deliver inside its domain, compared with the observed deficit. Needed:
+   - **Fig. 1:** show the "required by observed π" markers (29–6,000) as off-scale for the model, not
+     as values.
+   - **The $V_{A,\max}(\delta)$ curve** (`FigS_ceiling`): stop or grey it where $V_{A,\max}$ leaves the
+     domain, below $\delta \approx 1/(1+4\kappa)$ (0.11–0.2).
+   - **Property 3 of "Why it holds together":** drop "needs $V_A \gtrsim 12$" as a requirement.
+   - **Theory, unlinked-baseline domain paragraph:** state this directly.
+   - Depends on item 9: the right model class beyond first order may give a legitimate magnitude.
+9. **Additive vs multiplicative fitness map — open, decides how item 8 is answered (2026-10-17).**
+   Bonnet's $V_A(w) = \mathbf d^\top\mathbf G\mathbf d$ is the observed-scale *additive* variance, which
+   is what the first-order formula needs, so there is no discrepancy for $V_A \ll 1$. Beyond first
+   order the answer depends on the genotype → fitness map:
+   - **Additive** ($w = 1 + a$): saturates, $N_e/N \ge 1/2$ (1/3 under strict monogamy).
+   - **Multiplicative** ($w \propto e^{a}$, Bonnet's log-link structure; $G = 1$ exactly): a
+     long-term-contribution heuristic gives $N_e/N \approx e^{-4\kappa V_A}$, unbounded.
+   - **What the multiplicative form means for the data:** the Pirio and Muro blue tits get 26–32×
+     rather than 4.3–4.5×. The nine populations with diversity data would need $V_A \approx 1.3$–1.7
+     (against measured ≤ 0.5, upper HPD ≤ 0.70). So the verdict survives, with a margin of about 2–3×
+     in $V_A$ for the blue tits.
+   - **The exponential form was retired earlier for the wrong reason.** The user thought it required
+     small $V_A$; the real difference is the fitness map. Do not reinstate it without the literature
+     review (in progress 2026-10-17) or a derivation. Zero-inflation (Bonnet's logit part) is not yet
+     included.
+   - **Plan:** use both maps as a bracket, or the model class the literature supports, to get
+     approximate magnitudes. The first SLiM test (once SLiM is installed on this machine) is additive
+     vs multiplicative maps at $V_A$ = 0.01–1.5, measuring $N_e$ directly.
 
 ## The model in one screen
 
