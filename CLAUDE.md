@@ -418,6 +418,37 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
    - **Plan:** use both maps as a bracket, or the model class the literature supports, to get
      approximate magnitudes. The first SLiM test (once SLiM is installed on this machine) is additive
      vs multiplicative maps at $V_A$ = 0.01–1.5, measuring $N_e$ directly.
+   - **Literature review result (2026-10-17):**
+     - **The multiplicative result is published.** Barton & Etheridge 2011 (*Genetics* 188:953;
+       quotes checked against PMC3176105 2026-10-17): parents are chosen with probability ∝ $e^z$
+       ($z$ additive log-fitness, infinitesimal). Mean reproductive value is $\exp(2(z-\bar z)-2V)$
+       (Appendix B), so $Q = 2$ sits in the exponent with no Bulmer reduction. "The variance in
+       reproductive value is just $e^{4V}$", and coalescence is "approximately proportional to the
+       square of the ancestor's reproductive value". Hence $N_e/N \approx e^{-4V}$. They never write
+       that line themselves, so it is a one-step inference from their result.
+     - **The same form appears elsewhere:** Buffalo & Kern 2024 S1 Eq. 29 (multiplicative across
+       loci), and Charlesworth 2012's $e^{-8Ush}$ for unlinked deleterious mutations.
+     - **The input is right as measured.** For a log link, de Villemereuil et al. 2016 (Eqs 15–16)
+       give $V_{A,\text{obs}} = \Psi^2V_{A,\ell}$ with Ψ = mean, so at mean relative fitness 1,
+       Bonnet's $V_A(w)$ equals the latent variance. The measured value is the right input to
+       $e^{-4V}$.
+     - **The saturating additive form has no primary support** and is internally inconsistent at
+       large $V$, because fitness goes negative. The "$N_e/N \ge 1/2$" cap of Appendix A, Theory and
+       the 2026-10-14 framing wording is therefore an artifact of that map, and needs revisiting.
+     - **Woolliams–Bijma machinery is explicitly first order** (WBV 1999 neglect the quadratic terms),
+       and Santiago & Caballero 1995 are first order.
+     - **Validity:** $e^{-4V}$ is carried by the extreme upper tail of log-fitness. A 100× reduction
+       rests on individuals about 4.3 SD out (frequency ~10⁻⁵), and 10⁴× on individuals about 6.1 SD
+       out (~10⁻⁹). Any ceiling on fitness truncates the tail and caps the reduction: territories,
+       maximum clutch size, or the bounded zero-inflation part of Bonnet's model. **So $e^{-4V}$ is an
+       upper bound on the reduction**, which makes it the generous case for the "too small" verdict.
+     - **κ in the exponent, my derivation, unverified:** log-contributions are Gaussian with Appendix
+       B's variances per sex, so $N/N_e \approx \tfrac12[e^{\mathrm{Var}L_f} + e^{\mathrm{Var}L_m}] \ge
+       e^{4\kappa V_A}$, with equality at α = 0 and without a pair bond.
+     - **Magnitudes (κ = 1):** $V_A$ ≈ 1.15 for 100× and ≈ 2.3 for 10⁴×. In the nine populations with
+       diversity data, explaining the observed deficit needs $V_A$ ≈ 1.3–1.7, i.e. $c$ ≈ 3–85
+       (median ≈ 14). MSD needs $c \lesssim 0.07$, so no single $c$ satisfies both. The gap in $c$
+       shrinks from about 10⁵ to roughly 40–1,000×.
 
 ## The model in one screen
 
