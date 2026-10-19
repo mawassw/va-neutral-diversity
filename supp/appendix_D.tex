@@ -59,31 +59,31 @@ With $U_d = 4\mu L_\text{coding}$ (Methods) and the direct mutation-rate estimat
 Against a mean heterozygous effect of order $10^{-3}$ to $10^{-2}$ in vertebrate DFEs (Eyre-Walker and Keightley 2007; Huber et al. 2017), $s^*$ is one to two orders of magnitude too large. Read forward, $V_A = U_ds$ at $s = 10^{-3}$, $5 \times 10^{-3}$ and $10^{-2}$ falls short of the measured median $V_A$ by factors of 160, 32 and 16.
 % UNVERIFIED: whether Huber et al. 2017 and Kim et al. 2017 report s as the homozygous effect (h = 0.5); if so the heterozygous mean is s/2, which widens the gap.
 
-\paragraph{Persistence of associations.} With uniform $s$, the fraction of standing variance that persists per generation, $Z = 1 - V_m/V_A$, is $1 - s$ in the strong-selection limit ($1 - s - 1/(2N_e)$ with drift). The per-generation persistence $(1-s)(1-r)$ of an association between a neutral site and a deleterious allele is that of Nordborg et al. (1996) and Charlesworth (2012, Appendix). Under a distribution of effects, $V_m/V_A = \mathbb{E}[s^2]/\mathbb{E}[s] = \bar{s}(1 + \mathrm{CV}_s^2)$, so $Z = 1 - \mathbb{E}[s^2]/\mathbb{E}[s]$. That is well below $1 - \bar{s}$ for leptokurtic DFEs: $1 - 6\bar{s}$ for a gamma DFE of shape 0.2.
+\paragraph{Retention of associations.} An association between a neutral site and a deleterious allele of effect $s$ survives a generation with probability $(1-s)(1-r)$ (Nordborg et al. 1996; Charlesworth 2012, Appendix), so the retention of the main text is $Z = 1 - s$ in the strong-selection limit ($1 - s - 1/(2N_e)$ with drift), whatever the size of $V_A$. Under a distribution of effects each class $k$ keeps its own $Z_k = 1 - s_k$ and carries the share $\nu_k = \varphi_ks_k/\bar{s}$ of $V_A$, and interference is averaged over classes with these weights (Theory). The total variance decays at the aggregate rate $V_m/V_A = \mathbb{E}[s^2]/\mathbb{E}[s] = \bar{s}(1 + \mathrm{CV}_s^2)$, the $\nu$-weighted mean of the $s_k$ (Santiago and Caballero 1998). It is well above $\bar{s}$ for leptokurtic DFEs, $6\bar{s}$ for a gamma DFE of shape 0.2, but because interference is nonlinear in $Z$ it is not used in place of the classes.
 
 \subsection*{D.3\quad Distributions of fitness effects}
 
-Let effects follow a density $\phi(t)$, with $t$ the heterozygous effect. In the strong-selection limit each class contributes $U_d\,t$, so
+Let heterozygous effects $s$ follow a density $\varphi(s)$. In the strong-selection limit each class contributes $U_d\,s$, so
 \begin{equation}
-    V_A = U_d \int_0^\infty \phi(t)\,t\,dt = U_d\,\bar{t}, \qquad \bar{t}^* = \frac{V_A}{U_d},
+    V_A = U_d \int_0^\infty \varphi(s)\,s\,ds = U_d\,\bar{s}, \qquad s^* = \frac{V_A}{U_d},
 \label{eq:VA_DFE}
 \end{equation}
-whatever the shape of the DFE. The inversion of Equation~\eqref{eq:sHoC} therefore applies to its arithmetic mean. Shape enters only through nearly neutral mutations ($4N_et \lesssim 1$), which contribute less than $U_dt$ (Equation~\eqref{eq:D_VA_exact} applied class by class). A more leptokurtic DFE with the same mean puts more mass there, which lowers the sustainable $V_A$ and widens the gap. Two cautions apply. DFEs inferred from site-frequency spectra do not constrain the strongly deleterious tail, so their mean is partly an extrapolation. And the variance-weighted mean $\mathbb{E}[t^2]/\mathbb{E}[t]$, not $\bar{t}$, governs $V_m/V_A$ and $Z$.
+whatever the shape of the DFE. The inversion of Equation~\eqref{eq:sHoC} therefore applies to its arithmetic mean. Shape enters only through nearly neutral mutations ($4N_es \lesssim 1$), which contribute less than $U_ds$ (Equation~\eqref{eq:D_VA_exact} applied class by class). A more leptokurtic DFE with the same mean puts more mass there, which lowers the sustainable $V_A$ and widens the gap. Two cautions apply. DFEs inferred from site-frequency spectra do not constrain the strongly deleterious tail, so their mean is partly an extrapolation. And the variance-weighted mean $\mathbb{E}[s^2]/\mathbb{E}[s]$, not $\bar{s}$, is the aggregate rate $V_m/V_A$; the retention itself is set class by class.
 
 \paragraph{Forward prediction.} Summing Equation~\eqref{eq:D_VA_exact} over a discretised DFE gives the variance a given DFE can sustain:
 \begin{equation}
-    V_A^{\text{DFE}} = U_d \sum_i f_i\, \bar{t}_i\left[1 - \frac{4N_e\bar{t}_i}{e^{4N_e\bar{t}_i}-1}\right],
+    V_A^{\text{DFE}} = U_d \sum_k \varphi_k\, s_k\left[1 - \frac{4N_es_k}{e^{4N_es_k}-1}\right],
 \label{eq:VA_forward}
 \end{equation}
-with $f_i$ the fraction of mutations in class $i$ and $\bar{t}_i$ its mean. With vertebrate-calibrated classes (Rettelbach et al. 2025) this yields $V_A^{\text{DFE}} \approx$ [XX].
+with $\varphi_k$ the fraction of new mutations in class $k$ and $s_k$ its mean effect. With vertebrate-calibrated classes (Rettelbach et al. 2025) this yields $V_A^{\text{DFE}} \approx$ [XX].
 % UNVERIFIED: Rettelbach et al. 2025 not located; possibly Rettelbach et al. 2019 (Genetics, collared flycatcher). Check before citing.
 
-\paragraph{Unlinked interference at large $s$.} Strongly deleterious alleles are purged within a few generations, so their associations with unlinked neutral sites decay faster than by Mendelian segregation alone: $Q(t) = 2/(1+t)$ in place of 2. Following Charlesworth (2012, Appendix) and Santiago and Caballero (1998), the unlinked term becomes
+\paragraph{Unlinked interference under fast purging.} Deleterious alleles of large effect are purged within a few generations, so their associations with unlinked neutral sites decay faster than by Mendelian segregation alone: at retention $Z_k = 1 - s_k$ the unlinked factor of the main text (Equation~\eqref{eq:Q}) is $Q = 2/(1+s_k)$ in place of 2. Following Charlesworth (2012, Appendix) and Santiago and Caballero (1998), the unlinked term becomes
 \begin{equation}
-    \frac{N_e}{N} = \frac{1}{1 + 4\kappa\,U_d\,\bar{t}_\text{eff}}, \qquad \bar{t}_\text{eff} = \int_0^\infty \phi(t)\,\frac{t}{(1+t)^2}\,dt < \bar{t},
+    \frac{N_e}{N} = \frac{1}{1 + 4\kappa\,U_d\,\bar{s}_\text{eff}}, \qquad \bar{s}_\text{eff} = \int_0^\infty \varphi(s)\,\frac{s}{(1+s)^2}\,ds < \bar{s},
 \label{eq:B_corrected}
 \end{equation}
-which replaces $4\kappa V_A = 4\kappa U_d\bar{t}$. It acts in the same direction as truncation of the upper tail of log-fitness (Appendix~A.3): both lower the reduction below the multiplicative upper bound. At the implied $\bar{t}^*$, the factor $1/(1+\bar{t}^*)^2$ is 0.31--0.99 (median 0.74). The diversity predictions of the main text, which take $Q = 2$, therefore overstate the unlinked reduction at the selection coefficients the measured $V_A$ would require.
+which replaces $4\kappa V_A = 4\kappa U_d\bar{s}$. This is the class-by-class average of $Q^2$ with the weights $\nu_k$. It acts in the same direction as truncation of the upper tail of log-fitness (Appendix~A.3): both lower the reduction below the multiplicative upper bound. At the implied $s^*$, the factor $1/(1+s^*)^2$ is 0.31--0.99 (median 0.74). The diversity predictions of the main text, which take $Q = 2$, therefore overstate the unlinked reduction at the selection coefficients the measured $V_A$ would require.
 
 \ifdefined\isMainDocument
 \else

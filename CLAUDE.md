@@ -201,9 +201,9 @@ rather than a 2×2 link-scale $\mathbf{G}$: those posteriors are post-back-trans
 | $\delta$ | $\pi_{\text{obs}}/(4\mu N)$ — **derived, not measured** | blocked on $\pi$ and $N$ |
 | $V_A$ | additive variance in **relative** fitness, $\bar w = 1$ (S–C's $C^2$) | ✅ 19 posterior modes |
 | $\kappa$ | mating-system scalar: 1 without a pair bond, $\kappa_B \in [9/8, 2]$ under social monogamy | ✅ from EPP |
-| $G$ | fraction of additive variance surviving selection per generation; 1, exact on the log scale | Appendix A.4 |
+| $Z$ | **retention**: fraction of a gene copy's association with its selective background surviving one generation of selection. SC 1995's $G$ and Buffalo & Kern's $1-\kappa$ — the same quantity (2026-10-19). 1 for Gaussian infinitesimal $z$; $Z_k = 1 - s_k$ per effect class at MSD | Theory `msdb`, Appendix A.4 |
 | $z$ | additive log-fitness (Bonnet's latent scale); $\mathrm{Var}(z) = V_A$ at $\bar w = 1$ | Appendix A.2 |
-| $\kappa_\text{mult}$ | κ in the multiplicative bound $e^{-4\kappa_\text{mult}V_A}$: 1 without a pair bond, 2 with | Appendix A.3 |
+| $\kappa(0)$ | κ without extra-pair paternity, used in the multiplicative bound $e^{-4\kappa(0)V_A}$: 1 without a pair bond, 2 with (was $\kappa_\text{mult}$ until 2026-10-19) | Appendix A.3 |
 | $r_{mf}$ | correlation of mates' breeding values (SC's $r$); 0 in primary results | Appendix A, B |
 
 **One symbol, one meaning — our own conventions, held dogmatically (user, 2026-10-19).** Do not import
@@ -222,6 +222,23 @@ Fixed on 2026-10-19:
 | $r$ | recombination fraction **only** ($r_{mf}$ is mates' correlation) | long-term contributions |
 | $h_t$ | expected breeding value of a gene copy's carriers in generation $t$ (Appendix B) | a log breeding value |
 | $\boldsymbol\lambda$ | exponent vectors in Appendix A.3's lognormal moments | — |
+| $Z$, $Z_k$ | retention (above); per effect class $Z_k = 1 - s_k$, independent of $V_A$ | SC 1995's $G$ (named once, as theirs); B&K's $1-\kappa$ |
+| $Q$ | the **unlinked** transmission factor $2/[2 - Z(1+r_{mf})]$, = 2 at $Z = 1$ | $Q_u$, $Q(s)$, $Q(t)$ (all retired: same object) |
+| $\overline{Q^2}_i$ | linked interference on chromosome $i$ (map length $M_i$); $\overline{Q^2}_\text{H}$, $_\text{L}$ only in Appendix C, for Haldane vs linear map | $\overline{Q^2}_\text{linked}$ (retired) |
+| $\kappa$, $\kappa(0)$ | our mating-system scalar; its value at α = 0 | B&K's κ (= $1 - Z$; footnoted at first use) |
+| $s$, $s_k$, $\bar s$, $s^*$; $\varphi$, $\varphi_k$; $\nu_k$ | heterozygous effect; class $k$; DFE mean; mean implied by $V_A$; DFE density and class fractions; class share of $V_A$, $\varphi_ks_k/\bar s$ | $t$, $s_\text{het}$, $\bar t$ (retired); $\omega$ (Woolliams) |
+| $m'$, $f'$ | social partner of a female / of a male (Appendices A.3, B) | $s$ as a partner subscript |
+| $\Gamma$, $\eta$, $\epsilon$ | Haldane-kernel constants $1 - Z/2$, $Z/2$, $\eta/\Gamma$ (Appendix C.2) | $A$, $B$, $q$ there |
+| $\Lambda_\text{L}$, $\Lambda_\text{own}$, $\Lambda_\text{U}$ | exponents in the Ω ≤ 1 proof (Appendix C.5) | $x$, $y$, $K$ there |
+| $\Psi$, $\chi$, $\xi_{1,2}$, $m_X$ | Appendix B's general-form coefficient, $\rho/(1-\rho)$, partner weights, carrier's own weight | $\Phi$ (normal CDF), $X$ (the individual), $b$, $w_0$ |
+| $n_i$ | number of annotated functional elements on chromosome $i$ (Appendix C.6) | $G_i$ |
+| $C^2$ | SC's variance of family fitness: $V_A$ without a pair bond, $2V_A$ with one | "$V_A$ is SC's $C^2$" unqualified |
+
+**Selection regimes have three named axes (2026-10-19).** "Strong/weak selection" means **against drift
+only** ($4N_es \gg 1$ vs $\lesssim 1$; known results: $V_A = U_ds$ vs $U_ds$ minus the fixation loss, B&K S1
+Eq. 43 = our Kimura `eq:VA_MSD`; weak selection lowers $Z$ further, S1 Eq. 47). The purging rate $s$ is
+"fast/slow purging" (it sets $Z$; the linked-limits table rows are now "At rate $s$" and "Slow"). $V_A$
+relative to 1 is "first order / all orders". Never write a bare "strong/weak" for the other two.
 
 The concept "expected long-term contribution" now links the layers: $Q$ is the persistence of an
 ancestor's excess contribution (Theory, genome-wide reduction; Appendix A.1), and the linked kernel is
@@ -438,6 +455,12 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
    Methods' $4\mu L_\text{coding}$. Methods now describes the intended pipeline: data-layer inputs,
    coding-bp $f_i$, Haldane quadrature, $\kappa_\text{cis}$, and the same $Z$ in both terms. Linked
    numbers (the "~20×", Ω) must be recomputed that way before they are published.
+   **Z specification changed 2026-10-19 (user deferred to the recommendation):** class by class,
+   $Z_k = 1 - s_k$, independent of $V_A$, with linked and unlinked terms averaged over classes with
+   weights $\nu_k = \varphi_ks_k/\bar s$; evaluated at uniform $s$ = 0.005/0.01/0.02 **and at
+   $s = s^*$**. The code's `Z <- 1 - Vm/Va` with measured $V_A$ is off-balance (at the median it gives
+   $1 - Z$ about 10× smaller than $s$, so $\overline{Q^2}_i$ about 10× too large). The aggregate
+   $1 - E[s^2]/E[s]$ is a summary only: interference is nonlinear in $Z$. Methods carries an author flag.
 7. **Check Matheson & Masel (2025)** — logged as corroborating the unlinked component's importance,
    with one methodological question not yet identified. We quantify what they argue qualitatively:
    1.4× at the median reported $V_A$, ~3× at the maximum.
@@ -779,7 +802,12 @@ the code implements, not necessarily what `scratch.tex` now specifies.
   with `Z` capped at 0.995 to avoid the singularity at perfect mutation-selection balance. The
   `main.tex` closed form is the linear-map approximation.
 - **`Z <- pmax(0, 1 - Vm/Va)`** with `Vm = Ud * s_het^2`; `s_het` defaults to 0.01, sensitivity facets
-  `c(0.005, 0.01, 0.02)`.
+  `c(0.005, 0.01, 0.02)`. **STALE vs the manuscript since 2026-10-19:** Methods specifies $Z_k = 1 - s_k$
+  per effect class (independent of $V_A$), plus $s = s^*$. Fix when the linked analysis is rebuilt
+  (open item 6a); do not re-run `data_gen.R`'s Z as is.
+- **Code names vs manuscript symbols (code not renamed, 2026-10-19):** `kappa_pair(..., G, ...)`, the
+  `G_correct` flag of `ne_ratio()` and the columns `G_sym`/`reduction_Gsym` all mean the retention $Z$;
+  `Qu2()` is $Q^2$ at retention $Z$; `kappa_mult_bound()` is $\kappa(0)$.
 - **Variance allocation:** `f_i = L_coding_bp / L_coding_total` (coding bp, not physical length),
   `v_i = Va * f_i`, then halved (`v_i/2`) — a focal neutral allele is linked to only one homolog.
 - **Filters:** autosomes only (drop X/Y/Z/W/MT), macrochromosomes only
@@ -795,6 +823,37 @@ the code implements, not necessarily what `scratch.tex` now specifies.
   intentional, not a bug.
 
 ## Known staleness & inconsistencies (Rule 5 log)
+
+**Logged 2026-10-19 — notation cohesion pass (branch `worktree-open-items-domain-map`, on top of
+`ef19986`).** The user asked whether different symbols meant the same thing, then deferred to the
+recommendations. What was found and done:
+
+- **G and Z were one quantity under two names, with conflicting values.** Appendix B already defined
+  "G" as association retention (Theory's Z); Appendix C.2 said "Q with G replaced by Z"; Buffalo & Kern
+  equate SC 1995's G with their $1 - \kappa$ = Z (S1 Eqs. 19–20, 38). Checked numerically: A.4's
+  $1 - b^2V_A + b\mu_3/V_A$ gives $Z \approx 1 - s$ for a rare deleterious allele (0.990/0.901/0.702 at
+  s = 0.01/0.1/0.3; multiplicative $e^{-s}$). So **"G = 1 exactly on the log scale" holds only for a
+  Gaussian infinitesimal $z$**; the paper's own MSD architecture ($s^* \approx 0.16$) implies $Z \approx
+  0.84$, and Q = 2 is the upper bound. G renamed Z everywhere in the text; $Q_u$ merged into $Q$
+  (`eq:Q`); A.4 retitled and given the architecture paragraphs; label `eq:G` → `eq:Zarch`.
+- **DFE: class by class** (user deferred). Theory `eq:Z` is now $Z_k = 1 - s_k$ with class weights
+  $\nu_k$; Appendix D's per-class $Q = 2/(1+s_k)$ is now consistent with Theory; Methods' Z rewritten
+  (see open item 6a). The aggregate $1 - E[s^2]/E[s]$ is kept as a named summary only.
+- **κ collision with Buffalo & Kern** footnoted at the first κ in Theory. $\kappa_\text{mult}$ →
+  $\kappa(0)$ in Theory, Methods, `tab_reduction.R` (table regenerated) and `figS_ceiling.R`
+  (re-rendered). Code function names unchanged.
+- **Three selection axes** named in Theory `msdb`; the linked-limits table relabelled (its old
+  "weak selection, Z → 1" ran opposite to the drift sense, where weak selection lowers Z).
+- **Collisions fixed:** partner subscript $s$ → $m'$ (A.3, B); Φ → Ψ, X → χ, $w_0$ → $m_X$, $b$/$x$/$y$
+  → $\xi_{1,2}$ (B); A/B/q → Γ/η/ε and x/y/K → Λ (C); $G_i$ → $n_i$ (C.6); $t$, $\bar t$, $f_i$,
+  $s_\text{het}$ → $s$, $\bar s$, $\varphi_k$ (D, Theory table); $\overline{Q^2}_\text{linked}$ →
+  $\overline{Q^2}_i$; $C^2$ qualified (Theory); Introduction's "holds whatever process maintains $V_A$"
+  qualified to $Q = 2$ (Santiago & Caballero 1998; Charlesworth 2012 for the purging case). Notation
+  table in Theory rewritten.
+- **Numbers unchanged** (table regenerated: $V_A$ needed 1.11–1.68, shortfall 80–31,000). Build: 42 pages,
+  zero errors, zero undefined references.
+- **Still stale:** `discussion.tex`, `abstract.tex`, `scratch.tex` (stale by rule) still use G/Q_u;
+  `data_gen.R` Z formula (above).
 
 **Logged 2026-10-19 — one model family (branch `worktree-open-items-domain-map`).** The user
 approved the full sketch (open item 9). Changed:

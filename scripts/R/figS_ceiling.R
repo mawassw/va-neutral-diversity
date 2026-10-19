@@ -10,9 +10,9 @@
 #   first order   V_A,max = (1 - delta) / (4 kappa delta), the inversion of
 #                 1/(1 + 4 kappa V_A); drawn only inside its domain, V_A,max <= 1,
 #                 i.e. delta >= 1 / (1 + 4 kappa) (0.11 to 0.2). Band: kappa 1 to 2.
-#   all orders    V_A,max = ln(1/delta) / (4 kappa_mult), the inversion of the
+#   all orders    V_A,max = ln(1/delta) / (4 kappa(0)), the inversion of the
 #                 multiplicative upper bound on the reduction, so the smallest V_A
-#                 that could account for delta. Band: kappa_mult 1 (no pair bond)
+#                 that could account for delta. Band: kappa(0) = 1 (no pair bond)
 #                 to 2 (pair bond).
 #   y rug    the 19 measured hat V_A (posterior modes)
 #   x rug    observed delta for the populations with pi and an own-species
@@ -60,7 +60,7 @@ p <- ggplot() +
   geom_line(data = filter(first, !is.na(f1)), aes(delta, f1), colour = col_first, linewidth = 0.6) +
   geom_line(data = first, aes(delta, f2), colour = col_first, linewidth = 0.6) +
   annotate("text", x = 1.4e-5, y = 5.2, parse = TRUE, colour = col_mult, size = 2.6, hjust = 0,
-           label = '"All orders:"~~italic(V)[A*","*max] == frac(ln(1/delta), 4*kappa[mult])') +
+           label = '"All orders:"~~italic(V)[A*","*max] == frac(ln(1/delta), 4*kappa(0))') +
   annotate("text", x = 1.4e-5, y = 0.62, colour = col_mult, size = 2.2, hjust = 0, lineheight = 0.9,
            label = "from the upper bound on the reduction: the least variance\nthat could explain δ; upper line no pair bond, lower pair bond") +
   annotate("text", x = 0.06, y = 0.012, parse = TRUE, colour = col_first, size = 2.6, hjust = 1,

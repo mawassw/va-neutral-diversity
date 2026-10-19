@@ -25,10 +25,11 @@
 \fi
 % Working copy (since 2026-10-17 the section files, not scratch.tex, are edited directly).
 % Restructured 2026-10-19 around one multiplicative model of fitness: A.1 first order,
-% A.2 latent scale and Bonnet's estimand, A.3 all orders, A.4 G and the additive-map remark.
+% A.2 latent scale and Bonnet's estimand, A.3 all orders, A.4 the retention Z (SC 1995's G) and
+% the additive-map remark. 2026-10-19: G renamed Z throughout (one quantity, one symbol).
 
 \section{Appendix A: The Unlinked Reduction under One Model of Fitness}\label{app:unlinkedapp}
-This appendix derives the reduction in effective size caused by heritable fitness variance at sites unlinked to any selected locus. Section A.1 gives the first-order result of Robertson (1961) and Santiago and Caballero (1995). Section A.2 connects it to the estimate of Bonnet et al. (2022), whose animal model is multiplicative. Section A.3 extends the reduction to all orders under that model, and Section A.4 treats $G$, the fraction of variance that survives selection.
+This appendix derives the reduction in effective size caused by heritable fitness variance at sites unlinked to any selected locus. Section A.1 gives the first-order result of Robertson (1961) and Santiago and Caballero (1995). Section A.2 connects it to the estimate of Bonnet et al. (2022), whose animal model is multiplicative. Section A.3 extends the reduction to all orders under that model, and Section A.4 treats the retention $Z$ and how it depends on the architecture of $V_A$.
 
 \subsection*{A.1\quad First order}
 In a neutral Wright-Fisher population with a constant diploid census size $N$, the variance in allele frequency change per generation due to random genetic drift for a neutral allele at frequency $p$ is the standard gametic sampling variance:
@@ -64,9 +65,9 @@ The factor 2 is the cumulative transmission factor $Q$, and it is the first-orde
 
 This series is a special case. Santiago and Caballero (1995; reviewed in Wang et al. 2016) give the general cumulative factor
 \begin{equation}
-    Q = \sum_{i=0}^{\infty} \left[\frac{G(1+r_{mf})}{2}\right]^i = \frac{2}{2 - G(1+r_{mf})},
+    Q = \sum_{i=0}^{\infty} \left[\frac{Z(1+r_{mf})}{2}\right]^i = \frac{2}{2 - Z(1+r_{mf})},
 \end{equation}
-where $G$ is the fraction of additive variance remaining among selected parents and $r_{mf}$ is the correlation between the expected selective values of male and female parents. (We write $r_{mf}$ to keep it apart from the recombination fraction $r$.) The series above sets $G = 1$ and $r_{mf} = 0$. $G = 1$ holds exactly under the multiplicative model of Section A.3 (Section A.4). $r_{mf} = 0$ requires that mates pair at random with respect to their breeding values for fitness; under random mating Santiago and Caballero give $r_{mf} = -1/(N-1)$. Assortative mating for fitness ($r_{mf} > 0$) would raise $Q$.
+where $Z$ is the retention, the fraction of a gene copy's association with its selective background that survives one generation of selection (their $G$, defined through the variance remaining among selected parents; Section A.4), and $r_{mf}$ is the correlation between the expected selective values of male and female parents. (We write $r_{mf}$ to keep it apart from the recombination fraction $r$.) The series above sets $Z = 1$ and $r_{mf} = 0$. $Z = 1$ holds exactly for a Gaussian, infinitesimal breeding value under the multiplicative model of Section A.3, and is an upper bound when $V_A$ is carried by deleterious alleles (Section A.4). $r_{mf} = 0$ requires that mates pair at random with respect to their breeding values for fitness; under random mating Santiago and Caballero give $r_{mf} = -1/(N-1)$. Assortative mating for fitness ($r_{mf} > 0$) would raise $Q$.
 
 Assuming $V_A$ remains stationary under mutation-selection-drift equilibrium, a new influx of selective variance of magnitude $V_A p(1-p)/(2N)$ is generated each generation. The long-run footprint of each generation's selective variation resolves to $2\Delta p^{\text{sel}}$.
 
@@ -108,9 +109,9 @@ so that the cumulative factor $Q = 2$ sits in the exponent. They note that the v
 \end{equation}
 Its expansion, $1 - 4V_A + O(V_A^2)$, is the first-order result of Section A.1.
 
-\paragraph{Social monogamy.} With the nest-sharing model of Appendix B (Model B), a carrier's family size is proportional to $e^{z}$ for its log breeding value $z$ in either sex, so later generations compound exactly as above. Only the first generation mixes two kinds of offspring. A copy in a female with social partner $s$ has nest productivity $e^{z_f + z_s}$; a fraction $1 - \alpha$ of those offspring are sired by $s$, and $\alpha$ by extra-pair males. A copy in a male with social partner $f'$ gains within-pair offspring from his own nest and extra-pair offspring elsewhere. The expected long-term contributions are, up to constants,
+\paragraph{Social monogamy.} With the nest-sharing model of Appendix B (Model B), a carrier's family size is proportional to $e^{z}$ for its log breeding value $z$ in either sex, so later generations compound exactly as above. Only the first generation mixes two kinds of offspring. A copy in a female with social partner $m'$ has nest productivity $e^{z_f + z_{m'}}$; a fraction $1 - \alpha$ of those offspring are sired by $m'$, and $\alpha$ by extra-pair males. A copy in a male with social partner $f'$ gains within-pair offspring from his own nest and extra-pair offspring elsewhere. The expected long-term contributions are, up to constants,
 \begin{equation}
-    R_f \propto (1-\alpha)\,e^{2(z_f + z_s)} + \alpha\,e^{2z_f + z_s}, \qquad
+    R_f \propto (1-\alpha)\,e^{2(z_f + z_{m'})} + \alpha\,e^{2z_f + z_{m'}}, \qquad
     R_m \propto (1-\alpha)\,e^{2(z_m + z_{f'})} + \alpha\,e^{2z_m},
 \end{equation}
 and $N/N_e$ is the mean over the sexes of $\mathbb{E}[R^2]/\mathbb{E}[R]^2$. With independent Gaussian breeding values these moments are sums of lognormal moments, $\mathbb{E}[e^{\boldsymbol{\lambda}\cdot\mathbf{z}}] = e^{V_A|\boldsymbol{\lambda}|^2/2}$. The exponent vectors satisfy $\boldsymbol{\lambda}_k\cdot\boldsymbol{\lambda}_l \le \max_k|\boldsymbol{\lambda}_k|^2 = 8$, from which $\mathbb{E}[R^2]/\mathbb{E}[R]^2 \le e^{8V_A}$. Hence
@@ -121,14 +122,17 @@ Equality holds at both ends under strict monogamy ($\alpha = 0$, where $\kappa_B
 
 \paragraph{Validity.} Equations~\eqref{eq:A_mult} and \eqref{eq:A_mult_pair} rest on the Gaussian upper tail of log-fitness. The second moment $\mathbb{E}[R^2] \propto \mathbb{E}[e^{4z}]$ is carried by ancestors near $z = 4V_A$, or $4\sqrt{V_A}$ standard deviations above the mean. A 100-fold reduction without a pair bond ($V_A = \ln(100)/4$) rests on ancestors 4.3 standard deviations out, about one in $10^5$, and a $10^4$-fold reduction on ancestors 6.1 standard deviations out. The expectation is realized only in populations large enough to contain such individuals, and only if nothing caps their fitness. Territories, maximum clutch sizes and the bounded probability of breeding (Section A.2) all truncate the tail and reduce the effect. These forms are therefore upper bounds on the reduction that a given $V_A$ produces in a real population. The derivation also assumes Poisson sampling of offspring beyond the heritable component, random pairing with respect to breeding value, and loci unlinked to the focal site.
 
-\subsection*{A.4\quad The fraction of variance that survives selection}
-Let a parent's expected family size be $w = 1 + b\,a$, linear in its breeding value $a$ with mean zero. The additive variance among parents, weighted by their offspring, is then exactly $V_A - b^2V_A^2 + b\,\mu_3$, where $\mu_3$ is the third central moment of $a$, so
+\subsection*{A.4\quad The retention $Z$ and the architecture of $V_A$}
+The retention $Z$ is the fraction of a gene copy's association with its selective background that survives one generation of selection. Santiago and Caballero (1995) write it $G$ and define it through the variance among selected parents; Santiago and Caballero (1998) and Buffalo and Kern (2024) write it $Z$, and Buffalo and Kern's $1 - Z$ is their $\kappa$, which is unrelated to the mating-system scalar of Appendix B. The two definitions coincide, and the variance definition shows how $Z$ depends on the architecture of $V_A$. Let a parent's expected family size be $w = 1 + b\,a$, linear in its breeding value $a$ with mean zero. The additive variance among parents, weighted by their offspring, is then exactly $V_A - b^2V_A^2 + b\,\mu_3$, where $\mu_3$ is the third central moment of $a$, so
 \begin{equation}
-    G = 1 - b^2 V_A + b\,\mu_3/V_A. \label{eq:G}
+    Z = 1 - b^2 V_A + b\,\mu_3/V_A. \label{eq:Zarch}
 \end{equation}
-Under the multiplicative model of Section A.3 selection weights a Gaussian breeding value by $e^{z}$. Exponential tilting of a normal distribution shifts its mean by $V_A$ and leaves its variance unchanged, so $G = 1$ exactly on the log scale, at every value of $V_A$.
 
-\paragraph{The additive map, as a remark.} If instead fitness were additive and Gaussian on the relative scale ($b = 1$, $\mu_3 = 0$), Equation~\eqref{eq:G} would give $G = 1 - V_A$, $Q = 2/(1+V_A)$ (the same form as $Q(s)$ in Appendix D), and
+\paragraph{Gaussian, infinitesimal breeding values.} Under the multiplicative model of Section A.3 selection weights a Gaussian breeding value by $e^{z}$. Exponential tilting of a normal distribution shifts its mean by $V_A$ and leaves its variance unchanged, so $Z = 1$ at every value of $V_A$. This is the case used for the genome-wide reduction and for the all-orders forms of Section A.3.
+
+\paragraph{Deleterious alleles at mutation--selection balance.} If $V_A$ is carried by rare alleles of effect $-s_k$, the distribution of $a$ is strongly left-skewed. Summed over loci with frequencies $q_k \approx \mu/s_k$, $\mu_3/V_A = -\mathbb{E}[s^2]/\mathbb{E}[s]$, so Equation~\eqref{eq:Zarch} gives $Z \approx 1 - \mathbb{E}[s^2]/\mathbb{E}[s]$ for the variance as a whole (the term in $V_A$ vanishes on the multiplicative scale), the aggregate rate of Santiago and Caballero (1998), and $Z_k = 1 - s_k$ for each class: the association is lost with the carriers that selection removes. The aggregate is the variance-weighted mean of the $Z_k$, but $Q$ and the linked interference are nonlinear in $Z$, so the main text carries the classes separately. A direct calculation for a single rare allele confirms this ($Z = 0.990$, $0.901$ and $0.702$ at $s = 0.01$, $0.1$ and $0.3$). Under multiplicative fitness the retention is the carriers' relative fitness, $e^{-s_k} \approx 1 - s_k$. Fast purging therefore lowers $Z$, and with it $Q$ and the reduction, below the infinitesimal case. Rare beneficial alleles skew $a$ the other way and give $Z > 1$.
+
+\paragraph{The additive map, as a remark.} If instead fitness were additive and Gaussian on the relative scale ($b = 1$, $\mu_3 = 0$), Equation~\eqref{eq:Zarch} would give $Z = 1 - V_A$, $Q = 2/(1+V_A)$ (the same form as $Q = 2/(1+s)$ in Appendix D), and
 \begin{equation}
     \frac{N_e}{N} = \left[1 + \frac{4V_A}{(1+V_A)^2}\right]^{-1}, \label{eq:Gcorrected}
 \end{equation}
