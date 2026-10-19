@@ -122,6 +122,12 @@ The penalty $\Omega_i$ of Equation~\eqref{linked_penalty} satisfies $\Omega_i \l
 \end{equation}
 the last step because $(1+\Lambda_\text{own})(1+\Lambda_\text{U}-\Lambda_\text{own}) - (1+\Lambda_\text{U}) = \Lambda_\text{own}(\Lambda_\text{U}-\Lambda_\text{own}) \ge 0$. Mixing retentions breaks the bound: with $Z < 1$ in the linked term but $Q = 2$ in the unlinked one, $\Omega_i$ exceeds 1 on long maps at large $1 - Z$ (up to 1.08 for $1 - Z \le 0.6$). It follows that the variance accounting for a diversity ratio $\delta$ with linkage included, the root of Equation~\eqref{eq:genome_linked} set equal to $\delta$, does not exceed the unlinked value at the same retention, $\ln(1/\delta)/(Q^2\kappa)$: no arrangement of recombination rates or functional density raises neutral diversity above the unlinked expectation at the same $Z$.
 
+\paragraph{Global and local factors.} Equation~\eqref{total_red} writes the effective size at a neutral site as a local factor $e^{-\Lambda_\text{L}}$ times a global factor $e^{-(\Lambda_\text{U} - \Lambda_\text{own})}$, with the cis variance $v_h$ moved from the second to the first. For a freely recombining chromosome, $\overline{Q^2}_i \to Q^2$ (C.2), so $\Lambda_\text{L} = \Lambda_\text{own}$ in the primary model and, under the multiplicative form, $\Omega_i = 1$ exactly. With the first-order, hyperbolic form of the global factor,
+\begin{equation}
+\Omega_i = e^{-\Lambda_\text{own}}\,\frac{1+\Lambda_\text{U}}{1+\Lambda_\text{U}-\Lambda_\text{own}} = 1 - \frac{\Lambda_\text{own}\Lambda_\text{U}}{1+\Lambda_\text{U}} + O(\Lambda_\text{own}^2),
+\end{equation}
+and the departure from one, of order $v_h V_A$, is only the difference between the exponential and the reciprocal form of the same variance. A chromosome with an unbounded map therefore adds nothing to the global reduction. The local factor is the part of the reduction that depends on the recombination map, and the global factor is the part that does not.
+
 \subsection*{C.6\quad The spatial distribution of selective variance}\label{sec:spatial_variance}
 The main text spreads additive variance uniformly along the genetic map of each chromosome (density $1/M$), a spatially uniform realization of the infinitesimal model (Fisher 1918; Barton et al. 2017). Because the genetic architecture of fitness in wild populations is unresolved, spanning highly polygenic to oligogenic cases (Barton and Keightley 2002), we treat the uniform density as a baseline and characterize the direction of departures from it.
 
