@@ -380,9 +380,8 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
    linked reduction at the measured variance is the larger one. **Ω baseline fixed:** Ω is relative
    to $1/(1+Q_u^2\kappa V_A)$, not Eq. `unlinked_mating`. The linked ceiling is implicit. It is
    bounded by $(1-\delta)/(Q_u^2\kappa\delta)$ at the same Z, not by $V_{A,\max}$; Appendix C.5 was
-   corrected to match. ⚠ The Introduction still says the linked term is computed "under
-   mutation–selection balance" (last paragraph, and ¶4 via Li & Berg). Reconcile it at the next
-   Intro pass.
+   corrected to match. The Introduction was reconciled the same day: the ¶4 gap sentence, and the last paragraph,
+   which now reads "at the measured $V_A$ rather than at the variance that balance would maintain".
    Earlier: **Introduction redrafted 2026-10-16 and merged to `main`** (scaffolding; needs re-voicing;
    new citations web-checked, Crossref still due; see `manuscript/INTRO_REDRAFT_PLAN.md`).
    Discussion still to do.
