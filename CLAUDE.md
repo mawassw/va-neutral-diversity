@@ -206,6 +206,30 @@ rather than a 2×2 link-scale $\mathbf{G}$: those posteriors are post-back-trans
 | $\kappa_\text{mult}$ | κ in the multiplicative bound $e^{-4\kappa_\text{mult}V_A}$: 1 without a pair bond, 2 with | Appendix A.3 |
 | $r_{mf}$ | correlation of mates' breeding values (SC's $r$); 0 in primary results | Appendix A, B |
 
+**One symbol, one meaning — our own conventions, held dogmatically (user, 2026-10-19).** Do not import
+another paper's notation (no Woolliams $r_i$, $\beta$, $\omega$, $\Delta F$; no Barton–Etheridge $M$).
+Fixed on 2026-10-19:
+
+| symbol | meaning | not to be used for |
+|---|---|---|
+| $z$, $\bar z$ | breeding value for log-fitness ($w \propto e^z$), variance $V_A$ | the neutral genotype |
+| $a$ | additive effect on relative fitness; **$a = z - \bar z$ to first order**, the only order at which $a$ is used (Appendix B, A.4) | — |
+| $x_i \in \{0, \tfrac12, 1\}$ | neutral-allele frequency within individual $i$ (Appendix A.1) | — |
+| $R(z)$ | **expected long-term contribution** of an ancestor; $R(z) = \exp[2(z-\bar z) - 2V_A]$, $\approx 1 + Q(z - \bar z)$ to first order. "Reproductive value" appears once, as Barton & Etheridge's name for it | — |
+| $L_X$ | cumulative advantage of a gene copy, the first-order excess $R - 1$ (Appendix B) | — |
+| $\rho = (1-r)Z$ | per-generation persistence of an association at a linked site; the linked kernel is $1/(1-\rho)$, which is $Q = 2$ at $r = \tfrac12$, $Z = 1$ | — |
+| $M$, $M_i$ | map length in Morgans **only** | long-term contribution |
+| $r$ | recombination fraction **only** ($r_{mf}$ is mates' correlation) | long-term contributions |
+| $h_t$ | expected breeding value of a gene copy's carriers in generation $t$ (Appendix B) | a log breeding value |
+| $\boldsymbol\lambda$ | exponent vectors in Appendix A.3's lognormal moments | — |
+
+The concept "expected long-term contribution" now links the layers: $Q$ is the persistence of an
+ancestor's excess contribution (Theory, genome-wide reduction; Appendix A.1), and the linked kernel is
+the same quantity for a chromosome segment (Theory, linked selection). Citations used: Wray & Thompson
+1990 (*Genet. Res.* 55:41) and Barton & Etheridge 2011 (*Genetics* 188:953), both web-verified
+2026-10-19. Candidates for the Discussion, not yet used: Chen et al. 2019 (*PNAS* 116:2158, scrub-jay
+expected contributions) and Reid et al. 2019 (*Evol. Lett.* 3:271, song sparrows; authors unchecked).
+
 **Present effective-size results as $N_e/N$, never $N/N_e$ (user, 2026-10-16; field convention).**
 Write $N_e/N = 1/(1 + 4\kappa V_A)$, not "$N/N_e = 1 + 4\kappa V_A$", and state bounds in that form:
 "$N_e/N$ is at least 0.22", not "the reduction is at most 4.5". "A twofold reduction" is fine as

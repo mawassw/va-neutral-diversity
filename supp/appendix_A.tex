@@ -40,15 +40,15 @@ In a neutral Wright-Fisher population with a constant diploid census size $N$, t
 When variance in reproductive success is heritable ($V_A > 0$), the neutral allele experiences selective interference from the genetic background upon which it resides. In a given generation, a diploid population of $N$ individuals has relative fitnesses $w_i$ with expectation $\mathbb{E}[w_i] = 1$ and variance $\text{Var}(w_i) = V_W$. The frequency of the neutral allele in the subsequent generation is approximately:
 
 \begin{equation}
-    p' \approx p + \frac{1}{2N}\sum_{i=1}^{N}(w_i - 1)z_i
+    p' \approx p + \frac{1}{2N}\sum_{i=1}^{N}(w_i - 1)x_i
 \end{equation}
-where $z_i \in \{0, \frac{1}{2}, 1\}$ denotes the allele copy number in individual $i$ under Hardy-Weinberg proportions. Because the neutral locus is unlinked from all selected sites, relative fitness $w_i$ and the neutral genotype $z_i$ are uncorrelated in expectation ($\mathbb{E}[(w_i-1)z_i] = 0$). The variance in allele frequency change driven purely by this single generation of heritable fitness variation is:
+where $x_i \in \{0, \frac{1}{2}, 1\}$ denotes the allele copy number in individual $i$ under Hardy-Weinberg proportions. Because the neutral locus is unlinked from all selected sites, relative fitness $w_i$ and the neutral genotype $x_i$ are uncorrelated in expectation ($\mathbb{E}[(w_i-1)x_i] = 0$). The variance in allele frequency change driven purely by this single generation of heritable fitness variation is:
 
 \begin{equation}
-    \text{Var}(\Delta p^{\text{sel}}) =\frac{1}{4N^2}\sum_{i=1}^{N}\text{Var}((w_i - 1)z_i) \approx V_A \frac{p(1-p)}{2N}
+    \text{Var}(\Delta p^{\text{sel}}) =\frac{1}{4N^2}\sum_{i=1}^{N}\text{Var}((w_i - 1)x_i) \approx V_A \frac{p(1-p)}{2N}
 \end{equation}
 
-This formulation (Robertson 1961) relies on a large-$N$ approximation, assumes Hardy-Weinberg equilibrium ($\text{Var}(z_i) = p(1-p)/2$), and isolates the additive genetic component $V_A$ from the total fitness variance, as contributions from dominance and epistasis do not transmit stably across generations to drive multi-generational allele frequency changes.
+This formulation (Robertson 1961) relies on a large-$N$ approximation, assumes Hardy-Weinberg equilibrium ($\text{Var}(x_i) = p(1-p)/2$), and isolates the additive genetic component $V_A$ from the total fitness variance, as contributions from dominance and epistasis do not transmit stably across generations to drive multi-generational allele frequency changes.
 
 Because the neutral allele and the selected background are unlinked (segregating on non-homologous chromosomes), they assort independently during meiosis ($r = 0.5$). Consequently, the statistical association, or linkage disequilibrium, between the neutral allele and its initial selected background halves each generation. The directional change in the neutral allele frequency driven by this specific selective cohort decays geometrically:
 \begin{equation}
@@ -60,6 +60,7 @@ Integrating this effect over time yields the total cumulative change in the neut
 \begin{equation}
     \Delta p_{\text{total}}^{\text{sel}} = \sum_{t=0}^{\infty} \left(\frac{1}{2}\right)^t \Delta p^{\text{sel}} = 2 \Delta p^{\text{sel}}
 \end{equation}
+The factor 2 is the cumulative transmission factor $Q$, and it is the first-order form of the expected long-term contribution of Section~A.3: an ancestor with breeding value $z$ has $R(z) \approx 1 + Q(z - \bar{z})$, and without a pair bond this is $1 + L_X$, with $L_X$ the cumulative advantage of Appendix~B. The cumulative change $\Delta p^{\text{sel}}_{\text{total}}$ is the sum, over the individuals that carry the neutral allele, of their excess long-term contributions. Its variance is therefore the heritable part of the variance of long-term contributions, which sets the rate of drift (Wray and Thompson 1990).
 
 This series is a special case. Santiago and Caballero (1995; reviewed in Wang et al. 2016) give the general cumulative factor
 \begin{equation}
@@ -97,28 +98,28 @@ Bonnet et al. (2022) model lifetime breeding success with two latent predictors:
 The logit component is different in kind. It acts on a probability, which cannot exceed one, so its contribution to fitness is bounded and compounds more slowly along a lineage than an exponential. Treating the whole of $V_A(w)$ as log-additive therefore overstates the reduction at all orders beyond the first; at first order the split between components does not matter. The posterior draws available to us report only the combined $V_A(w)$.
 
 \subsection*{A.3\quad All orders under multiplicative fitness}
-Let parents be chosen with probability proportional to $e^{z}$, with $z$ additive and Gaussian with variance $V_A$ (Barton and Etheridge 2011). An ancestor with log value $z$ has expected offspring in proportion to $e^{z}$, and its descendants inherit, on average, half of its deviation each generation. Barton and Etheridge (2011, Appendix B) solve the resulting recursion for the mean reproductive value,
+Let parents be chosen with probability proportional to $e^{z}$, with $z$ additive and Gaussian with variance $V_A$ (Barton and Etheridge 2011). An ancestor with log value $z$ has expected offspring in proportion to $e^{z}$, and its descendants inherit, on average, half of its deviation each generation. Barton and Etheridge (2011, Appendix B) solve the resulting recursion for the expected long-term contribution of the ancestor (its mean reproductive value),
 \begin{equation}
-    M(z) = \exp\left[2(z - \bar{z}) - 2V_A\right],
+    R(z) = \exp\left[2(z - \bar{z}) - 2V_A\right],
 \end{equation}
-so that the cumulative factor $Q = 2$ sits in the exponent. They note that the variance of reproductive value across ancestors is $e^{4V_A}$, and that the probability that an ancestor is involved in a coalescence goes as the square of its reproductive value. The rate of inbreeding is proportional to the second moment of long-term genetic contributions (Wray and Thompson 1990), which gives, without a pair bond,
+so that the cumulative factor $Q = 2$ sits in the exponent. They note that the variance of $R$ across ancestors is $e^{4V_A}$, and that the probability that an ancestor is involved in a coalescence goes as the square of $R$. The rate of inbreeding is proportional to the second moment of long-term genetic contributions (Wray and Thompson 1990), which gives, without a pair bond,
 \begin{equation}
-    \frac{N_e}{N} = \frac{\mathbb{E}[M]^2}{\mathbb{E}[M^2]} = e^{-4V_A}. \label{eq:A_mult}
+    \frac{N_e}{N} = \frac{\mathbb{E}[R]^2}{\mathbb{E}[R^2]} = e^{-4V_A}. \label{eq:A_mult}
 \end{equation}
 Its expansion, $1 - 4V_A + O(V_A^2)$, is the first-order result of Section A.1.
 
-\paragraph{Social monogamy.} With the nest-sharing model of Appendix B (Model B), a carrier's family size is proportional to $e^{h}$ for its log breeding value $h$ in either sex, so later generations compound exactly as above. Only the first generation mixes two kinds of offspring. A copy in a female with social partner $s$ has nest productivity $e^{a_f + a_s}$; a fraction $1 - \alpha$ of those offspring are sired by $s$, and $\alpha$ by extra-pair males. A copy in a male with social partner $f'$ gains within-pair offspring from his own nest and extra-pair offspring elsewhere. The long-term contributions are, up to constants,
+\paragraph{Social monogamy.} With the nest-sharing model of Appendix B (Model B), a carrier's family size is proportional to $e^{z}$ for its log breeding value $z$ in either sex, so later generations compound exactly as above. Only the first generation mixes two kinds of offspring. A copy in a female with social partner $s$ has nest productivity $e^{z_f + z_s}$; a fraction $1 - \alpha$ of those offspring are sired by $s$, and $\alpha$ by extra-pair males. A copy in a male with social partner $f'$ gains within-pair offspring from his own nest and extra-pair offspring elsewhere. The expected long-term contributions are, up to constants,
 \begin{equation}
-    r_f \propto (1-\alpha)\,e^{2(a_f + a_s)} + \alpha\,e^{2a_f + a_s}, \qquad
-    r_m \propto (1-\alpha)\,e^{2(a_m + a_{f'})} + \alpha\,e^{2a_m},
+    R_f \propto (1-\alpha)\,e^{2(z_f + z_s)} + \alpha\,e^{2z_f + z_s}, \qquad
+    R_m \propto (1-\alpha)\,e^{2(z_m + z_{f'})} + \alpha\,e^{2z_m},
 \end{equation}
-and $N/N_e$ is the mean over the sexes of $\mathbb{E}[r^2]/\mathbb{E}[r]^2$. With independent Gaussian breeding values these moments are sums of lognormal moments, $\mathbb{E}[e^{\mathbf{u}\cdot\mathbf{a}}] = e^{V_A|\mathbf{u}|^2/2}$. The exponent vectors satisfy $\mathbf{u}_k\cdot\mathbf{u}_l \le \max_k|\mathbf{u}_k|^2 = 8$, from which $\mathbb{E}[r^2]/\mathbb{E}[r]^2 \le e^{8V_A}$. Hence
+and $N/N_e$ is the mean over the sexes of $\mathbb{E}[R^2]/\mathbb{E}[R]^2$. With independent Gaussian breeding values these moments are sums of lognormal moments, $\mathbb{E}[e^{\boldsymbol{\lambda}\cdot\mathbf{z}}] = e^{V_A|\boldsymbol{\lambda}|^2/2}$. The exponent vectors satisfy $\boldsymbol{\lambda}_k\cdot\boldsymbol{\lambda}_l \le \max_k|\boldsymbol{\lambda}_k|^2 = 8$, from which $\mathbb{E}[R^2]/\mathbb{E}[R]^2 \le e^{8V_A}$. Hence
 \begin{equation}
     e^{-8V_A} \le \frac{N_e}{N} \le e^{-4\kappa_B V_A}. \label{eq:A_mult_pair}
 \end{equation}
 Equality holds at both ends under strict monogamy ($\alpha = 0$, where $\kappa_B = 2$). The right-hand end matches the first-order result $1/(1 + 4\kappa_B V_A)$, with slope $4\kappa_B$ at $V_A = 0$. We confirmed numerically that the exact value never falls outside the bracket, including when the weight of the extra-pair term is distorted by factors between $e^{-2V_A}$ and $e^{2V_A}$, which allows for the selection of extra-pair sires and the normalization of the extra-pair pool. At small $V_A$ the exact value lies close to the right-hand end, and as $V_A$ grows it moves toward the left, because the within-nest term compounds fastest.
 
-\paragraph{Validity.} Equations~\eqref{eq:A_mult} and \eqref{eq:A_mult_pair} rest on the Gaussian upper tail of log-fitness. The second moment $\mathbb{E}[M^2] \propto \mathbb{E}[e^{4z}]$ is carried by ancestors near $z = 4V_A$, or $4\sqrt{V_A}$ standard deviations above the mean. A 100-fold reduction without a pair bond ($V_A = \ln(100)/4$) rests on ancestors 4.3 standard deviations out, about one in $10^5$, and a $10^4$-fold reduction on ancestors 6.1 standard deviations out. The expectation is realized only in populations large enough to contain such individuals, and only if nothing caps their fitness. Territories, maximum clutch sizes and the bounded probability of breeding (Section A.2) all truncate the tail and reduce the effect. These forms are therefore upper bounds on the reduction that a given $V_A$ produces in a real population. The derivation also assumes Poisson sampling of offspring beyond the heritable component, random pairing with respect to breeding value, and loci unlinked to the focal site.
+\paragraph{Validity.} Equations~\eqref{eq:A_mult} and \eqref{eq:A_mult_pair} rest on the Gaussian upper tail of log-fitness. The second moment $\mathbb{E}[R^2] \propto \mathbb{E}[e^{4z}]$ is carried by ancestors near $z = 4V_A$, or $4\sqrt{V_A}$ standard deviations above the mean. A 100-fold reduction without a pair bond ($V_A = \ln(100)/4$) rests on ancestors 4.3 standard deviations out, about one in $10^5$, and a $10^4$-fold reduction on ancestors 6.1 standard deviations out. The expectation is realized only in populations large enough to contain such individuals, and only if nothing caps their fitness. Territories, maximum clutch sizes and the bounded probability of breeding (Section A.2) all truncate the tail and reduce the effect. These forms are therefore upper bounds on the reduction that a given $V_A$ produces in a real population. The derivation also assumes Poisson sampling of offspring beyond the heritable component, random pairing with respect to breeding value, and loci unlinked to the focal site.
 
 \subsection*{A.4\quad The fraction of variance that survives selection}
 Let a parent's expected family size be $w = 1 + b\,a$, linear in its breeding value $a$ with mean zero. The additive variance among parents, weighted by their offspring, is then exactly $V_A - b^2V_A^2 + b\,\mu_3$, where $\mu_3$ is the third central moment of $a$, so
