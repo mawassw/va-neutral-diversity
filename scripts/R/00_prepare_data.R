@@ -312,9 +312,17 @@ populations <- crosswalk %>%
     U_d_direct    = 4 * mu_direct    * L_coding_bp,
     U_d_direct_lo = 4 * mu_direct_lo * L_coding_bp,
     U_d_direct_hi = 4 * mu_direct_hi * L_coding_bp,
-    # Unlinked reduction N/N_e at the posterior mode, Model B: at G = 1
-    # (primary) and with G = 1 - V_A (Appendix A sensitivity bound)
+    # Unlinked reduction N/N_e at the posterior mode (internal convention; quote as
+    # N_e/N = 1/reduction). One model family (Appendix A, decided 2026-10-19):
+    #   reduction_G1         first order, 1 + 4 kappa V_A (Model B)
+    #   reduction_mult       multiplicative map, all orders (Model B nest sharing)
+    #   reduction_mult_bound largest multiplicative reduction, exp(4 kappa_mult V_A),
+    #                        kappa_mult = 2 with a pair bond, 1 without
+    #   reduction_Gsym       additive map with G = 1 - V_A: kept only as the remark in
+    #                        Appendix A.4 (that map implies negative fitness at large V_A)
     reduction_G1   = 1 + 4 * kappa * va_mode,
+    reduction_mult = 1 / ne_ratio_mult(va_mode, pair_bond == "social_monogamy", epp_alpha),
+    reduction_mult_bound = 1 / ne_ratio_mult_bound(va_mode, pair_bond == "social_monogamy"),
     G_sym          = 1 - va_mode,
     reduction_Gsym = 1 / mapply(ne_ratio, va_mode, pair_bond == "social_monogamy",
                                 epp_alpha, MoreArgs = list(gamma = 1, G_correct = TRUE)),
@@ -329,7 +337,7 @@ populations <- crosswalk %>%
          mu_phylo, mu_phylo_lo, mu_phylo_hi,
          mu_direct, mu_direct_lo, mu_direct_hi, mu_direct_species, mu_direct_relation,
          va_mode, va_median, va_mean, va_hpd95_lo, va_hpd95_hi, va_n_draws,
-         reduction_G1, G_sym, reduction_Gsym,
+         reduction_G1, reduction_mult, reduction_mult_bound, G_sym, reduction_Gsym,
          genome_sp, genome_accession, L_coding_bp, L_coding_source,
          L_coding_autosomal_bp, L_coding_mapped_autosomal_bp, L_coding_genomewide_bp,
          n_autosomes, n_mapped_autosomes, n_mapped_macro_autosomes,

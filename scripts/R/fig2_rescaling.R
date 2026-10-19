@@ -7,18 +7,20 @@
 # Let the long-run V_A be c times the pedigree estimate: bar V_A = c * hat V_A
 # (c < 1: the estimate is inflated; c > 1: it understates). For each population
 # with an observed deficit, two ratios as functions of c:
-#   bar V_A / (U_d s)                         long-run V_A over what MSD balance
-#                                             maintains; rises with c
-#   (1/delta) / (1 + 4 kappa bar V_A)         observed over predicted loss of
-#                                             diversity; falls with c
-# A comparison agrees where its ratio is <= 1; the best any c can do is where
-# the two cross (point). s = 1e-2, the top of Figure 1's band, is the value most
-# generous to MSD balance. Unlinked term only.
-# hat V_A at the posterior mode; kappa primary (Model B; 1 without a pair bond,
-# Appendix B); direct mutation rate. Dashed: the diversity ratio with G = 1 - V_A
-# (Appendix A sensitivity), defined only inside the domain (long-run V_A < 1).
-# Bold lines: mean over species of log10 ratio (populations of a species averaged
-# first), t-based 95% CI across species. Faint lines: individual populations.
+#   bar V_A / (U_d s)                  long-run V_A over what MSD balance maintains;
+#                                      rises with c. s = 1e-2, the top of Figure 1's
+#                                      band, is the value most generous to MSD balance.
+#   (N_e/N)_pred / delta               diversity the model predicts is retained over the
+#                                      diversity observed to be retained; falls with c.
+# One model of fitness (Appendix A; decided 2026-10-19): the diversity ratio uses the
+# multiplicative upper bound on the reduction, (N_e/N)_pred = exp(-4 kappa_mult bar V_A),
+# kappa_mult = 2 with a pair bond and 1 without, valid at every bar V_A and the form
+# most generous to explaining the deficit. Dashed: the first-order form
+# 1/(1 + 4 kappa bar V_A), drawn only while bar V_A <= 1.
+# A comparison agrees where its ratio is <= 1. Unlinked term only. hat V_A at the
+# posterior mode; kappa Model B; direct mutation rate. Bold lines: mean over species of
+# log10 ratio (populations of a species averaged first), t-based 95% CI across species.
+# Faint lines: individual populations.
 # ==============================================================================
 
 suppressPackageStartupMessages({
@@ -28,7 +30,8 @@ suppressPackageStartupMessages({
 source("scripts/R/load_data.R")
 
 s_msd <- 1e-2
-c_grid <- 10^seq(-4, 7, length.out = 400)
+c_grid <- 10^seq(-4, 3, length.out = 400)
+x_max <- 1e3
 
 pops <- load_populations("va")
 obs <- load_diversity()
@@ -37,127 +40,97 @@ d <- pops %>%
   left_join(obs %>% select(code, pi_obs, pi_lit, log10_Nc), by = "code") %>%
   mutate(pi_any = coalesce(pi_obs, pi_lit),
          deficit = 4 * mu_direct * 10^log10_Nc / pi_any,
+         pair = pair_bond == "social_monogamy",
          species = sub("^(\\S+ \\S+).*", "\\1", scientific_name)) %>%
   # Soay: Buffalo's Ovis aries census is domestic sheep
   filter(!is.na(deficit), !is.na(U_d_direct), code != "SSH")
 
 curves <- d %>%
-  select(code, species, va_mode, kappa, pair_bond, epp_alpha, U_d_direct, deficit) %>%
+  select(code, species, va_mode, kappa, pair, U_d_direct, deficit) %>%
   tidyr::crossing(c = c_grid) %>%
-  mutate(msd = c * va_mode / (U_d_direct * s_msd),
-         div = deficit / (1 + 4 * kappa * c * va_mode),
-         # Appendix A sensitivity: G = 1 - V_A (defined only while long-run V_A < 1)
-         divG = deficit * mapply(ne_ratio, c * va_mode, pair_bond == "social_monogamy",
-                                 epp_alpha, MoreArgs = list(gamma = 1, G_correct = TRUE))) %>%
-  tidyr::pivot_longer(c(msd, div, divG), names_to = "side", values_to = "ratio") %>%
-  filter(!is.na(ratio))
+  # log10 ratios, computed directly: exp(-4 kappa_mult bar V_A) underflows at large c
+  mutate(msd  = log10(c * va_mode / (U_d_direct * s_msd)),
+         div  = log10(deficit) - 4 * kappa_mult_bound(pair) * c * va_mode / log(10),
+         div1 = if_else(c * va_mode <= 1, log10(deficit / (1 + 4 * kappa * c * va_mode)), NA_real_)) %>%
+  tidyr::pivot_longer(c(msd, div, div1), names_to = "side", values_to = "l") %>%
+  filter(!is.na(l)) %>%
+  mutate(ratio = 10^l)
 
 # Average: populations of a species share pi and N_c, so average within species
 # first, then the mean of log10 ratio across species with a t-based 95% CI
 n_sp <- n_distinct(curves$species)
 avg <- curves %>%
   group_by(side, c, species) %>%
-  summarise(l = mean(log10(ratio)), .groups = "drop") %>%
+  summarise(l = mean(l), .groups = "drop") %>%
   group_by(side, c) %>%
-  summarise(m = mean(l), se = sd(l) / sqrt(n()), .groups = "drop") %>%
+  summarise(m = mean(l), se = sd(l) / sqrt(n()), n = n(), .groups = "drop") %>%
   mutate(t = qt(0.975, n_sp - 1),
          ratio = 10^m, lo = 10^(m - t * se), hi = 10^(m + t * se)) %>%
-  # the G-corrected average only where every population is inside the domain,
-  # so species do not drop out of it part-way along c
-  filter(side != "divG" | c < min(1 / d$va_mode))
+  # the first-order average only while every species is still drawn
+  filter(side != "div1" | n == n_sp)
+# drawn only while the average is on scale: past that the species curves fall steeply
+# and the across-species interval says nothing
+avg_plot <- avg %>% filter(m > -3.2)
 
 # Where each average curve reaches 1, and where the two cross (best compromise)
 at_one <- function(s) { a <- filter(avg, side == s); 10^approx(a$m, log10(a$c), 0)$y }
 c_msd1 <- at_one("msd"); c_div1 <- at_one("div")
-w <- avg %>% select(side, c, m) %>% tidyr::pivot_wider(names_from = side, values_from = m)
+w <- avg %>% filter(side %in% c("msd", "div")) %>% select(side, c, m) %>%
+  tidyr::pivot_wider(names_from = side, values_from = m)
 c_star <- 10^approx(w$msd - w$div, log10(w$c), 0)$y
 ratio_star <- 10^approx(log10(w$c), w$msd, log10(c_star))$y
+stopifnot(c_msd1 < c_div1)
+
+# Per-population values of c at which each comparison is satisfied
+pop_c <- d %>%
+  mutate(c_msd = U_d_direct * s_msd / va_mode,
+         c_div = vamax_mult(1 / deficit, kappa_mult_bound(pair)) / va_mode,
+         gap = c_div / c_msd)
 
 col_msd <- "#2C7FB8"; col_req <- "#D95F0E"
 lab_msd <- expression(bar(italic(V))[A] / italic(U)[d] * italic(s) *
                         ":  long-run " * italic(V)[A] * " ÷ the " * italic(V)[A] *
                         " mutation–selection balance maintains")
-lab_div <- expression(delta^-1 / (1 + 4 * kappa * bar(italic(V))[A]) *
-                        ":  observed ÷ predicted loss of diversity")
-lab_divG <- expression("the same with " * italic(G) == 1 - bar(italic(V))[A] *
-                         " (selection depletes the variance it acts on)")
+lab_div <- expression((italic(N)[e] / italic(N))[pred] / delta *
+                        ":  predicted ÷ observed diversity, multiplicative upper bound")
+lab_div1 <- expression("the same at first order, " * 1 / (1 + 4 * kappa * bar(italic(V))[A]) *
+                         ", while " * bar(italic(V))[A] <= 1)
 
-# Domain of 1/(1 + 4 kappa V_A): weak selection, V_A << 1. Its edge, long-run
-# V_A = 1, sits at c = 1 / hat V_A, which differs by species (hat V_A averaged
-# geometrically within species). Grey from the species-average edge; dashed
-# lines at the smallest and largest species edge. The diversity ratio is drawn
-# only inside the domain: each population's faint line stops at its own edge,
-# the average at the average edge. No exact form exists beyond it, and every
-# known correction (variance depleted by selection, G < 1, lowers Q) reduces
-# diversity less than the formula does, so agreement would lie further out still.
-c_dom_sp <- d %>% group_by(species) %>% summarise(c_dom = 1 / exp(mean(log(va_mode))))
-c_dom <- exp(mean(log(c_dom_sp$c_dom)))
-stopifnot(c_dom < c_div1, c_msd1 < c_dom)
-
-# Diversity ratio at each species' own domain edge (long-run V_A = 1)
-edge_sp <- d %>%
-  mutate(r_edge = deficit / (1 + 4 * kappa)) %>%
-  group_by(species) %>%
-  summarise(r_edge = exp(mean(log(r_edge))), .groups = "drop")
-edge_avg <- 10^approx(log10(filter(avg, side == "div")$c), filter(avg, side == "div")$m,
-                      log10(c_dom))$y
-
-x_max <- 1e3
-curves_draw <- curves %>%
-  left_join(d %>% select(code, va_mode), by = c("code", "va_mode")) %>%
-  filter(c <= x_max, side == "msd" | c <= 1 / va_mode)
-avg_draw <- avg %>% filter(c <= x_max, side == "msd" | c <= c_dom)
-
-# Regimes along c, bounded where the average MSD curve reaches 1 and at the
-# domain edge
 regimes <- tibble::tibble(
-  xmin = c(1e-4, c_msd1, c_dom), xmax = c(c_msd1, c_dom, x_max),
-  fill = c("msd_ok", "none", "out"),
-  # middle label centred left of the first dashed line, so it does not cross it
-  x = sqrt(c(1e-4 * c_msd1, c_msd1 * min(c_dom_sp$c_dom), c_dom * x_max)),
+  xmin = c(1e-4, c_msd1, c_div1), xmax = c(c_msd1, c_div1, x_max),
+  fill = c("msd_ok", "none", "div_ok"),
+  x = sqrt(c(1e-4 * c_msd1, c_msd1 * c_div1, c_div1 * x_max)),
   lab = c("Maintainable, but\nexplains almost none\nof the lost diversity",
-          "Not\nmaintainable,\nexplains little",
-          ""))   # grey label drawn separately, as plotmath
+          "Neither maintainable\nnor enough to explain\nthe lost diversity",
+          "Could explain the\nlost diversity, far\nfrom maintainable"))
+lab_gap <- sprintf("no single c:\n%.0f-fold gap", c_div1 / c_msd1)
 
-lab_edge <- sprintf("%s–%s× at the\ndomain edge",
-                    format(signif(min(edge_sp$r_edge), 2), big.mark = ","),
-                    format(signif(max(edge_sp$r_edge), 2), big.mark = ","))
-
-p <- ggplot(avg_draw, aes(c)) +
+p <- ggplot(avg_plot, aes(c)) +
   geom_rect(data = regimes, aes(xmin = xmin, xmax = xmax, ymin = 1e-3, ymax = 1e5, fill = fill),
             inherit.aes = FALSE, show.legend = FALSE) +
-  scale_fill_manual(values = c(msd_ok = "#EAF2F8", none = "white", out = "grey88")) +
+  scale_fill_manual(values = c(msd_ok = "#EAF2F8", none = "white", div_ok = "#FBEDE3")) +
   geom_hline(yintercept = 1, linewidth = 0.4) +
-  geom_vline(xintercept = range(c_dom_sp$c_dom), linetype = "22", linewidth = 0.4,
-             colour = "grey40") +
   # individual populations, faint
-  geom_line(data = filter(curves_draw, side != "divG"),
+  geom_line(data = filter(curves, side != "div1", l > -3.2),
             aes(y = ratio, colour = side, group = interaction(code, side)),
             linewidth = 0.3, alpha = 0.3) +
   # species average and 95% CI
-  geom_ribbon(data = filter(avg_draw, side == "msd"), aes(ymin = lo, ymax = hi),
-              fill = col_msd, alpha = 0.2) +
-  geom_ribbon(data = filter(avg_draw, side == "div"), aes(ymin = lo, ymax = hi),
-              fill = col_req, alpha = 0.2) +
+  geom_ribbon(data = filter(avg_plot, side == "msd"), aes(ymin = lo, ymax = hi), fill = col_msd, alpha = 0.2) +
+  geom_ribbon(data = filter(avg_plot, side == "div"), aes(ymin = lo, ymax = hi), fill = col_req, alpha = 0.2) +
   geom_line(aes(y = ratio, colour = side, linetype = side), linewidth = 1.1) +
-  # where the diversity ratio leaves the domain
-  annotate("point", x = c_dom, y = edge_avg, size = 1.8, colour = col_req) +
-  annotate("segment", x = c_dom, xend = c_dom * 1.5, y = edge_avg, yend = 2.2e4,
-           linewidth = 0.3, colour = col_req) +
-  annotate("text", x = c_dom * 1.6, y = 2.2e4, label = lab_edge, hjust = 0, vjust = 0.5,
-           size = 2.1, fontface = "bold", lineheight = 0.9, colour = col_req) +
-  # regime labels drawn last, on a light backing, so curves pass behind them
-  geom_label(data = filter(regimes, lab != ""), aes(x = x, y = 1.6, label = lab),
-             inherit.aes = FALSE, size = 2.1, fontface = "bold", lineheight = 0.9, vjust = 0,
-             colour = "grey25", fill = alpha("white", 0.75), linewidth = 0,
-             label.padding = unit(0.6, "mm")) +
-  annotate("text", x = regimes$x[3], y = 1.6, vjust = 0, size = 2.1, colour = "grey25", parse = TRUE,
-           label = 'atop(bold("Outside the model\'s domain:"), bold("long-run ")*bolditalic(V)[bold(A)]*bold(" > 1"))') +
-  scale_colour_manual(values = c(msd = col_msd, div = col_req, divG = col_req),
-                      breaks = c("msd", "div", "divG"), labels = list(lab_msd, lab_div, lab_divG),
+  # the gap between the two agreement points
+  annotate("segment", x = c_msd1, xend = c_div1, y = 0.25, yend = 0.25, linewidth = 0.4,
+           arrow = arrow(ends = "both", length = unit(1.2, "mm"))) +
+  annotate("text", x = sqrt(c_msd1 * c_div1), y = 0.17, label = lab_gap, vjust = 1, size = 2.1,
+           fontface = "bold", lineheight = 0.9) +
+  geom_label(data = regimes, aes(x = x, y = 1.6, label = lab), inherit.aes = FALSE, size = 2.1,
+             fontface = "bold", lineheight = 0.9, vjust = 0, colour = "grey25",
+             fill = alpha("white", 0.75), linewidth = 0, label.padding = unit(0.6, "mm")) +
+  scale_colour_manual(values = c(msd = col_msd, div = col_req, div1 = col_req),
+                      breaks = c("msd", "div", "div1"), labels = list(lab_msd, lab_div, lab_div1),
                       name = NULL) +
-  scale_linetype_manual(values = c(msd = "solid", div = "solid", divG = "22"),
-                        breaks = c("msd", "div", "divG"), labels = list(lab_msd, lab_div, lab_divG),
+  scale_linetype_manual(values = c(msd = "solid", div = "solid", div1 = "22"),
+                        breaks = c("msd", "div", "div1"), labels = list(lab_msd, lab_div, lab_div1),
                         name = NULL) +
   scale_x_log10(breaks = 10^seq(-4, 3), expand = c(0, 0),
                 labels = scales::label_math(10^.x, format = log10)) +
@@ -184,6 +157,8 @@ if (nzchar(Sys.getenv("FIG_PREVIEW")))
   ggsave(Sys.getenv("FIG_PREVIEW"), p, width = 120, height = 100, units = "mm", dpi = 200,
          device = ragg::agg_png)
 
-cat(sprintf("n = %d species (%d populations)\nMSD ratio 1 at c = %.3g; domain edge c = %.3g (species %.3g-%.3g)\ndiversity ratio at the edge: average %.0f, species %.0f-%.0f; extrapolated agreement c = %.3g\n",
-            n_sp, n_distinct(curves$code), c_msd1, c_dom, min(c_dom_sp$c_dom), max(c_dom_sp$c_dom),
-            edge_avg, min(edge_sp$r_edge), max(edge_sp$r_edge), c_div1))
+cat(sprintf("n = %d species (%d populations)\nAverage: MSD ratio 1 at c = %.3g; diversity ratio 1 at c = %.3g (gap %.0f-fold); curves cross at c = %.3g, ratio %.0f\n",
+            n_sp, n_distinct(curves$code), c_msd1, c_div1, c_div1 / c_msd1, c_star, ratio_star))
+cat(sprintf("Per population: c_div %.2g-%.2g (median %.2g); c_msd %.2g-%.2g; gap %.0f-%.0f-fold\n",
+            min(pop_c$c_div), max(pop_c$c_div), median(pop_c$c_div), min(pop_c$c_msd), max(pop_c$c_msd),
+            min(pop_c$gap), max(pop_c$gap)))
