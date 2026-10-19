@@ -85,6 +85,11 @@ with $f_i$ the fraction of mutations in class $i$ and $\bar{t}_i$ its mean. With
 \end{equation}
 which replaces $4\kappa V_A = 4\kappa U_d\bar{t}$. This is the $Z = 1 - t$ counterpart of the $G = 1 - V_A$ sensitivity in Appendix A, and it acts in the same direction. At the implied $\bar{t}^*$, the factor $1/(1+\bar{t}^*)^2$ is 0.31--0.99 (median 0.74). The diversity predictions of the main text, which take $Q = 2$, therefore overstate the unlinked reduction at the selection coefficients the measured $V_A$ would require.
 
+\paragraph{The unlinked limit of background selection.} Equation~\eqref{eq:B_corrected} is the global effective size of the main text written for deleterious mutations, and it is also what background selection becomes at unlinked loci. Consider a selected locus with deleterious mutation rate $u$ per gamete and heterozygous effect $t$. At equilibrium the mutant frequency is $q \approx u/t$, each of an individual's two copies carries variance $qt^2 = ut$, and the locus contributes $2ut$ to $V_A$. The single-locus background-selection effect on a neutral site at recombination fraction $r$ (Nordborg et al. 1996) is $\exp[-ut/(t + r(1-t))^2]$; at $r = 1/2$ it is $\exp[-Q(t)^2\,ut]$ with $Q(t) = 2/(1+t)$, the cumulative factor times the variance of the copy in cis. At an unlinked locus the homologous copy is reshuffled exactly as often as the cis copy and contributes the same amount, so the locus reduces $N_e/N$ by $Q(t)^2 \cdot 2ut$, and the sum over loci, $4U_d\,\bar{t}_\text{eff}$ with $U_d = \sum 2u$, is Equation~\eqref{eq:B_corrected} to first order. A sum of the single-locus effect over cis copies alone therefore recovers half of the global reduction. Within a chromosome the same accounting gives the partition of Equation~\eqref{total_red}: the cis variance $v_h = v_i/2$ enters the local term, and the homologous half stays in the global one.
+% CHECK (2026-10-19): derived here. Confirm the per-gamete convention for u in Nordborg et al.
+% (1996) and Hudson and Kaplan (1995), and compare with Santiago and Caballero (1998), before
+% submission.
+
 \ifdefined\isMainDocument
 \else
     \printbibliography

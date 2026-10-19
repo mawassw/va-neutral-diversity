@@ -102,6 +102,12 @@ The penalty $\Omega_i$ of Equation~\eqref{linked_penalty} satisfies $\Omega_i \l
 \end{equation}
 the last step because $(1+y)(1+K-y) - (1+K) = y(K-y) \ge 0$. Mixing persistences breaks the bound: with $Z < 1$ in the linked term but $Q = 2$ in the unlinked one, $\Omega_i$ exceeds 1 on long maps at large $1 - Z$ (up to 1.08 for $1 - Z \le 0.6$). It follows that $V_{A,\text{max}}^{(\text{linked})} = (\overline{\Omega} - \delta)/(4\kappa\delta) \le V_{A,\text{max}}$: no arrangement of recombination rates or functional density raises neutral diversity above the unlinked expectation.
 
+\paragraph{Global and local factors.} Equation~\eqref{total_red} writes the effective size at a neutral site as a local factor $e^{-x}$ times a global factor $1/(1 + K - y)$, with the cis variance $v_h$ moved from the second to the first. For a freely recombining chromosome, $\overline{Q^2}_i \to Q_u^2$ (C.1), so $x = y$ in the primary model and
+\begin{equation}
+\Omega_i = e^{-y}\,\frac{1+K}{1+K-y} = 1 - \frac{yK}{1+K} + O(y^2).
+\end{equation}
+The departure from one is of order $v_h V_A$: a chromosome with an unbounded map adds nothing to the global reduction beyond the difference between the exponential and the reciprocal form of the same variance. The local factor is therefore the part of the reduction that depends on the recombination map, and the global factor is the part that does not.
+
 \subsection*{C.6\quad The spatial distribution of selective variance}\label{sec:spatial_variance}
 The main text spreads additive variance uniformly along the genetic map of each chromosome (density $1/M$), a spatially uniform realization of the infinitesimal model (Fisher 1918; Barton et al. 2017). Because the genetic architecture of fitness in wild populations is unresolved, spanning highly polygenic to oligogenic cases (Barton and Keightley 2002), we treat the uniform density as a baseline and characterize the direction of departures from it.
 
