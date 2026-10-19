@@ -58,22 +58,29 @@ Three properties, and all three must survive any edit to the framing:
    two move in opposite directions under any rescaling of $V_A$. **This is the paper's spine** — it is
    what makes the result robust to the standard criticism of pedigree $V_A$ (that the animal model
    absorbs environmental covariance among relatives).
-3. **The two ends do not meet.** Accounting for a hundredfold diversity deficit needs
-   $V_A \gtrsim 12$ at $\kappa = 2$ ($\gtrsim 25$ at $\kappa = 1$); MSD compatibility needs $V_A \lesssim 10^{-2}$. **No value satisfies both.** So the
-   gap exists in the model independently of the measurement, and the measurement locates where reality
-   sits inside it: one to two orders above the MSD end, and far short of the diversity end.
-   **Wording decided 2026-10-14:** those 12–25 are the $G = 1$ formula extrapolated beyond its domain
-   ($V_A \ll 1$), so the paper states the diversity end as *"no $V_A$ inside the formula's domain
-   produces a hundredfold deficit; over the measured range the unlinked term gives 1.7× at the median
-   and about 4.5× at the maximum"*. With $G = 1 - V_A$ (Appendix A), no $V_A < 1$ gives more than
-   2× (3× under strict monogamy). The 12–25 may appear only labelled as the $G = 1$ extrapolation.
-   **Present the snapshot problem through $c = \bar V_A/\hat V_A$** (Fig. 2): the diversity side needs
-   $c \gtrsim 10^4$ on average, MSD needs $c \lesssim 0.07$, and no single $c$ satisfies both. The
-   question is the relationship between the estimate and the long-run value, not either number alone.
-   **D2:** because $N/N_e$ is linear in $V_A$ and $\pi$ reflects a harmonic-mean $N_e$ over $\sim 4N_e$
-   generations, the target is exactly the time-averaged $\bar V_A$ over the coalescent window. Make
-   that perspective evident to the reader. **Make explicit that the stationarity of $V_A$ the
-   diversity side assumes is exactly what the MSD side tests.**
+3. **The two ends do not meet.** Under the multiplicative upper bound on the reduction (one model
+   family, decided 2026-10-19, below), accounting for a deficit of $1/\delta$ needs at least
+   $V_A = \ln(1/\delta)/(4\kappa_\text{mult})$: about 1.15 for 100× and 2.3 for 10⁴× without a pair
+   bond (half that with one), and **1.1–1.7 for the nine observed deficits**. MSD compatibility needs
+   $V_A \lesssim 10^{-2}$. **No value satisfies both.** So the gap exists in the model independently
+   of the measurement, and the measurement locates where reality sits inside it: one to two orders
+   above the MSD end, and short of the diversity end even under the bound most generous to it.
+   **Wording (2026-10-19, replacing 2026-10-14):** at the measured values the first-order form gives
+   $N_e/N$ = 0.22–0.99 (median 0.60); the multiplicative form agrees except where $\hat V_A > 0.25$.
+   The first-order inversion's 12–25 (and 29–6,000 for the observed deficits) is an extrapolation
+   outside $V_A \ll 1$ and **must not be quoted**. The $G = 1 - V_A$ cap ($N_e/N \ge 1/2$) is an
+   artifact of the additive map and is retired except as the Appendix A.4 remark.
+   **Present the snapshot problem through $c = \bar V_A/\hat V_A$** (Fig. 2): under the multiplicative
+   bound the diversity side needs $c \approx 9$ on average (2.4–80 per population, median 14), MSD
+   needs $c \lesssim 0.07$ (0.013–0.32), a gap of about 130× on average and 180–250× within every
+   population, so no single $c$ satisfies both. The question is the relationship between the estimate
+   and the long-run value, not either number alone.
+   **D2:** because $N_e/N$ is first-order linear in $V_A$ and $\pi$ reflects a harmonic-mean $N_e$
+   over $\sim 4N_e$ generations, the target is the time-averaged $\bar V_A$ over the coalescent
+   window. Under the exponential form, Jensen's inequality makes a fluctuating $V_A$ remove at least
+   as much diversity as its mean, so D2 is exact at first order and conservative beyond it. Make that
+   perspective evident to the reader. **Make explicit that the stationarity of $V_A$ the diversity
+   side assumes is exactly what the MSD side tests.**
 
 **Fisher's theorem is not part of the claim.** FTNS is single-generation — the partial change in mean
 fitness attributable to selection equals $V_A/\bar w$ per generation (`scratch.tex` line 15 states it
@@ -95,14 +102,20 @@ recomputed 2026-10-14 from `data/processed/`, columns `reduction_G1`, `reduction
 ```
 Va posterior modes, n = 19:  min 0.0029  Q1 0.0172  median 0.0997  Q3 0.2484  max 0.4970
   reduction 1 + 4 kappa Va, G = 1:      median 1.67x, max 4.48x (blue tit, Muro); upper 95% HPD 5.9x
-  same with G = 1 - Va (sensitivity):   median 1.54x, max 2.59x;                  upper 95% HPD 2.75x
+  multiplicative, exact (reduction_mult):   N_e/N median 0.51, min 0.021 (blue tit, Muro; 47x)
+  multiplicative bound exp(-4 kappa_mult Va) (reduction_mult_bound): min N_e/N 0.019 (53x)
+  (retired 2026-10-19: G = 1 - Va, reduction_Gsym, median 1.54x, max 2.59x -- additive-map artifact)
   (superseded 2026-10-13 values at kappa = 2 for non-monogamous: median 1.69x, max 4.58x hyena)
 adding the linked term (Omega 0.1-0.85, computed at kappa = 1, macro only): ~20x -- TO RECOMPUTE
 ```
 
 Observed deficits $1/\delta$, for the 9 populations with $\pi$ and a Buffalo $N_c$ (6 independent
 species; 4 of the 9 use literature $\pi$ from another population, `data/pi_literature.csv`):
-**230× to 38,000×**, so $V_{A,\max}$ = 29 to 6,000 against measured $V_A \le 0.5$.
+**230× to 38,000×**. The least $V_A$ that could explain them, $\ln(1/\delta)/(4\kappa_\text{mult})$,
+is **1.1–1.7**, above every upper 95% HPD (max 0.70). At the posterior modes the bound falls short of
+the observed deficit by 80× (bighorn) to 31,000× (great tits, Hoge Veluwe). Per population:
+`scripts/R/tab_reduction.R` → `manuscript/tables/tab_reduction.tex`. (The first-order inversion's
+"$V_{A,\max}$ = 29 to 6,000" is outside that formula's domain and retired.)
 
 **MSD side — measured $V_A$ is too large.** `scratch.tex` Appendix D (lines 616–698) derives this
 correctly and labels the pieces: influx $V_m = U_d s^2$; standing variance
@@ -188,14 +201,58 @@ rather than a 2×2 link-scale $\mathbf{G}$: those posteriors are post-back-trans
 | $\delta$ | $\pi_{\text{obs}}/(4\mu N)$ — **derived, not measured** | blocked on $\pi$ and $N$ |
 | $V_A$ | additive variance in **relative** fitness, $\bar w = 1$ (S–C's $C^2$) | ✅ 19 posterior modes |
 | $\kappa$ | mating-system scalar: 1 without a pair bond, $\kappa_B \in [9/8, 2]$ under social monogamy | ✅ from EPP |
-| $G$ | fraction of additive variance surviving selection per generation; 1 in primary results | Appendix A |
+| $Z$ | **retention**: fraction of a gene copy's association with its selective background surviving one generation of selection. SC 1995's $G$ and Buffalo & Kern's $1-\kappa$ — the same quantity (2026-10-19). 1 for Gaussian infinitesimal $z$; $Z_k = 1 - s_k$ per effect class at MSD | Theory `msdb`, Appendix A.4 |
+| $z$ | additive log-fitness (Bonnet's latent scale); $\mathrm{Var}(z) = V_A$ at $\bar w = 1$ | Appendix A.2 |
+| $\kappa(0)$ | κ without extra-pair paternity, used in the multiplicative bound $e^{-4\kappa(0)V_A}$: 1 without a pair bond, 2 with (was $\kappa_\text{mult}$ until 2026-10-19) | Appendix A.3 |
 | $r_{mf}$ | correlation of mates' breeding values (SC's $r$); 0 in primary results | Appendix A, B |
+
+**One symbol, one meaning — our own conventions, held dogmatically (user, 2026-10-19).** Do not import
+another paper's notation (no Woolliams $r_i$, $\beta$, $\omega$, $\Delta F$; no Barton–Etheridge $M$).
+Fixed on 2026-10-19:
+
+| symbol | meaning | not to be used for |
+|---|---|---|
+| $z$, $\bar z$ | breeding value for log-fitness ($w \propto e^z$), variance $V_A$ | the neutral genotype |
+| $a$ | additive effect on relative fitness; **$a = z - \bar z$ to first order**, the only order at which $a$ is used (Appendix B, A.4) | — |
+| $x_i \in \{0, \tfrac12, 1\}$ | neutral-allele frequency within individual $i$ (Appendix A.1) | — |
+| $R(z)$ | **expected long-term contribution** of an ancestor; $R(z) = \exp[2(z-\bar z) - 2V_A]$, $\approx 1 + Q(z - \bar z)$ to first order. "Reproductive value" appears once, as Barton & Etheridge's name for it | — |
+| $L_X$ | cumulative advantage of a gene copy, the first-order excess $R - 1$ (Appendix B) | — |
+| $\rho = (1-r)Z$ | per-generation persistence of an association at a linked site; the linked kernel is $1/(1-\rho)$, which is $Q = 2$ at $r = \tfrac12$, $Z = 1$ | — |
+| $M$, $M_i$ | map length in Morgans **only** | long-term contribution |
+| $r$ | recombination fraction **only** ($r_{mf}$ is mates' correlation) | long-term contributions |
+| $h_t$ | expected breeding value of a gene copy's carriers in generation $t$ (Appendix B) | a log breeding value |
+| $\boldsymbol\lambda$ | exponent vectors in Appendix A.3's lognormal moments | — |
+| $Z$, $Z_k$ | retention (above); per effect class $Z_k = 1 - s_k$, independent of $V_A$ | SC 1995's $G$ (named once, as theirs); B&K's $1-\kappa$ |
+| $Q$ | the **unlinked** transmission factor $2/[2 - Z(1+r_{mf})]$, = 2 at $Z = 1$ | $Q_u$, $Q(s)$, $Q(t)$ (all retired: same object) |
+| $\overline{Q^2}_i$ | linked interference on chromosome $i$ (map length $M_i$); $\overline{Q^2}_\text{H}$, $_\text{L}$ only in Appendix C, for Haldane vs linear map | $\overline{Q^2}_\text{linked}$ (retired) |
+| $\kappa$, $\kappa(0)$ | our mating-system scalar; its value at α = 0 | B&K's κ (= $1 - Z$; footnoted at first use) |
+| $s$, $s_k$, $\bar s$, $s^*$; $\varphi$, $\varphi_k$; $\nu_k$ | heterozygous effect; class $k$; DFE mean; mean implied by $V_A$; DFE density and class fractions; class share of $V_A$, $\varphi_ks_k/\bar s$ | $t$, $s_\text{het}$, $\bar t$ (retired); $\omega$ (Woolliams) |
+| $m'$, $f'$ | social partner of a female / of a male (Appendices A.3, B) | $s$ as a partner subscript |
+| $\Gamma$, $\eta$, $\epsilon$ | Haldane-kernel constants $1 - Z/2$, $Z/2$, $\eta/\Gamma$ (Appendix C.2) | $A$, $B$, $q$ there |
+| $\Lambda_\text{L}$, $\Lambda_\text{own}$, $\Lambda_\text{U}$ | exponents in the Ω ≤ 1 proof (Appendix C.5) | $x$, $y$, $K$ there |
+| $\Psi$, $\chi$, $\xi_{1,2}$, $m_X$ | Appendix B's general-form coefficient, $\rho/(1-\rho)$, partner weights, carrier's own weight | $\Phi$ (normal CDF), $X$ (the individual), $b$, $w_0$ |
+| $n_i$ | number of annotated functional elements on chromosome $i$ (Appendix C.6) | $G_i$ |
+| $C^2$ | SC's variance of family fitness: $V_A$ without a pair bond, $2V_A$ with one | "$V_A$ is SC's $C^2$" unqualified |
+
+**Selection regimes have three named axes (2026-10-19).** "Strong/weak selection" means **against drift
+only** ($4N_es \gg 1$ vs $\lesssim 1$; known results: $V_A = U_ds$ vs $U_ds$ minus the fixation loss, B&K S1
+Eq. 43 = our Kimura `eq:VA_MSD`; weak selection lowers $Z$ further, S1 Eq. 47). The purging rate $s$ is
+"fast/slow purging" (it sets $Z$; the linked-limits table rows are now "At rate $s$" and "Slow"). $V_A$
+relative to 1 is "first order / all orders". Never write a bare "strong/weak" for the other two.
+
+The concept "expected long-term contribution" now links the layers: $Q$ is the persistence of an
+ancestor's excess contribution (Theory, genome-wide reduction; Appendix A.1), and the linked kernel is
+the same quantity for a chromosome segment (Theory, linked selection). Citations used: Wray & Thompson
+1990 (*Genet. Res.* 55:41) and Barton & Etheridge 2011 (*Genetics* 188:953), both web-verified
+2026-10-19. Candidates for the Discussion, not yet used: Chen et al. 2019 (*PNAS* 116:2158, scrub-jay
+expected contributions) and Reid et al. 2019 (*Evol. Lett.* 3:271, song sparrows; authors unchecked).
 
 **Present effective-size results as $N_e/N$, never $N/N_e$ (user, 2026-10-16; field convention).**
 Write $N_e/N = 1/(1 + 4\kappa V_A)$, not "$N/N_e = 1 + 4\kappa V_A$", and state bounds in that form:
-"$N_e/N$ never falls below 1/2", not "the reduction never exceeds 2". "A twofold reduction" is fine as
+"$N_e/N$ is at least 0.22", not "the reduction is at most 4.5". "A twofold reduction" is fine as
 prose. Applied throughout the manuscript and the Overleaf section files on 2026-10-16. The R columns
-`reduction_G1`/`reduction_Gsym` are $N/N_e$ internally, so convert before quoting them.
+`reduction_G1`/`reduction_Gsym`/`reduction_mult`/`reduction_mult_bound` are $N/N_e$ internally, so
+convert before quoting them.
 
 Two distinct ratios are both called "$N_e/N$" and the project has slid between them before. The
 **demographic** $N_{eV}/N$ (family-size variance, sex ratio) is 0.1–0.5. The **diversity**
@@ -203,7 +260,7 @@ $(\pi/4\mu)/N_c$ is $10^{-2}$–$10^{-5}$. **Every sentence containing "$N_e/N$"
 $\delta$ is the diversity one — `scratch.tex` fixes this and it is not a modelling choice.
 
 Report the per-population test in $\pi$ units, not $\delta$ units: $\pi_{\text{pred}} =
-4\mu N/(1+4\kappa V_A)$ against $\pi_{\text{obs}}$. Algebraically identical to $\delta$ vs
+4\mu N\,(N_e/N)_\text{pred}$ against $\pi_{\text{obs}}$, at first order and at the multiplicative bound. Algebraically identical to $\delta$ vs
 $1/(1+4\kappa V_A)$, but $\pi_{\text{obs}}$ is a measurement whereas $\delta$ is a composite of three
 quantities, two uncertain. $\delta$ stays legitimate as the *x*-axis of the $V_{A,\max}(\delta)$ curve.
 
@@ -220,6 +277,10 @@ paper exists, and none should appear in the title or the first paragraph of the 
   **Recomputed 2026-10-14 at the primary κ:** 0 of 19 at δ ≤ 0.2, 2 of 19 at δ = 0.25–0.3 (the Pirio
   and Muro blue tits, $V_A \approx 0.49$–0.50), 5 at 0.5, 15 at 0.9. Every observed δ is far below
   these, so the statement "not currently exceeded" stands for the populations with diversity data.
+  **Two forms since 2026-10-19** (`FigS_ceiling`): the first-order curve, valid only inside its domain
+  ($V_{A,\max} \le 1$, δ ≳ 1/(1+4κ) = 0.11–0.2), and at all orders
+  $V_{A,\max}^{(\text{mult})} = \ln(1/\delta)/(4\kappa_\text{mult})$, which, because the multiplicative
+  reduction is an upper bound, is the *least* $V_A$ that could account for δ.
 - **$\overline{Q^2}$ integrated along a Haldane map** — how the linked term is computed from empirical
   recombination maps and annotation-derived functional target sizes. Method, not finding.
 - **$\kappa(\alpha)$, the mating-system scalar** — 1 without a pair bond, up to 2 under strict
@@ -261,6 +322,8 @@ Each was a live claim at some point and each is dead. Listed so they are recogni
 | Balancing / fluctuating selection as an escape from the diversity ceiling | it is not; it belongs on the MSD side only, as an account of how large $V_A$ is *maintained* |
 | The opportunity for selection $I$, and any $V_A \le I$ argument | never part of this framework; struck by the user 2026-08-26 |
 | Fisher's theorem as co-requiring the long-run quantity | FTNS is single-generation |
+| "$N_e/N$ never falls below 1/2 for any $V_A$ in the domain" ($G = 1 - V_A$) | artifact of the additive map, which gives negative fitness as $V_A \to 1$; retired 2026-10-19 |
+| "$V_{A,\max}$ = 29 to 6,000" / "needs $V_A \gtrsim 12$" | first-order inversion outside its domain; the multiplicative bound gives 1.1–1.7 |
 
 **The recurring failure mode this table exists to prevent:** reaching for borrowed significance —
 "position this work as the direct answer to someone else's open challenge." It has recurred at least
@@ -368,20 +431,23 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
    comment in `discussion.tex`. Fixed on the way: hard-coded "Table~1", the ">85% in two
    generations" arithmetic (T-6), I_A dropped (T-3).
    **Theory restructured 2026-10-19 to the GENETICS exemplar** (branch `worktree-theory-exemplar`).
-   It is now one chain ending in a single condition, $(1-\delta)/(4\kappa\delta) \le U_d\bar s$
-   (`eq:compat`, new §"The two comparisons as conditions on the long-term variance"). That
-   condition contains no pedigree estimate. A closing §"Direction of the approximations" plays the
-   role of the exemplar's "Framework breakdown". D2 is now displayed (`eq:harmonic`); it is exact
-   only for constant N, or V_A uncorrelated with 1/N. Assumptions are declared once at the end of
-   §quantity. Z and Q(s) moved out of §MSD. The limits table moved to Appendix C, in general-Z form.
-   **Decision (user, 2026-10-19): the linked term uses the MEASURED $\hat V_A$, not balance.**
-   $Z = 1 - U_d\mathbb E[s^2]/\hat V_A$, matching Methods. Balance values ($1-\mathbb E[s^2]/\mathbb
-   E[s]$) are given only for comparison; they are closer to 0 than the measured-V_A values, so the
-   linked reduction at the measured variance is the larger one. **Ω baseline fixed:** Ω is relative
-   to $1/(1+Q_u^2\kappa V_A)$, not Eq. `unlinked_mating`. The linked ceiling is implicit. It is
-   bounded by $(1-\delta)/(Q_u^2\kappa\delta)$ at the same Z, not by $V_{A,\max}$; Appendix C.5 was
-   corrected to match. The Introduction was reconciled the same day: the ¶4 gap sentence, and the last paragraph,
-   which now reads "at the measured $V_A$ rather than at the variance that balance would maintain".
+   Re-applied on top of the one-model-family / class-by-class-Z theory from
+   `worktree-open-items-domain-map`. It is now one chain ending in a single condition,
+   $\ln(1/\delta)/(4\kappa(0)) \le U_d\bar s$, equivalently $\delta \ge e^{-4\kappa(0)U_d\bar s}$
+   (`eq:compat`, new §"The two comparisons as conditions on the long-term variance"). That condition
+   contains no pedigree estimate. A closing §"Direction of the approximations" plays the role of the
+   exemplar's "Framework breakdown". D2 is now displayed (`eq:harmonic`, in §mating). It is exact at
+   first order only for constant N, or V_A uncorrelated with 1/N; Jensen applies under the
+   multiplicative form. Assumptions are declared once at the end of §quantity. The limits table
+   moved to Appendix C. The linked ceiling is implicit, and it is bounded by the unlinked value at
+   the same Z, $\ln(1/\delta)/(Q^2\kappa)$; Appendix C.5's leftover $(\overline\Omega-\delta)/(4\kappa\delta)$
+   was corrected to match.
+   **Decision (user, 2026-10-19): the linked term uses the MEASURED $\hat V_A$, not balance**:
+   $v_i = \hat V_A f_i$, not a share of $U_d\bar s$. Retention stays $Z_k = 1 - s_k$, independent of
+   $V_A$ (the earlier same-day decision), so only the magnitude changes, never the kernel; with
+   $s^* > \bar s$ it gives the larger reduction. The Introduction was reconciled to match: the ¶4 gap
+   sentence, and the last paragraph, which now reads "at the measured $V_A$ rather than at the
+   variance that balance would maintain".
    Earlier: **Introduction redrafted 2026-10-16 and merged to `main`** (scaffolding; needs re-voicing;
    new citations web-checked, Crossref still due; see `manuscript/INTRO_REDRAFT_PLAN.md`).
    Discussion still to do.
@@ -407,9 +473,76 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
    Methods' $4\mu L_\text{coding}$. Methods now describes the intended pipeline: data-layer inputs,
    coding-bp $f_i$, Haldane quadrature, $\kappa_\text{cis}$, and the same $Z$ in both terms. Linked
    numbers (the "~20×", Ω) must be recomputed that way before they are published.
+   **Z specification changed 2026-10-19 (user deferred to the recommendation):** class by class,
+   $Z_k = 1 - s_k$, independent of $V_A$, with linked and unlinked terms averaged over classes with
+   weights $\nu_k = \varphi_ks_k/\bar s$; evaluated at uniform $s$ = 0.005/0.01/0.02 **and at
+   $s = s^*$**. The code's `Z <- 1 - Vm/Va` with measured $V_A$ is off-balance (at the median it gives
+   $1 - Z$ about 10× smaller than $s$, so $\overline{Q^2}_i$ about 10× too large). The aggregate
+   $1 - E[s^2]/E[s]$ is a summary only: interference is nonlinear in $Z$. Methods carries an author flag.
 7. **Check Matheson & Masel (2025)** — logged as corroborating the unlinked component's importance,
    with one methodological question not yet identified. We quantify what they argue qualitatively:
    1.4× at the median reported $V_A$, ~3× at the maximum.
+8. ~~**The domain of the $N_e/N$ formula**~~ **RESOLVED 2026-10-19 by item 9's one-model-family
+   decision.** $N_e/N = 1/(1+4\kappa V_A)$ is first order, valid for $V_A \ll 1$, so asking it "what
+   $V_A$ gives a hundredfold deficit" is not legitimate; that question now goes to the multiplicative
+   form, read as an upper bound on the reduction. Done: Fig. 1's "required" markers are
+   $\ln(1/\delta)/(4\kappa_\text{mult})$ (1.1–1.7, on scale); `FigS_ceiling` stops the first-order
+   curve at $V_{A,\max} = 1$ and adds the all-orders curve; property 3 rewritten; Theory's domain
+   paragraph states it directly.
+9. ~~**Additive vs multiplicative fitness map**~~ **RESOLVED 2026-10-19 (user approved the sketch in
+   full): one model family.** Bonnet's log-link animal model is multiplicative, and its
+   $V_A(w) = \mathrm{Var}(z)$ at $\bar w = 1$ (de Villemereuil et al. 2016, Eqs 15–16). The prediction
+   uses the same model: first order, $1/(1+4\kappa V_A)$, at the measured values; at all orders,
+   $e^{-4V_A}$ without a pair bond (Barton & Etheridge 2011), an upper bound on the reduction because
+   any ceiling on fitness, including Bonnet's bounded zero-inflation part, truncates the upper tail it
+   rests on. **Zero-inflation is not modelled** (user, 2026-10-19): it only lowers the reduction, so the
+   bound stays a bound. The additive map ($G = 1 - V_A$, $N_e/N \ge 1/2$) is dropped, kept only as the
+   Appendix A.4 remark, because it gives negative fitness as $V_A \to 1$. Where it landed: Theory
+   `sec:onemodel` and table `tab:onemodel`; Appendix A restructured as A.1 (first order), A.2 (latent
+   scale and measured variance), A.3 (all orders, with the pair bond), A.4 ($G$); one Introduction gap
+   sentence; ceilings `eq:vamax` and `eq:vamax_mult`; linked composite in exponential form, so Ω ≤ 1
+   is immediate (Appendix C.5); Results subsection `sec:res_unlinked` and `tab:reduction`; Figs 1, 2
+   and S_ceiling. MSD subsection unchanged.
+   - **κ in the exponent — checked 2026-10-19; the 2026-10-17 heuristic below was not exact.** With
+     the pair bond (Model B nest sharing), exact multiplicative contributions are
+     $r_f \propto (1-\alpha)e^{2(a_f+a_s)} + \alpha e^{2a_f+a_s}$ and
+     $r_m \propto (1-\alpha)e^{2(a_m+a_{f'})} + \alpha e^{2a_m}$; $N/N_e$ is the mean over sexes of
+     $E[r^2]/E[r]^2$ (`ne_ratio_mult()` in `kappa.R`). It is bracketed by
+     $e^{-8V_A} \le N_e/N \le e^{-4\kappa_BV_A}$, with equality at α = 0. The lower end is proved
+     ($u_k\cdot u_l \le \max|u|^2 = 8$) and checked numerically in 150 cases. Hence
+     $\kappa_\text{mult} = 2$ with a pair bond, 1 without, in the bound.
+   - **Still open:** the SLiM test (once SLiM is installed): additive vs multiplicative maps at
+     $V_A$ = 0.01–1.5, measuring $N_e$ directly, and the effect of truncating fitness. Crossref check
+     of the Barton & Etheridge 2011 and de Villemereuil et al. 2016 entries.
+   - **Literature review result (2026-10-17), the basis of the decision:**
+     - **The multiplicative result is published.** Barton & Etheridge 2011 (*Genetics* 188:953;
+       quotes checked against PMC3176105 2026-10-17): parents are chosen with probability ∝ $e^z$
+       ($z$ additive log-fitness, infinitesimal). Mean reproductive value is $\exp(2(z-\bar z)-2V)$
+       (Appendix B), so $Q = 2$ sits in the exponent with no Bulmer reduction. "The variance in
+       reproductive value is just $e^{4V}$", and coalescence is "approximately proportional to the
+       square of the ancestor's reproductive value". Hence $N_e/N \approx e^{-4V}$. They never write
+       that line themselves, so it is a one-step inference from their result.
+     - **The same form appears elsewhere:** Buffalo & Kern 2024 S1 Eq. 29 (multiplicative across
+       loci), and Charlesworth 2012's $e^{-8Ush}$ for unlinked deleterious mutations.
+     - **The input is right as measured.** For a log link, de Villemereuil et al. 2016 (Eqs 15–16)
+       give $V_{A,\text{obs}} = \Psi^2V_{A,\ell}$ with Ψ = mean, so at mean relative fitness 1,
+       Bonnet's $V_A(w)$ equals the latent variance. The measured value is the right input to
+       $e^{-4V}$.
+     - **The saturating additive form has no primary support** and is internally inconsistent at
+       large $V$, because fitness goes negative. The "$N_e/N \ge 1/2$" cap of Appendix A, Theory and
+       the 2026-10-14 framing wording is therefore an artifact of that map (removed 2026-10-19).
+     - **Woolliams–Bijma machinery is explicitly first order** (WBV 1999 neglect the quadratic terms),
+       and Santiago & Caballero 1995 are first order.
+     - **Validity:** $e^{-4V}$ is carried by the extreme upper tail of log-fitness. A 100× reduction
+       rests on individuals about 4.3 SD out (frequency ~10⁻⁵), and 10⁴× on individuals about 6.1 SD
+       out (~10⁻⁹). Any ceiling on fitness truncates the tail and caps the reduction: territories,
+       maximum clutch size, or the bounded zero-inflation part of Bonnet's model. **So $e^{-4V}$ is an
+       upper bound on the reduction**, which makes it the generous case for the "too small" verdict.
+     - *(Superseded 2026-10-19 by the exact pair-bond result above:)* κ in the exponent as
+       $N/N_e \approx \tfrac12[e^{\mathrm{Var}L_f} + e^{\mathrm{Var}L_m}] \ge e^{4\kappa V_A}$.
+     - **Magnitudes (κ = 1):** $V_A$ ≈ 1.15 for 100× and ≈ 2.3 for 10⁴×. Recomputed 2026-10-19 with
+       $\kappa_\text{mult}$: the nine populations need $V_A$ = 1.1–1.7, $c$ = 2.4–80 (median 14); MSD
+       needs $c$ = 0.013–0.32; the gap within each population is 180–250×.
 
 ## The model in one screen
 
@@ -658,8 +791,21 @@ project#3/
 Applied consistently across `data_gen.R` and `unlinked.R`. **Read Rule 5 first** — this documents what
 the code implements, not necessarily what `scratch.tex` now specifies.
 
-- **Exact form, not the exponential.** Unlinked part is $N_e/N = 1/(1 + 4\kappa V_A)$; only the linked
-  part is exponential: `chrom_Ne_N <- linked_exp / (1 + 4 * kappa * (Va - v_i/2))`.
+- **Two orders of one model (2026-10-19).** The unlinked part is computed at first order,
+  $N_e/N = 1/(1 + 4\kappa V_A)$ (`ne_ratio()`, column `reduction_G1`), and at all orders under the
+  multiplicative map: exact with the pair bond, `ne_ratio_mult(Va, pair, alpha)` (`reduction_mult`),
+  and its upper bound on the reduction, `ne_ratio_mult_bound(Va, pair)` $= e^{-4\kappa_\text{mult}V_A}$
+  with `kappa_mult_bound(pair)` = 2 / 1 (`reduction_mult_bound`). Ceilings: `vamax_first(delta,
+  kappa)` and `vamax_mult(delta, kappa)`. All in `kappa.R`. **Any "V_A needed for a deficit" uses
+  `vamax_mult` with `kappa_mult_bound`, never the first-order inversion.** `reduction_Gsym`
+  ($G = 1 - V_A$) is kept only for the Appendix A.4 remark. Before 2026-10-19 this bullet read "exact
+  form, not the exponential", which was the first-order form under another name.
+- **Linked composite, manuscript form (2026-10-19):** exponential throughout,
+  $(N_e/N)_i = \exp\{-[\kappa_\text{cis}\overline{Q^2}_iv_h + Q_u^2(\kappa V_A - \kappa_\text{own}v_h)]\}$,
+  so $\Omega_i \le 1$ is immediate. **`data_gen.R` still implements the hyperbolic-denominator form
+  below and has not been changed** (line 479 bug; open item 6a rebuilds the linked analysis). The two
+  agree to first order.
+- **Code form of the linked term:** `chrom_Ne_N <- linked_exp / (1 + 4 * kappa * (Va - v_i/2))`.
 - **κ comes from `scripts/R/kappa.R` only** (Appendix B, re-derived 2026-10-14). κ = 1 without a pair
   bond. Social monogamy: $\kappa_B = 2 - 1.5\alpha + 0.625\alpha^2$ (primary) and the longer $\kappa_A$
   closed form; `kappa_pair(alpha, gamma, G, rho)` is the general form, `ne_ratio(..., G_correct =
@@ -674,7 +820,12 @@ the code implements, not necessarily what `scratch.tex` now specifies.
   with `Z` capped at 0.995 to avoid the singularity at perfect mutation-selection balance. The
   `main.tex` closed form is the linear-map approximation.
 - **`Z <- pmax(0, 1 - Vm/Va)`** with `Vm = Ud * s_het^2`; `s_het` defaults to 0.01, sensitivity facets
-  `c(0.005, 0.01, 0.02)`.
+  `c(0.005, 0.01, 0.02)`. **STALE vs the manuscript since 2026-10-19:** Methods specifies $Z_k = 1 - s_k$
+  per effect class (independent of $V_A$), plus $s = s^*$. Fix when the linked analysis is rebuilt
+  (open item 6a); do not re-run `data_gen.R`'s Z as is.
+- **Code names vs manuscript symbols (code not renamed, 2026-10-19):** `kappa_pair(..., G, ...)`, the
+  `G_correct` flag of `ne_ratio()` and the columns `G_sym`/`reduction_Gsym` all mean the retention $Z$;
+  `Qu2()` is $Q^2$ at retention $Z$; `kappa_mult_bound()` is $\kappa(0)$.
 - **Variance allocation:** `f_i = L_coding_bp / L_coding_total` (coding bp, not physical length),
   `v_i = Va * f_i`, then halved (`v_i/2`) — a focal neutral allele is linked to only one homolog.
 - **Filters:** autosomes only (drop X/Y/Z/W/MT), macrochromosomes only
@@ -690,6 +841,56 @@ the code implements, not necessarily what `scratch.tex` now specifies.
   intentional, not a bug.
 
 ## Known staleness & inconsistencies (Rule 5 log)
+
+**Logged 2026-10-19 — notation cohesion pass (branch `worktree-open-items-domain-map`, on top of
+`ef19986`).** The user asked whether different symbols meant the same thing, then deferred to the
+recommendations. What was found and done:
+
+- **G and Z were one quantity under two names, with conflicting values.** Appendix B already defined
+  "G" as association retention (Theory's Z); Appendix C.2 said "Q with G replaced by Z"; Buffalo & Kern
+  equate SC 1995's G with their $1 - \kappa$ = Z (S1 Eqs. 19–20, 38). Checked numerically: A.4's
+  $1 - b^2V_A + b\mu_3/V_A$ gives $Z \approx 1 - s$ for a rare deleterious allele (0.990/0.901/0.702 at
+  s = 0.01/0.1/0.3; multiplicative $e^{-s}$). So **"G = 1 exactly on the log scale" holds only for a
+  Gaussian infinitesimal $z$**; the paper's own MSD architecture ($s^* \approx 0.16$) implies $Z \approx
+  0.84$, and Q = 2 is the upper bound. G renamed Z everywhere in the text; $Q_u$ merged into $Q$
+  (`eq:Q`); A.4 retitled and given the architecture paragraphs; label `eq:G` → `eq:Zarch`.
+- **DFE: class by class** (user deferred). Theory `eq:Z` is now $Z_k = 1 - s_k$ with class weights
+  $\nu_k$; Appendix D's per-class $Q = 2/(1+s_k)$ is now consistent with Theory; Methods' Z rewritten
+  (see open item 6a). The aggregate $1 - E[s^2]/E[s]$ is kept as a named summary only.
+- **κ collision with Buffalo & Kern** footnoted at the first κ in Theory. $\kappa_\text{mult}$ →
+  $\kappa(0)$ in Theory, Methods, `tab_reduction.R` (table regenerated) and `figS_ceiling.R`
+  (re-rendered). Code function names unchanged.
+- **Three selection axes** named in Theory `msdb`; the linked-limits table relabelled (its old
+  "weak selection, Z → 1" ran opposite to the drift sense, where weak selection lowers Z).
+- **Collisions fixed:** partner subscript $s$ → $m'$ (A.3, B); Φ → Ψ, X → χ, $w_0$ → $m_X$, $b$/$x$/$y$
+  → $\xi_{1,2}$ (B); A/B/q → Γ/η/ε and x/y/K → Λ (C); $G_i$ → $n_i$ (C.6); $t$, $\bar t$, $f_i$,
+  $s_\text{het}$ → $s$, $\bar s$, $\varphi_k$ (D, Theory table); $\overline{Q^2}_\text{linked}$ →
+  $\overline{Q^2}_i$; $C^2$ qualified (Theory); Introduction's "holds whatever process maintains $V_A$"
+  qualified to $Q = 2$ (Santiago & Caballero 1998; Charlesworth 2012 for the purging case). Notation
+  table in Theory rewritten.
+- **Numbers unchanged** (table regenerated: $V_A$ needed 1.11–1.68, shortfall 80–31,000). Build: 42 pages,
+  zero errors, zero undefined references.
+- **Still stale:** `discussion.tex`, `abstract.tex`, `scratch.tex` (stale by rule) still use G/Q_u;
+  `data_gen.R` Z formula (above).
+
+**Logged 2026-10-19 — one model family (branch `worktree-open-items-domain-map`).** The user
+approved the full sketch (open item 9). Changed:
+
+- **Manuscript:** Theory (new `sec:onemodel`, `tab:onemodel`, `eq:ne_mult`, `eq:ne_mult_pair`,
+  `eq:vamax_mult`, exponential `total_red`, D2 Jensen sentence); Appendix A rewritten as A.1–A.4;
+  Appendices B, C (C.5 Ω ≤ 1), D (one sentence); Introduction (Barton & Etheridge in the effect
+  paragraph, a gap sentence, and a rewritten last paragraph); Methods (mating, linked, π test,
+  rescaling); Results (new `sec:res_unlinked`, `\input{manuscript/tables/tab_reduction}`).
+- **Code and data:** `kappa.R` (new functions above), `00_prepare_data.R` → `data/processed/`
+  (new columns `reduction_mult`, `reduction_mult_bound`; data layer rebuilt, other columns
+  unchanged), new `tab_reduction.R`, re-rendered `fig1_gap.R`, `fig2_rescaling.R` (diversity ratio
+  under the multiplicative bound; the G = 1 − V_A curve and grey domain region removed; logs computed
+  directly to avoid underflow), `figS_ceiling.R` (both ceilings).
+- **Fig. 2 numbers:** average ratio 1 at c = 0.073 (MSD) and 9.4 (diversity), a 129-fold gap; curves
+  cross at c = 4.8, ratio 66. Per population, c_div 2.4–80 (median 14), c_msd 0.013–0.32, gap
+  180–251×. These supersede the 2026-10-15 "1.1 × 10⁴, best compromise c = 27, ratio 373".
+- **Still stale:** `discussion.tex` (open item 2), `abstract.tex`, `scratch.tex` (stale by rule since
+  2026-10-17), `data_gen.R` linked composite (hyperbolic form), `poster/` (frozen).
 
 **Logged 2026-07-29.** Found by reading `scratch.tex` against the R code. **None of these are fixed.**
 Resolve toward `scratch.tex`, not the code.

@@ -83,3 +83,46 @@ ne_ratio <- function(Va, pair, alpha = NA, gamma = 1, G_correct = FALSE, rho = 0
   k <- if (pair) kappa_pair(alpha, gamma, G, rho) else kappa_nopair(G, rho)
   1 / (1 + 4 * k * Va)
 }
+
+# ------------------------------------------------------------------------------
+# Multiplicative fitness map (Appendix A.3; decided 2026-10-19). Log-fitness is
+# additive and Gaussian, w ∝ e^z, the structure of Bonnet et al.'s log-link model,
+# for which V_A(w) = Var(z) (de Villemereuil et al. 2016). Reproductive value of an
+# ancestor with log value z is exp(2(z - zbar) - 2V) and coalescence goes as its
+# square (Barton & Etheridge 2011), so N/N_e = E[r^2] / E[r]^2 over gene copies.
+#   no pair bond:  N_e/N = exp(-4 V_A)                               (exact)
+#   social monogamy, Model B: copies in females and males have long-term
+#   contributions that are two-term lognormal mixtures (within-pair nest term
+#   e^{2(a+a_s)}, extra-pair term e^{2a + a_s} or e^{2a}); averaged over sexes:
+#     exp(-8 V_A) <= N_e/N <= exp(-4 kappa_B V_A),
+#   equal at alpha = 0, matching 1/(1 + 4 kappa_B V_A) to first order. The upper
+#   end of the reduction, exp(8 V_A), follows from u_k . u_l <= max |u|^2 = 8.
+# Every form here is an UPPER bound on the reduction in real populations: it rests
+# on the Gaussian upper tail of log-fitness, which territory, clutch-size and
+# breeding-probability ceilings (Bonnet's zero-inflation) truncate.
+# ------------------------------------------------------------------------------
+.lognorm_ratio <- function(w, U, V) {   # E[r^2]/E[r]^2, r = sum_k w_k exp(U[k,] . x), x ~ N(0, V I)
+  m1 <- sum(w * exp(V * rowSums(U^2) / 2)); m2 <- 0
+  for (k in seq_along(w)) for (l in seq_along(w))
+    m2 <- m2 + w[k] * w[l] * exp(V * sum((U[k, ] + U[l, ])^2) / 2)
+  m2 / m1^2
+}
+# Exact multiplicative N_e/N (Model B nest sharing, gamma = 1, G = 1, r_mf = 0)
+ne_ratio_mult <- function(Va, pair, alpha = NA) {
+  f <- function(Va, pair, alpha) {
+    if (!pair) return(exp(-4 * Va))
+    F <- .lognorm_ratio(c(1 - alpha, alpha), rbind(c(2, 2), c(2, 1)), Va)
+    M <- .lognorm_ratio(c(1 - alpha, alpha), rbind(c(2, 2), c(2, 0)), Va)
+    1 / ((F + M) / 2)
+  }
+  mapply(f, Va, pair, alpha)
+}
+# Largest reduction the multiplicative model allows: exp(-4 kappa_mult V_A) with
+# kappa_mult = 2 under social monogamy (any alpha) and 1 without a pair bond
+kappa_mult_bound <- function(pair) ifelse(pair, 2, 1)
+ne_ratio_mult_bound <- function(Va, pair) exp(-4 * kappa_mult_bound(pair) * Va)
+# Ceiling on V_A from a diversity ratio delta, at all orders: ln(1/delta) / (4 kappa).
+# With kappa = kappa_mult_bound it is the smallest V_A that could explain delta.
+vamax_mult <- function(delta, kappa) log(1 / delta) / (4 * kappa)
+# First-order ceiling (Equation vamax), meaningful only while it is << 1
+vamax_first <- function(delta, kappa) (1 - delta) / (4 * kappa * delta)

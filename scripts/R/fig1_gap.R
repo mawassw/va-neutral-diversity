@@ -9,10 +9,12 @@
 #                 U_d * s for s in [1e-3, 1e-2] (strong-selection limit,
 #                 Appendix D), U_d from the direct mutation rate
 #   posterior     measured V_A: 95% HPD (thin), 50% interval (thick), mode
-#   required      V_A needed for the unlinked term to produce the observed
-#                 deficit: 1/delta = 1 + 4 kappa V_A, so V_A = (1/delta - 1)/(4 kappa),
-#                 delta = pi / (4 mu N_c); bar spans the 95% CI on mu
-# kappa is the primary Model B value (2 for non-monogamous systems).
+#   required      smallest V_A that could produce the observed deficit at unlinked sites,
+#                 from the multiplicative upper bound on the reduction (Appendix A.3,
+#                 decided 2026-10-19): V_A = ln(1/delta) / (4 kappa_mult), kappa_mult = 2
+#                 with a pair bond and 1 without; delta = pi / (4 mu N_c); bar spans the
+#                 95% CI on mu. (Until 2026-10-19 this was the first-order inversion
+#                 (1/delta - 1)/(4 kappa), which lands far outside that formula's domain.)
 # ==============================================================================
 
 suppressPackageStartupMessages({
@@ -54,9 +56,10 @@ d <- pops %>%
     # Diversity requirement
     pi_any = coalesce(pi_obs, pi_lit),
     Nc = 10^log10_Nc,
-    req    = (pi_any^-1 * 4 * mu_direct    * Nc - 1) / (4 * kappa),
-    req_lo = (pi_any^-1 * 4 * mu_direct_lo * Nc - 1) / (4 * kappa),
-    req_hi = (pi_any^-1 * 4 * mu_direct_hi * Nc - 1) / (4 * kappa),
+    k_mult = kappa_mult_bound(pair_bond == "social_monogamy"),
+    req    = vamax_mult(pi_any / (4 * mu_direct    * Nc), k_mult),
+    req_lo = vamax_mult(pi_any / (4 * mu_direct_lo * Nc), k_mult),
+    req_hi = vamax_mult(pi_any / (4 * mu_direct_hi * Nc), k_mult),
     # Posterior clipped to the axis edge (no marker; the three poorly
     # identified populations are described in the caption)
     hpd_lo_clip = pmax(va_hpd95_lo, x_min),
@@ -79,8 +82,8 @@ d <- d %>% mutate(across(c(req, req_lo, req_hi), ~ if_else(code == "SSH", NA_rea
 lab_msd <- expression("Maintainable at MSD balance: " * italic(U)[d] * italic(s) * ", " *
                         italic(s) == 10^-3 * " to " * 10^-2)
 lab_post <- "Measured: mode, 50% and 95% HPD"
-lab_own <- expression("Required by observed " * pi * ", study species")
-lab_lit <- expression("Required by observed " * pi * ", another population")
+lab_own <- expression("Least needed for observed " * pi * " (multiplicative bound), study species")
+lab_lit <- expression("Least needed for observed " * pi * " (multiplicative bound), another population")
 
 d <- d %>% mutate(req_kind = case_when(!is.na(pi_obs) ~ "own", !is.na(pi_lit) ~ "lit"))
 col_msd <- "#2C7FB8"; col_req <- "#D95F0E"
@@ -124,8 +127,8 @@ p <- ggplot(d, aes(y = label)) +
     labels = list(lab_msd, lab_post, lab_own, lab_lit), name = NULL,
     guide = guide_legend(ncol = 2, override.aes = list(
       linewidth = c(4.2, 0, 0, 0), alpha = c(0.35, 1, 1, 1)))) +
-  scale_x_log10(limits = c(x_min, 1e5), expand = c(0, 0),
-                breaks = 10^seq(-4, 5),
+  scale_x_log10(limits = c(x_min, 10), expand = c(0, 0),
+                breaks = 10^seq(-4, 1),
                 labels = scales::label_math(10^.x, format = log10)) +
   scale_y_discrete(labels = function(l) parse(text = d$label_math[match(l, d$label)])) +
   facet_grid(taxon ~ ., scales = "free_y", space = "free_y") +
