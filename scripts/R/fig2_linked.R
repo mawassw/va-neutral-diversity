@@ -1,5 +1,5 @@
 # ==============================================================================
-# fig2_linked.R — Figure 2: linkage deepens the reduction, far short of the deficit
+# fig2_linked.R — Figure 2: the reduction with linkage, against the observed deficit
 # ==============================================================================
 # Run from the repo root:   Rscript scripts/R/fig2_linked.R
 # Reads only through load_data.R; model in linked.R. Writes
@@ -11,14 +11,18 @@
 # included), on one log axis of N_e/N (effective size relative to census):
 #   unlinked      1 / (1 + 4 kappa hat V_A): mode (circle), 95% HPD (line)
 #   with linkage  the total, unlinked and linked combined:
-#                 Omega_bar / (1 + 4 kappa hat V_A), Omega_bar from the composite
-#                 model at the persistence Z = 1 - E[s^2]/E[s] of each measured
-#                 DFE in the population's taxon (data/dfe_reference.csv).
+#                 Omega_bar / (1 + 4 kappa hat V_A), Omega_bar the linked factor of
+#                 Theory eq. linked_penalty (exponential), with class-by-class
+#                 retention Z_k = 1 - s_k averaged over each measured DFE of the
+#                 population's taxon (data/dfe_reference.csv), at the measured V_A.
+#                 The global factor is drawn at Q = 2 (Z = 1), its upper bound, so
+#                 the total is generous to the mechanism.
 #                 Thick bar: range over those DFEs at the hat V_A mode; faint
 #                 extension: also over the 95% HPD of hat V_A; dot: the lowest
 #                 N_e/N at the mode (most generous to the mechanism).
-#                 Birds: pied and collared flycatcher (Z = 0.998, 0.988);
-#                 mammals: mouse, vaquita, fin whale (Z = 0.94, 0.89, 0.78)
+#                 Birds: pied and collared flycatcher; mammals: mouse, vaquita, fin whale.
+#                 (Before 2026-10-19: hyperbolic composite at the aggregate
+#                 Z = 1 - E[s^2]/E[s].)
 #   observed      delta = pi / (4 mu N_c), where pi and an own-species Buffalo
 #                 N_c exist; bar = 95% CI on the direct mu. Soay has no usable
 #                 N_c (domestic Ovis aries census); red deer and baboon none.
@@ -39,23 +43,27 @@ obs <- load_diversity()
 auto <- load_chromosomes(autosomes_only = TRUE, mapped_only = FALSE, macro_only = FALSE)
 birds <- c("BTR", "BTP", "BTM", "CF", "SFW", "SSP", "HT", "HK", "GTU", "GTN")
 
-dfe <- read.csv("data/dfe_reference.csv") %>%
-  filter(used_for_band == "yes") %>%
-  mutate(Z = Z_gamma(shape_alpha, scale_beta_prime))
+dfe <- dfe_reference()
 
 # Omega_bar for every population x taxon DFE x hat V_A (HPD low, mode, HPD high)
-# x partition
+# x partition. omega_fun() precomputes the class-averaged coefficients once per
+# population x DFE x partition.
 grid <- pops %>%
   mutate(taxon = if_else(code %in% birds, "Birds", "Mammals")) %>%
   select(code, taxon, kappa, lo = va_hpd95_lo, mode = va_mode, hi = va_hpd95_hi) %>%
   tidyr::pivot_longer(c(lo, mode, hi), names_to = "va_at", values_to = "Va") %>%
-  inner_join(dfe %>% select(taxon, dfe_sp = common_name, Z), by = "taxon",
+  inner_join(dfe %>% select(taxon, dfe_sp = common_name), by = "taxon",
              relationship = "many-to-many") %>%
   tidyr::crossing(partition = c("bp", "gene"))
-grid$omega <- mapply(function(cd, Va, k, Z, part) {
-  a <- filter(auto, code == cd); m <- filter(a, has_map)
-  omega_bar(m, Va, k, Z, f_share(m, a, part))
-}, grid$code, grid$Va, grid$kappa, grid$Z, grid$partition)
+om_cache <- list()
+grid$omega <- mapply(function(cd, Va, k, sp, part) {
+  key <- paste(cd, sp, part)
+  if (is.null(om_cache[[key]])) {
+    a <- filter(auto, code == cd); m <- filter(a, has_map)
+    om_cache[[key]] <<- omega_fun(m, f_share(m, a, part), k, dfe$spec[[match(sp, dfe$common_name)]])
+  }
+  om_cache[[key]](Va)
+}, grid$code, grid$Va, grid$kappa, grid$dfe_sp, grid$partition)
 grid <- grid %>% mutate(unl = 1 / (1 + 4 * kappa * Va), total = omega * unl)
 
 summ <- grid %>%
@@ -110,7 +118,7 @@ theme_rows <- theme_classic(base_size = 9, base_family = "sans") +
         legend.text = element_text(size = 8, hjust = 0), legend.key.width = unit(7, "mm"),
         plot.margin = margin(2, 2, 2, 2, "mm"), plot.tag = element_text(face = "bold"))
 y_scale <- scale_y_discrete(labels = function(l) parse(text = base$label_math[match(l, base$label)]))
-x_log <- function(lims, brks) scale_x_log10(limits = lims, breaks = brks, expand = c(0, 0),
+x_log <- function(lims, brks) scale_x_log10(limits = lims, breaks = brks, expand = c(0, 0), oob = scales::oob_squish,
                                             labels = scales::label_math(10^.x, format = log10))
 
 # --- Figure 2A (and its gene-count twin): total N_e/N against the observed ------
@@ -171,14 +179,13 @@ plot_omega <- function(part) {
 # At one common Z and V_A, Omega depends only on each genome's maps and coding
 # partition, so species differences in B and C are differences in recombination
 # landscape, not in DFE (Z) or in measured V_A.
-Z_common <- 0.99; V_common <- 0.1
+s_common <- 0.01; V_common <- 0.1          # uniform effects, Z = 1 - s = 0.99
 arch <- bind_rows(lapply(pops$code, function(cd) {
   a <- filter(auto, code == cd); m <- filter(a, has_map); f <- f_share(m, a, "bp")
-  k <- pops$kappa[pops$code == cd]; q2 <- Q2bar_vec(m$M_morgans, Z_common); vh <- V_common * f / 2
+  cf <- linked_coefs(m, dfe_uniform(s_common)); vh <- V_common * f / 2
   data.frame(code = cd, M = m$M_morgans, f = f, L = m$Physical_Length_bp,
              micro = m$Physical_Length_bp < 20e6,
-             om_i = exp(-q2 * vh) * (1 + Qu2(Z_common) * k * V_common) /
-                    (1 + Qu2(Z_common) * (k * V_common - vh)))
+             om_i = exp(-vh * (cf$A - cf$B)))
 })) %>% mutate(taxon = if_else(code %in% birds, "Birds", "Mammals"))
 arch_g <- arch %>% group_by(code) %>%
   summarise(om_bar = sum(L / sum(L) * om_i), cM_Mb = 100 * sum(M) / (sum(L) / 1e6), .groups = "drop")
@@ -240,4 +247,19 @@ save_fig(plot_omega("bp"),   "supp/FigS_omega",        150, 70)
 print(as.data.frame(base %>% select(code, unl, obs) %>%
   left_join(summ %>% select(code, partition, tot_mode_lo, tot_all_lo, om_mode_lo, om_all_lo), by = "code") %>%
   tidyr::pivot_wider(names_from = partition, values_from = c(tot_mode_lo, tot_all_lo, om_mode_lo, om_all_lo)) %>%
+  mutate(across(where(is.numeric), ~ signif(.x, 3)))))
+
+# Methods' uniform effects (s = 0.005, 0.01, 0.02) and s = s* = hat V_A / U_d, at the
+# hat V_A mode, coding-bp partition: Omega_bar, and the total against the observed delta.
+unif <- bind_rows(lapply(pops$code, function(cd) {
+  a <- filter(auto, code == cd); m <- filter(a, has_map); f <- f_share(m, a, "bp")
+  r <- pops[pops$code == cd, ]; s_star <- r$va_mode / r$U_d_direct
+  bind_rows(lapply(c(0.005, 0.01, 0.02, s_star), function(s)
+    data.frame(code = cd, s = if (s == s_star) "s*" else format(s),
+               s_val = s, omega = omega_fun(m, f, r$kappa, dfe_uniform(min(s, 0.99)))(r$va_mode))))
+})) %>% left_join(base %>% select(code, unl, obs), by = "code") %>%
+  mutate(total = omega * unl)
+cat("\nUniform effects (Methods), at the hat V_A mode:\n")
+print(as.data.frame(unif %>% select(code, s, s_val, omega) %>%
+  tidyr::pivot_wider(id_cols = code, names_from = s, values_from = omega) %>%
   mutate(across(where(is.numeric), ~ signif(.x, 3)))))

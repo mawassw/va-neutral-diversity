@@ -456,11 +456,8 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
    merged in `worktree-figure-reconcile`. Its script renames were taken, and so was upstream's
    content. The data layer and every figure were regenerated, and they are exactly the union of
    both sides. **Left stale, flagged:**
-   - `linked.R` still uses the hyperbolic composite with an aggregate gamma $Z$, so Theory's
-     exponential form with $Z_k = 1 - s_k$ is not implemented. Fig. 3's per-population linked
-     ceilings are therefore OFF by default (`SHOW_LINKED=1`): in that form some lie above the
-     multiplicative band.
-   - `fig2_linked.R` and `figS_rescaling_linked.R` are rendered from the same stale `linked.R`.
+   - ~~`linked.R` stale; Fig. 3 linked ceilings off; `fig2_linked.R`, `figS_rescaling_linked.R`
+     rendered from it~~ **Fixed the same day** (branch `worktree-linked-rebuild`; see open item 6a).
    - `fig1_unlinked.R` still draws the retired $G = 1 - V_A$ curve, has no multiplicative form,
      and uses $G$ where the notation now has $Z$.
    Earlier: **Introduction redrafted 2026-10-16 and merged to `main`** (scaffolding; needs re-voicing;
@@ -493,7 +490,29 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
    weights $\nu_k = \varphi_ks_k/\bar s$; evaluated at uniform $s$ = 0.005/0.01/0.02 **and at
    $s = s^*$**. The code's `Z <- 1 - Vm/Va` with measured $V_A$ is off-balance (at the median it gives
    $1 - Z$ about 10× smaller than $s$, so $\overline{Q^2}_i$ about 10× too large). The aggregate
-   $1 - E[s^2]/E[s]$ is a summary only: interference is nonlinear in $Z$. Methods carries an author flag.
+   $1 - E[s^2]/E[s]$ is a summary only: interference is nonlinear in $Z$.
+   **`linked.R` REBUILT 2026-10-19 to this specification (branch `worktree-linked-rebuild`; user asked).**
+   - **Model:** exponential composite (Theory eqs `total_red`, `linked_penalty`, `genome_linked`).
+     Class-by-class $Z_k = 1 - s_k$, measured $V_A$ for $v_i$, and the closed-form Haldane
+     $\overline{Q^2}$ with its own `Li2()` (matches quadrature to < 1e-9).
+   - **DFEs:** a gamma DFE's ν-weights are Gamma(α+1, β′) on $s$, on 240 log classes from $10^{-8}$
+     to 1 (< 1e-3 against 960).
+   - **API:** `dfe_uniform()`, `dfe_gamma()`, `dfe_reference()`, `linked_coefs()`,
+     `omega_fun(..., log = TRUE)`, `ne_linked(form = "mult"/"first")`. `Z_gamma()` is removed.
+   - **Consumers:** `fig2_linked.R` (total = Ω̄ × first-order Q = 2 global factor; also prints
+     uniform s = 0.005/0.01/0.02/s*), `fig3_ceiling.R` (linked ceilings back ON: root of
+     Ω̄(V) e^{−4κ(0)V} = δ, minimum over the taxon's DFEs; `SHOW_LINKED=0` hides them),
+     `figS_rescaling_linked.R` (now the multiplicative bound in log10, as Fig. 5; no domain cut).
+   - **Numbers changed a lot.** The class average weights $1/s$ by Gamma(α+1), about $(1+α)/α$ ≈ 4×
+     the aggregate in birds. At the $\hat V_A$ mode and the most generous DFE, the total $N_e/N$ is
+     5e-4 for great tits (Wytham, was 0.068) and 4.5e-3 for song sparrows (was 0.18). Mammal Ω̄ is
+     0.32–0.62 (was 0.81–0.92).
+   - **Rescaling:** c_lk is 1.6–9.8 in birds and 3–8 in mammals; the species average is 3.7 (16 unlinked).
+     The gap to c_msd is 21–124× per population. **Song sparrow at its upper 95% HPD with the
+     pied-flycatcher DFE reaches $N_e/N$ = 6.8e-7, below δ = 2.6e-5**: the one case where linkage
+     alone matches a deficit.
+   - **Introduction and Methods updated to these numbers. `data_gen.R` still carries the old linked
+     code and is not used.**
 7. **Check Matheson & Masel (2025)** — logged as corroborating the unlinked component's importance,
    with one methodological question not yet identified. We quantify what they argue qualitatively:
    1.4× at the median reported $V_A$, ~3× at the maximum.
@@ -821,9 +840,9 @@ the code implements, not necessarily what `scratch.tex` now specifies.
   form, not the exponential", which was the first-order form under another name.
 - **Linked composite, manuscript form (2026-10-19):** exponential throughout,
   $(N_e/N)_i = \exp\{-[\kappa_\text{cis}\overline{Q^2}_iv_h + Q_u^2(\kappa V_A - \kappa_\text{own}v_h)]\}$,
-  so $\Omega_i \le 1$ is immediate. **`data_gen.R` still implements the hyperbolic-denominator form
-  below and has not been changed** (line 479 bug; open item 6a rebuilds the linked analysis). The two
-  agree to first order.
+  so $\Omega_i \le 1$ is immediate. **Implemented in `scripts/R/linked.R` since 2026-10-19**
+  (class-by-class $Z_k$; open item 6a). `data_gen.R` still implements the hyperbolic-denominator form
+  below and has not been changed (line 479 bug); it is no longer the linked pipeline.
 - **Code form of the linked term:** `chrom_Ne_N <- linked_exp / (1 + 4 * kappa * (Va - v_i/2))`.
 - **κ comes from `scripts/R/kappa.R` only** (Appendix B, re-derived 2026-10-14). κ = 1 without a pair
   bond. Social monogamy: $\kappa_B = 2 - 1.5\alpha + 0.625\alpha^2$ (primary) and the longer $\kappa_A$
