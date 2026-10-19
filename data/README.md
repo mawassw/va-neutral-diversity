@@ -166,7 +166,12 @@ caveat on Buffalo's published bird censuses instead.
 1. **Blue tit coding length (30.5 Mb autosomal) is well above great tit's (25.1 Mb).** It comes from a
    newer RefSeq annotation release, so part of the difference across species reflects annotation, not
    biology. U_d inherits it.
-2. **Song sparrow chromosome 25 matches its linkage group at only 0.59 gene share.** Great tit splits
+2. **Map lengths below 1 cM are treated as unmapped** (`has_map = FALSE`; decided 2026-10-17). Five
+   song sparrow linkage groups report 0–0.2 cM for chromosomes of 3–21 Mb (chr 14, 20, 23, 26, 31),
+   which no real map can: every bivalent needs at least one crossover (~50 cM sex-averaged). They
+   are sparse-marker artefacts, and left in they made the linked term near-total for those
+   chromosomes.
+3. **Song sparrow chromosome 25 matches its linkage group at only 0.59 gene share.** Great tit splits
    that chromosome into 25LG1 and 25LG2. Chromosome 31 (LGE22) matches at 0.92. Both are
    microchromosomes.
 3. **SV's `mu_direct` (5.35e-9) matches no single Lewin entry.** It is close to a Wang & Obbard

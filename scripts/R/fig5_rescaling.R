@@ -1,8 +1,8 @@
 # ==============================================================================
-# fig2_rescaling.R — Figure 2: no long-run V_A reconciles both comparisons
+# fig5_rescaling.R — Figure 5: no long-run V_A reconciles both comparisons
 # ==============================================================================
-# Run from the repo root:   Rscript scripts/R/fig2_rescaling.R
-# Reads only through load_data.R. Writes main/Fig2_rescaling.{pdf,tiff}.
+# Run from the repo root:   Rscript scripts/R/fig5_rescaling.R
+# Reads only through load_data.R. Writes main/Fig5_rescaling.{pdf,tiff}.
 #
 # Let the long-run V_A be c times the pedigree estimate: bar V_A = c * hat V_A
 # (c < 1: the estimate is inflated; c > 1: it understates). For each population
@@ -177,8 +177,8 @@ p <- ggplot(avg_draw, aes(c)) +
   )
 
 dir.create("main", showWarnings = FALSE)
-ggsave("main/Fig2_rescaling.pdf", p, width = 120, height = 100, units = "mm", device = cairo_pdf)
-ggsave("main/Fig2_rescaling.tiff", p, width = 120, height = 100, units = "mm", dpi = 600,
+ggsave("main/Fig5_rescaling.pdf", p, width = 120, height = 100, units = "mm", device = cairo_pdf)
+ggsave("main/Fig5_rescaling.tiff", p, width = 120, height = 100, units = "mm", dpi = 600,
        device = ragg::agg_tiff, compression = "lzw")
 if (nzchar(Sys.getenv("FIG_PREVIEW")))
   ggsave(Sys.getenv("FIG_PREVIEW"), p, width = 120, height = 100, units = "mm", dpi = 200,
