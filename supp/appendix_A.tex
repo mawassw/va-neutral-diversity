@@ -38,20 +38,25 @@ In a neutral Wright-Fisher population with a constant diploid census size $N$, t
     \text{Var}(\Delta p^{\text{drift}}) = \frac{p(1-p)}{2N}
 \end{equation}
 
-When variance in reproductive success is heritable ($V_A > 0$), the neutral allele experiences selective interference from the genetic background upon which it resides. In a given generation, a diploid population of $N$ individuals has relative fitnesses $w_i$ with expectation $\mathbb{E}[w_i] = 1$ and variance $\text{Var}(w_i) = V_W$. The frequency of the neutral allele in the subsequent generation is approximately:
-
+When variance in reproductive success is heritable ($V_A > 0$), the neutral allele experiences selective interference from the genetic background on which it resides. In a given generation, a diploid population of $N$ individuals has relative fitnesses $w_i$, normalized so that $\frac{1}{N}\sum_i w_i = 1$, with variance $\text{Var}(w_i) = V_W$. Let $x_i \in \{0, \frac{1}{2}, 1\}$ be the frequency of the neutral allele within individual $i$, so that $p = \frac{1}{N}\sum_i x_i$. Weighting each individual's contribution by its relative fitness, the frequency in the next generation is
 \begin{equation}
-    p' \approx p + \frac{1}{2N}\sum_{i=1}^{N}(w_i - 1)x_i
+    p' \approx \frac{1}{N}\sum_{i=1}^{N} w_i x_i = p + \frac{1}{N}\sum_{i=1}^{N}(w_i - 1)(x_i - p),
 \end{equation}
-where $x_i \in \{0, \frac{1}{2}, 1\}$ denotes the allele copy number in individual $i$ under Hardy-Weinberg proportions. Because the neutral locus is unlinked from all selected sites, relative fitness $w_i$ and the neutral genotype $x_i$ are uncorrelated in expectation ($\mathbb{E}[(w_i-1)x_i] = 0$). The variance in allele frequency change driven purely by this single generation of heritable fitness variation is:
-
+where the second form uses $\sum_i (w_i - 1) = 0$. Because the neutral locus is unlinked to all selected sites, $w_i$ and $x_i$ are independent, so $\mathbb{E}[(w_i - 1)(x_i - p)] = 0$ and the expected change is zero. The variance in the allele frequency change is
 \begin{equation}
-    \text{Var}(\Delta p^{\text{sel}}) =\frac{1}{4N^2}\sum_{i=1}^{N}\text{Var}((w_i - 1)x_i) \approx V_A \frac{p(1-p)}{2N}
+    \text{Var}(\Delta p) = \frac{1}{N^2}\sum_{i=1}^{N}\text{Var}\left[(w_i - 1)(x_i - p)\right] = \frac{V_W\,\text{Var}(x_i)}{N} = V_W\,\frac{p(1-p)}{2N}, \label{eq:A_dp_one}
 \end{equation}
+using $\text{Var}(x_i) = p(1-p)/2$ under Hardy--Weinberg proportions.
 
+The neutral allele is not selected, yet its frequency changes. In each generation its copies are carried by individuals whose fitnesses are independent of the neutral genotype, and by chance the carriers' mean fitness differs slightly from the population mean which results in the allele's frequency moving in the direction of that difference. Equation~\eqref{eq:A_dp_one} gives the variance of this change: the variance in fitness, times how unevenly the allele is spread among individuals, divided by the $N$ individuals over which the chance difference is averaged. The factor $p(1-p)$ is the heterozygosity at the neutral locus. An allele that is fixed or absent is carried equally by every individual and cannot be moved by differences among them, so, as with genetic drift, the effect is largest at intermediate frequency and vanishes without variation at the neutral site.
+
+However, what distinguishes this change from genetic drift is that part of it can persist across the generations. Write $V_W = V_A + V_R$, where $V_R$ collects the environmental and non-additive components of fitness variance. The $V_R$ component is not transmitted: it moves the allele once, as additional sampling variance in the generation it occurs, and is absorbed into the demographic background, here assumed to be Poisson. The additive component is transmitted, because the carriers' offspring inherit, on average, half of their parents' breeding values along with the neutral allele. The heritable part of the one-generation change is therefore
+\begin{equation}
+    \text{Var}(\Delta p^{\text{sel}}) = V_A\,\frac{p(1-p)}{2N}. \label{eq:A_dp_sel}
+\end{equation}
 This formulation (Robertson 1961) relies on a large-$N$ approximation, assumes Hardy-Weinberg equilibrium ($\text{Var}(x_i) = p(1-p)/2$), and isolates the additive genetic component $V_A$ from the total fitness variance, as contributions from dominance and epistasis do not transmit stably across generations to drive multi-generational allele frequency changes.
 
-Because the neutral allele and the selected background are unlinked (segregating on non-homologous chromosomes), they assort independently during meiosis ($r = 0.5$). Consequently, the statistical association, or linkage disequilibrium, between the neutral allele and its initial selected background halves each generation. The directional change in the neutral allele frequency driven by this specific selective cohort decays geometrically:
+Because the neutral allele and the selected background are unlinked (segregating on non-homologous chromosomes), they assort independently during meiosis (i.e., $r = 0.5$). Consequently, the statistical association, or linkage disequilibrium, between the neutral allele and its initial selected background halves each generation $t$. The directional change in the neutral allele frequency driven by this specific selective cohort decays geometrically:
 \begin{equation}
     \Delta p_t^{\text{sel}} = \left(\frac{1}{2}\right)^t \Delta p^{\text{sel}}
 \end{equation}
@@ -67,7 +72,7 @@ This series is a special case. Santiago and Caballero (1995; reviewed in Wang et
 \begin{equation}
     Q = \sum_{i=0}^{\infty} \left[\frac{Z(1+r_{mf})}{2}\right]^i = \frac{2}{2 - Z(1+r_{mf})},
 \end{equation}
-where $Z$ is the retention, the fraction of a gene copy's association with its selective background that survives one generation of selection (their $G$, defined through the variance remaining among selected parents; Section A.4), and $r_{mf}$ is the correlation between the expected selective values of male and female parents. (We write $r_{mf}$ to keep it apart from the recombination fraction $r$.) The series above sets $Z = 1$ and $r_{mf} = 0$. $Z = 1$ holds exactly for a Gaussian, infinitesimal breeding value under the multiplicative model of Section A.3, and is an upper bound when $V_A$ is carried by deleterious alleles (Section A.4). $r_{mf} = 0$ requires that mates pair at random with respect to their breeding values for fitness; under random mating Santiago and Caballero give $r_{mf} = -1/(N-1)$. Assortative mating for fitness ($r_{mf} > 0$) would raise $Q$.
+where $Z$ is the retention, the fraction of a gene copy's association with its selective background that survives one generation of selection (their $G$, defined through the variance remaining among selected parents; Section A.4), and $r_{mf}$ is the correlation between the expected selective values of male and female parents. (We write $r_{mf}$ to distinguish it from the recombination fraction $r$.) The special case above sets $Z = 1$ and $r_{mf} = 0$. $Z = 1$ holds exactly for a Gaussian, infinitesimal breeding value under the multiplicative model of Section A.3, and is an upper bound when $V_A$ is carried by deleterious alleles (Section A.4). $r_{mf} = 0$ requires that mates pair at random with respect to their breeding values for fitness; under random mating Santiago and Caballero give $r_{mf} = -1/(N-1)$. Assortative mating for fitness ($r_{mf} > 0$) would raise $Q$. We do not interest ourselves in that specific process and keep $r_{mf} = 0$.
 
 Assuming $V_A$ remains stationary under mutation-selection-drift equilibrium, a new influx of selective variance of magnitude $V_A p(1-p)/(2N)$ is generated each generation. The long-run footprint of each generation's selective variation resolves to $2\Delta p^{\text{sel}}$.
 
