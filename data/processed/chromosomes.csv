@@ -404,24 +404,24 @@ SSP,melospiza_melodia,10,NC_086203.1,Chromosome,31521720,651236,383,TRUE,TRUE,TR
 SSP,melospiza_melodia,11,NC_086204.1,Chromosome,32005917,957891,607,TRUE,TRUE,TRUE,gene orthology to great tit (share 1.00),8,52.1,0.521
 SSP,melospiza_melodia,12,NC_086205.1,Chromosome,28535873,797578,576,TRUE,TRUE,TRUE,gene orthology to great tit (share 1.00),9,79.3,0.7929999999999999
 SSP,melospiza_melodia,13,NC_086206.1,Chromosome,23122349,707581,476,TRUE,TRUE,TRUE,gene orthology to great tit (share 1.00),11,41.8,0.418
-SSP,melospiza_melodia,14,NC_086207.1,Chromosome,21031278,717007,422,TRUE,TRUE,TRUE,gene orthology to great tit (share 1.00),13,0,0
+SSP,melospiza_melodia,14,NC_086207.1,Chromosome,21031278,717007,422,TRUE,TRUE,FALSE,gene orthology to great tit (share 1.00),13,0,0
 SSP,melospiza_melodia,15,NC_086208.1,Chromosome,20962327,797059,473,TRUE,TRUE,TRUE,gene orthology to great tit (share 1.00),10,39.8,0.39799999999999996
 SSP,melospiza_melodia,16,NC_086209.1,Chromosome,20781294,572748,396,TRUE,TRUE,TRUE,gene orthology to great tit (share 1.00),4A,27.8,0.278
 SSP,melospiza_melodia,17,NC_086210.1,Chromosome,17093058,76572,165,TRUE,FALSE,FALSE,NA,NA,NA,NA
 SSP,melospiza_melodia,18,NC_086211.1,Chromosome,16560389,757506,441,TRUE,FALSE,TRUE,gene orthology to great tit (share 1.00),14,10.2,0.102
 SSP,melospiza_melodia,19,NC_086212.1,Chromosome,16105544,600823,388,TRUE,FALSE,TRUE,gene orthology to great tit (share 1.00),20,19.7,0.19699999999999998
-SSP,melospiza_melodia,20,NC_086213.1,Chromosome,15447346,671055,400,TRUE,FALSE,TRUE,gene orthology to great tit (share 1.00),15,0.2,0.002
+SSP,melospiza_melodia,20,NC_086213.1,Chromosome,15447346,671055,400,TRUE,FALSE,FALSE,gene orthology to great tit (share 1.00),15,0.2,0.002
 SSP,melospiza_melodia,21,NC_086214.1,Chromosome,14597642,573490,385,TRUE,FALSE,TRUE,gene orthology to great tit (share 1.00),19,7.9,0.079
 SSP,melospiza_melodia,22,NC_086215.1,Chromosome,13697673,550335,331,TRUE,FALSE,TRUE,gene orthology to great tit (share 1.00),17,39.8,0.39799999999999996
-SSP,melospiza_melodia,23,NC_086216.1,Chromosome,13012218,317450,212,TRUE,FALSE,TRUE,gene orthology to great tit (share 1.00),22,0,0
+SSP,melospiza_melodia,23,NC_086216.1,Chromosome,13012218,317450,212,TRUE,FALSE,FALSE,gene orthology to great tit (share 1.00),22,0,0
 SSP,melospiza_melodia,24,NC_086217.1,Chromosome,12985511,625953,382,TRUE,FALSE,TRUE,gene orthology to great tit (share 1.00),18,59.7,0.597
 SSP,melospiza_melodia,25,NC_086218.1,Chromosome,12220939,471380,383,TRUE,FALSE,TRUE,gene orthology to great tit (share 0.59),25,17.4,0.174
-SSP,melospiza_melodia,26,NC_086219.1,Chromosome,10890703,473993,294,TRUE,FALSE,TRUE,gene orthology to great tit (share 1.00),21,0,0
+SSP,melospiza_melodia,26,NC_086219.1,Chromosome,10890703,473993,294,TRUE,FALSE,FALSE,gene orthology to great tit (share 1.00),21,0,0
 SSP,melospiza_melodia,27,NC_086220.1,Chromosome,10860949,389614,279,TRUE,FALSE,TRUE,gene orthology to great tit (share 1.00),23,32.5,0.325
 SSP,melospiza_melodia,28,NC_086221.1,Chromosome,9300130,447156,301,TRUE,FALSE,TRUE,gene orthology to great tit (share 1.00),26,56,0.56
 SSP,melospiza_melodia,29,NC_086222.1,Chromosome,9181374,305433,190,TRUE,FALSE,TRUE,gene orthology to great tit (share 1.00),24,48.7,0.48700000000000004
 SSP,melospiza_melodia,30,NC_086223.1,Chromosome,7646334,484168,346,TRUE,FALSE,TRUE,gene orthology to great tit (share 1.00),27,54.7,0.547
-SSP,melospiza_melodia,31,NC_086224.1,Chromosome,3029240,311597,197,TRUE,FALSE,TRUE,gene orthology to great tit (share 0.92),LGE22,0,0
+SSP,melospiza_melodia,31,NC_086224.1,Chromosome,3029240,311597,197,TRUE,FALSE,FALSE,gene orthology to great tit (share 0.92),LGE22,0,0
 SSP,melospiza_melodia,W,NC_086225.1,Chromosome,59460375,160588,132,FALSE,TRUE,FALSE,NA,NA,NA,NA
 SSP,melospiza_melodia,Z,NC_086226.1,Chromosome,82773674,1452329,963,FALSE,TRUE,TRUE,gene orthology to great tit (share 1.00),Z,57.7,0.5770000000000001
 SV,chionomys_nivalis,1,NC_080086.1,Chromosome,205897943,2618110,1930,TRUE,TRUE,FALSE,NA,NA,NA,NA

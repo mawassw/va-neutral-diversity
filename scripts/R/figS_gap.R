@@ -1,8 +1,8 @@
 # ==============================================================================
-# fig1_gap.R — Figure 1: measured V_A sits between the two equilibrium ends
+# figS_gap.R — Supplementary figure (was Figure 1): measured V_A sits between the two equilibrium ends
 # ==============================================================================
-# Run from the repo root:   Rscript scripts/R/fig1_gap.R
-# Reads only through load_data.R. Writes main/Fig1_gap.{pdf,tiff}.
+# Run from the repo root:   Rscript scripts/R/figS_gap.R
+# Reads only through load_data.R. Writes supp/FigS_gap.{pdf,tiff}.
 #
 # One row per population, on a log V_A axis:
 #   MSD band      V_A that mutation-selection-drift balance can maintain,
@@ -149,15 +149,15 @@ p <- ggplot(d, aes(y = label)) +
     plot.margin = margin(2, 2, 2, 2, "mm")
   )
 
-dir.create("main", showWarnings = FALSE)
-ggsave("main/Fig1_gap.pdf", p, width = 178, height = 120, units = "mm", device = cairo_pdf)
-ggsave("main/Fig1_gap.tiff", p, width = 178, height = 120, units = "mm", dpi = 600,
+dir.create("supp", showWarnings = FALSE)
+ggsave("supp/FigS_gap.pdf", p, width = 178, height = 120, units = "mm", device = cairo_pdf)
+ggsave("supp/FigS_gap.tiff", p, width = 178, height = 120, units = "mm", dpi = 600,
        device = ragg::agg_tiff, compression = "lzw")
 
 print(as.data.frame(d %>% transmute(code, va_mode = signif(va_mode, 2), msd_lo = signif(msd_lo, 2),
   msd_hi = signif(msd_hi, 2), req = signif(req, 2), req_lo = signif(req_lo, 2), req_hi = signif(req_hi, 2))))
 
-# Optional low-resolution preview: FIG_PREVIEW=path.png Rscript scripts/R/fig1_gap.R
+# Optional low-resolution preview: FIG_PREVIEW=path.png Rscript scripts/R/figS_gap.R
 if (nzchar(Sys.getenv("FIG_PREVIEW")))
   ggsave(Sys.getenv("FIG_PREVIEW"), p, width = 178, height = 120, units = "mm", dpi = 200,
          device = ragg::agg_png)

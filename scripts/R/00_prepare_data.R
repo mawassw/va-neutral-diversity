@@ -218,7 +218,11 @@ chromosomes <- crosswalk %>%
   mutate(
     is_autosome = !toupper(NCBI_Chromosome) %in% sex_or_organelle,
     is_macro    = Physical_Length_bp >= 20e6,
-    has_map     = !is.na(Total_cM),
+    # A map length below 1 cM is a sparse-marker artefact, not a measurement:
+    # every bivalent needs at least one crossover (~50 cM sex-averaged). Five
+    # song sparrow linkage groups (chr 14, 20, 23, 26, 31; 3-21 Mb) report
+    # 0-0.2 cM. They are treated as unmapped (decided 2026-10-17).
+    has_map     = !is.na(Total_cM) & Total_cM >= 1,
     M_morgans   = Total_cM / 100
   ) %>%
   select(code, genome_sp, NCBI_Chromosome, SeqID, Assembly_Level,

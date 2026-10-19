@@ -448,6 +448,21 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
    $s^* > \bar s$ it gives the larger reduction. The Introduction was reconciled to match: the ¶4 gap
    sentence, and the last paragraph, which now reads "at the measured $V_A$ rather than at the
    variance that balance would maintain".
+   **Worktrees consolidated 2026-10-19 (user: "we don't need trailing worktrees").** These are
+   all on `main` and their worktrees are removed: `worktree-theory-exemplar`,
+   `worktree-global-local` (global vs local effective size, adapted to the exponential composite),
+   `worktree-open-items-domain-map` and `worktree-long-term-contributions`. The main checkout's
+   uncommitted figure-renumbering work is saved as branch `wip-figure-renumbering` (fe44eed) and
+   merged in `worktree-figure-reconcile`. Its script renames were taken, and so was upstream's
+   content. The data layer and every figure were regenerated, and they are exactly the union of
+   both sides. **Left stale, flagged:**
+   - `linked.R` still uses the hyperbolic composite with an aggregate gamma $Z$, so Theory's
+     exponential form with $Z_k = 1 - s_k$ is not implemented. Fig. 3's per-population linked
+     ceilings are therefore OFF by default (`SHOW_LINKED=1`): in that form some lie above the
+     multiplicative band.
+   - `fig2_linked.R` and `figS_rescaling_linked.R` are rendered from the same stale `linked.R`.
+   - `fig1_unlinked.R` still draws the retired $G = 1 - V_A$ curve, has no multiplicative form,
+     and uses $G$ where the notation now has $Z$.
    Earlier: **Introduction redrafted 2026-10-16 and merged to `main`** (scaffolding; needs re-voicing;
    new citations web-checked, Crossref still due; see `manuscript/INTRO_REDRAFT_PLAN.md`).
    Discussion still to do.
@@ -571,7 +586,11 @@ project#3/
 │   ├── supp_fig.R      → SuppFig3 / SuppFig4 (Q vs r, κ vs α, Z vs Vm)
 │   ├── kappa.R         → κ, G and r_mf (Appendices A, B); sourced by every script that needs κ
 │   ├── 00_prepare_data.R → data/processed/ (read via load_data.R)
-│   ├── fig1_gap.R, fig2_rescaling.R → main/Fig1_gap, main/Fig2_rescaling
+│   ├── fig1_unlinked.R → main/Fig1_unlinked   fig2_linked.R → main/Fig2_linked, supp/FigS_omega,
+│   │                     supp/FigS_linked_fgene   fig3_ceiling.R → main/Fig3_ceiling
+│   │                     fig4_selection.R → main/Fig4_selection   fig5_rescaling.R → main/Fig5_rescaling
+│   │                     figS_gap.R → supp/FigS_gap   figS_rescaling_linked.R → supp/FigS_rescaling_linked
+│   │                     tab_reduction.R → manuscript/tables/tab_reduction.tex   (numbering 2026-10-19)
 │   └── poster_figs.R   → poster/figs/PosterFig_A–D   (POSTER ONLY — Rule 12)
 ├── data/
 │   ├── master_chromosome_recomb_data.csv   # genomic-architecture model input

@@ -1,8 +1,8 @@
 # ==============================================================================
-# figS_ceiling.R — Supplementary figure: the V_A ceiling set by observed diversity
+# fig3_ceiling.R — Figure 3: the V_A ceiling set by observed diversity
 # ==============================================================================
-# Run from the repo root:   Rscript scripts/R/figS_ceiling.R
-# Reads only through load_data.R. Writes supp/FigS_ceiling.{pdf,tiff}.
+# Run from the repo root:   Rscript scripts/R/fig3_ceiling.R
+# Reads only through load_data.R. Writes main/Fig3_ceiling.{pdf,tiff}.
 #
 # delta = pi / (4 mu N_c): observed diversity relative to its neutral
 # expectation. The curve is the object: anyone with a delta reads their ceiling
@@ -18,8 +18,9 @@
 #   x rug    observed delta for the populations with pi and an own-species
 #            Buffalo N_c (Soay excluded: domestic Ovis aries census)
 # The measured values are shown only as rugs: Figure 1 shows them by population.
-# (Was main/Fig3_ceiling, two panels; moved to the supplement 2026-10-16. Until
-# 2026-10-19 it showed the first-order curve alone, with a grey region above V_A = 1.)
+# (Two-panel draft 2026-10-16 -> supplement -> back to main as Figure 3, 2026-10-17,
+# with the linked ceiling. Until 2026-10-19 it showed the first-order curve alone, with a
+# grey region above V_A = 1; both forms of one model since, merged 2026-10-19.)
 # ==============================================================================
 
 suppressPackageStartupMessages({
@@ -48,6 +49,39 @@ first <- curve %>%
   mutate(f1 = if_else(f1 <= 1, f1, NA_real_))
 d_enter <- c(1 / (1 + 8), 1 / (1 + 4))
 
+# Linked ceiling, per population in the linked set: the V_A at which
+# Omega_bar(V_A) / (1 + 4 kappa V_A) = delta (hyperbolic form; STALE vs Theory), at the
+# most generous measured DFE of the population's taxon (largest Z). Solved along
+# the delta axis; Omega_bar(V_A) comes from linked.R with Q2bar precomputed.
+# OFF by default (merge of 2026-10-19): in this hyperbolic form the curves leave the
+# first-order domain and some lie above the multiplicative band, which the exponential
+# composite of Theory rules out. Set SHOW_LINKED=1 to draw them; turn on by default once
+# linked.R implements exp() with class-by-class Z_k = 1 - s_k.
+show_linked <- nzchar(Sys.getenv("SHOW_LINKED"))
+lcurve <- data.frame(code = character(), delta = numeric(), V = numeric())
+if (show_linked) {
+source("scripts/R/linked.R")
+birds <- c("BTR", "BTP", "BTM", "CF", "SFW", "SSP", "HT", "HK", "GTU", "GTN")
+lpops <- load_populations("linked")
+auto <- load_chromosomes(autosomes_only = TRUE, mapped_only = FALSE, macro_only = FALSE)
+Zmax <- read.csv("data/dfe_reference.csv") %>% filter(used_for_band == "yes") %>%
+  mutate(Z = Z_gamma(shape_alpha, scale_beta_prime)) %>%
+  group_by(taxon) %>% summarise(Z = max(Z), .groups = "drop")
+d_grid <- 10^seq(log10(x_lo), -1e-3, length.out = 120)
+lcurve <- bind_rows(lapply(lpops$code, function(cd) {
+  a <- filter(auto, code == cd); m <- filter(a, has_map)
+  k <- lpops$kappa[lpops$code == cd]
+  Z <- Zmax$Z[Zmax$taxon == if (cd %in% birds) "Birds" else "Mammals"]
+  om <- omega_fun(m, f_share(m, a, "bp"), k, Z)
+  g <- function(lv) log(om(10^lv) / (1 + 4 * k * 10^lv))
+  V <- vapply(d_grid, function(dl) {
+    if (g(log10(y_hi)) > log(dl)) return(NA_real_)          # above the plotted range
+    10^uniroot(function(lv) g(lv) - log(dl), c(-8, log10(y_hi)))$root
+  }, numeric(1))
+  data.frame(code = cd, delta = d_grid, V = V)
+}))
+}
+
 p <- ggplot() +
   geom_hline(yintercept = 1, linewidth = 0.3, linetype = "22", colour = "grey40") +
   # all orders, multiplicative upper bound
@@ -67,6 +101,14 @@ p <- ggplot() +
            label = '"First order:"~~italic(V)[A*","*max] == frac(1 - delta, 4*kappa*delta)') +
   annotate("text", x = 0.06, y = 0.0045, colour = col_first, size = 2.2, hjust = 1, lineheight = 0.9,
            label = "drawn inside its domain, ceiling ≤ 1 (δ ≥ 0.11–0.2);\nband κ = 1 to 2") +
+  # linked ceilings, one per linked-set population. STALE vs Theory: linked.R still uses
+  # the hyperbolic composite and an aggregate gamma-DFE Z, not exp() with class-by-class
+  # Z_k = 1 - s_k. Recompute once linked.R is rebuilt.
+  { if (show_linked) list(
+      geom_line(data = lcurve, aes(delta, V, group = code), colour = "#7B3294", linewidth = 0.35,
+                alpha = 0.8, na.rm = TRUE),
+      annotate("text", x = 1.4e-5, y = 0.22, colour = "#7B3294", size = 2.2, hjust = 0,
+               label = "purple: linked ceiling, per population")) } +
   annotate("segment", x = d_enter, xend = d_enter, y = y_lo, yend = 1,
            linetype = "22", linewidth = 0.3, colour = "grey55") +
   # measured values, as rugs
@@ -86,12 +128,12 @@ p <- ggplot() +
   theme(panel.grid.major = element_line(colour = "grey92", linewidth = 0.3),
         plot.margin = margin(3, 4, 2, 2, "mm"))
 
-dir.create("supp", showWarnings = FALSE)
-ggsave("supp/FigS_ceiling.pdf", p, width = 120, height = 95, units = "mm", device = cairo_pdf)
-ggsave("supp/FigS_ceiling.tiff", p, width = 120, height = 95, units = "mm", dpi = 600,
+dir.create("main", showWarnings = FALSE)
+ggsave("main/Fig3_ceiling.pdf", p, width = 120, height = 95, units = "mm", device = cairo_pdf)
+ggsave("main/Fig3_ceiling.tiff", p, width = 120, height = 95, units = "mm", dpi = 600,
        device = ragg::agg_tiff, compression = "lzw")
-if (nzchar(Sys.getenv("FIG_PREVIEW")))
-  ggsave(Sys.getenv("FIG_PREVIEW"), p, width = 120, height = 95, units = "mm", dpi = 200,
+if (nzchar(Sys.getenv("FIG_PREVIEW_DIR")))
+  ggsave(file.path(Sys.getenv("FIG_PREVIEW_DIR"), "Fig3_ceiling.png"), p, width = 120, height = 95, units = "mm", dpi = 200,
          device = ragg::agg_png)
 
 need <- d %>% mutate(v = vamax_mult(delta, kappa_mult_bound(pair_bond == "social_monogamy")))
