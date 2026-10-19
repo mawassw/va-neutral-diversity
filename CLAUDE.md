@@ -367,6 +367,22 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
    **The Overleaf "Synthesis" subsection was deleted** (user); its demography point is parked as a
    comment in `discussion.tex`. Fixed on the way: hard-coded "Table~1", the ">85% in two
    generations" arithmetic (T-6), I_A dropped (T-3).
+   **Theory restructured 2026-10-19 to the GENETICS exemplar** (branch `worktree-theory-exemplar`).
+   It is now one chain ending in a single condition, $(1-\delta)/(4\kappa\delta) \le U_d\bar s$
+   (`eq:compat`, new §"The two comparisons as conditions on the long-term variance"). That
+   condition contains no pedigree estimate. A closing §"Direction of the approximations" plays the
+   role of the exemplar's "Framework breakdown". D2 is now displayed (`eq:harmonic`); it is exact
+   only for constant N, or V_A uncorrelated with 1/N. Assumptions are declared once at the end of
+   §quantity. Z and Q(s) moved out of §MSD. The limits table moved to Appendix C, in general-Z form.
+   **Decision (user, 2026-10-19): the linked term uses the MEASURED $\hat V_A$, not balance.**
+   $Z = 1 - U_d\mathbb E[s^2]/\hat V_A$, matching Methods. Balance values ($1-\mathbb E[s^2]/\mathbb
+   E[s]$) are given only for comparison; they are closer to 0 than the measured-V_A values, so the
+   linked reduction at the measured variance is the larger one. **Ω baseline fixed:** Ω is relative
+   to $1/(1+Q_u^2\kappa V_A)$, not Eq. `unlinked_mating`. The linked ceiling is implicit. It is
+   bounded by $(1-\delta)/(Q_u^2\kappa\delta)$ at the same Z, not by $V_{A,\max}$; Appendix C.5 was
+   corrected to match. ⚠ The Introduction still says the linked term is computed "under
+   mutation–selection balance" (last paragraph, and ¶4 via Li & Berg). Reconcile it at the next
+   Intro pass.
    Earlier: **Introduction redrafted 2026-10-16 and merged to `main`** (scaffolding; needs re-voicing;
    new citations web-checked, Crossref still due; see `manuscript/INTRO_REDRAFT_PLAN.md`).
    Discussion still to do.

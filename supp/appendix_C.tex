@@ -77,6 +77,26 @@ Equation~\eqref{eq:C_closed_haldane} agrees with numerical quadrature of Equatio
 \end{equation}
 and the integral is close to $1/(1-Z)$ (10.3 at $Z = 0.9$, 105 at $Z = 0.99$). The free-recombination value is therefore reached only when $M \gg 1/(1-Z)$ Morgans. At $Z = 0.99$ and $M = 10$, $\overline{Q^2}_\text{H} = 24.8$, against the limit 3.9. Real chromosomes lie between the two limits, in the regime $\overline{Q^2}_\text{H} \approx 2/[M(1-Z)]$, which is Santiago and Caballero's (1998) Equation 8 and the $e^{-2U/R}$ of Barton (1995).
 % UNVERIFIED: SC 1998 equation number taken from Buffalo & Kern 2024 Supplementary Eqs 34-35; SC 1998 body not read.
+Table~\ref{tab:linked_limits} collects the two limits. They are written for general $Z$; at balance with uniform effects $Z = 1 - s$ (Appendix~D), and at the measured variance used in the main text $Z = 1 - U_d\,\mathbb{E}[s^2]/\hat{V}_A$.
+
+\begin{table}[h!]
+\centering
+\caption{Limiting values of chromosome-wide selective interference ($\overline{Q^2}_\text{linked}$) and of the linked factor $\exp(-\kappa_\text{cis}\overline{Q^2}_\text{linked}v_h)$ in the chromosome-level reduction. The limits are reached only for $M \ll 1 - Z$ and $M \gg 1/(1-Z)$ respectively; real chromosomes lie between, near $\overline{Q^2}_\text{linked} \approx 2/[M(1-Z)]$. Here $v_h$ is the additive variance in relative fitness on the focal haplotype, and $\kappa_\text{cis}$ ($= 1$ in primary results) is the weight of the carrier's own breeding value (Appendix B). With $Z = 1 - s$ the free-recombination value is $4/(1+s)^2$.}
+\label{tab:linked_limits}
+\begin{tabular}{llcc}
+\toprule
+Persistence & Quantity & Complete linkage & Free recombination \\
+& & ($M \ll 1-Z$) & ($M \gg 1/(1-Z)$) \\
+\midrule
+$Z < 1$ & $\overline{Q^2}_\text{linked}$ & $(1-Z)^{-2}$ & $Q_u^2 = \dfrac{4}{(2-Z)^2}$ \\[2ex]
+ & linked factor & $\exp\!\left(-\dfrac{\kappa_\text{cis} v_h}{(1-Z)^2}\right)$ & $\exp\!\left(-\dfrac{4\kappa_\text{cis} v_h}{(2-Z)^2}\right)$ \\
+\addlinespace[1.5ex]
+\midrule
+$Z \to 1$ & $\overline{Q^2}_\text{linked}$ & $\infty$ & $4$ \\[2ex]
+ & linked factor & $0$ & $\exp(-4\kappa_\text{cis} v_h)$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \subsection*{C.3\quad Closed form under the linear recombination model}
 
@@ -100,7 +120,7 @@ The penalty $\Omega_i$ of Equation~\eqref{linked_penalty} satisfies $\Omega_i \l
 \begin{equation}
 \Omega_i = e^{-x}\,\frac{1+K}{1+K-y} \le \frac{1+K}{(1+y)(1+K-y)} \le 1,
 \end{equation}
-the last step because $(1+y)(1+K-y) - (1+K) = y(K-y) \ge 0$. Mixing persistences breaks the bound: with $Z < 1$ in the linked term but $Q = 2$ in the unlinked one, $\Omega_i$ exceeds 1 on long maps at large $1 - Z$ (up to 1.08 for $1 - Z \le 0.6$). It follows that $V_{A,\text{max}}^{(\text{linked})} = (\overline{\Omega} - \delta)/(4\kappa\delta) \le V_{A,\text{max}}$: no arrangement of recombination rates or functional density raises neutral diversity above the unlinked expectation.
+the last step because $(1+y)(1+K-y) - (1+K) = y(K-y) \ge 0$. Mixing persistences breaks the bound: with $Z < 1$ in the linked term but $Q = 2$ in the unlinked one, $\Omega_i$ exceeds 1 on long maps at large $1 - Z$ (up to 1.08 for $1 - Z \le 0.6$). It follows that, at a given persistence, the linked ceiling, the root of $\overline{\Omega}/(1 + Q_u^2\kappa V_A) = \delta$, does not exceed the unlinked ceiling at that persistence, $(1-\delta)/(Q_u^2\kappa\delta)$, which is Equation~\eqref{eq:vamax} at $Z = 1$: no arrangement of recombination rates or functional density raises neutral diversity above the unlinked expectation at the same $Z$.
 
 \subsection*{C.6\quad The spatial distribution of selective variance}\label{sec:spatial_variance}
 The main text spreads additive variance uniformly along the genetic map of each chromosome (density $1/M$), a spatially uniform realization of the infinitesimal model (Fisher 1918; Barton et al. 2017). Because the genetic architecture of fitness in wild populations is unresolved, spanning highly polygenic to oligogenic cases (Barton and Keightley 2002), we treat the uniform density as a baseline and characterize the direction of departures from it.

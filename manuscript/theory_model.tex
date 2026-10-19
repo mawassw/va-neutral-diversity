@@ -23,21 +23,143 @@
     \linenumbers
 \fi
 % Working copy (user, 2026-10-17): scratch.tex is stale; edit this file directly.
-% Theory redraft, 2026-10-17. Order mirrors the Introduction: the quantity and its timescale,
-% maintenance at mutation--selection--drift balance, the genome-wide reduction (Result 1), mating
-% system, the ceiling, then the linked reduction, which is conditional on the maintenance model.
-% Model only: population numbers live in Results, data choices in Methods. The spatial-distribution
-% analysis and the Omega <= 1 proof are in Appendix C. The former "Synthesis" subsection was deleted.
+% Theory restructure, 2026-10-19, to the GENETICS exemplar (Lee and Terhorst 2026, iyag180):
+% one chain of results ending in a single condition, explicit links between subsections,
+% assumptions declared once, and a closing subsection on the direction of each approximation
+% (the exemplar's "Framework breakdown"). Order: the quantity and its timescale; maintenance at
+% mutation--selection--drift balance; the genome-wide reduction; mating system and the time
+% average (D2, now displayed); the ceiling; the linked reduction, evaluated at the MEASURED V_A
+% (user decision 2026-10-19), not at balance; the two comparisons as conditions on c; the
+% direction of the approximations. Model only: numbers in Results, data choices in Methods.
+% The limits table moved to Appendix C. Prose is scaffolding; voice is the author's to revise.
 
 \section{Theory and Model}
 \subsection{The quantity and its timescale}\label{sec:quantity}
-The central quantity is the additive genetic variance in relative fitness, $V_A$: the variance of breeding values for lifetime reproductive contribution, standardized to mean fitness ($\bar{w} = 1$). It is the mean-standardized variance $C^2$ of Santiago and Caballero (1995). Bonnet et al. (2022) estimate it in these units. They fit a zero-inflated over-dispersed Poisson animal model to lifetime breeding success and back-transform the latent-scale additive genetic covariance matrix $\mathbf{G}$ as $V_A(w) = \mathbf{d}^\top\mathbf{G}\mathbf{d}$, where $\mathbf{d}$ holds the average partial derivatives of mean relative fitness with respect to the two latent predictors. Their estimates therefore enter every model below without rescaling.
+The central quantity is the additive genetic variance in relative fitness, $V_A$: the variance of breeding values for lifetime reproductive contribution, standardized to mean fitness ($\bar{w} = 1$). It is the mean-standardized variance $C^2$ of Santiago and Caballero (1995). Bonnet et al. (2022) estimate it on this scale: their zero-inflated over-dispersed Poisson animal model is back-transformed to the observed scale of relative fitness as $V_A(w) = \mathbf{d}^\top\mathbf{G}\mathbf{d}$ (Introduction), so their estimates enter every model below without rescaling.
 
-Both comparisons require the long-term value of this variance. Santiago and Caballero's derivation gives the variance effective size, $N_{eV}$, which sets the per-generation rate of drift. Nucleotide diversity measures the coalescent effective size, $N_{eC}$, with $\pi = 4N_{eC}\mu$. Under long-term demographic and selective equilibrium the two coincide ($N_{eV} = N_{eC} = N_e$), and this equality is what allows neutral diversity to constrain $V_A$. Diversity reflects genealogies with a total pairwise branch length of $4N_e$ generations, over which fluctuations in effective size enter through their harmonic mean (Wright 1938). Because the denominator of the reduction derived below (Equation~\eqref{unlinked_mating}) is linear in $V_A$, the harmonic-mean $N_e/N$ over the coalescent window is exactly $1/(1 + 4\kappa\bar{V}_A)$, where $\bar{V}_A$ is the variance averaged over that window. Diversity therefore responds to $\bar{V}_A$. Mutation--selection--drift balance likewise describes the stationary variance, not its value in a single generation.
+Both comparisons require the long-term value of this variance. Santiago and Caballero's derivation gives the variance effective size, $N_{eV}$, which sets the per-generation rate of drift. Nucleotide diversity measures the coalescent effective size, $N_{eC}$, with $\pi = 4N_{eC}\mu$. Under long-term demographic and selective equilibrium the two coincide ($N_{eV} = N_{eC} = N_e$), and this equality is what allows neutral diversity to constrain $V_A$. Diversity reflects genealogies with a total pairwise branch length of $4N_e$ generations, and mutation--selection--drift balance describes a stationary variance. Neither refers to the variance of a single generation.
 
-A pedigree estimate refers to a different quantity, and the difference follows from the estimator. $V_A(w)$ is specific to the sampled cohorts and environment: $\mathbf{d}$ is evaluated at the observed state of the population, so the same $\mathbf{G}$ in a different environment gives a different $V_A(w)$. We therefore write the long-term variance as $\bar{V}_A = c\,\hat{V}_A$, where $\hat{V}_A$ is the pedigree estimate and $c$ is unknown. The two comparisons respond to $c$ in opposite directions, since a larger $\bar{V}_A$ removes more diversity and is harder to maintain. The diversity comparison also assumes that $\bar{V}_A$ is sustained over the coalescent window, and whether recurrent mutation can sustain a variance of that size is what the mutation--selection--drift comparison tests (\autoref{msdb}).
+A pedigree estimate refers to a different quantity, and the difference follows from the estimator. $V_A(w)$ is specific to the sampled cohorts and environment: $\mathbf{d}$ is evaluated at the observed state of the population, so the same $\mathbf{G}$ in a different environment gives a different $V_A(w)$. We therefore write the long-term variance as
+\begin{equation}
+\bar{V}_A = c\,\hat{V}_A, \label{eq:c}
+\end{equation}
+where $\hat{V}_A$ is the pedigree estimate and $c$ is unknown. The two comparisons respond to $c$ in opposite directions, since a larger $\bar{V}_A$ removes more diversity and is harder to maintain. The diversity comparison also assumes that $\bar{V}_A$ is sustained over the coalescent window, and whether recurrent mutation can sustain a variance of that size is what the mutation--selection--drift comparison tests.
 
-Two ratios are called $N_e/N$ in this literature, and we keep them apart. The demographic ratio $N_{eV}/N$, set by family-size variance and sex ratio, is typically 0.1--0.5. The diversity ratio $\delta = \pi/(4\mu N)$ (\autoref{sec:ceiling}) is the one used here. Notation is summarized in Table~\ref{tab:notation}.
+Two ratios called $N_e/N$ appear in this literature, and neither is the one in our model equations. The demographic ratio $N_{eV}/N$, set by family-size variance of every origin and by sex ratio, is typically 0.1--0.5. The diversity ratio $\delta = \pi/(4\mu N)$ (\autoref{sec:ceiling}) is typically several orders of magnitude smaller. In every equation below, $N_e/N$ denotes the reduction caused by selection on $V_A$ alone, relative to $N$ breeding adults whose family sizes are otherwise Poisson; at equilibrium it is the model's prediction for $\delta$.
+
+For the rest of the paper we assume a constant number $N$ of breeding adults with an equal sex ratio, Poisson family sizes in the absence of selection, random pairing with respect to breeding value ($r_{mf} = 0$), and that selection does not deplete the variance it acts on within a generation ($G = 1$). Appendices~A and B relax the last two. Notation is summarized in Table~\ref{tab:notation}.
+
+\subsection{The variance maintained at mutation--selection--drift balance}\label{msdb}
+We first ask how large a variance recurrent mutation can maintain. The classical account is a balance between recurrent deleterious mutation and purifying selection. New mutations add variance at rate $V_m = U_d\,\mathbb{E}[s^2]$, where $U_d$ is the diploid genome-wide deleterious mutation rate and $s$ the heterozygous effect on relative fitness (Charlesworth 2015). Selection removes this variance at rate $s$ per generation and drift at rate $1/(2N_e)$. For a uniform $s$, the diffusion solution for a semidominant deleterious allele (Kimura 1969) gives the stationary variance
+\begin{equation}
+V_A = U_d\,s\left[1 - \frac{4N_es}{e^{4N_es} - 1}\right] \label{eq:VA_MSD}
+\end{equation}
+(Appendix~D). It runs from the mutation--drift limit $V_A = 2N_eU_ds^2$ for $N_es \ll 1$ (Lynch and Hill 1986) to the deterministic balance
+\begin{equation}
+V_A \approx U_d\,s \qquad (N_es \gg 1), \label{eq:HoC}
+\end{equation}
+in which each deleterious allele is held at frequency $q \approx \mu/s$ (Mukai et al. 1972; Charlesworth 2012). The bracket in Equation~\eqref{eq:VA_MSD} never exceeds one, so $U_d\,s$ is the largest variance the balance maintains at any effective size. Inverting Equation~\eqref{eq:HoC} gives the selection coefficient that a long-term variance requires,
+\begin{equation}
+s^* = \frac{\bar{V}_A}{U_d}. \label{eq:sstar}
+\end{equation}
+Charlesworth (2015) made this comparison for fitness components in \emph{Drosophila} (see also Johnson and Barton 2005); here it is applied to total fitness, with $\bar{V}_A$ evaluated at the pedigree estimate ($c = 1$).
+
+In the strong-selection limit $s^*$ estimates the arithmetic mean $\bar{s}$ of the distribution of fitness effects (DFE), whatever the DFE's shape, because each class of mutation contributes $U_d\,s$ and so $V_A = U_d\,\bar{s}$. Shape enters only through nearly neutral mutations ($4N_es \lesssim 1$), which contribute less than $U_d\,s$ (Equation~\eqref{eq:VA_MSD}); a more leptokurtic DFE with the same mean therefore maintains less variance, not more. Site-frequency spectra constrain the strongly deleterious tail poorly, so a DFE mean inferred from them is partly an extrapolation. The weak-selection branch requires $2N_es \ll 1$, and with $V_A \approx 2N_eU_ds^2$ this implies $N_e \ll U_d/(2V_A)$: for $U_d$ of order one and $V_A$ of order 0.1, an effective size of a few individuals. No outbred population lies on that branch, so the strong-selection limit applies, and there Equations~\eqref{eq:VA_MSD} and \eqref{eq:HoC} coincide.
+
+\subsection{The genome-wide reduction in effective size}\label{sec:unlinked}
+We next ask how much diversity a given $\bar{V}_A$ removes at a neutral site that assorts independently of all selected loci. Segregation halves the inherited breeding value each generation, so the cumulative transmission factor is $Q = \sum_{t \ge 0} (1/2)^t = 2$. This is the case $G = 1$, $r_{mf} = 0$ of Santiago and Caballero's (1995) $Q = 2/[2 - G(1+r_{mf})]$. Setting $Q = 2$ in Equation~\eqref{eq:intro_sc}, which combines this selective contribution with Poisson sampling drift (Appendix~A), gives
+\begin{equation}
+\frac{N_e}{N} = \frac{1}{1 + 4V_A}. \label{unlinked_baseline}
+\end{equation}
+
+Equation~\eqref{unlinked_baseline} is exact under long-term equilibrium, and the quantity it requires is the long-term equilibrium variance $\bar{V}_A$ (\autoref{sec:quantity}). If $V_A$ is not stationary, the equation holds generation by generation and diversity records its time average (\autoref{sec:mating}). Because $Q$ is dominated by the first terms of the series, the equation requires the sign of a lineage's selective advantage to persist for only about two generations. It makes no assumption about the haplotype structure of the selected background or about the process that maintains $V_A$, and so applies under mutation--selection--drift balance, during directional sweeps, and under fluctuating selection that is positively autocorrelated across generations.
+
+The equation also has a domain. It treats each lineage's advantage as small, which requires $V_A \ll 1$. Within $V_A < 1$ the reduction is bounded: when selection depletes the variance it acts on, $G = 1 - V_A$ (Appendix~A), and $N_e/N = 1/[1 + 4V_A/(1+V_A)^2]$, which does not fall below 1/2 for any $V_A < 1$. Larger reductions require values of $V_A$ outside the domain, where Equation~\eqref{unlinked_baseline} is an extrapolation. Strong selection shortens the persistence of associations further: with selection coefficient $s$ the transmission factor becomes $Q(s) = 2/(1+s)$ (Charlesworth 2012, Appendix; Appendix~D). Unless breeding values for fitness are strongly right-skewed, $G \le 1$ (Appendix~A), so $G = 1$ and $Q = 2$ together give the largest reduction the model allows.
+
+\subsection{Separate sexes and the mating system}\label{sec:mating}
+Equation~\eqref{unlinked_baseline} treats the population as hermaphrodite. With separate sexes, half of every genome passes through each sex, and Santiago and Caballero (1995) combine the sexes as $1/N_e = 1/(4N_{e,m}) + 1/(4N_{e,f})$ (after Crow and Denniston 1988). At an equal sex ratio this averages the selective variance over the sexes rather than adding it. What sets a parent's family size depends on the mating system. Without a pair bond, each parent's own breeding value does. Under social monogamy the unit of productivity is the nest, so a parent's family size also depends on its social partner's breeding value. Extra-pair paternity at rate $\alpha$ moves paternity away from the nest without changing the number of offspring the nest produces. Applying the expected long-term contributions of Woolliams, Bijma and Villanueva (1999) to these mating systems (Appendix~B) gives
+\begin{equation}
+    \frac{N_e}{N} = \frac{1}{1 + 4\kappa(\alpha)V_A}, \label{unlinked_mating}
+\end{equation}
+where $V_A$ is common to both sexes, as estimated by Bonnet et al. (2022), and $\kappa(\alpha)$ is a mating-system scalar. Without a pair bond $\kappa = 1$, and Equation~\eqref{unlinked_baseline} is unchanged. Under social monogamy, when extra-pair gains are proportional to male breeding value and replace within-pair losses (Model B, used in all primary results),
+\begin{equation}
+    \kappa_B(\alpha) = 2 - \tfrac{3}{2}\alpha + \tfrac{5}{8}\alpha^2, \label{eq:kappaB}
+\end{equation}
+which falls monotonically from 2 at $\alpha = 0$ to 9/8 at $\alpha = 1$. A model in which extra-pair siring is independent of male breeding value (Model A) is given in Appendix~B and used as a sensitivity bound. Under strict monogamy both models give $\kappa = 2$, the pair-mated model of Santiago and Caballero (1995): each nest pools two independent breeding values, so the variance of family fitness is $2V_A$, and a given reduction in diversity requires half the variance needed without a pair bond. Appendices~A and B give the forms for general $G$ and $r_{mf}$.
+
+Equation~\eqref{unlinked_mating} also fixes what diversity records when $V_A$ changes over time. Each generation contributes $1/N_e(t) = [1 + 4\kappa V_A(t)]/N$, and neutral diversity reflects the harmonic mean of $N_e$ over the coalescent window (Wright 1938). Over $T$ generations,
+\begin{equation}
+\frac{\tilde{N}_e}{N} = \left[\frac{1}{T}\sum_{t=1}^{T} \frac{N}{N_e(t)}\right]^{-1} = \frac{1}{1 + 4\kappa\bar{V}_A}, \qquad \bar{V}_A = \frac{1}{T}\sum_{t=1}^{T} V_A(t). \label{eq:harmonic}
+\end{equation}
+Because the reduction is linear in $V_A$, the harmonic mean passes the time average through without further approximation: diversity responds to $\bar{V}_A$ and to nothing else about the trajectory of $V_A$. This is why $\bar{V}_A$ in Equation~\eqref{eq:c} is the target of the diversity comparison. If $N$ also varies, Equation~\eqref{eq:harmonic} holds with $N$ replaced by its harmonic mean provided that $V_A(t)$ is uncorrelated with $1/N(t)$; it also assumes a constant mating system, and so a constant $\kappa$.
+
+\subsection{The ceiling on additive variance set by neutral diversity}\label{sec:ceiling}
+Inverting Equation~\eqref{unlinked_mating} gives the largest long-term variance compatible with a given loss of neutral diversity. Let
+\begin{equation}
+    \delta \equiv \frac{\pi}{4N\mu} \approx \frac{N_{eC}}{N}
+\end{equation}
+be the diversity ratio, the coalescent effective size relative to the number of breeding adults. Under the equilibrium of \autoref{sec:quantity} ($N_{eC} = N_{eV}$), setting Equation~\eqref{unlinked_mating} equal to $\delta$ gives
+\begin{equation}
+    V_{A,\text{max}} = \frac{1 - \delta}{4\kappa(\alpha)\,\delta}. \label{eq:vamax}
+\end{equation}
+The ceiling depends only on $\delta$ and $\kappa$, and we present it as a curve against which any population with a diversity estimate can be read; strict monogamy halves it relative to a system without a pair bond. A long-term variance above $V_{A,\text{max}}$ predicts less diversity than is observed, and one below it leaves part of the deficit unexplained. The derivation attributes all overdispersion of family size beyond the Poisson expectation to $V_A$; environmental or non-additive sources of reproductive variance would lower the ceiling.
+
+Equation~\eqref{eq:vamax} assumes $G = 1$. With $G = 1 - V_A$, the unlinked $N_e/N$ does not fall below 1/2 without a pair bond, or 1/3 under strict monogamy, for any $V_A < 1$; below these values of $\delta$ the ceiling is meaningful only as the $G = 1$ limit. A population with $\delta \ge 1$ gives $V_{A,\text{max}} \le 0$, which indicates that the equilibrium assumptions fail for that population; such populations are excluded rather than interpreted (Methods).
+
+\subsection{The reduction at linked sites}\label{sec:linkage}
+The genome-wide reduction leaves out one source of drift. At a neutral site linked to selected loci, associations do not halve each generation: recombination breaks them only partially, and how long they last depends on how long the selected background itself persists. We measure that persistence by the fraction of the standing variance that new mutation does not replace each generation,
+\begin{equation}
+Z \equiv 1 - \frac{V_m}{V_A} = 1 - \frac{U_d\,\mathbb{E}[s^2]}{V_A}, \label{eq:Z}
+\end{equation}
+which presupposes a stationary selected background (Barton 1998, 2000). We evaluate Equation~\eqref{eq:Z} at the measured variance $\hat{V}_A$, not at mutation--selection--drift balance. At balance $V_A = U_d\,\bar{s}$, and $Z$ reduces to $1 - \mathbb{E}[s^2]/\mathbb{E}[s] = 1 - \bar{s}(1 + \mathrm{CV}_s^2)$: $1 - s$ when all effects are equal and $1 - 6\bar{s}$ for a gamma DFE of shape 0.2 (Appendix~D). Whenever $s^* > \bar{s}$ (\autoref{msdb}), the measured variance exceeds what balance maintains, so $Z$ is closer to one than at balance. This treats the variance in excess of $U_d\,\bar{s}$ as a persistent selected background of unspecified origin, linked to neutral sites through the same kernel.
+% AUTHOR: the excess-variance sentence is the interpretive cost of the measured-V_A choice; check
+% it says what you intend.
+
+Map distance $\ell$ (in Morgans) is converted to recombination frequency with the Haldane function, $r(\ell) = \frac{1}{2}(1 - e^{-2\ell})$, because whole chromosomes often exceed 0.5 M, beyond which a linear map gives $r > 1/2$. An association survives one generation of recombination and selection with probability $(1 - r(\ell))Z = \frac{Z}{2}(1 + e^{-2\ell})$. Summing over generations, and averaging over selected loci and neutral sites spread uniformly along a chromosome of map length $M$, gives (Appendix~C)
+\begin{equation}
+\overline{Q^2}_\text{linked} = \frac{2}{M^2}\int_0^M (M - \ell)\left(\frac{1}{1 - \dfrac{Z}{2}(1 + e^{-2\ell})}\right)^2 d\ell. \label{eq:haldane_avg}
+\end{equation}
+The kernel is the background-selection kernel: with $Z = 1 - s$ it is $1/[s + r(1-s)]$ (Hudson and Kaplan 1995; Nordborg et al. 1996; Santiago and Caballero 1998, 2016; Buffalo and Kern 2024). Equation~\eqref{eq:haldane_avg} has a closed form, and the linear-map form is a lower bound on it (Appendix~C). $\overline{Q^2}_\text{linked}$ increases with $Z$, so evaluating $Z$ at the measured variance gives a larger linked reduction than balance would. Real chromosomes lie between the limits of complete linkage ($M \ll 1 - Z$) and free recombination ($M \gg 1/(1-Z)$), near $\overline{Q^2}_\text{linked} \approx 2/[M(1-Z)]$ (Santiago and Caballero 1998; Appendix~C and Table~\ref{tab:linked_limits}), so interference decreases with map length and with $1 - Z$. With one obligate crossover per bivalent, avian microchromosomes have map lengths of about 0.5 M or more and do not approach complete linkage. When selected loci are placed independently of local recombination rate, spreading the variance uniformly along the map maximizes the expected reduction; clustering in regions of low recombination can reverse this ordering (Appendix~C).
+
+A neutral allele is linked in cis only to selected loci on its own haplotype, because associations with the homologous chromosome are broken at meiosis (Buffalo and Kern 2024). Chromosome $i$ carries additive variance $v_i = V_A f_i$, where $f_i$ is its share of the genome's functional sequence, and the focal haplotype carries $v_h = v_i/2$. Treating linked contributions as a Poisson process along the map (Hudson and Kaplan 1995; Santiago and Caballero 2016), the linked reduction for chromosome $i$ is
+\begin{equation}
+\left(\frac{N_e}{N}\right)_i \approx \exp\left(-\kappa_\text{cis}\,\overline{Q^2}_\text{linked}\,v_h\right). \label{eq:ne_chrom}
+\end{equation}
+The linked term carries only $\kappa_\text{cis}$, the weight of the carrier's own breeding value in its family size, because a social partner's genes are never in cis with the focal copy (Appendix~B). $\kappa_\text{cis} = 1$ without a pair bond and under Model B.
+
+The rest of the genome, the homologous haplotype and all other chromosomes, assorts independently of the focal site and contributes the unlinked reduction at variance $V_A - v_h$. Under social monogamy this background also includes the partner's breeding value, so only the own component $\kappa_\text{own}$ of $\kappa = \kappa_\text{own} + \kappa_\text{partner}$ loses $v_h$ (Appendix~B). Buffalo and Kern (2024) omitted the associations with the homologous haplotype; here that variance is assigned to the unlinked background. The two terms act on independent segments of the genealogy and combine multiplicatively:
+\begin{equation}
+    \left(\frac{N_e}{N}\right)_i \approx \frac{\exp\left(-\kappa_\text{cis}\,\overline{Q^2}_i\,v_h\right)}{1 + Q_u^2(\kappa V_A - \kappa_\text{own}\,v_h)}, \label{total_red}
+\end{equation}
+which under Model B, and without a pair bond, is $\exp(-\overline{Q^2}_i v_h)/[1 + Q_u^2(\kappa V_A - v_h)]$. Here $Q_u = 2/(2-Z)$ is the unlinked transmission factor with the same persistence $Z$ as the linked term. It is the $M \to \infty$ limit of $\overline{Q^2}_\text{linked}$ (Appendix~C) and returns $Q = 2$, and with it Equation~\eqref{unlinked_mating}, at $Z = 1$.
+
+The reduction attributable to linkage is measured against the unlinked reduction at the same persistence, $(N_e/N)_u = 1/(1 + Q_u^2\kappa V_A)$:
+\begin{equation}
+    \Omega_i \equiv \frac{(N_e/N)_i}{(N_e/N)_u} = \exp\left(-\kappa_\text{cis}\,\overline{Q^2}_i\,v_h\right) \cdot \frac{1 + Q_u^2\kappa V_A}{1 + Q_u^2(\kappa V_A - \kappa_\text{own}\,v_h)}. \label{linked_penalty}
+\end{equation}
+The second factor exceeds one, because variance assigned to the linked term no longer contributes to the unlinked one. Using the same $Z$ in both terms makes $\Omega_i \le 1$ hold exactly (Appendix~C). With neutral sites spread uniformly over the physical genome, the genome-wide values are the length-weighted averages over the $n$ autosomes,
+\begin{equation}
+    \mathbb{E}\left[\frac{N_e}{N}\right] = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}} \left(\frac{N_e}{N}\right)_i = \frac{\overline{\Omega}}{1 + Q_u^2\kappa V_A}, \qquad \overline{\Omega} = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}}\, \Omega_i, \label{eq:genome_linked}
+\end{equation}
+where $L_i$ is the physical length of autosome $i$ and $L_\text{total} = \sum_i L_i$. Setting Equation~\eqref{eq:genome_linked} equal to $\delta$ gives the linked ceiling. It is implicit, because $\overline{\Omega}$ and $Z$ both depend on $V_A$, and is found numerically (Methods). Because $\overline{\Omega} \le 1$, at a given persistence it does not exceed the unlinked ceiling at that persistence, $(1 - \delta)/(Q_u^2\kappa\delta)$, which is Equation~\eqref{eq:vamax} at $Z = 1$.
+
+\subsection{The two comparisons as conditions on the long-term variance}\label{sec:conditions}
+The two comparisons can now be stated on the common scale of Equation~\eqref{eq:c}. Mutation--selection--drift balance maintains at most $U_d\,\bar{s}$ (\autoref{msdb}), so it requires $\bar{V}_A \le U_d\,\bar{s}$, or
+\begin{equation}
+c \le c_\text{MSD} \equiv \frac{U_d\,\bar{s}}{\hat{V}_A}.
+\end{equation}
+The genome-wide reduction accounts for an observed deficit only if $\bar{V}_A$ reaches the ceiling of Equation~\eqref{eq:vamax}, so it requires
+\begin{equation}
+c \ge c_\text{div} \equiv \frac{V_{A,\text{max}}(\delta)}{\hat{V}_A}.
+\end{equation}
+A single $c$ satisfies both only if $c_\text{div} \le c_\text{MSD}$, that is,
+\begin{equation}
+\frac{1 - \delta}{4\kappa\delta} \le U_d\,\bar{s}, \qquad \text{equivalently} \qquad \delta \ge \frac{1}{1 + 4\kappa U_d\,\bar{s}}. \label{eq:compat}
+\end{equation}
+Condition~\eqref{eq:compat} contains no pedigree estimate. It is a property of the model and the mutational parameters: a variance maintained by recurrent deleterious mutation can reduce diversity at unlinked sites to no less than $1/(1 + 4\kappa U_d\bar{s})$ of its neutral expectation. Whether the two comparisons can be reconciled is therefore decided before any estimate of $V_A$ is consulted; the pedigree estimates locate each population relative to the two thresholds, at $c = 1$. Replacing $V_{A,\text{max}}$ by the linked ceiling of \autoref{sec:linkage} gives the corresponding condition with linkage, which we evaluate numerically (Methods).
+
+\subsection{Direction of the approximations}\label{sec:approx}
+The principal approximations above have known directions, and on each side they act in the same direction. On the diversity side each of the following overstates the reduction in effective size: $G = 1$ rather than $1 - V_A$, unless breeding values for fitness are strongly right-skewed (\autoref{sec:unlinked}; Appendix~A); $Q = 2$ rather than $2/(1+s)$; the attribution of all non-Poisson variance in family size to $V_A$ (\autoref{sec:ceiling}); the uniform spread of variance along the map, for loci placed independently of recombination rate (\autoref{sec:linkage}; Appendix~C); and the evaluation of $Z$ at the measured variance rather than at balance (\autoref{sec:linkage}). The predicted reduction is therefore an upper bound, and a finding that $\hat{V}_A$ is too small to explain a deficit is conservative. On the maintenance side, $U_d\,s$ is the largest variance the balance maintains at any $N_e$, and a more leptokurtic DFE at the same mean maintains less (\autoref{msdb}), so $s^*$ is the smallest mean effect that could maintain $\bar{V}_A$, and a finding that $\hat{V}_A$ is too large to be maintained is likewise conservative. The mutational target is the exception: a larger $U_d$ lowers $s^*$ in proportion, and we therefore carry both available estimates of the mutation rate (Methods). Apart from $\delta$ itself, no input to either comparison is taken from diversity data (Methods).
 
 \begin{table}[h!]
 \centering
@@ -48,133 +170,20 @@ Two ratios are called $N_e/N$ in this literature, and we keep them apart. The de
 \toprule
 Symbol & Meaning \\
 \midrule
-$V_A$, $\hat{V}_A$, $\bar{V}_A$ & additive variance in relative fitness; pedigree estimate; long-run time average \\
-$c$ & $\bar{V}_A/\hat{V}_A$ \\
+$V_A$, $\hat{V}_A$, $\bar{V}_A$ & additive variance in relative fitness; pedigree estimate; long-term time average \\
+$c$; $c_\text{MSD}$, $c_\text{div}$ & $\bar{V}_A/\hat{V}_A$; its upper bound from maintenance and lower bound from diversity \\
 $N$, $N_c$ & number of breeding adults; total census size \\
 $\pi$, $\mu$ & neutral autosomal nucleotide diversity; per-site mutation rate per generation \\
-$N_{eV}$, $N_{eC}$ & variance and coalescent effective sizes \\
+$N_{eV}$, $N_{eC}$, $\tilde{N}_e$ & variance and coalescent effective sizes; harmonic mean over the coalescent window \\
 $\delta$ & diversity ratio $\pi/(4\mu N)$ (derived, not measured) \\
 $\kappa$ & mating-system scalar; $\kappa_\text{own}$, $\kappa_\text{partner}$, $\kappa_\text{cis}$ its components (Appendix B) \\
 $\alpha$ & extra-pair paternity rate \\
 $Q$, $G$, $r_{mf}$ & cumulative transmission factor; variance surviving selection; mates' correlation \\
 $Z$, $Q_u$ & per-generation persistence of selective variance; unlinked factor $2/(2-Z)$ \\
 $\overline{Q^2}_i$, $M_i$, $v_h$ & linked interference; map length (Morgans); variance on the focal haplotype \\
-$U_d$, $s$, $V_m$ & diploid deleterious mutation rate; heterozygous effect; mutational variance \\
-$s^*$ & selection coefficient implied by $V_A$ at mutation--selection--drift balance \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{The variance maintained at mutation--selection--drift balance}\label{msdb}
-The classical account of how $V_A$ is maintained is a balance between recurrent deleterious mutation and purifying selection. New mutations add variance at rate $V_m = U_d\,\mathbb{E}[s^2]$, where $U_d$ is the diploid genome-wide deleterious mutation rate and $s$ the heterozygous effect on relative fitness (Charlesworth 2015). Selection removes this variance at rate $s$ per generation and drift at rate $1/(2N_e)$. For a uniform $s$, the diffusion solution for a semidominant deleterious allele (Kimura 1969) gives the stationary variance
-\begin{equation}
-V_A = U_d\,s\left[1 - \frac{4N_es}{e^{4N_es} - 1}\right] \label{eq:VA_MSD}
-\end{equation}
-(Appendix~D). It runs from the mutation--drift limit $V_A = 2N_eU_ds^2$ for $N_es \ll 1$ (Lynch and Hill 1986) to the deterministic balance
-\begin{equation}
-V_A \approx U_d\,s \qquad (N_es \gg 1), \label{eq:HoC}
-\end{equation}
-in which each deleterious allele is held at frequency $q \approx \mu/s$ (Mukai et al. 1972; Charlesworth 2012). Inverting Equation~\eqref{eq:HoC} gives the selection coefficient that a measured variance requires,
-\begin{equation}
-s^* = \frac{V_A}{U_d}. \label{eq:sstar}
-\end{equation}
-Charlesworth (2015) made this comparison for fitness components in \emph{Drosophila} (see also Johnson and Barton 2005); here it is applied to total fitness.
-
-In the strong-selection limit $s^*$ estimates the arithmetic mean of the distribution of fitness effects (DFE), whatever the DFE's shape, because each class of mutation contributes $U_d\,s$ and so $V_A = U_d\,\bar{s}$. Shape enters only through nearly neutral mutations ($4N_es \lesssim 1$), which contribute less than $U_d\,s$ (Equation~\eqref{eq:VA_MSD}); a more leptokurtic DFE with the same mean therefore maintains less variance, not more. Site-frequency spectra constrain the strongly deleterious tail poorly, so a DFE mean inferred from them is partly an extrapolation. The weak-selection branch requires $2N_es \ll 1$, and with $V_A \approx 2N_eU_ds^2$ this implies $N_e \ll U_d/(2V_A)$. Effective sizes that small are incompatible with the observed diversity of every population considered here (Results), so the strong-selection limit applies, and there Equations~\eqref{eq:VA_MSD} and \eqref{eq:HoC} coincide.
-
-The same balance sets the persistence of selective variance used for linked sites (\autoref{sec:linkage}). A per-generation persistence presupposes a stationary selected background, which mutation--selection--drift balance provides (Barton 1998, 2000). In the strong-selection limit $V_m/V_A = \mathbb{E}[s^2]/\mathbb{E}[s] = \bar{s}(1 + \mathrm{CV}_s^2)$, so
-\begin{equation}
-Z \equiv 1 - \frac{V_m}{V_A} \approx 1 - \frac{\mathbb{E}[s^2]}{\mathbb{E}[s]}, \label{eq:Z}
-\end{equation}
-which equals $1 - s$ only when all effects are equal; for a gamma DFE of shape 0.2 it is $1 - 6\bar{s}$ (Appendix~D). Strong selection also shortens the persistence of associations with unlinked sites: with selection coefficient $s$ the cumulative transmission factor becomes $Q(s) = 2/(1+s) < 2$ (Charlesworth 2012, Appendix; Appendix~D), so the value $Q = 2$ used in the next section is an upper bound.
-
-\subsection{The genome-wide reduction in effective size}\label{sec:unlinked}
-For a neutral site assorting independently of all selected loci, segregation halves the inherited breeding value each generation, and the cumulative transmission factor is
-\begin{equation}
-Q = \sum_{t=0}^{\infty} \left(\frac{1}{2}\right)^t = 2.
-\end{equation}
-This is the case $G = 1$, $r_{mf} = 0$ of Santiago and Caballero's (1995) $Q = 2/[2 - G(1+r_{mf})]$, where $G$ is the fraction of additive variance surviving selection each generation and $r_{mf}$ is the correlation between mates' breeding values. Unless breeding values for fitness are strongly right-skewed, $G \le 1$, so $G = 1$ gives the largest $Q$ and therefore the largest reduction (Appendix~A). Combining this selective contribution with Poisson sampling drift (Appendix~A) gives the unlinked reduction of Santiago and Caballero (1995),
-\begin{equation}
-\frac{N_e}{N} = \frac{1}{1 + 4V_A}, \label{unlinked_baseline}
-\end{equation}
-where $N$ is the number of breeding adults and the demographic background is Poisson.
-
-Equation~\eqref{unlinked_baseline} is exact under long-term equilibrium, to first order in the selective advantage of a lineage, and the quantity it requires is the long-term equilibrium variance $\bar{V}_A$ (\autoref{sec:quantity}). If $V_A$ changes on a timescale shorter than the coalescent window, the equation holds generation by generation and $\pi$ records its time average. Because $Q$ is dominated by the first terms of the series, the equation requires the sign of a lineage's selective advantage to persist for only about two generations. It makes no assumption about the haplotype structure of the selected background or about the process that maintains $V_A$, and so applies under mutation--selection--drift balance, during directional sweeps, and under fluctuating selection that is positively autocorrelated across generations.
-
-The equation also has a domain. It treats each lineage's advantage as small, which requires $V_A \ll 1$ and $G = 1$. Within $V_A < 1$ the reduction is bounded: when selection depletes the variance it acts on, $G = 1 - V_A$ (Appendix~A), and $N_e/N = 1/[1 + 4V_A/(1+V_A)^2]$, which does not fall below 1/2 for any $V_A < 1$. Larger reductions require values of $V_A$ outside the domain, where Equation~\eqref{unlinked_baseline} is an extrapolation.
-
-\subsection{Separate sexes and the mating system}\label{sec:mating}
-With separate sexes, half of every genome passes through each sex, and Santiago and Caballero (1995) combine the sexes as $1/N_e = 1/(4N_{e,m}) + 1/(4N_{e,f})$ (after Crow and Denniston 1988). At an equal sex ratio this averages the selective variance over the sexes rather than adding it. What sets a parent's family size depends on the mating system. Without a pair bond, each parent's own breeding value does. Under social monogamy the unit of productivity is the nest, so a parent's family size also depends on its social partner's breeding value. Extra-pair paternity at rate $\alpha$ moves paternity away from the nest without changing the number of offspring the nest produces. Applying the expected long-term contributions of Woolliams, Bijma and Villanueva (1999) to these mating systems (Appendix~B) gives
-\begin{equation}
-    \frac{N_e}{N} = \frac{1}{1 + 4\kappa(\alpha)V_A}, \label{unlinked_mating}
-\end{equation}
-where $V_A$ is common to both sexes, as estimated by Bonnet et al. (2022), and $\kappa(\alpha)$ is a mating-system scalar. Without a pair bond $\kappa = 1$, and Equation~\eqref{unlinked_baseline} is unchanged. Under social monogamy, when extra-pair gains are proportional to male breeding value and replace within-pair losses (Model B, used in all primary results),
-\begin{equation}
-    \kappa_B(\alpha) = 2 - \tfrac{3}{2}\alpha + \tfrac{5}{8}\alpha^2, \label{eq:kappaB}
-\end{equation}
-which falls monotonically from 2 at $\alpha = 0$ to 9/8 at $\alpha = 1$. A model in which extra-pair siring is independent of male breeding value (Model A) is given in Appendix~B and used as a sensitivity bound. Under strict monogamy both models give $\kappa = 2$, the pair-mated model of Santiago and Caballero (1995): each nest pools two independent breeding values, so the variance of family fitness is $2V_A$, and a given reduction in diversity requires half the variance needed without a pair bond. Both forms assume $G = 1$ and random pairing with respect to breeding value ($r_{mf} = 0$); Appendices~A and B give the general forms.
-
-\subsection{The ceiling on additive variance set by neutral diversity}\label{sec:ceiling}
-Inverting Equation~\eqref{unlinked_mating} gives the largest $V_A$ compatible with a given loss of neutral diversity. Let
-\begin{equation}
-    \delta \equiv \frac{\pi}{4N\mu} \approx \frac{N_{eC}}{N}
-\end{equation}
-be the diversity ratio, the coalescent effective size relative to the number of breeding adults. Under the equilibrium of \autoref{sec:quantity} ($N_{eC} = N_{eV}$), setting Equation~\eqref{unlinked_mating} equal to $\delta$ gives
-\begin{equation}
-    V_{A,\text{max}} = \frac{1 - \delta}{4\kappa(\alpha)\,\delta}. \label{eq:vamax}
-\end{equation}
-The ceiling depends only on $\delta$ and $\kappa$, and we present it as a curve against which any population with a diversity estimate can be read; strict monogamy halves it relative to a system without a pair bond. Equation~\eqref{eq:vamax} is the largest ceiling the model allows, for two reasons. Linked selection only lowers $N_e/N$ further ($\overline{\Omega} \le 1$, \autoref{sec:linkage}), so the linked ceiling $V_{A,\text{max}}^{(\text{linked})} = (\overline{\Omega} - \delta)/(4\kappa\delta)$ cannot exceed it. And the derivation attributes all overdispersion of family size beyond the Poisson expectation to $V_A$; environmental or non-additive sources of reproductive variance would lower the ceiling.
-
-Equation~\eqref{eq:vamax} assumes $G = 1$. With $G = 1 - V_A$, the unlinked $N_e/N$ does not fall below 1/2 without a pair bond, or 1/3 under strict monogamy, for any $V_A < 1$; below these values of $\delta$ the ceiling is meaningful only as the $G = 1$ limit. A population with $\delta \ge 1$ gives $V_{A,\text{max}} \le 0$, which indicates that the equilibrium assumptions fail for that population; such populations are excluded rather than interpreted (Methods).
-
-\subsection{Linked selection under mutation--selection--drift balance}\label{sec:linkage}
-At a neutral site linked to selected loci, associations do not halve each generation: recombination breaks them only partially, and how long they last depends on how long the selected background itself persists. This requires the stationary background of \autoref{msdb}, with per-generation persistence $Z$ (Equation~\eqref{eq:Z}). The linked reduction is therefore specific to mutation--selection--drift balance, whereas Equation~\eqref{unlinked_baseline} is not.
-
-Map distance $\ell$ (in Morgans) is converted to recombination frequency with the Haldane function, $r(\ell) = \frac{1}{2}(1 - e^{-2\ell})$, because whole chromosomes often exceed 0.5 M, beyond which a linear map gives $r > 1/2$. An association survives one generation of recombination and selection with probability $(1 - r(\ell))Z = \frac{Z}{2}(1 + e^{-2\ell})$. Summing over generations, and averaging over selected loci and neutral sites spread uniformly along a chromosome of map length $M$, gives (Appendix~C)
-\begin{equation}
-\overline{Q^2}_\text{linked} = \frac{2}{M^2}\int_0^M (M - \ell)\left(\frac{1}{1 - \dfrac{Z}{2}(1 + e^{-2\ell})}\right)^2 d\ell. \label{eq:haldane_avg}
-\end{equation}
-The kernel is the background-selection kernel: with $Z = 1 - s$ it is $1/[s + r(1-s)]$ (Hudson and Kaplan 1995; Nordborg et al. 1996; Santiago and Caballero 1998, 2016; Buffalo and Kern 2024). Equation~\eqref{eq:haldane_avg} has a closed form, and the linear-map form is a lower bound on it (Appendix~C). When selected loci are placed independently of local recombination rate, spreading the variance uniformly along the map maximizes the expected reduction; clustering in regions of low recombination can reverse this ordering (Appendix~C).
-
-A neutral allele is linked in cis only to selected loci on its own haplotype, because associations with the homologous chromosome are broken at meiosis (Buffalo and Kern 2024). Chromosome $i$ carries additive variance $v_i = V_A f_i$, where $f_i$ is its share of the genome's functional sequence, and the focal haplotype carries $v_h = v_i/2$. Treating linked contributions as a Poisson process along the map (Hudson and Kaplan 1995; Santiago and Caballero 2016), the linked reduction for chromosome $i$ is
-\begin{equation}
-\left(\frac{N_e}{N}\right)_i \approx \exp\left(-\kappa_\text{cis}\,\overline{Q^2}_\text{linked}\,v_h\right). \label{eq:ne_chrom}
-\end{equation}
-The linked term carries only $\kappa_\text{cis}$, the weight of the carrier's own breeding value in its family size, because a social partner's genes are never in cis with the focal copy (Appendix~B). $\kappa_\text{cis} = 1$ without a pair bond and under Model B.
-
-The rest of the genome, the homologous haplotype and all other chromosomes, assorts independently of the focal site and contributes the unlinked reduction at variance $V_A - v_h$. Under social monogamy this background also includes the partner's breeding value, so only the own component $\kappa_\text{own}$ of $\kappa = \kappa_\text{own} + \kappa_\text{partner}$ loses $v_h$ (Appendix~B). Buffalo and Kern (2024) neglected the homologous ($Q''$) associations; here that variance is assigned to the unlinked background. The two terms act on independent segments of the genealogy and combine multiplicatively:
-\begin{equation}
-    \left(\frac{N_e}{N}\right)_i \approx \frac{\exp\left(-\kappa_\text{cis}\,\overline{Q^2}_i\,v_h\right)}{1 + Q_u^2(\kappa V_A - \kappa_\text{own}\,v_h)}, \label{total_red}
-\end{equation}
-which under Model B, and without a pair bond, is $\exp(-\overline{Q^2}_i v_h)/[1 + Q_u^2(\kappa V_A - v_h)]$. Here $Q_u = 2/(2-Z)$ is the unlinked transmission factor with the same persistence $Z$ as the linked term. It is the $M \to \infty$ limit of $\overline{Q^2}_\text{linked}$ (Appendix~C) and returns $Q = 2$ at $Z = 1$.
-
-The reduction attributable to linkage, relative to the genome-wide reduction of Equation~\eqref{unlinked_mating}, is
-\begin{equation}
-    \Omega_i \equiv \frac{(N_e/N)_i}{(N_e/N)_\text{unlinked}} = \exp\left(-\kappa_\text{cis}\,\overline{Q^2}_i\,v_h\right) \cdot \frac{1 + Q_u^2\kappa V_A}{1 + Q_u^2(\kappa V_A - \kappa_\text{own}\,v_h)}. \label{linked_penalty}
-\end{equation}
-The second factor exceeds one, because variance assigned to the linked term no longer contributes to the unlinked one. Using the same $Z$ in both terms makes $\Omega_i \le 1$ hold exactly (Appendix~C). With neutral sites spread uniformly over the physical genome, the genome-wide values are the length-weighted averages over the $n$ autosomes,
-\begin{equation}
-    \mathbb{E}\left[\frac{N_e}{N}\right] = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}} \left(\frac{N_e}{N}\right)_i, \qquad \overline{\Omega} = \sum_{i=1}^{n} \frac{L_i}{L_\text{total}}\, \Omega_i,
-\end{equation}
-where $L_i$ is the physical length of autosome $i$ and $L_\text{total} = \sum_i L_i$.
-
-Table~\ref{tab:linked_limits} gives the limits of complete linkage ($M \ll 1 - Z$) and free recombination ($M \gg 1/(1-Z)$). Real chromosomes lie between them, near $\overline{Q^2}_\text{linked} \approx 2/[M(1-Z)]$ (Santiago and Caballero 1998; Appendix~C), so interference decreases with map length and with $1 - Z$. Even at $Z = 0.99$ and $M = 10$ Morgans, $\overline{Q^2}_\text{linked} = 24.8$ against the free-recombination limit of 3.9. With one obligate crossover per bivalent, avian microchromosomes have map lengths of about 0.5 M or more and do not approach complete linkage.
-
-\begin{table}[h!]
-\centering
-\caption{Limiting values of chromosome-wide selective interference ($\overline{Q^2}_\text{linked}$) and the resulting chromosome-level relative effective size ($(N_e/N)_i$) under strong ($Z = 1 - s_\text{het}$, uniform effects) and weak ($Z \to 1$) purifying selection. The limits are reached only for $M \ll 1 - Z$ and $M \gg 1/(1-Z)$ respectively; real chromosomes lie between, near $\overline{Q^2}_\text{linked} \approx 2/[M(1-Z)]$. Here $v_h$ is the additive variance in relative fitness on the focal haplotype, and $\kappa_\text{cis}$ ($= 1$ in primary results) is the weight of the carrier's own breeding value (Appendix B).}
-\label{tab:linked_limits}
-\begin{tabular}{llcc}
-\toprule
-Regime & Metric & Complete linkage & Free recombination \\
-& & ($M \ll 1-Z$) & ($M \gg 1/(1-Z)$) \\
-\midrule
-Strong selection & $\overline{Q^2}_\text{linked}$ & $s_\text{het}^{-2}$ & $\dfrac{4}{(1 + s_\text{het})^2}$ \\[2ex]
-($Z = 1 - s_\text{het}$) & $(N_e/N)_i$ & $\exp\!\left(-\dfrac{\kappa_\text{cis} v_h}{s_\text{het}^2}\right)$ & $\exp\!\left(-\dfrac{4\kappa_\text{cis} v_h}{(1 + s_\text{het})^2}\right)$ \\
-\addlinespace[1.5ex]
-\midrule
-Weak selection & $\overline{Q^2}_\text{linked}$ & $\infty$ & $4$ \\[2ex]
-($Z \to 1$) & $(N_e/N)_i$ & $0$ & $\exp(-4\kappa_\text{cis} v_h)$ \\
+$\Omega_i$, $\overline{\Omega}$ & linked reduction relative to the unlinked reduction at the same $Z$; genome-wide average \\
+$U_d$, $s$, $\bar{s}$, $V_m$ & diploid deleterious mutation rate; heterozygous effect; DFE mean; mutational variance \\
+$s^*$ & mean selection coefficient implied by $\bar{V}_A$ at mutation--selection--drift balance \\
 \bottomrule
 \end{tabular}
 \end{table}
