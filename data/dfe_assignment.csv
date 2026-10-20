@@ -1,0 +1,20 @@
+code,dfe,rule,note
+CF,collared flycatcher,own species,Lin et al. 2026 Table 1
+BTR,pied flycatcher;collared flycatcher,closest relatives (Passeriformes),equal mixture of the two Ficedula DFEs; no blue tit DFE located (search 2026-10-20)
+BTP,pied flycatcher;collared flycatcher,closest relatives (Passeriformes),as BTR
+BTM,pied flycatcher;collared flycatcher,closest relatives (Passeriformes),as BTR
+GTU,pied flycatcher;collared flycatcher,closest relatives (Passeriformes),no great tit DFE with gamma parameters located (search 2026-10-20)
+GTN,pied flycatcher;collared flycatcher,closest relatives (Passeriformes),as GTU
+SSP,pied flycatcher;collared flycatcher,closest relatives (Passeriformes),as BTR
+SFW,pied flycatcher;collared flycatcher,closest relatives (Passeriformes),as BTR
+HT,pied flycatcher;collared flycatcher,closest relatives (Passeriformes),as BTR
+HK,pied flycatcher;collared flycatcher,closest relatives (Passeriformes),as BTR
+CSM,human,closest relative (Primates),Lin et al. human; their file marks it reference only (Kim et al. 2017 gives a lower mean)
+AB,human,closest relative (Primates),as CSM
+BHS,vaquita;fin whale,closest relatives (Cetartiodactyla),equal mixture of the two cetacean DFEs
+SSH,vaquita;fin whale,closest relatives (Cetartiodactyla),as BHS
+RD,vaquita;fin whale,closest relatives (Cetartiodactyla),as BHS
+SV,house mouse,closest relative (Rodentia),
+KS,house mouse,closest relative (Rodentia),
+NH,vaquita;fin whale,closest available (Laurasiatheria),Lin et al. carnivore (wolf) DFEs excluded for unconstrained heavy tails
+MK,vaquita;fin whale,closest available (Laurasiatheria),as NH

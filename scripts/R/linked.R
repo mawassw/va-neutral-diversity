@@ -58,14 +58,24 @@ Q2bar_haldane <- function(M, Z) {
 }
 Q2bar_vec <- Q2bar_haldane
 
-# Retention specifications: effect classes s_k with weights nu_k (sum to one).
-dfe_uniform <- function(s) list(s = s, nu = 1)
+# Retention specifications: effect classes s_k with weights nu_k (sum to one), and
+# s_bar, the DFE's arithmetic mean effect, which sets U_d s_bar at balance.
+dfe_uniform <- function(s) list(s = s, nu = 1, s_bar = s)
 dfe_gamma <- function(shape, scale, n = 240, s_min = 1e-8) {
   lo <- max(s_min, qgamma(1e-9, shape + 1, scale = scale))
   hi <- min(1 - 1e-9, qgamma(1 - 1e-12, shape + 1, scale = scale))
   s <- exp(seq(log(lo), log(hi), length.out = n))
   nu <- dgamma(s, shape + 1, scale = scale) * s        # density on log s
-  list(s = s, nu = nu / sum(nu))
+  list(s = s, nu = nu / sum(nu), s_bar = shape * scale)
+}
+# Mixture of DFEs with weights w (new mutations drawn from DFE j with probability
+# w_j): the mean is sum w_j s_bar_j, and class weights scale as w_j s_bar_j, the
+# share of V_A that DFE j carries at balance.
+dfe_mixture <- function(specs, w = rep(1 / length(specs), length(specs))) {
+  sb <- vapply(specs, `[[`, numeric(1), "s_bar"); a <- w * sb / sum(w * sb)
+  list(s = unlist(lapply(specs, `[[`, "s")),
+       nu = unlist(Map(function(sp, aj) aj * sp$nu, specs, a)),
+       s_bar = sum(w * sb))
 }
 
 # Class-averaged coefficients for one population's mapped autosomes:
@@ -114,6 +124,22 @@ dfe_reference <- function(path = "data/dfe_reference.csv") {
   d <- d[d$used_for_band == "yes", ]
   d$spec <- Map(dfe_gamma, d$shape_alpha, d$scale_beta_prime)
   d
+}
+
+# The empirical DFE assigned to each population (data/dfe_assignment.csv): its own
+# species where estimated, else an equal mixture of the closest relatives' DFEs in
+# data/dfe_reference.csv (all rows, whether or not used for bands). Returns a named
+# list of retention specifications, one per code, each with s_bar.
+dfe_assigned <- function(path = "data/dfe_assignment.csv", ref = "data/dfe_reference.csv") {
+  a <- read.csv(path, stringsAsFactors = FALSE)
+  r <- read.csv(ref, stringsAsFactors = FALSE)
+  one <- function(nm) { i <- match(nm, r$common_name); stopifnot(!is.na(i))
+                        dfe_gamma(r$shape_alpha[i], r$scale_beta_prime[i]) }
+  out <- lapply(strsplit(a$dfe, ";"), function(nms) {
+    sp <- lapply(trimws(nms), one)
+    if (length(sp) == 1) sp[[1]] else dfe_mixture(sp)
+  })
+  setNames(out, a$code)
 }
 
 # f_i for the mapped chromosomes of one population.

@@ -7,9 +7,13 @@
 # Let the long-run V_A be c times the pedigree estimate: bar V_A = c * hat V_A
 # (c < 1: the estimate is inflated; c > 1: it understates). For each population
 # with an observed deficit, two ratios as functions of c:
-#   bar V_A / (U_d s)                  long-run V_A over what MSD balance maintains;
-#                                      rises with c. s = 1e-2, the top of Figure 1's
-#                                      band, is the value most generous to MSD balance.
+#   bar V_A / (U_d s_bar)              long-run V_A over what MSD balance maintains;
+#                                      rises with c. s_bar is the mean of the empirical
+#                                      DFE assigned to the population (data/dfe_assignment.csv:
+#                                      own species, else the closest relatives in Lin et
+#                                      al. 2026), the same DFE used for the linked curve in
+#                                      FigS_rescaling_linked. (Before 2026-10-20: s = 1e-2
+#                                      for every population.)
 #   (N_e/N)_pred / delta               diversity the model predicts is retained over the
 #                                      diversity observed to be retained; falls with c.
 # One model of fitness (Appendix A; decided 2026-10-19): the diversity ratio uses the
@@ -28,8 +32,10 @@ suppressPackageStartupMessages({
   library(ggplot2)
 })
 source("scripts/R/load_data.R")
+source("scripts/R/linked.R")
 
-s_msd <- 1e-2
+dfe_pop <- dfe_assigned()
+s_bar <- vapply(dfe_pop, `[[`, numeric(1), "s_bar")
 c_grid <- 10^seq(-4, 3, length.out = 400)
 x_max <- 1e3
 
@@ -41,15 +47,17 @@ d <- pops %>%
   mutate(pi_any = coalesce(pi_obs, pi_lit),
          deficit = 4 * mu_direct * 10^log10_Nc / pi_any,
          pair = pair_bond == "social_monogamy",
-         species = sub("^(\\S+ \\S+).*", "\\1", scientific_name)) %>%
+         species = sub("^(\\S+ \\S+).*", "\\1", scientific_name),
+         s_bar = unname(s_bar[code])) %>%
   # Soay: Buffalo's Ovis aries census is domestic sheep
   filter(!is.na(deficit), !is.na(U_d_direct), code != "SSH")
+stopifnot(!anyNA(d$s_bar))
 
 curves <- d %>%
-  select(code, species, va_mode, kappa, pair, U_d_direct, deficit) %>%
+  select(code, species, va_mode, kappa, pair, U_d_direct, deficit, s_bar) %>%
   tidyr::crossing(c = c_grid) %>%
   # log10 ratios, computed directly: exp(-4 kappa_mult bar V_A) underflows at large c
-  mutate(msd  = log10(c * va_mode / (U_d_direct * s_msd)),
+  mutate(msd  = log10(c * va_mode / (U_d_direct * s_bar)),
          div  = log10(deficit) - 4 * kappa_mult_bound(pair) * c * va_mode / log(10),
          div1 = if_else(c * va_mode <= 1, log10(deficit / (1 + 4 * kappa * c * va_mode)), NA_real_)) %>%
   tidyr::pivot_longer(c(msd, div, div1), names_to = "side", values_to = "l") %>%
@@ -83,12 +91,12 @@ stopifnot(c_msd1 < c_div1)
 
 # Per-population values of c at which each comparison is satisfied
 pop_c <- d %>%
-  mutate(c_msd = U_d_direct * s_msd / va_mode,
+  mutate(c_msd = U_d_direct * s_bar / va_mode,
          c_div = vamax_mult(1 / deficit, kappa_mult_bound(pair)) / va_mode,
          gap = c_div / c_msd)
 
 col_msd <- "#2C7FB8"; col_req <- "#D95F0E"
-lab_msd <- expression(bar(italic(V))[A] / italic(U)[d] * italic(s) *
+lab_msd <- expression(bar(italic(V))[A] / italic(U)[d] * bar(italic(s)) *
                         ":  long-run " * italic(V)[A] * " ÷ the " * italic(V)[A] *
                         " mutation–selection balance maintains")
 lab_div <- expression((italic(N)[e] / italic(N))[pred] / delta *
@@ -162,3 +170,4 @@ cat(sprintf("n = %d species (%d populations)\nAverage: MSD ratio 1 at c = %.3g; 
 cat(sprintf("Per population: c_div %.2g-%.2g (median %.2g); c_msd %.2g-%.2g; gap %.0f-%.0f-fold\n",
             min(pop_c$c_div), max(pop_c$c_div), median(pop_c$c_div), min(pop_c$c_msd), max(pop_c$c_msd),
             min(pop_c$gap), max(pop_c$gap)))
+print(as.data.frame(pop_c %>% select(code, s_bar, c_msd, c_div, gap) %>% mutate(across(where(is.numeric), ~ signif(.x, 3)))))

@@ -70,10 +70,12 @@ Three properties, and all three must survive any edit to the framing:
    The first-order inversion's 12–25 (and 29–6,000 for the observed deficits) is an extrapolation
    outside $V_A \ll 1$ and **must not be quoted**. The $G = 1 - V_A$ cap ($N_e/N \ge 1/2$) is an
    artifact of the additive map and is retired except as the Appendix A.4 remark.
-   **Present the snapshot problem through $c = \bar V_A/\hat V_A$** (Fig. 2): under the multiplicative
-   bound the diversity side needs $c \approx 9$ on average (2.4–80 per population, median 14), MSD
-   needs $c \lesssim 0.07$ (0.013–0.32), a gap of about 130× on average and 180–250× within every
-   population, so no single $c$ satisfies both. The question is the relationship between the estimate
+   **Present the snapshot problem through $c = \bar V_A/\hat V_A$** (Fig. 5): under the multiplicative
+   bound the diversity side needs $c \approx 9$ on average (2.4–80 per population, median 14).
+   **Since 2026-10-20 MSD is evaluated at each population's assigned empirical $\bar s$**
+   (`data/dfe_assignment.csv`, the same DFE as the linked curve), not $s = 10^{-2}$. MSD then needs
+   $c \lesssim 0.024$ on average (0.0017–0.11), a gap of about 390× on average and 108–1,890× within
+   every population (it was 0.07, 130× and 180–250× at $s = 10^{-2}$). No single $c$ satisfies both. The question is the relationship between the estimate
    and the long-run value, not either number alone.
    **D2:** because $N_e/N$ is first-order linear in $V_A$ and $\pi$ reflects a harmonic-mean $N_e$
    over $\sim 4N_e$ generations, the target is the time-averaged $\bar V_A$ over the coalescent
@@ -458,8 +460,10 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
    both sides. **Left stale, flagged:**
    - ~~`linked.R` stale; Fig. 3 linked ceilings off; `fig2_linked.R`, `figS_rescaling_linked.R`
      rendered from it~~ **Fixed the same day** (branch `worktree-linked-rebuild`; see open item 6a).
-   - `fig1_unlinked.R` still draws the retired $G = 1 - V_A$ curve, has no multiplicative form,
-     and uses $G$ where the notation now has $Z$.
+   - ~~`fig1_unlinked.R` draws the retired $G = 1 - V_A$ curve~~ **Fixed 2026-10-20.** Panel A shows
+     first order (mode, HPD) with the multiplicative value and its $\kappa(0)$ bound at the mode, on
+     a log axis. Panel B shows first order inside its domain and the multiplicative bound for
+     $\kappa$ = 1 and 2.
    Earlier: **Introduction redrafted 2026-10-16 and merged to `main`** (scaffolding; needs re-voicing;
    new citations web-checked, Crossref still due; see `manuscript/INTRO_REDRAFT_PLAN.md`).
    Discussion still to do.
@@ -513,6 +517,25 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
      alone matches a deficit.
    - **Introduction and Methods updated to these numbers. `data_gen.R` still carries the old linked
      code and is not used.**
+   **One DFE per population on both sides (user, 2026-10-20).** The maintenance line and the
+   linked curve now use the same assigned empirical DFE, via `dfe_assigned()` in `linked.R` and
+   `data/dfe_assignment.csv`:
+   - **Assignment:** own species (collared flycatcher), else an equal mixture of the closest
+     relatives' DFEs in Lin et al. 2026, combined with `dfe_mixture()`. Other passerines get pied +
+     collared flycatcher ($\bar s$ = 0.0013); bighorn, Soay and red deer get vaquita + fin whale
+     (0.0195); macaque and baboon get human (0.0139); rodents get house mouse. **Author to confirm.**
+     No species-specific great tit or macaque DFE was found (web search 2026-10-20).
+   - **Applied in:** `fig5_rescaling.R` and `figS_rescaling_linked.R`. Figs 2–3 keep the
+     taxon-band, most-generous-DFE construction.
+   - **Linked supplement result:** c_lk is 3.3–22.6 in birds and 3.8–9.0 in mammals, against
+     c_div 5–80. Gap c_lk/c_msd 81–442×.
+   - **Self-consistent check:** at $c = c_\text{MSD}$, where the variance is what that DFE
+     maintains, linkage barely changes the prediction: the deficit ratio is 4,240 with linkage
+     against 4,430 without, species average. So balance with background selection, at the variance
+     balance can maintain, explains almost none of the deficit.
+   - **Theory §linkage now says the linked term is a hybrid:** the kernel, the $Z_k$ and the
+     $\nu_k$ presuppose MSD, and only the amount of variance departs from it (user's question,
+     2026-10-20).
 7. **Check Matheson & Masel (2025)** — logged as corroborating the unlinked component's importance,
    with one methodological question not yet identified. We quantify what they argue qualitatively:
    1.4× at the median reported $V_A$, ~3× at the maximum.
