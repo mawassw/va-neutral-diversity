@@ -5,9 +5,12 @@
 # Reads only through load_data.R. Writes supp/FigS_gap.{pdf,tiff}.
 #
 # One row per population, on a log V_A axis:
-#   MSD band      V_A that mutation-selection-drift balance can maintain,
-#                 U_d * s for s in [1e-3, 1e-2] (strong-selection limit,
-#                 Appendix D), U_d from the direct mutation rate
+#   MSD           V_A that mutation-selection-drift balance can maintain, U_d * s_bar
+#                 (strong-selection limit, Appendix D), U_d from the direct mutation
+#                 rate, s_bar the mean of the empirical DFE assigned to the population
+#                 (data/dfe_assignment.csv, as Figures 2-5). Diamond: U_d s_bar; band:
+#                 U_d times the range of the component species' means where the
+#                 assignment is a mixture. (Before 2026-10-20: s in [1e-3, 1e-2].)
 #   posterior     measured V_A: 95% HPD (thin), 50% interval (thick), mode
 #   required      smallest V_A that could produce the observed deficit at unlinked sites,
 #                 from the multiplicative upper bound on the reduction (Appendix A.3,
@@ -22,9 +25,17 @@ suppressPackageStartupMessages({
   library(ggplot2)
 })
 source("scripts/R/load_data.R")
+source("scripts/R/linked.R")
 
 x_min <- 1e-4                      # axis floor; HPD lines are clipped here
-s_band <- c(1e-3, 1e-2)            # vertebrate DFE, mean heterozygous s
+
+# Assigned DFE per population: the mixture mean, and the range of the component means
+s_bar_pop <- vapply(dfe_assigned(), `[[`, numeric(1), "s_bar")
+ref <- read.csv("data/dfe_reference.csv", stringsAsFactors = FALSE)
+asg <- read.csv("data/dfe_assignment.csv", stringsAsFactors = FALSE)
+comp_s <- lapply(strsplit(asg$dfe, ";"), function(nm) ref$mean_s[match(trimws(nm), ref$common_name)])
+s_ref <- data.frame(code = asg$code, s_bar = unname(s_bar_pop[asg$code]),
+                    s_lo = vapply(comp_s, min, numeric(1)), s_hi = vapply(comp_s, max, numeric(1)))
 
 pops <- load_populations("va")
 obs <- load_diversity()
@@ -43,6 +54,7 @@ va50 <- draws %>%
 d <- pops %>%
   left_join(va50, by = "code") %>%
   left_join(obs %>% select(code, pi_obs, pi_lit, log10_Nc), by = "code") %>%
+  left_join(s_ref, by = "code") %>%
   mutate(
     taxon = if_else(code %in% birds, "Birds", "Mammals"),
     species_lab = sub(" \\(.*\\)$", "", common_name),
@@ -50,9 +62,10 @@ d <- pops %>%
     label = paste(species_lab, location_lab, sep = ", "),
     # axis label: species name at full size, location smaller
     label_math = sprintf('"%s"~~scriptstyle("%s")', species_lab, location_lab),
-    # MSD band
-    msd_lo = U_d_direct * s_band[1],
-    msd_hi = U_d_direct * s_band[2],
+    # MSD: at the assigned DFE mean, and over the component means
+    msd    = U_d_direct * s_bar,
+    msd_lo = U_d_direct * s_lo,
+    msd_hi = U_d_direct * s_hi,
     # Diversity requirement
     pi_any = coalesce(pi_obs, pi_lit),
     Nc = 10^log10_Nc,
@@ -79,11 +92,11 @@ d <- d %>%
 # Soay: Buffalo's Ovis aries census is domestic sheep, so no requirement is drawn
 d <- d %>% mutate(across(c(req, req_lo, req_hi), ~ if_else(code == "SSH", NA_real_, .x)))
 
-lab_msd <- expression("Maintainable at MSD balance: " * italic(U)[d] * italic(s) * ", " *
-                        italic(s) == 10^-3 * " to " * 10^-2)
+lab_msd <- expression("Maintainable at MSD balance: " * italic(U)[d] * bar(italic(s)) *
+                        ", assigned empirical DFE")
 lab_post <- "Measured: mode, 50% and 95% HPD"
-lab_own <- expression("Least needed for observed " * pi * " (multiplicative bound), study species")
-lab_lit <- expression("Least needed for observed " * pi * " (multiplicative bound), another population")
+lab_own <- expression("Least needed for observed " * pi * ", study species")
+lab_lit <- expression("Least needed for observed " * pi * ", another population")
 
 d <- d %>% mutate(req_kind = case_when(!is.na(pi_obs) ~ "own", !is.na(pi_lit) ~ "lit"))
 col_msd <- "#2C7FB8"; col_req <- "#D95F0E"
@@ -106,9 +119,11 @@ key_hpd <- function(data, params, size) {
 }
 
 p <- ggplot(d, aes(y = label)) +
-  # MSD-compatible range
-  geom_linerange(aes(xmin = msd_lo, xmax = msd_hi, colour = "msd"), alpha = 0.35,
-                 linewidth = 4.2, na.rm = TRUE, key_glyph = "path") +
+  # MSD-compatible variance: component range (band) and the assigned mean (diamond)
+  geom_linerange(aes(xmin = msd_lo, xmax = msd_hi), colour = col_msd, alpha = 0.35,
+                 linewidth = 4.2, na.rm = TRUE) +
+  geom_point(aes(x = msd, colour = "msd"), shape = 23, fill = col_msd, size = 2,
+             na.rm = TRUE, key_glyph = key_hrange) +
   # measured V_A
   geom_linerange(aes(xmin = hpd_lo_clip, xmax = va_hpd95_hi), linewidth = 0.4) +
   geom_linerange(aes(xmin = q25, xmax = q75), linewidth = 1.3) +
@@ -125,8 +140,7 @@ p <- ggplot(d, aes(y = label)) +
     values = c(msd = col_msd, post = "black", own = col_req, lit = col_req),
     breaks = c("msd", "post", "own", "lit"),
     labels = list(lab_msd, lab_post, lab_own, lab_lit), name = NULL,
-    guide = guide_legend(ncol = 2, override.aes = list(
-      linewidth = c(4.2, 0, 0, 0), alpha = c(0.35, 1, 1, 1)))) +
+    guide = guide_legend(ncol = 2)) +
   scale_x_log10(limits = c(x_min, 10), expand = c(0, 0),
                 breaks = 10^seq(-4, 1),
                 labels = scales::label_math(10^.x, format = log10)) +
@@ -154,8 +168,8 @@ ggsave("supp/FigS_gap.pdf", p, width = 178, height = 120, units = "mm", device =
 ggsave("supp/FigS_gap.tiff", p, width = 178, height = 120, units = "mm", dpi = 600,
        device = ragg::agg_tiff, compression = "lzw")
 
-print(as.data.frame(d %>% transmute(code, va_mode = signif(va_mode, 2), msd_lo = signif(msd_lo, 2),
-  msd_hi = signif(msd_hi, 2), req = signif(req, 2), req_lo = signif(req_lo, 2), req_hi = signif(req_hi, 2))))
+print(as.data.frame(d %>% transmute(code, va_mode = signif(va_mode, 2), msd = signif(msd, 2),
+  ratio = signif(va_mode / msd, 2), req = signif(req, 2), req_lo = signif(req_lo, 2), req_hi = signif(req_hi, 2))))
 
 # Optional low-resolution preview: FIG_PREVIEW=path.png Rscript scripts/R/figS_gap.R
 if (nzchar(Sys.getenv("FIG_PREVIEW")))
