@@ -53,33 +53,30 @@ d_enter <- c(1 / (1 + 8), 1 / (1 + 4))
 # upper bound on the reduction with linkage, Omega_bar(V_A) exp(-4 kappa(0) V_A),
 # reaches delta (Theory, sec:linkage; Q = 2 in the global factor, class-by-class
 # Z_k = 1 - s_k in Omega_bar, so the curve cannot rise above the multiplicative
-# band). Minimum over the measured DFEs of the population's taxon, i.e. the most
-# generous one. Solved along the delta axis in log space. Rebuilt 2026-10-19 with
-# linked.R; SHOW_LINKED=0 hides the curves.
+# band). At the empirical DFE assigned to the population (data/dfe_assignment.csv,
+# the same DFE as Figures 2 and 5). Solved along the delta axis in log space.
+# Rebuilt 2026-10-19 with linked.R; assigned DFEs since 2026-10-20 (before: the most
+# generous DFE of the taxon). SHOW_LINKED=0 hides the curves.
 show_linked <- Sys.getenv("SHOW_LINKED") != "0"
 lcurve <- data.frame(code = character(), delta = numeric(), V = numeric())
 if (show_linked) {
 source("scripts/R/linked.R")
-birds <- c("BTR", "BTP", "BTM", "CF", "SFW", "SSP", "HT", "HK", "GTU", "GTN")
 lpops <- load_populations("linked")
 auto <- load_chromosomes(autosomes_only = TRUE, mapped_only = FALSE, macro_only = FALSE)
-dfe <- dfe_reference()
+dfe_pop <- dfe_assigned()
 d_grid <- 10^seq(log10(x_lo), -1e-3, length.out = 120)
 lcurve <- bind_rows(lapply(lpops$code, function(cd) {
   a <- filter(auto, code == cd); m <- filter(a, has_map); f <- f_share(m, a, "bp")
   r <- lpops[lpops$code == cd, ]
   k0 <- kappa_mult_bound(r$pair_bond == "social_monogamy")
-  tx <- if (cd %in% birds) "Birds" else "Mammals"
-  Vs <- sapply(dfe$spec[dfe$taxon == tx], function(sp) {
-    lom <- omega_fun(m, f, r$kappa, sp, log = TRUE)
-    g <- function(lv) lom(10^lv) - 4 * k0 * 10^lv
-    vapply(d_grid, function(dl) {
-      if (g(log10(y_hi)) > log(dl)) return(NA_real_)          # above the plotted range
-      10^uniroot(function(lv) g(lv) - log(dl), c(-8, log10(y_hi)), tol = 1e-6)$root
-    }, numeric(1))
-  })
-  data.frame(code = cd, delta = d_grid, V = apply(Vs, 1, function(v) suppressWarnings(min(v, na.rm = TRUE))))
-})) %>% mutate(V = if_else(is.finite(V), V, NA_real_))
+  lom <- omega_fun(m, f, r$kappa, dfe_pop[[cd]], log = TRUE)
+  g <- function(lv) lom(10^lv) - 4 * k0 * 10^lv
+  V <- vapply(d_grid, function(dl) {
+    if (g(log10(y_hi)) > log(dl)) return(NA_real_)          # above the plotted range
+    10^uniroot(function(lv) g(lv) - log(dl), c(-8, log10(y_hi)), tol = 1e-6)$root
+  }, numeric(1))
+  data.frame(code = cd, delta = d_grid, V = V)
+}))
 }
 
 p <- ggplot() +
@@ -106,7 +103,7 @@ p <- ggplot() +
       geom_line(data = lcurve, aes(delta, V, group = code), colour = col_link, linewidth = 0.35,
                 alpha = 0.85, na.rm = TRUE),
       annotate("text", x = 1.4e-5, y = 0.04, colour = col_link, size = 2.2, hjust = 0, lineheight = 0.9,
-               label = "with linkage, per mapped population: the least variance\nthat could explain δ at the most generous measured DFE")) } +
+               label = "with linkage, per mapped population: the least variance\nthat could explain δ at its assigned empirical DFE")) } +
   annotate("segment", x = d_enter, xend = d_enter, y = y_lo, yend = 1,
            linetype = "22", linewidth = 0.3, colour = "grey55") +
   # measured values, as rugs

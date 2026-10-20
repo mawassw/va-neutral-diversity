@@ -512,9 +512,10 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
      5e-4 for great tits (Wytham, was 0.068) and 4.5e-3 for song sparrows (was 0.18). Mammal Ω̄ is
      0.32–0.62 (was 0.81–0.92).
    - **Rescaling:** c_lk is 1.6–9.8 in birds and 3–8 in mammals; the species average is 3.7 (16 unlinked).
-     The gap to c_msd is 21–124× per population. **Song sparrow at its upper 95% HPD with the
-     pied-flycatcher DFE reaches $N_e/N$ = 6.8e-7, below δ = 2.6e-5**: the one case where linkage
-     alone matches a deficit.
+     The gap to c_msd is 21–124× per population. Song sparrow at its upper 95% HPD with the
+     pied-flycatcher DFE reached $N_e/N$ = 6.8e-7, below δ = 2.6e-5, the one case where linkage
+     alone matched a deficit. **Gone with the assigned DFE (2026-10-20): it is now 7.6e-4, about 30×
+     short.** (These bullets are the most-generous-DFE numbers of 2026-10-19; superseded below.)
    - **Introduction and Methods updated to these numbers. `data_gen.R` still carries the old linked
      code and is not used.**
    **One DFE per population on both sides (user, 2026-10-20).** The maintenance line and the
@@ -525,8 +526,12 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
      collared flycatcher ($\bar s$ = 0.0013); bighorn, Soay and red deer get vaquita + fin whale
      (0.0195); macaque and baboon get human (0.0139); rodents get house mouse. **Author to confirm.**
      No species-specific great tit or macaque DFE was found (web search 2026-10-20).
-   - **Applied in:** `fig5_rescaling.R` and `figS_rescaling_linked.R`. Figs 2–3 keep the
-     taxon-band, most-generous-DFE construction.
+   - **Applied in:** `fig5_rescaling.R`, `figS_rescaling_linked.R`, and since 2026-10-20 (user) also
+     `fig2_linked.R` (with FigS_omega and FigS_linked_fgene) and `fig3_ceiling.R`. Every figure now
+     uses one DFE per population, and the taxon band is gone. Fig. 2 at the assigned DFE, total
+     $N_e/N$ at the mode: great tits 0.019 (Wytham) and 0.44 (NL), song sparrow 0.077 (upper HPD
+     7.6e-4), collared flycatcher 0.68; mammals 0.24–0.48. Every population falls short of its
+     observed δ across its whole HPD.
    - **Linked supplement result:** c_lk is 3.3–22.6 in birds and 3.8–9.0 in mammals, against
      c_div 5–80. Gap c_lk/c_msd 81–442×.
    - **Self-consistent check:** at $c = c_\text{MSD}$, where the variance is what that DFE
