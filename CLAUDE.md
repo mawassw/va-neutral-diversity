@@ -482,7 +482,22 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
      $\kappa$ = 1 and 2.
    Earlier: **Introduction redrafted 2026-10-16 and merged to `main`** (scaffolding; needs re-voicing;
    new citations web-checked, Crossref still due; see `manuscript/INTRO_REDRAFT_PLAN.md`).
-   Discussion still to do.
+   **Results drafted 2026-10-20** (`manuscript/results.tex`, branch `worktree-results-draft`; outline
+   approved by the user, then "go ahead with your recommendations on all three"). Modelled on the
+   GENETICS exemplar (`iyag180.pdf`): each subsection states what was computed, "Figure N shows",
+   then a genetic/evolutionary reading, not a mathematical one. Order follows the Introduction's last
+   paragraph: global reduction (Table, Fig. 1) → shortfall against the deficit (V_A needed, from the
+   Table) → local reduction (Fig. 2) → diversity as a constraint (Fig. 3) → maintenance (Fig. 4) →
+   rescaling (Fig. 5) → "Taken together". **Decisions:** (1) figure numbering kept as is; (2) the
+   translation "V_A ≈ 1.1–1.7 means one SD above the mean breeding value expects 3–4× the offspring"
+   kept, flagged `% AUTHOR:` for re-voicing; (3) Fig. 4 and FigS_gap now use each population's
+   assigned DFE mean (diamond; bar = component species' range), so every figure uses one DFE per
+   population. **New results in the text:** maps alone give similar Ω̄ in birds and mammals
+   (0.55–0.73 at s = 0.01, V_A = 0.1; Fig. 2B), so the taxon contrast is the DFE; at s = s*, Ω̄ =
+   0.97–0.99; the variance balance maintains (0.0007–0.013 for the nine) lowers unlinked diversity by
+   only 0.6–5%; P(s* > s̄) ≥ 0.89 in 17 of 18 (snow vole 0.70), s*/s̄ median 18 (0.45–480); measured
+   mode exceeds U_d s̄ in 16 of 18, median 21×. Figures are now wired (see Rule 8). Prose is
+   scaffolding. Discussion still to do.
 3a. **Methods reviewer pass.** The user asked on 2026-10-15 for Theory and Methods to be updated
    together, and **Methods was rewritten that day** from the data layer (see the Rule 5 log entry of
    2026-10-15, "Theory and Methods updated"). A reviewer pass is still wanted. **Author flags left in
@@ -785,6 +800,11 @@ project#3/
    main text and its internal appendices) supersedes it. Do not cite, extend, or mine that folder for
    results.
 
+   **Since 2026-10-20 the figures ARE wired**, in the `_main.tex` tree only: Figs. 1–5 are floats in
+   `manuscript/results.tex` (`fig:unlinked`, `fig:linked`, `fig:ceiling`, `fig:selection`,
+   `fig:rescaling`, from `main/Fig1_unlinked` … `Fig5_rescaling`), and S1–S4 are in the new
+   `supp/supp_figures.tex` (`fig:S_omega`, `fig:S_fgene`, `fig:S_gap`, `fig:S_rescaling_linked`),
+   input after Appendix D. Methods cites them by `\ref`. The rest of this paragraph is history.
    **No figure is wired into any `.tex` file yet.** `main.tex` says "(Fig. 1)" in prose but contains no
    `\begin{figure}` or `\includegraphics` at all, and `scratch.tex`'s single `\caption` is a table. So
    there is **no** existing script → filename → figure-number mapping to inherit; it gets established
@@ -923,6 +943,16 @@ the code implements, not necessarily what `scratch.tex` now specifies.
   intentional, not a bug.
 
 ## Known staleness & inconsistencies (Rule 5 log)
+
+**Logged 2026-10-20 — Results draft (branch `worktree-results-draft`).** Fixed in Methods: the
+mutation–selection subsection now compares $s^*$ with the assigned $\bar s$ and reports
+$P(s^* > \bar s)$ and $P(s^* > 1)$ (it promised $P(s^* > 0.01)$, $P(s^* > 0.001)$ against a
+$10^{-3}$–$10^{-2}$ range); the linked subsection no longer claims a 20 Mb filter (the rebuilt
+`linked.R` uses every autosome with a map ≥ 1 cM, microchromosomes included; the filter was
+`data_gen.R`'s); hard-coded "Figure 1/2/3/5" replaced by `\ref`. **Still open:** Frankham 1995
+(cited in Results for demographic $N_{eV}/N$) is not in `references.bib`; the phylogenetic-μ median
+$s^*$ = 0.12 and $2N_es^* \ge 9{,}400$ are from the 2026-10-13 data layer and were not recomputed;
+`discussion.tex` and `abstract.tex` remain stale.
 
 **Logged 2026-10-19 — notation cohesion pass (branch `worktree-open-items-domain-map`, on top of
 `ef19986`).** The user asked whether different symbols meant the same thing, then deferred to the
