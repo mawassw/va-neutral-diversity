@@ -450,6 +450,22 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
    $s^* > \bar s$ it gives the larger reduction. The Introduction was reconciled to match: the ¶4 gap
    sentence, and the last paragraph, which now reads "at the measured $V_A$ rather than at the
    variance that balance would maintain".
+   **Superseded 2026-10-20 by the author's Overleaf Introduction** (`overleaf-2026-10-20-1541`,
+   merged). **That Overleaf text is now the authoritative Introduction.**
+   - **Its content:** paragraph 3 presents SC as the general case with $Q = 2$ unlinked; a new
+     paragraph sets the first-order form against the Barton & Etheridge exponential.
+   - **Paragraph 4** ends on map resolution. It drops the global/local split, the
+     unlinked-background-selection sentence, McVicker et al. 2009 and the "inferred, not measured"
+     gap sentence.
+   - **The last paragraph** says "under mutation–selection balance" for the linked term, which fits
+     the hybrid statement now in Theory.
+   - **Fixed at the merge, with the author's approval:**
+     - the displayed equation with `\label{eq:intro_sc}` restored (Overleaf had made it inline and
+       hard-coded "Equation (1)"; Theory cites the label);
+     - three results sentences restored: the multiplicative shortfall, $V_A$ above one, and the
+       maintenance magnitude.
+   - **Overleaf sync sequence that worked:** push from Overleaf → conflict branch → merge locally
+     and push `main` → then pull into Overleaf.
    **Worktrees consolidated 2026-10-19 (user: "we don't need trailing worktrees").** These are
    all on `main` and their worktrees are removed: `worktree-theory-exemplar`,
    `worktree-global-local` (global vs local effective size, adapted to the exponential composite),
