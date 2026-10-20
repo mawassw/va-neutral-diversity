@@ -524,7 +524,7 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
    - **Assignment:** own species (collared flycatcher), else an equal mixture of the closest
      relatives' DFEs in Lin et al. 2026, combined with `dfe_mixture()`. Other passerines get pied +
      collared flycatcher ($\bar s$ = 0.0013); bighorn, Soay and red deer get vaquita + fin whale
-     (0.0195); macaque and baboon get human (0.0139); rodents get house mouse. **Author to confirm.**
+     (0.0195); macaque and baboon get human (0.0139); rodents get house mouse. **Confirmed by the user 2026-10-20**; the argument (phylogenetic signal in Lin et al., λ = 0.84; weak within mammals) is in Methods.
      No species-specific great tit or macaque DFE was found (web search 2026-10-20).
    - **Applied in:** `fig5_rescaling.R`, `figS_rescaling_linked.R`, and since 2026-10-20 (user) also
      `fig2_linked.R` (with FigS_omega and FigS_linked_fgene) and `fig3_ceiling.R`. Every figure now
