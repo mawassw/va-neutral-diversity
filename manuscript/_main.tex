@@ -51,6 +51,8 @@
 \newcommand{\beginsupplement}{%
     \setcounter{figure}{0}%
     \renewcommand{\thefigure}{S\arabic{figure}}%
+    \setcounter{table}{0}%
+    \renewcommand{\thetable}{S\arabic{table}}%
 }
 \newcommand{\isMainDocument}{}
 
@@ -82,6 +84,7 @@
 \printbibliography
 \beginsupplement
 
+\input{supp/notation}
 \appendix
 \input{supp/appendix_A}
 \input{supp/appendix_B}

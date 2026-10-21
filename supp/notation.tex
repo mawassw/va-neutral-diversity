@@ -1,0 +1,49 @@
+\ifdefined\isMainDocument
+\else
+    \documentclass{article}
+    \usepackage{fullpage}
+    \usepackage{amsmath, amsfonts, amssymb}
+    \usepackage{bm}
+    \usepackage{caption}
+    \usepackage{booktabs}
+    \usepackage{hyperref}
+    \begin{document}
+\fi
+% Notation table, moved out of Theory on 2026-10-21 (Theory rewrite to the GENETICS exemplar,
+% user-approved outline). Referenced from Theory, sec:quantity, as Table~\ref{tab:notation}.
+\section*{Notation}
+\begin{table}[h!]
+\centering
+\caption{Notation used in the main text and appendices.}
+\label{tab:notation}
+\small
+\begin{tabular}{ll}
+\toprule
+Symbol & Meaning \\
+\midrule
+$V_A$, $\hat{V}_A$, $\bar{V}_A$ & additive variance in relative fitness; pedigree estimate; long-term time average \\
+$c$; $c_\text{MSD}$, $c_\text{div}$ & $\bar{V}_A/\hat{V}_A$; its upper bound from maintenance and lower bound from diversity \\
+$N$, $N_c$ & number of breeding adults; total census size \\
+$\pi$, $\mu$ & neutral autosomal nucleotide diversity; per-site mutation rate per generation \\
+$N_{eV}$, $N_{eC}$, $\tilde{N}_e$ & variance and coalescent effective sizes; harmonic mean over the coalescent window \\
+$\delta$ & diversity ratio $\pi/(4\mu N)$ (derived, not measured) \\
+$\kappa$, $\kappa(0)$ & mating-system scalar (Appendix B); its value without extra-pair paternity, 2 with a pair bond and 1 without \\
+$\kappa_\text{own}$, $\kappa_\text{partner}$, $\kappa_\text{cis}$ & components of $\kappa$ (Appendix B) \\
+$\alpha$ & extra-pair paternity rate \\
+$z$, $a$ & breeding value for log-fitness (latent scale of the pedigree model); $a = z - \bar{z}$ for small $V_A$ \\
+$Z$, $Z_k$ & retention: fraction of a gene copy's association with its selective background that survives one generation of selection; for effect class $k$ \\
+$Q$, $r_{mf}$ & unlinked cumulative transmission factor, $2/[2 - Z(1+r_{mf})]$, equal to 2 at $Z = 1$, $r_{mf} = 0$; mates' correlation in breeding value \\
+$\overline{Q^2}_i$, $r(\ell)$ & linked interference on chromosome $i$; recombination fraction at map distance $\ell$ \\
+$M_i$, $L_i$, $f_i$ & map length (Morgans); physical length; share of the genome's functional sequence \\
+$v_i$, $v_h$, $\Omega_i$, $\overline{\Omega}$ & additive variance on chromosome $i$; on the focal haplotype; reduction attributable to linkage; its genome-wide average \\
+$U_d$, $V_m$ & diploid deleterious mutation rate; mutational variance \\
+$s$, $s_k$, $\bar{s}$, $\varphi$, $\nu_k$ & heterozygous effect of a deleterious mutation; of effect class $k$; mean effect; DFE density; share of $V_A$ in class $k$ \\
+$s^*$ & mean effect implied by $\bar{V}_A$ at mutation--selection--drift balance \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\ifdefined\isMainDocument
+\else
+    \end{document}
+\fi

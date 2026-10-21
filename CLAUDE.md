@@ -966,6 +966,37 @@ the code implements, not necessarily what `scratch.tex` now specifies.
 
 ## Known staleness & inconsistencies (Rule 5 log)
 
+**Logged 2026-10-21 — Theory rewritten for compactness, register and cohesion (branch
+`worktree-intro-sc-general`, user asked to apply the full assessment outline and merge).** Measured
+against the GENETICS exemplar (`iyag180.pdf`). **No equation changed and every label was kept.**
+
+- **New order:** quantity (`eq:c`) → balance (`msdb`) → global reduction (`sec:unlinked`, which now
+  also holds $Q$, $Z$ with `eq:Z`, and D2 with `eq:harmonic`) → mating system → multiplicative model
+  and its bound (`sec:onemodel`, now *after* the small-variance result it extends) → ceiling (the
+  multiplicative form first) → local effective size → one condition (`sec:conditions`, retitled) →
+  direction of the approximations. The prose went from 4,690 to 3,480 words.
+- **Taken out of the main text:**
+  - `tab:onemodel` was deleted (nothing referenced it).
+  - `tab:notation` → new `supp/notation.tex`, input before Appendix A. `_main.tex` now S-numbers
+    supplementary tables as well as figures.
+  - The "three senses of strong/weak" → a footnote in `msdb`.
+  - The ν weights and the aggregate rate → Appendix D only, where they already were.
+  - The cis/trans argument for background selection → Appendix D only.
+  - Microchromosomes → Appendix C (limits).
+  - "Buffalo & Kern omitted the homologous haplotype" → Appendix D.
+  - Barton 1998/2000 (a retention presupposes a constant background) → Appendix A.4.
+  - The `uniroot` for the linked variance → Methods.
+- **Register:** the Theory prose no longer uses "first order", "all orders", "enters", "kernel",
+  "bracketed", "convex", "domain", "leading term" or "compounds". Two names are fixed: **"small
+  variance"** and **"the multiplicative bound"** (named once, in `sec:onemodel`).
+- **The scope-condition 1 wording** now separates two senses: "exact under long-term equilibrium"
+  (no assumption about the trajectory, only $\bar V_A$) and approximate in $V_A \ll 1$.
+- **Merged first:** origin/main (14 commits) into the branch. The Introduction conflicts were
+  resolved to main's Overleaf prose. Main's Weissman & Barton 2012 result and its "hybrid
+  calculation" paragraph are kept in compressed form.
+- **Still stale, not touched:** Results, Methods, Discussion and the appendices still use the
+  "first order / all orders" vocabulary that Theory dropped.
+
 **Logged 2026-10-20 — Results draft (branch `worktree-results-draft`).** Fixed in Methods: the
 mutation–selection subsection now compares $s^*$ with the assigned $\bar s$ and reports
 $P(s^* > \bar s)$ and $P(s^* > 1)$ (it promised $P(s^* > 0.01)$, $P(s^* > 0.001)$ against a
