@@ -29,74 +29,22 @@
 % the additive-map remark. 2026-10-19: G renamed Z throughout (one quantity, one symbol).
 
 \section{Appendix A: The Unlinked Reduction under One Model of Fitness}\label{app:unlinkedapp}
-This appendix derives the reduction in effective size caused by heritable fitness variance at sites unlinked to any selected locus. Section A.1 gives the first-order result of Robertson (1961) and Santiago and Caballero (1995). Section A.2 connects it to the estimate of Bonnet et al. (2022), whose animal model is multiplicative. Section A.3 extends the reduction to all orders under that model, and Section A.4 treats the retention $Z$ and how it depends on the architecture of $V_A$.
+This appendix sets out the reduction in effective size caused by heritable fitness variance at sites unlinked to any selected locus. Section A.1 states the first-order result of Robertson (1961) and Santiago and Caballero (1995). Section A.2 connects it to the estimate of Bonnet et al. (2022), whose animal model is multiplicative. Section A.3 gives the all-orders results under that model, published for random mating and for strict monogamy (Barton and Etheridge 2011; Weissman and Barton 2012), and extends them to extra-pair paternity, which is the part derived here. Section A.4 treats the retention $Z$ and how it depends on the architecture of $V_A$.
 
 \subsection*{A.1\quad First order}
-In a neutral Wright-Fisher population with a constant diploid census size $N$, the variance in allele frequency change per generation due to random genetic drift for a neutral allele at frequency $p$ is the standard gametic sampling variance:
-
+The first-order result is that of Robertson (1961), generalized by Santiago and Caballero (1995; reviewed in Wang et al. 2016); we state it and the assumptions it carries rather than rederive it. Consider $N$ breeding adults whose family sizes would be Poisson in the absence of selection, and a neutral site unlinked to every selected locus. By chance, the carriers of a neutral allele differ from the population mean in breeding value for fitness, and the allele's frequency moves with that difference. Non-heritable variance in fitness moves the allele only once and is absorbed into the demographic background. Heritable variance moves it again in each later generation, because the carriers' descendants inherit part of the difference. The persistence is the cumulative transmission factor
 \begin{equation}
-    \text{Var}(\Delta p^{\text{drift}}) = \frac{p(1-p)}{2N}
+    Q = \sum_{t=0}^{\infty} \left[\frac{Z(1+r_{mf})}{2}\right]^t = \frac{2}{2 - Z(1+r_{mf})},
 \end{equation}
-
-When variance in reproductive success is heritable ($V_A > 0$), the neutral allele experiences selective interference from the genetic background on which it resides. In a given generation, a diploid population of $N$ individuals has relative fitnesses $w_i$, normalized so that $\frac{1}{N}\sum_i w_i = 1$, with variance $\text{Var}(w_i) = V_W$. Let $x_i \in \{0, \frac{1}{2}, 1\}$ be the frequency of the neutral allele within individual $i$, so that $p = \frac{1}{N}\sum_i x_i$. Weighting each individual's contribution by its relative fitness, the frequency in the next generation is
+where $Z$ is the retention, the fraction of a gene copy's association with its selective background that survives one generation of selection (their $G$; Section A.4), and $r_{mf}$ is the correlation between mates' breeding values for fitness (written $r_{mf}$ to distinguish it from the recombination fraction $r$). Heritable fitness differences then add $Q^2V_A$ to the variance of long-term contributions among ancestors beyond its Poisson expectation, and that variance sets the rate of drift (Wray and Thompson 1990), so that
 \begin{equation}
-    p' \approx \frac{1}{N}\sum_{i=1}^{N} w_i x_i = p + \frac{1}{N}\sum_{i=1}^{N}(w_i - 1)(x_i - p),
+    \frac{N_e}{N} = \frac{1}{1 + Q^2V_A}, \qquad \text{and} \qquad \frac{N_e}{N} = \frac{1}{1 + 4V_A} \quad \text{at } Z = 1,\ r_{mf} = 0. \label{eq:A_first}
 \end{equation}
-where the second form uses $\sum_i (w_i - 1) = 0$. Because the neutral locus is unlinked to all selected sites, $w_i$ and $x_i$ are independent, so $\mathbb{E}[(w_i - 1)(x_i - p)] = 0$ and the expected change is zero. The variance in the allele frequency change is
-\begin{equation}
-    \text{Var}(\Delta p) = \frac{1}{N^2}\sum_{i=1}^{N}\text{Var}\left[(w_i - 1)(x_i - p)\right] = \frac{V_W\,\text{Var}(x_i)}{N} = V_W\,\frac{p(1-p)}{2N}, \label{eq:A_dp_one}
-\end{equation}
-using $\text{Var}(x_i) = p(1-p)/2$ under Hardy--Weinberg proportions.
+$Q = 2$ is the first-order form of the expected long-term contribution of Section~A.3: an ancestor with breeding value $z$ has $R(z) \approx 1 + Q(z - \bar{z})$, and without a pair bond this is $1 + L_X$, with $L_X$ the cumulative advantage of Appendix~B.
 
-The neutral allele is not selected, yet its frequency changes. In each generation its copies are carried by individuals whose fitnesses are independent of the neutral genotype, and by chance the carriers' mean fitness differs slightly from the population mean which results in the allele's frequency moving in the direction of that difference. Equation~\eqref{eq:A_dp_one} gives the variance of this change: the variance in fitness, times how unevenly the allele is spread among individuals, divided by the $N$ individuals over which the chance difference is averaged. The factor $p(1-p)$ is the heterozygosity at the neutral locus. An allele that is fixed or absent is carried equally by every individual and cannot be moved by differences among them, so, as with genetic drift, the effect is largest at intermediate frequency and vanishes without variation at the neutral site.
-
-However, what distinguishes this change from genetic drift is that part of it can persist across the generations. Write $V_W = V_A + V_R$, where $V_R$ collects the environmental and non-additive components of fitness variance. The $V_R$ component is not transmitted: it moves the allele once, as additional sampling variance in the generation it occurs, and is absorbed into the demographic background, here assumed to be Poisson. The additive component is transmitted, because the carriers' offspring inherit, on average, half of their parents' breeding values along with the neutral allele. The heritable part of the one-generation change is therefore
-\begin{equation}
-    \text{Var}(\Delta p^{\text{sel}}) = V_A\,\frac{p(1-p)}{2N}. \label{eq:A_dp_sel}
-\end{equation}
-This formulation (Robertson 1961) relies on a large-$N$ approximation, assumes Hardy-Weinberg equilibrium ($\text{Var}(x_i) = p(1-p)/2$), and isolates the additive genetic component $V_A$ from the total fitness variance, as contributions from dominance and epistasis do not transmit stably across generations to drive multi-generational allele frequency changes.
-
-Because the neutral allele and the selected background are unlinked (segregating on non-homologous chromosomes), they assort independently during meiosis (i.e., $r = 0.5$). Consequently, the statistical association, or linkage disequilibrium, between the neutral allele and its initial selected background halves each generation $t$. The directional change in the neutral allele frequency driven by this specific selective cohort decays geometrically:
-\begin{equation}
-    \Delta p_t^{\text{sel}} = \left(\frac{1}{2}\right)^t \Delta p^{\text{sel}}
-\end{equation}
-
-Integrating this effect over time yields the total cumulative change in the neutral allele frequency resulting from a single generation of heritable variance:
-
-\begin{equation}
-    \Delta p_{\text{total}}^{\text{sel}} = \sum_{t=0}^{\infty} \left(\frac{1}{2}\right)^t \Delta p^{\text{sel}} = 2 \Delta p^{\text{sel}}
-\end{equation}
-The factor 2 is the cumulative transmission factor $Q$, and it is the first-order form of the expected long-term contribution of Section~A.3: an ancestor with breeding value $z$ has $R(z) \approx 1 + Q(z - \bar{z})$, and without a pair bond this is $1 + L_X$, with $L_X$ the cumulative advantage of Appendix~B. The cumulative change $\Delta p^{\text{sel}}_{\text{total}}$ is the sum, over the individuals that carry the neutral allele, of their excess long-term contributions. Its variance is therefore the heritable part of the variance of long-term contributions, which sets the rate of drift (Wray and Thompson 1990).
-
-This series is a special case. Santiago and Caballero (1995; reviewed in Wang et al. 2016) give the general cumulative factor
-\begin{equation}
-    Q = \sum_{i=0}^{\infty} \left[\frac{Z(1+r_{mf})}{2}\right]^i = \frac{2}{2 - Z(1+r_{mf})},
-\end{equation}
-where $Z$ is the retention, the fraction of a gene copy's association with its selective background that survives one generation of selection (their $G$, defined through the variance remaining among selected parents; Section A.4), and $r_{mf}$ is the correlation between the expected selective values of male and female parents. (We write $r_{mf}$ to distinguish it from the recombination fraction $r$.) The special case above sets $Z = 1$ and $r_{mf} = 0$. $Z = 1$ holds exactly for a Gaussian, infinitesimal breeding value under the multiplicative model of Section A.3, and is an upper bound when $V_A$ is carried by deleterious alleles (Section A.4). $r_{mf} = 0$ requires that mates pair at random with respect to their breeding values for fitness; under random mating Santiago and Caballero give $r_{mf} = -1/(N-1)$. Assortative mating for fitness ($r_{mf} > 0$) would raise $Q$. We do not interest ourselves in that specific process and keep $r_{mf} = 0$.
-
-Assuming $V_A$ remains stationary under mutation-selection-drift equilibrium, a new influx of selective variance of magnitude $V_A p(1-p)/(2N)$ is generated each generation. The long-run footprint of each generation's selective variation resolves to $2\Delta p^{\text{sel}}$.
-
-The total selective variance in allele frequency change is the variance of this cumulative sum. Because the selective association persists across multiple generations, the variance of the cumulative effect scales with the square of the cumulative sum:
-\begin{equation}
-    \text{Var}(\Delta p_{\text{total}}^{\text{sel}}) = \text{Var}(2 \Delta p^{\text{sel}}) = 4 V_A \frac{p(1-p)}{2N}
-\end{equation}
-This establishes that the multi-generational persistence of associations across independently assorting chromosomes amplifies the effective variance four-fold.
-
-Because the neutral allele is physically unlinked from the causal selected loci, the variance generated by selective interference and the variance generated by neutral demographic sampling arise from independent biological processes. Their contributions to the total variance in allele frequency are therefore additive. Equating the standard definition of effective gametic sampling variance to the sum of these independent variances yields:
-\begin{equation}
-    \frac{p(1-p)}{2N_e} = \text{Var}(\Delta p^{\text{drift}}) + \text{Var}(\Delta p_{\text{total}}^{\text{sel}})
-\end{equation}
-
-Substituting the expanded terms:
-\begin{equation}
-    \frac{p(1-p)}{2N_e} = \frac{p(1-p)}{2N} + 4 V_A \frac{p(1-p)}{2N}
-\end{equation}
-
-Dividing by the common neutral variance term $p(1-p)$ and multiplying by 2 yields the unlinked expectation for the effective population size:
-\begin{equation}
-    \frac{1}{N_e} = \frac{1}{N} (1 + 4V_A) \Rightarrow N_e = \frac{N}{1 + 4V_A}
-\end{equation}
-The derivation is first order: each step treats a lineage's selective advantage as small, so it holds for any map from breeding value to fitness while $V_A \ll 1$. The extension to separate sexes and structured mating systems is derived in Appendix B, where $V_A$ is scaled by the mating-system parameter $\kappa(\alpha)$, yielding $N_e/N = 1/(1+4\kappa V_A)$.
+$Z = 1$ holds exactly for a Gaussian, infinitesimal breeding value under the multiplicative model of Section A.3, and is an upper bound when $V_A$ is carried by deleterious alleles (Section A.4). $r_{mf} = 0$ requires that mates pair at random with respect to their breeding values; under random mating Santiago and Caballero give $r_{mf} = -1/(N-1)$, and assortative mating for fitness ($r_{mf} > 0$) would raise $Q$. Only the additive component of fitness variance enters, because dominance and epistatic effects are not transmitted stably across generations. The result is first order: it treats a lineage's selective advantage as small, so it holds for any map from breeding value to fitness while $V_A \ll 1$. The extension to separate sexes and mating systems is in Appendix B, where it becomes $N_e/N = 1/(1+4\kappa V_A)$.
+% 2026-10-21 (user): A.1 compressed from a step-by-step rederivation of Robertson (1961) /
+% Santiago and Caballero (1995) to a cited statement; the full derivation is in git history.
 
 \subsection*{A.2\quad The latent scale and the measured variance}
 Bonnet et al. (2022) model lifetime breeding success with two latent predictors: a logit-linked probability of breeding ($l_1$) and a log-linked expected number of offspring given breeding ($l_2$). Breeding values are additive and Gaussian on these latent scales, with genetic covariance matrix $\mathbf{G}$. They report the observed-scale additive variance in relative fitness, $V_A(w) = \mathbf{d}^\top\mathbf{G}\mathbf{d}$, where $\mathbf{d}$ is the vector of average derivatives of mean relative fitness with respect to $l_1$ and $l_2$. For a log link the average derivative equals the mean, which is one for relative fitness, so for the log-linked component the observed-scale and latent variances coincide (de Villemereuil et al. 2016, Equations 15--16). To first order, then, $V_A(w)$ is the variance of a single breeding value $z$ for log-fitness, $w \propto e^{z}$, and that is the model used in Section A.3.
@@ -108,13 +56,15 @@ Let parents be chosen with probability proportional to $e^{z}$, with $z$ additiv
 \begin{equation}
     R(z) = \exp\left[2(z - \bar{z}) - 2V_A\right],
 \end{equation}
-so that the cumulative factor $Q = 2$ sits in the exponent. They note that the variance of $R$ across ancestors is $e^{4V_A}$, and that the probability that an ancestor is involved in a coalescence goes as the square of $R$. The rate of inbreeding is proportional to the second moment of long-term genetic contributions (Wray and Thompson 1990), which gives, without a pair bond,
+so that the cumulative factor $Q = 2$ sits in the exponent. They note that the variance of $R$ across ancestors is $e^{4V_A}$, and that the probability that an ancestor is involved in a coalescence goes as the square of $R$. The rate of inbreeding is proportional to the second moment of long-term genetic contributions (Wray and Thompson 1990), which gives, without a pair bond, the factor $e^{4V_A}$ by which Weissman and Barton (2012) find that heritable variance in log-fitness at unlinked loci increases the rate of coalescence,
 \begin{equation}
     \frac{N_e}{N} = \frac{\mathbb{E}[R]^2}{\mathbb{E}[R^2]} = e^{-4V_A}. \label{eq:A_mult}
 \end{equation}
 Its expansion, $1 - 4V_A + O(V_A^2)$, is the first-order result of Section A.1.
 
-\paragraph{Social monogamy.} With the nest-sharing model of Appendix B (Model B), a carrier's family size is proportional to $e^{z}$ for its log breeding value $z$ in either sex, so later generations compound exactly as above. Only the first generation mixes two kinds of offspring. A copy in a female with social partner $m'$ has nest productivity $e^{z_f + z_{m'}}$; a fraction $1 - \alpha$ of those offspring are sired by $m'$, and $\alpha$ by extra-pair males. A copy in a male with social partner $f'$ gains within-pair offspring from his own nest and extra-pair offspring elsewhere. The expected long-term contributions are, up to constants,
+\paragraph{Strict monogamy.} Weissman and Barton (2012) treat the case in which pairs form at random and each pair, with breeding values $z$ and $z'$, produces a Poisson number of offspring with expectation proportional to $e^{z + z'}$. They show that the fixation probability of a new mutation is proportional to the square of the fitness of the individual in which it arises in this model as in the random-mating one, and that with monogamy heritable variance in log-fitness reduces it by $e^{-8V_A}$ rather than $e^{-4V_A}$ (their Results, "Unlinked loci", and Text S2). Because coalescence goes as the square of the long-term contribution in the same way, the reduction in effective size under strict monogamy is $N_e/N = e^{-8V_A}$. This is the all-orders counterpart of the pair-mated family variance $C^2 = 2V_A$ of Santiago and Caballero (1995), whose first-order form is $1/(1 + 8V_A)$. Their model is haploid and has no separate sexes or extra-pair paternity.
+
+\paragraph{Extra-pair paternity.} What follows extends the strict-monogamy result to extra-pair paternity at rate $\alpha$. With the nest-sharing model of Appendix B (Model B), a carrier's family size is proportional to $e^{z}$ for its log breeding value $z$ in either sex, so later generations compound exactly as above. Only the first generation mixes two kinds of offspring. A copy in a female with social partner $m'$ has nest productivity $e^{z_f + z_{m'}}$; a fraction $1 - \alpha$ of those offspring are sired by $m'$, and $\alpha$ by extra-pair males. A copy in a male with social partner $f'$ gains within-pair offspring from his own nest and extra-pair offspring elsewhere. The expected long-term contributions are, up to constants,
 \begin{equation}
     R_f \propto (1-\alpha)\,e^{2(z_f + z_{m'})} + \alpha\,e^{2z_f + z_{m'}}, \qquad
     R_m \propto (1-\alpha)\,e^{2(z_m + z_{f'})} + \alpha\,e^{2z_m},
@@ -123,7 +73,7 @@ and $N/N_e$ is the mean over the sexes of $\mathbb{E}[R^2]/\mathbb{E}[R]^2$. Wit
 \begin{equation}
     e^{-8V_A} \le \frac{N_e}{N} \le e^{-4\kappa_B V_A}. \label{eq:A_mult_pair}
 \end{equation}
-Equality holds at both ends under strict monogamy ($\alpha = 0$, where $\kappa_B = 2$). The right-hand end matches the first-order result $1/(1 + 4\kappa_B V_A)$, with slope $4\kappa_B$ at $V_A = 0$. We confirmed numerically that the exact value never falls outside the bracket, including when the weight of the extra-pair term is distorted by factors between $e^{-2V_A}$ and $e^{2V_A}$, which allows for the selection of extra-pair sires and the normalization of the extra-pair pool. At small $V_A$ the exact value lies close to the right-hand end, and as $V_A$ grows it moves toward the left, because the within-nest term compounds fastest.
+Equality holds at both ends under strict monogamy ($\alpha = 0$, where $\kappa_B = 2$), which recovers Weissman and Barton's $e^{-8V_A}$. The right-hand end matches the first-order result $1/(1 + 4\kappa_B V_A)$, with slope $4\kappa_B$ at $V_A = 0$. We confirmed numerically that the exact value never falls outside the bracket, including when the weight of the extra-pair term is distorted by factors between $e^{-2V_A}$ and $e^{2V_A}$, which allows for the selection of extra-pair sires and the normalization of the extra-pair pool. At small $V_A$ the exact value lies close to the right-hand end, and as $V_A$ grows it moves toward the left, because the within-nest term compounds fastest.
 
 \paragraph{Validity.} Equations~\eqref{eq:A_mult} and \eqref{eq:A_mult_pair} rest on the Gaussian upper tail of log-fitness. The second moment $\mathbb{E}[R^2] \propto \mathbb{E}[e^{4z}]$ is carried by ancestors near $z = 4V_A$, or $4\sqrt{V_A}$ standard deviations above the mean. A 100-fold reduction without a pair bond ($V_A = \ln(100)/4$) rests on ancestors 4.3 standard deviations out, about one in $10^5$, and a $10^4$-fold reduction on ancestors 6.1 standard deviations out. The expectation is realized only in populations large enough to contain such individuals, and only if nothing caps their fitness. Territories, maximum clutch sizes and the bounded probability of breeding (Section A.2) all truncate the tail and reduce the effect. These forms are therefore upper bounds on the reduction that a given $V_A$ produces in a real population. The derivation also assumes Poisson sampling of offspring beyond the heritable component, random pairing with respect to breeding value, and loci unlinked to the focal site.
 

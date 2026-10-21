@@ -205,7 +205,7 @@ rather than a 2×2 link-scale $\mathbf{G}$: those posteriors are post-back-trans
 | $\kappa$ | mating-system scalar: 1 without a pair bond, $\kappa_B \in [9/8, 2]$ under social monogamy | ✅ from EPP |
 | $Z$ | **retention**: fraction of a gene copy's association with its selective background surviving one generation of selection. SC 1995's $G$ and Buffalo & Kern's $1-\kappa$ — the same quantity (2026-10-19). 1 for Gaussian infinitesimal $z$; $Z_k = 1 - s_k$ per effect class at MSD | Theory `msdb`, Appendix A.4 |
 | $z$ | additive log-fitness (Bonnet's latent scale); $\mathrm{Var}(z) = V_A$ at $\bar w = 1$ | Appendix A.2 |
-| $\kappa(0)$ | κ without extra-pair paternity, used in the multiplicative bound $e^{-4\kappa(0)V_A}$: 1 without a pair bond, 2 with (was $\kappa_\text{mult}$ until 2026-10-19) | Appendix A.3 |
+| $\kappa(0)$ | κ without extra-pair paternity, used in the multiplicative bound $e^{-4\kappa(0)V_A}$: 1 without a pair bond (Barton & Etheridge 2011), 2 with: the strict-monogamy result of Weissman & Barton 2012 (was $\kappa_\text{mult}$ until 2026-10-19) | Appendix A.3 |
 | $r_{mf}$ | correlation of mates' breeding values (SC's $r$); 0 in primary results | Appendix A, B |
 
 **One symbol, one meaning — our own conventions, held dogmatically (user, 2026-10-19).** Do not import
@@ -615,6 +615,28 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
        reproductive value is just $e^{4V}$", and coalescence is "approximately proportional to the
        square of the ancestor's reproductive value". Hence $N_e/N \approx e^{-4V}$. They never write
        that line themselves, so it is a one-step inference from their result.
+       **Superseded 2026-10-21: it IS published, and so is the pair-bond limit.** Weissman & Barton
+       2012 (*PLoS Genet* 8:e1002740, Crossref-checked; PDF text read) state that unlinked
+       heritable variance $v$ in log fitness increases the rate of coalescence by $e^{4v}$
+       (polygamy, citing SC 1995). They also show it reduces fixation probability by $e^{-4v}$
+       (polygamy) and **$e^{-8v}$ (monogamy)**. Their monogamy: pairs form at random, offspring
+       $\propto e^{y+z}$. Their model is haploid, with no separate sexes and no EPP. The 2009
+       preprint expression is "incorrect"; cite 2012. So $\kappa(0) = 2$ is their published
+       result, and Appendix A.3's novelty is only the EPP bracket for $0 < \alpha \le 1$.
+       **Manuscript updated 2026-10-21** (branch `worktree-weissman-barton`, user-approved
+       outline): Theory `sec:onemodel`, `tab:onemodel` and `sec:mating`; Appendix A.3 (new
+       "Strict monogamy" paragraph); Appendix B's "what is not new"; Methods; the Fig. 1 and 3
+       captions; `tab_reduction` caption; `references.bib` (`weissman2012`, `nomura2002`).
+       **Appendix A.1 compressed** to a cited statement (user: published results, keep compact).
+       **The Introduction is edited in Overleaf by the author**, from paste-ready text (1a–1c).
+       **Novelty ledger (keep derivations only for these):**
+       - the EPP bracket at all orders (A.3);
+       - $\kappa(\alpha)$ Models A/B, and the own/partner/cis split at first order (Appendix B);
+       - Haldane position-averaging with closed form, the linear lower bound, Ω ≤ 1 and the
+         spatial result (Appendix C);
+       - `eq:compat` and the $c$ framework.
+       **Everything else is cited:** Robertson; SC 1995/1998; B&E 2011; W&B 2012; Wray & Thompson
+       1990; de Villemereuil 2016; and the Appendix D sources.
      - **The same form appears elsewhere:** Buffalo & Kern 2024 S1 Eq. 29 (multiplicative across
        loci), and Charlesworth 2012's $e^{-8Ush}$ for unlinked deleterious mutations.
      - **The input is right as measured.** For a log link, de Villemereuil et al. 2016 (Eqs 15–16)
