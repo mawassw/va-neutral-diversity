@@ -37,7 +37,7 @@ d <- pops %>%
   mutate(delta = coalesce(pi_obs, pi_lit) / (4 * mu_direct * 10^log10_Nc)) %>%
   filter(!is.na(delta), code != "SSH")
 
-col_first <- "#7A0177"; col_mult <- "#D95F0E"
+col_first <- "#7A0177"; col_mult <- "#D95F0E"; col_link <- "#01665E"
 x_lo <- 1e-5; y_lo <- 1e-3; y_hi <- 10
 
 curve <- tibble::tibble(delta = 10^seq(log10(x_lo), -1e-4, length.out = 400)) %>%
@@ -49,34 +49,31 @@ first <- curve %>%
   mutate(f1 = if_else(f1 <= 1, f1, NA_real_))
 d_enter <- c(1 / (1 + 8), 1 / (1 + 4))
 
-# Linked ceiling, per population in the linked set: the V_A at which
-# Omega_bar(V_A) / (1 + 4 kappa V_A) = delta (hyperbolic form; STALE vs Theory), at the
-# most generous measured DFE of the population's taxon (largest Z). Solved along
-# the delta axis; Omega_bar(V_A) comes from linked.R with Q2bar precomputed.
-# OFF by default (merge of 2026-10-19): in this hyperbolic form the curves leave the
-# first-order domain and some lie above the multiplicative band, which the exponential
-# composite of Theory rules out. Set SHOW_LINKED=1 to draw them; turn on by default once
-# linked.R implements exp() with class-by-class Z_k = 1 - s_k.
-show_linked <- nzchar(Sys.getenv("SHOW_LINKED"))
+# Linked ceiling, per population in the linked set: the least V_A at which the
+# upper bound on the reduction with linkage, Omega_bar(V_A) exp(-4 kappa(0) V_A),
+# reaches delta (Theory, sec:linkage; Q = 2 in the global factor, class-by-class
+# Z_k = 1 - s_k in Omega_bar, so the curve cannot rise above the multiplicative
+# band). At the empirical DFE assigned to the population (data/dfe_assignment.csv,
+# the same DFE as Figures 2 and 5). Solved along the delta axis in log space.
+# Rebuilt 2026-10-19 with linked.R; assigned DFEs since 2026-10-20 (before: the most
+# generous DFE of the taxon). SHOW_LINKED=0 hides the curves.
+show_linked <- Sys.getenv("SHOW_LINKED") != "0"
 lcurve <- data.frame(code = character(), delta = numeric(), V = numeric())
 if (show_linked) {
 source("scripts/R/linked.R")
-birds <- c("BTR", "BTP", "BTM", "CF", "SFW", "SSP", "HT", "HK", "GTU", "GTN")
 lpops <- load_populations("linked")
 auto <- load_chromosomes(autosomes_only = TRUE, mapped_only = FALSE, macro_only = FALSE)
-Zmax <- read.csv("data/dfe_reference.csv") %>% filter(used_for_band == "yes") %>%
-  mutate(Z = Z_gamma(shape_alpha, scale_beta_prime)) %>%
-  group_by(taxon) %>% summarise(Z = max(Z), .groups = "drop")
+dfe_pop <- dfe_assigned()
 d_grid <- 10^seq(log10(x_lo), -1e-3, length.out = 120)
 lcurve <- bind_rows(lapply(lpops$code, function(cd) {
-  a <- filter(auto, code == cd); m <- filter(a, has_map)
-  k <- lpops$kappa[lpops$code == cd]
-  Z <- Zmax$Z[Zmax$taxon == if (cd %in% birds) "Birds" else "Mammals"]
-  om <- omega_fun(m, f_share(m, a, "bp"), k, Z)
-  g <- function(lv) log(om(10^lv) / (1 + 4 * k * 10^lv))
+  a <- filter(auto, code == cd); m <- filter(a, has_map); f <- f_share(m, a, "bp")
+  r <- lpops[lpops$code == cd, ]
+  k0 <- kappa_mult_bound(r$pair_bond == "social_monogamy")
+  lom <- omega_fun(m, f, r$kappa, dfe_pop[[cd]], log = TRUE)
+  g <- function(lv) lom(10^lv) - 4 * k0 * 10^lv
   V <- vapply(d_grid, function(dl) {
     if (g(log10(y_hi)) > log(dl)) return(NA_real_)          # above the plotted range
-    10^uniroot(function(lv) g(lv) - log(dl), c(-8, log10(y_hi)))$root
+    10^uniroot(function(lv) g(lv) - log(dl), c(-8, log10(y_hi)), tol = 1e-6)$root
   }, numeric(1))
   data.frame(code = cd, delta = d_grid, V = V)
 }))
@@ -95,20 +92,18 @@ p <- ggplot() +
   geom_line(data = first, aes(delta, f2), colour = col_first, linewidth = 0.6) +
   annotate("text", x = 1.4e-5, y = 5.2, parse = TRUE, colour = col_mult, size = 2.6, hjust = 0,
            label = '"All orders:"~~italic(V)[A*","*max] == frac(ln(1/delta), 4*kappa(0))') +
-  annotate("text", x = 1.4e-5, y = 0.62, colour = col_mult, size = 2.2, hjust = 0, lineheight = 0.9,
+  annotate("text", x = 1.1e-3, y = 4.3, colour = col_mult, size = 2.2, hjust = 0, lineheight = 0.9,
            label = "from the upper bound on the reduction: the least variance\nthat could explain δ; upper line no pair bond, lower pair bond") +
   annotate("text", x = 0.06, y = 0.012, parse = TRUE, colour = col_first, size = 2.6, hjust = 1,
            label = '"First order:"~~italic(V)[A*","*max] == frac(1 - delta, 4*kappa*delta)') +
   annotate("text", x = 0.06, y = 0.0045, colour = col_first, size = 2.2, hjust = 1, lineheight = 0.9,
            label = "drawn inside its domain, ceiling ≤ 1 (δ ≥ 0.11–0.2);\nband κ = 1 to 2") +
-  # linked ceilings, one per linked-set population. STALE vs Theory: linked.R still uses
-  # the hyperbolic composite and an aggregate gamma-DFE Z, not exp() with class-by-class
-  # Z_k = 1 - s_k. Recompute once linked.R is rebuilt.
+  # linked ceilings, one per linked-set population (upper bound, most generous DFE)
   { if (show_linked) list(
-      geom_line(data = lcurve, aes(delta, V, group = code), colour = "#7B3294", linewidth = 0.35,
-                alpha = 0.8, na.rm = TRUE),
-      annotate("text", x = 1.4e-5, y = 0.22, colour = "#7B3294", size = 2.2, hjust = 0,
-               label = "purple: linked ceiling, per population")) } +
+      geom_line(data = lcurve, aes(delta, V, group = code), colour = col_link, linewidth = 0.35,
+                alpha = 0.85, na.rm = TRUE),
+      annotate("text", x = 1.4e-5, y = 0.04, colour = col_link, size = 2.2, hjust = 0, lineheight = 0.9,
+               label = "with linkage, per mapped population: the least variance\nthat could explain δ at its assigned empirical DFE")) } +
   annotate("segment", x = d_enter, xend = d_enter, y = y_lo, yend = 1,
            linetype = "22", linewidth = 0.3, colour = "grey55") +
   # measured values, as rugs

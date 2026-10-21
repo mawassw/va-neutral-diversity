@@ -70,10 +70,12 @@ Three properties, and all three must survive any edit to the framing:
    The first-order inversion's 12–25 (and 29–6,000 for the observed deficits) is an extrapolation
    outside $V_A \ll 1$ and **must not be quoted**. The $G = 1 - V_A$ cap ($N_e/N \ge 1/2$) is an
    artifact of the additive map and is retired except as the Appendix A.4 remark.
-   **Present the snapshot problem through $c = \bar V_A/\hat V_A$** (Fig. 2): under the multiplicative
-   bound the diversity side needs $c \approx 9$ on average (2.4–80 per population, median 14), MSD
-   needs $c \lesssim 0.07$ (0.013–0.32), a gap of about 130× on average and 180–250× within every
-   population, so no single $c$ satisfies both. The question is the relationship between the estimate
+   **Present the snapshot problem through $c = \bar V_A/\hat V_A$** (Fig. 5): under the multiplicative
+   bound the diversity side needs $c \approx 9$ on average (2.4–80 per population, median 14).
+   **Since 2026-10-20 MSD is evaluated at each population's assigned empirical $\bar s$**
+   (`data/dfe_assignment.csv`, the same DFE as the linked curve), not $s = 10^{-2}$. MSD then needs
+   $c \lesssim 0.024$ on average (0.0017–0.11), a gap of about 390× on average and 108–1,890× within
+   every population (it was 0.07, 130× and 180–250× at $s = 10^{-2}$). No single $c$ satisfies both. The question is the relationship between the estimate
    and the long-run value, not either number alone.
    **D2:** because $N_e/N$ is first-order linear in $V_A$ and $\pi$ reflects a harmonic-mean $N_e$
    over $\sim 4N_e$ generations, the target is the time-averaged $\bar V_A$ over the coalescent
@@ -203,7 +205,7 @@ rather than a 2×2 link-scale $\mathbf{G}$: those posteriors are post-back-trans
 | $\kappa$ | mating-system scalar: 1 without a pair bond, $\kappa_B \in [9/8, 2]$ under social monogamy | ✅ from EPP |
 | $Z$ | **retention**: fraction of a gene copy's association with its selective background surviving one generation of selection. SC 1995's $G$ and Buffalo & Kern's $1-\kappa$ — the same quantity (2026-10-19). 1 for Gaussian infinitesimal $z$; $Z_k = 1 - s_k$ per effect class at MSD | Theory `msdb`, Appendix A.4 |
 | $z$ | additive log-fitness (Bonnet's latent scale); $\mathrm{Var}(z) = V_A$ at $\bar w = 1$ | Appendix A.2 |
-| $\kappa(0)$ | κ without extra-pair paternity, used in the multiplicative bound $e^{-4\kappa(0)V_A}$: 1 without a pair bond, 2 with (was $\kappa_\text{mult}$ until 2026-10-19) | Appendix A.3 |
+| $\kappa(0)$ | κ without extra-pair paternity, used in the multiplicative bound $e^{-4\kappa(0)V_A}$: 1 without a pair bond (Barton & Etheridge 2011), 2 with: the strict-monogamy result of Weissman & Barton 2012 (was $\kappa_\text{mult}$ until 2026-10-19) | Appendix A.3 |
 | $r_{mf}$ | correlation of mates' breeding values (SC's $r$); 0 in primary results | Appendix A, B |
 
 **One symbol, one meaning — our own conventions, held dogmatically (user, 2026-10-19).** Do not import
@@ -448,6 +450,22 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
    $s^* > \bar s$ it gives the larger reduction. The Introduction was reconciled to match: the ¶4 gap
    sentence, and the last paragraph, which now reads "at the measured $V_A$ rather than at the
    variance that balance would maintain".
+   **Superseded 2026-10-20 by the author's Overleaf Introduction** (`overleaf-2026-10-20-1541`,
+   merged). **That Overleaf text is now the authoritative Introduction.**
+   - **Its content:** paragraph 3 presents SC as the general case with $Q = 2$ unlinked; a new
+     paragraph sets the first-order form against the Barton & Etheridge exponential.
+   - **Paragraph 4** ends on map resolution. It drops the global/local split, the
+     unlinked-background-selection sentence, McVicker et al. 2009 and the "inferred, not measured"
+     gap sentence.
+   - **The last paragraph** says "under mutation–selection balance" for the linked term, which fits
+     the hybrid statement now in Theory.
+   - **Fixed at the merge, with the author's approval:**
+     - the displayed equation with `\label{eq:intro_sc}` restored (Overleaf had made it inline and
+       hard-coded "Equation (1)"; Theory cites the label);
+     - three results sentences restored: the multiplicative shortfall, $V_A$ above one, and the
+       maintenance magnitude.
+   - **Overleaf sync sequence that worked:** push from Overleaf → conflict branch → merge locally
+     and push `main` → then pull into Overleaf.
    **Worktrees consolidated 2026-10-19 (user: "we don't need trailing worktrees").** These are
    all on `main` and their worktrees are removed: `worktree-theory-exemplar`,
    `worktree-global-local` (global vs local effective size, adapted to the exponential composite),
@@ -456,16 +474,30 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
    merged in `worktree-figure-reconcile`. Its script renames were taken, and so was upstream's
    content. The data layer and every figure were regenerated, and they are exactly the union of
    both sides. **Left stale, flagged:**
-   - `linked.R` still uses the hyperbolic composite with an aggregate gamma $Z$, so Theory's
-     exponential form with $Z_k = 1 - s_k$ is not implemented. Fig. 3's per-population linked
-     ceilings are therefore OFF by default (`SHOW_LINKED=1`): in that form some lie above the
-     multiplicative band.
-   - `fig2_linked.R` and `figS_rescaling_linked.R` are rendered from the same stale `linked.R`.
-   - `fig1_unlinked.R` still draws the retired $G = 1 - V_A$ curve, has no multiplicative form,
-     and uses $G$ where the notation now has $Z$.
+   - ~~`linked.R` stale; Fig. 3 linked ceilings off; `fig2_linked.R`, `figS_rescaling_linked.R`
+     rendered from it~~ **Fixed the same day** (branch `worktree-linked-rebuild`; see open item 6a).
+   - ~~`fig1_unlinked.R` draws the retired $G = 1 - V_A$ curve~~ **Fixed 2026-10-20.** Panel A shows
+     first order (mode, HPD) with the multiplicative value and its $\kappa(0)$ bound at the mode, on
+     a log axis. Panel B shows first order inside its domain and the multiplicative bound for
+     $\kappa$ = 1 and 2.
    Earlier: **Introduction redrafted 2026-10-16 and merged to `main`** (scaffolding; needs re-voicing;
    new citations web-checked, Crossref still due; see `manuscript/INTRO_REDRAFT_PLAN.md`).
-   Discussion still to do.
+   **Results drafted 2026-10-20** (`manuscript/results.tex`, branch `worktree-results-draft`; outline
+   approved by the user, then "go ahead with your recommendations on all three"). Modelled on the
+   GENETICS exemplar (`iyag180.pdf`): each subsection states what was computed, "Figure N shows",
+   then a genetic/evolutionary reading, not a mathematical one. Order follows the Introduction's last
+   paragraph: global reduction (Table, Fig. 1) → shortfall against the deficit (V_A needed, from the
+   Table) → local reduction (Fig. 2) → diversity as a constraint (Fig. 3) → maintenance (Fig. 4) →
+   rescaling (Fig. 5) → "Taken together". **Decisions:** (1) figure numbering kept as is; (2) the
+   translation "V_A ≈ 1.1–1.7 means one SD above the mean breeding value expects 3–4× the offspring"
+   kept, flagged `% AUTHOR:` for re-voicing; (3) Fig. 4 and FigS_gap now use each population's
+   assigned DFE mean (diamond; bar = component species' range), so every figure uses one DFE per
+   population. **New results in the text:** maps alone give similar Ω̄ in birds and mammals
+   (0.55–0.73 at s = 0.01, V_A = 0.1; Fig. 2B), so the taxon contrast is the DFE; at s = s*, Ω̄ =
+   0.97–0.99; the variance balance maintains (0.0007–0.013 for the nine) lowers unlinked diversity by
+   only 0.6–5%; P(s* > s̄) ≥ 0.89 in 17 of 18 (snow vole 0.70), s*/s̄ median 18 (0.45–480); measured
+   mode exceeds U_d s̄ in 16 of 18, median 21×. Figures are now wired (see Rule 8). Prose is
+   scaffolding. Discussion still to do.
 3a. **Methods reviewer pass.** The user asked on 2026-10-15 for Theory and Methods to be updated
    together, and **Methods was rewritten that day** from the data layer (see the Rule 5 log entry of
    2026-10-15, "Theory and Methods updated"). A reviewer pass is still wanted. **Author flags left in
@@ -493,7 +525,53 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
    weights $\nu_k = \varphi_ks_k/\bar s$; evaluated at uniform $s$ = 0.005/0.01/0.02 **and at
    $s = s^*$**. The code's `Z <- 1 - Vm/Va` with measured $V_A$ is off-balance (at the median it gives
    $1 - Z$ about 10× smaller than $s$, so $\overline{Q^2}_i$ about 10× too large). The aggregate
-   $1 - E[s^2]/E[s]$ is a summary only: interference is nonlinear in $Z$. Methods carries an author flag.
+   $1 - E[s^2]/E[s]$ is a summary only: interference is nonlinear in $Z$.
+   **`linked.R` REBUILT 2026-10-19 to this specification (branch `worktree-linked-rebuild`; user asked).**
+   - **Model:** exponential composite (Theory eqs `total_red`, `linked_penalty`, `genome_linked`).
+     Class-by-class $Z_k = 1 - s_k$, measured $V_A$ for $v_i$, and the closed-form Haldane
+     $\overline{Q^2}$ with its own `Li2()` (matches quadrature to < 1e-9).
+   - **DFEs:** a gamma DFE's ν-weights are Gamma(α+1, β′) on $s$, on 240 log classes from $10^{-8}$
+     to 1 (< 1e-3 against 960).
+   - **API:** `dfe_uniform()`, `dfe_gamma()`, `dfe_reference()`, `linked_coefs()`,
+     `omega_fun(..., log = TRUE)`, `ne_linked(form = "mult"/"first")`. `Z_gamma()` is removed.
+   - **Consumers:** `fig2_linked.R` (total = Ω̄ × first-order Q = 2 global factor; also prints
+     uniform s = 0.005/0.01/0.02/s*), `fig3_ceiling.R` (linked ceilings back ON: root of
+     Ω̄(V) e^{−4κ(0)V} = δ, minimum over the taxon's DFEs; `SHOW_LINKED=0` hides them),
+     `figS_rescaling_linked.R` (now the multiplicative bound in log10, as Fig. 5; no domain cut).
+   - **Numbers changed a lot.** The class average weights $1/s$ by Gamma(α+1), about $(1+α)/α$ ≈ 4×
+     the aggregate in birds. At the $\hat V_A$ mode and the most generous DFE, the total $N_e/N$ is
+     5e-4 for great tits (Wytham, was 0.068) and 4.5e-3 for song sparrows (was 0.18). Mammal Ω̄ is
+     0.32–0.62 (was 0.81–0.92).
+   - **Rescaling:** c_lk is 1.6–9.8 in birds and 3–8 in mammals; the species average is 3.7 (16 unlinked).
+     The gap to c_msd is 21–124× per population. Song sparrow at its upper 95% HPD with the
+     pied-flycatcher DFE reached $N_e/N$ = 6.8e-7, below δ = 2.6e-5, the one case where linkage
+     alone matched a deficit. **Gone with the assigned DFE (2026-10-20): it is now 7.6e-4, about 30×
+     short.** (These bullets are the most-generous-DFE numbers of 2026-10-19; superseded below.)
+   - **Introduction and Methods updated to these numbers. `data_gen.R` still carries the old linked
+     code and is not used.**
+   **One DFE per population on both sides (user, 2026-10-20).** The maintenance line and the
+   linked curve now use the same assigned empirical DFE, via `dfe_assigned()` in `linked.R` and
+   `data/dfe_assignment.csv`:
+   - **Assignment:** own species (collared flycatcher), else an equal mixture of the closest
+     relatives' DFEs in Lin et al. 2026, combined with `dfe_mixture()`. Other passerines get pied +
+     collared flycatcher ($\bar s$ = 0.0013); bighorn, Soay and red deer get vaquita + fin whale
+     (0.0195); macaque and baboon get human (0.0139); rodents get house mouse. **Confirmed by the user 2026-10-20**; the argument (phylogenetic signal in Lin et al., λ = 0.84; weak within mammals) is in Methods.
+     No species-specific great tit or macaque DFE was found (web search 2026-10-20).
+   - **Applied in:** `fig5_rescaling.R`, `figS_rescaling_linked.R`, and since 2026-10-20 (user) also
+     `fig2_linked.R` (with FigS_omega and FigS_linked_fgene) and `fig3_ceiling.R`. Every figure now
+     uses one DFE per population, and the taxon band is gone. Fig. 2 at the assigned DFE, total
+     $N_e/N$ at the mode: great tits 0.019 (Wytham) and 0.44 (NL), song sparrow 0.077 (upper HPD
+     7.6e-4), collared flycatcher 0.68; mammals 0.24–0.48. Every population falls short of its
+     observed δ across its whole HPD.
+   - **Linked supplement result:** c_lk is 3.3–22.6 in birds and 3.8–9.0 in mammals, against
+     c_div 5–80. Gap c_lk/c_msd 81–442×.
+   - **Self-consistent check:** at $c = c_\text{MSD}$, where the variance is what that DFE
+     maintains, linkage barely changes the prediction: the deficit ratio is 4,240 with linkage
+     against 4,430 without, species average. So balance with background selection, at the variance
+     balance can maintain, explains almost none of the deficit.
+   - **Theory §linkage now says the linked term is a hybrid:** the kernel, the $Z_k$ and the
+     $\nu_k$ presuppose MSD, and only the amount of variance departs from it (user's question,
+     2026-10-20).
 7. **Check Matheson & Masel (2025)** — logged as corroborating the unlinked component's importance,
    with one methodological question not yet identified. We quantify what they argue qualitatively:
    1.4× at the median reported $V_A$, ~3× at the maximum.
@@ -537,6 +615,28 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
        reproductive value is just $e^{4V}$", and coalescence is "approximately proportional to the
        square of the ancestor's reproductive value". Hence $N_e/N \approx e^{-4V}$. They never write
        that line themselves, so it is a one-step inference from their result.
+       **Superseded 2026-10-21: it IS published, and so is the pair-bond limit.** Weissman & Barton
+       2012 (*PLoS Genet* 8:e1002740, Crossref-checked; PDF text read) state that unlinked
+       heritable variance $v$ in log fitness increases the rate of coalescence by $e^{4v}$
+       (polygamy, citing SC 1995). They also show it reduces fixation probability by $e^{-4v}$
+       (polygamy) and **$e^{-8v}$ (monogamy)**. Their monogamy: pairs form at random, offspring
+       $\propto e^{y+z}$. Their model is haploid, with no separate sexes and no EPP. The 2009
+       preprint expression is "incorrect"; cite 2012. So $\kappa(0) = 2$ is their published
+       result, and Appendix A.3's novelty is only the EPP bracket for $0 < \alpha \le 1$.
+       **Manuscript updated 2026-10-21** (branch `worktree-weissman-barton`, user-approved
+       outline): Theory `sec:onemodel`, `tab:onemodel` and `sec:mating`; Appendix A.3 (new
+       "Strict monogamy" paragraph); Appendix B's "what is not new"; Methods; the Fig. 1 and 3
+       captions; `tab_reduction` caption; `references.bib` (`weissman2012`, `nomura2002`).
+       **Appendix A.1 compressed** to a cited statement (user: published results, keep compact).
+       **The Introduction is edited in Overleaf by the author**, from paste-ready text (1a–1c).
+       **Novelty ledger (keep derivations only for these):**
+       - the EPP bracket at all orders (A.3);
+       - $\kappa(\alpha)$ Models A/B, and the own/partner/cis split at first order (Appendix B);
+       - Haldane position-averaging with closed form, the linear lower bound, Ω ≤ 1 and the
+         spatial result (Appendix C);
+       - `eq:compat` and the $c$ framework.
+       **Everything else is cited:** Robertson; SC 1995/1998; B&E 2011; W&B 2012; Wray & Thompson
+       1990; de Villemereuil 2016; and the Appendix D sources.
      - **The same form appears elsewhere:** Buffalo & Kern 2024 S1 Eq. 29 (multiplicative across
        loci), and Charlesworth 2012's $e^{-8Ush}$ for unlinked deleterious mutations.
      - **The input is right as measured.** For a log link, de Villemereuil et al. 2016 (Eqs 15–16)
@@ -722,6 +822,11 @@ project#3/
    main text and its internal appendices) supersedes it. Do not cite, extend, or mine that folder for
    results.
 
+   **Since 2026-10-20 the figures ARE wired**, in the `_main.tex` tree only: Figs. 1–5 are floats in
+   `manuscript/results.tex` (`fig:unlinked`, `fig:linked`, `fig:ceiling`, `fig:selection`,
+   `fig:rescaling`, from `main/Fig1_unlinked` … `Fig5_rescaling`), and S1–S4 are in the new
+   `supp/supp_figures.tex` (`fig:S_omega`, `fig:S_fgene`, `fig:S_gap`, `fig:S_rescaling_linked`),
+   input after Appendix D. Methods cites them by `\ref`. The rest of this paragraph is history.
    **No figure is wired into any `.tex` file yet.** `main.tex` says "(Fig. 1)" in prose but contains no
    `\begin{figure}` or `\includegraphics` at all, and `scratch.tex`'s single `\caption` is a table. So
    there is **no** existing script → filename → figure-number mapping to inherit; it gets established
@@ -821,9 +926,9 @@ the code implements, not necessarily what `scratch.tex` now specifies.
   form, not the exponential", which was the first-order form under another name.
 - **Linked composite, manuscript form (2026-10-19):** exponential throughout,
   $(N_e/N)_i = \exp\{-[\kappa_\text{cis}\overline{Q^2}_iv_h + Q_u^2(\kappa V_A - \kappa_\text{own}v_h)]\}$,
-  so $\Omega_i \le 1$ is immediate. **`data_gen.R` still implements the hyperbolic-denominator form
-  below and has not been changed** (line 479 bug; open item 6a rebuilds the linked analysis). The two
-  agree to first order.
+  so $\Omega_i \le 1$ is immediate. **Implemented in `scripts/R/linked.R` since 2026-10-19**
+  (class-by-class $Z_k$; open item 6a). `data_gen.R` still implements the hyperbolic-denominator form
+  below and has not been changed (line 479 bug); it is no longer the linked pipeline.
 - **Code form of the linked term:** `chrom_Ne_N <- linked_exp / (1 + 4 * kappa * (Va - v_i/2))`.
 - **κ comes from `scripts/R/kappa.R` only** (Appendix B, re-derived 2026-10-14). κ = 1 without a pair
   bond. Social monogamy: $\kappa_B = 2 - 1.5\alpha + 0.625\alpha^2$ (primary) and the longer $\kappa_A$
@@ -860,6 +965,16 @@ the code implements, not necessarily what `scratch.tex` now specifies.
   intentional, not a bug.
 
 ## Known staleness & inconsistencies (Rule 5 log)
+
+**Logged 2026-10-20 — Results draft (branch `worktree-results-draft`).** Fixed in Methods: the
+mutation–selection subsection now compares $s^*$ with the assigned $\bar s$ and reports
+$P(s^* > \bar s)$ and $P(s^* > 1)$ (it promised $P(s^* > 0.01)$, $P(s^* > 0.001)$ against a
+$10^{-3}$–$10^{-2}$ range); the linked subsection no longer claims a 20 Mb filter (the rebuilt
+`linked.R` uses every autosome with a map ≥ 1 cM, microchromosomes included; the filter was
+`data_gen.R`'s); hard-coded "Figure 1/2/3/5" replaced by `\ref`. **Still open:** Frankham 1995
+(cited in Results for demographic $N_{eV}/N$) is not in `references.bib`; the phylogenetic-μ median
+$s^*$ = 0.12 and $2N_es^* \ge 9{,}400$ are from the 2026-10-13 data layer and were not recomputed;
+`discussion.tex` and `abstract.tex` remain stale.
 
 **Logged 2026-10-19 — notation cohesion pass (branch `worktree-open-items-domain-map`, on top of
 `ef19986`).** The user asked whether different symbols meant the same thing, then deferred to the
