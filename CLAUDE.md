@@ -226,7 +226,7 @@ Fixed on 2026-10-19:
 | $\boldsymbol\lambda$ | exponent vectors in Appendix B's all-orders lognormal moments (`eq:B_moments`) | — |
 | $Z$, $Z_k$ | retention (above); per effect class $Z_k = 1 - s_k$, independent of $V_A$ | SC 1995's $G$ (named once, as theirs); B&K's $1-\kappa$ |
 | $Q$ | the **unlinked** transmission factor $2/[2 - Z(1+r_{mf})]$, = 2 at $Z = 1$ | $Q_u$, $Q(s)$, $Q(t)$ (all retired: same object) |
-| $\overline{Q^2}_i$ | linked interference on chromosome $i$ (map length $M_i$); $\overline{Q^2}_\text{H}$, $_\text{L}$ only in Appendix C, for Haldane vs linear map | $\overline{Q^2}_\text{linked}$ (retired) |
+| $\overline{Q^2}_i$ | linked interference on chromosome $i$ (map length $M_i$); $\overline{Q^2}_\text{H}$, $_\text{L}$ only in Appendix C, for Haldane vs linear map; $\overline{Q^2}(y)$ the profile at neutral position $y$, $\overline{Q^2}_\text{H}[g]$ under a density $g$ of selected variance (Appendix C, 2026-10-21) | $\overline{Q^2}_\text{linked}$ (retired); $Q^2(y)$ for the profile (bare $Q^2$ is the unlinked constant only) |
 | $\kappa$, $\kappa(0)$ | our mating-system scalar; its value at α = 0 | B&K's κ (= $1 - Z$; footnoted at first use) |
 | $s$, $s_k$, $\bar s$, $s^*$; $\varphi$, $\varphi_k$; $\nu_k$ | heterozygous effect; class $k$; DFE mean; mean implied by $V_A$; DFE density and class fractions; class share of $V_A$, $\varphi_ks_k/\bar s$ | $t$, $s_\text{het}$, $\bar t$ (retired); $\omega$ (Woolliams) |
 | $m'$, $f'$ | social partner of a female / of a male (Appendix B) | $s$ as a partner subscript |
@@ -971,6 +971,39 @@ the code implements, not necessarily what `scratch.tex` now specifies.
 
 ## Known staleness & inconsistencies (Rule 5 log)
 
+**Logged 2026-10-21 — Appendix C rewritten (branch `worktree-appendix-c-compact`; the user asked
+for the same assessment, then "apply the recommended changes").** Every number was re-checked in R
+before the rewrite: the closed forms against quadrature (to 1e-12 or better), 387, 24.8/3.92, the
+tail integrals, the linear-map ratios and the $O(M)$ expansion. **No equation changed.**
+
+- **New title:** "Linked Interference along a Chromosome" (the old one used the retired
+  "constraint").
+- **Opening:** setup and notation once. The profile is now $\overline{Q^2}(y)$, and **bare $Q^2$
+  means only the unlinked constant**; it used to mean both.
+- **Six numbered subsections:** C.1 kernel and average (states why the kernel is squared, as $Q$ in
+  A5), C.2 closed form, C.3 limits, C.4 linear map as a lower bound (old C.3 and C.4 merged), C.5
+  Ω ≤ 1, C.6 non-uniform placement.
+- **Fixed:**
+  - C.4 said main-text predictions use quadrature; they use the closed form (Methods, `linked.R`).
+  - C.5 now proves Ω ≤ 1 for **any** placement (every profile ≥ $Q^2$), which its "no arrangement"
+    claim needed.
+  - C.6 reuses C.1's notation instead of redefining the kernel.
+  - "Symmetry allows exchanging the integrals" is now stated correctly (symmetry identifies the
+    inner integral as the profile).
+  - $f_\text{L} < f_\text{H}$ is now argued beyond ℓ = 1 too.
+- **Cut:**
+  - the novelty opening and the five-paper kernel-priority chain (Theory has it);
+  - the undefined $e^{-U/s}$ and $e^{-2U/R}$ glosses;
+  - the "mixing retentions (1.08)" aside;
+  - the "Global and local factors" paragraph, folded into C.5;
+  - C.5's repeat of Theory's ceiling sentence;
+  - the table's $(N_e/N)_i$ rows (the table is now a 2 × 2 of $\overline{Q^2}$);
+  - the stale header comment;
+  - the unused labels `eq:geom_sum`, `oligogenic_mean` and `sec:spatial_variance`.
+- **The annotation-based estimator** is parked as a comment at the top of `discussion.tex`.
+- 1,973 → 1,508 source words. Theory's Appendix C references now use `\ref` (C.2, C.3, C.5,
+  C.6). The SC 1998 Eq. 8 `% UNVERIFIED` flag is still open.
+
 **Logged 2026-10-21 — Appendix B rewritten (branch `worktree-appendix-b-compact`; the user asked for
 the Appendix A assessment applied to B, then "apply the recommended changes").** The algebra was
 re-derived by hand and was correct throughout; only the presentation changed. **No equation
@@ -1226,6 +1259,8 @@ Resolve toward `scratch.tex`, not the code.
   approximation** $r \approx |x-y|$ and discusses its bias. **These cannot both describe what was
   run.** **Still open; deferred to the Methods reviewer pass (user, 2026-10-15).** Theory and Appendix
   C now say the Haldane integral has a closed form and the linear form is a lower bound.
+  **RESOLVED 2026-10-21:** Appendix C.4's last holdout ("evaluated by quadrature") now says the
+  Haldane closed form is used, matching Methods and `linked.R` (`Li2()`).
 - **Appendix cross-ref.** §Theory points to **Appendix A** for the closed-form linear-limit
   approximation; it is actually in **Appendix C**. Appendix A is the unlinked-baseline derivation.
   **RESOLVED** (now points to Appendix C).
