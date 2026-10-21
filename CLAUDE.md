@@ -966,6 +966,37 @@ the code implements, not necessarily what `scratch.tex` now specifies.
 
 ## Known staleness & inconsistencies (Rule 5 log)
 
+**Logged 2026-10-21 — Theory rewritten for compactness, register and cohesion (branch
+`worktree-intro-sc-general`, user asked to apply the full assessment outline and merge).** Measured
+against the GENETICS exemplar (`iyag180.pdf`). **No equation changed and every label was kept.**
+
+- **New order:** quantity (`eq:c`) → balance (`msdb`) → global reduction (`sec:unlinked`, which now
+  also holds $Q$, $Z$ with `eq:Z`, and D2 with `eq:harmonic`) → mating system → multiplicative model
+  and its bound (`sec:onemodel`, now *after* the small-variance result it extends) → ceiling (the
+  multiplicative form first) → local effective size → one condition (`sec:conditions`, retitled) →
+  direction of the approximations. The prose went from 4,690 to 3,480 words.
+- **Taken out of the main text:**
+  - `tab:onemodel` was deleted (nothing referenced it).
+  - `tab:notation` → new `supp/notation.tex`, input before Appendix A. `_main.tex` now S-numbers
+    supplementary tables as well as figures.
+  - The "three senses of strong/weak" → a footnote in `msdb`.
+  - The ν weights and the aggregate rate → Appendix D only, where they already were.
+  - The cis/trans argument for background selection → Appendix D only.
+  - Microchromosomes → Appendix C (limits).
+  - "Buffalo & Kern omitted the homologous haplotype" → Appendix D.
+  - Barton 1998/2000 (a retention presupposes a constant background) → Appendix A.4.
+  - The `uniroot` for the linked variance → Methods.
+- **Register:** the Theory prose no longer uses "first order", "all orders", "enters", "kernel",
+  "bracketed", "convex", "domain", "leading term" or "compounds". Two names are fixed: **"small
+  variance"** and **"the multiplicative bound"** (named once, in `sec:onemodel`).
+- **The scope-condition 1 wording** now separates two senses: "exact under long-term equilibrium"
+  (no assumption about the trajectory, only $\bar V_A$) and approximate in $V_A \ll 1$.
+- **Merged first:** origin/main (14 commits) into the branch. The Introduction conflicts were
+  resolved to main's Overleaf prose. Main's Weissman & Barton 2012 result and its "hybrid
+  calculation" paragraph are kept in compressed form.
+- **Still stale, not touched:** Results, Methods, Discussion and the appendices still use the
+  "first order / all orders" vocabulary that Theory dropped.
+
 **Logged 2026-10-21 — Appendix A rewritten as one chain (branch `worktree-appendix-a-compact`;
 user asked for an assessment against the GENETICS exemplar, then "apply all the changes").**
 
@@ -995,9 +1026,14 @@ user asked for an assessment against the GENETICS exemplar, then "apply all the 
   Hard-coded "Appendix A.x" replaced by `\ref` everywhere; Appendix A's subsections are numbered.
   B–D keep `\subsection*`.
 - **Fixed on the way:** Appendix B's θ = (G/2)… → (Z/2); Theory "about 6 SD" → 6.1.
-- **The model is now named wherever "one model of fitness" appeared:** the `tab:onemodel` and
-  `tab_reduction` captions (the latter in `tab_reduction.R` too). Still open: `scratch.tex` is stale
-  by rule.
+- **The model is now named** in the `tab_reduction` caption (and in `tab_reduction.R`), which said
+  "under one model of fitness" without naming it.
+- **Merged on top of the Theory rewrite above** (707dd74). Theory took upstream's text. The
+  estimand identity, "second moment", 6.1 SD and the `\ref`s were re-applied to it. Upstream's
+  Barton 1998/2000 sentence is in the new A.4.
+- **Still open:** Appendix A keeps "first order" / "all orders" (A.2 is titled "First order"),
+  which Theory's new register dropped for "small variance". It is kept deliberately: in a
+  derivation it means order in $V_A$, precisely. `scratch.tex` is stale by rule.
 
 **Logged 2026-10-20 — Results draft (branch `worktree-results-draft`).** Fixed in Methods: the
 mutation–selection subsection now compares $s^*$ with the assigned $\bar s$ and reports

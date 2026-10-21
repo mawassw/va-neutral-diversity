@@ -51,6 +51,8 @@
 \newcommand{\beginsupplement}{%
     \setcounter{figure}{0}%
     \renewcommand{\thefigure}{S\arabic{figure}}%
+    \setcounter{table}{0}%
+    \renewcommand{\thetable}{S\arabic{table}}%
 }
 \newcommand{\isMainDocument}{}
 
@@ -82,6 +84,7 @@
 \printbibliography
 \beginsupplement
 
+\input{supp/notation}
 \appendix
 % GENETICS style (2026-10-21): headings "Appendix A: Title", equations (A1), (B1), ...
 \makeatletter
