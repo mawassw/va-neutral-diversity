@@ -452,6 +452,10 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
    variance that balance would maintain".
    **Superseded 2026-10-20 by the author's Overleaf Introduction** (`overleaf-2026-10-20-1541`,
    merged). **That Overleaf text is now the authoritative Introduction.**
+   **Re-cut 2026-10-21 at the user's request** (branch `worktree-intro-recut`; the user asked to
+   apply the full assessment, merge and push). It is now the working Introduction and supersedes the
+   Overleaf text, which Overleaf must pull. See the Rule 5 log entry of 2026-10-21, "Introduction
+   re-cut".
    - **Its content:** paragraph 3 presents SC as the general case with $Q = 2$ unlinked; a new
      paragraph sets the first-order form against the Barton & Etheridge exponential.
    - **Paragraph 4** ends on map resolution. It drops the global/local split, the
@@ -965,6 +969,36 @@ the code implements, not necessarily what `scratch.tex` now specifies.
   intentional, not a bug.
 
 ## Known staleness & inconsistencies (Rule 5 log)
+
+**Logged 2026-10-21 — Introduction re-cut (branch `worktree-intro-recut`; the user asked for an
+assessment against the GENETICS exemplar, then "apply all the changes, merge and push").** Prose
+went from 1,830 to 1,350 words. No equation and no label changed (`eq:intro_sc`, `eq:intro_mukai`).
+
+- **New order, effect first, matching the title, the claim and Results:** the measurement and the
+  two questions → genome-wide effect (deficit, Robertson, SC equation, multiplicative model in two
+  sentences, gap: Matheson & Masel) → linked sites (gap: $V_A$ inferred not measured; chromosome-level
+  maps; bridge: persistence depends on maintenance, Li & Berg) → maintenance (gap: inputs now
+  measured, comparison not made) → gap and timescale → aims → results. Supersedes the v3 maintenance-first order.
+- **Moved out:**
+  - The definition of $\mathbf d^\top\mathbf G\mathbf d$ moved to Theory `sec:quantity`, which used
+    $\mathbf d$ undefined and cited "(Introduction)" for the scale.
+  - The range of the small-variance form, the upper tail and de Villemereuil were left to Theory
+    `sec:onemodel`.
+  - Henderson 1975 and Wilson et al. 2010 moved to Methods.
+  - McVicker et al. 2009 was parked as a comment in `discussion.tex`.
+- **Cut:** Keightley & Lynch 2003, Lande 1975, Turelli 1984, Nordborg et al. 1996, Lynch & Hill
+  1986, and the Introduction's second Wright 1938.
+- **Wording:**
+  - "first order / every order" replaced by Theory's register ("while $V_A$ is small", "the
+    multiplicative bound"); $\bar s$ defined at `eq:intro_mukai`.
+  - The $s^*$ claim softened from "one to two orders" to "a median 18 times the vertebrate DFE means".
+  - The opposite-direction argument and "stationarity is what the MSD test asks" are now stated in
+    the aims paragraph.
+- **Not done:** the citations are still prose, as in every other section (no section uses `\cite`;
+  `references.bib` has 9 entries). Converting the Introduction alone would print a bibliography of
+  only its works, so it waits for a whole-manuscript pass.
+- **Build:** `_main.tex` builds (53 pages), with zero undefined references and zero errors.
+- **Scaffolding:** the voice is the author's to revise.
 
 **Logged 2026-10-21 — Theory rewritten for compactness, register and cohesion (branch
 `worktree-intro-sc-general`, user asked to apply the full assessment outline and merge).** Measured
