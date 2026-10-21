@@ -512,7 +512,9 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
      said).
 3. ~~Fill Appendix D's `[XX]`~~ **Done 2026-10-15** for $U_d$ and $s^*$, and the $V_A$ range is fixed
    to the posterior modes in Theory, Methods and Appendix D. Only Appendix D's forward DFE
-   prediction ($V_A^\text{DFE}$) still has an `[XX]`.
+   prediction ($V_A^\text{DFE}$) still has an `[XX]`. **Resolved 2026-10-21:** the `[XX]` and the
+   unlocated Rettelbach citation are gone. Appendix D.3 now states that the analysis uses
+   $U_d\bar s$ with the assigned DFE, which is the upper limit of `eq:VA_forward`.
 4. ~~Fill `scratch.tex:235`~~ **Done 2026-10-15:** Methods states that no standardization was
    applied, and why.
 5. ~~Write the Methods independence-audit subsection~~ **Done 2026-10-15** ("Independence of the
@@ -971,6 +973,41 @@ the code implements, not necessarily what `scratch.tex` now specifies.
 
 ## Known staleness & inconsistencies (Rule 5 log)
 
+**Logged 2026-10-21 — Appendix D rewritten (branch `worktree-appendix-d-compact`; the user asked
+for the same assessment, then "apply the recommended changes").** **No equation changed.**
+
+- **New title:** "Mutation–Selection–Drift Balance and the Implied Selection Coefficient". The
+  setup is stated once.
+- **Five numbered subsections:**
+  - D.1 stationary variance: Kimura's heterozygosity summed over sites gives `eq:VA_MSD`, which is
+    no longer re-displayed; the interpolation is one sentence;
+  - D.2 inversion and its conditions, in symbols only;
+  - D.3 DFE: `eq:VA_forward` kept, the `[XX]` and the Rettelbach citation removed;
+  - D.4 fast purging: `eq:B_corrected` renamed to **`eq:D_purge`**, the class average shown;
+  - D.5 the unlinked limit of background selection.
+- **Moved to Methods** (mutation–selection subsection), recomputed from the current data layer:
+  - $2N_es^*$ = 2,900–320,000 in 11 populations, at the posterior mode of $s^*$ (was
+    9,400–390,000);
+  - the weak-branch $U_d/(2V_A)$ = 3.1 (0.64–81);
+  - $1/(1+s^*)^2$ = 0.37–0.99, median 0.75 (was 0.31–0.99, median 0.74);
+  - $U_d\bar s$ as the upper limit of the DFE sum.
+- **Deleted as stale against Results** (since 2026-10-20 the comparison is per-population
+  assigned $\bar s$):
+  - $s^*$ = 0.006–0.78 (median 0.16);
+  - $P(s^* > 0.01)$;
+  - the forward factors 160/32/16;
+  - "one to two orders too large".
+- **Newly stated:** the κ approximation in `eq:D_purge`. It is exact without a pair bond and under
+  strict monogamy; with extra-pair paternity, holding κ at its $Z = 1$ value understates the
+  reduction by at most 2.3% for $s_k \le 0.1$ (checked against `kappa_pair()`).
+- **Cut:** the precedent opening, the "Retention of associations" paragraph (A.4 derives $Z_k$
+  and $\nu_k$), the repeated caveats, "house-of-cards", and the stale header comment.
+- **Labels dropped:** `eq:D_VA_interp`, `eq:D_VA_exact`, `eq:sHoC`, `eq:VA_DFE` (nothing outside
+  D cited them).
+- **Theory:** its five Appendix D references now use `\ref`, and the ν_k one points to A.4.
+- The Huber/Kim `UNVERIFIED` flag now asks the same question of Lin et al. 2026.
+- 1,276 → 874 source words.
+
 **Logged 2026-10-21 — Appendix C rewritten (branch `worktree-appendix-c-compact`; the user asked
 for the same assessment, then "apply the recommended changes").** Every number was re-checked in R
 before the rewrite: the closed forms against quadrature (to 1e-12 or better), 387, 24.8/3.92, the
@@ -1138,7 +1175,9 @@ $10^{-3}$–$10^{-2}$ range); the linked subsection no longer claims a 20 Mb fil
 `linked.R` uses every autosome with a map ≥ 1 cM, microchromosomes included; the filter was
 `data_gen.R`'s); hard-coded "Figure 1/2/3/5" replaced by `\ref`. **Still open:** Frankham 1995
 (cited in Results for demographic $N_{eV}/N$) is not in `references.bib`; the phylogenetic-μ median
-$s^*$ = 0.12 and $2N_es^* \ge 9{,}400$ are from the 2026-10-13 data layer and were not recomputed;
+$s^*$ = 0.12 and $2N_es^* \ge 9{,}400$ are from the 2026-10-13 data layer and were not recomputed
+(**$2N_es^*$ recomputed 2026-10-21 at the posterior mode of $s^*$: 2,900–320,000 in 11
+populations, now in Methods**);
 `discussion.tex` and `abstract.tex` remain stale.
 
 **Logged 2026-10-19 — notation cohesion pass (branch `worktree-open-items-domain-map`, on top of

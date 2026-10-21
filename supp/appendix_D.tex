@@ -23,69 +23,47 @@
     \linenumbers
     \appendix
 \fi
-% Source: manuscript/scratch.tex (Appendix D). scratch.tex is authoritative; edit
-% there first and re-split, or keep the two in step by hand.
+% Working copy (since 2026-10-17 the section files, not scratch.tex, are edited directly).
+% Rewritten 2026-10-21 (user): setup once; stationary variance -> inversion and its conditions
+% (symbols only; population numbers in Methods and Results) -> DFE -> fast purging -> the
+% unlinked limit of background selection. Retention and class weights are derived in A.4.
 
-\section{Stationary Equilibrium and Implied Selection Coefficients}\label{app:msdbapp}
+\section{Mutation--Selection--Drift Balance and the Implied Selection Coefficient}\label{app:msdbapp}
+This appendix derives the variance that recurrent deleterious mutation maintains at mutation--selection--drift balance (Equation~\eqref{eq:VA_MSD}). It also gives the conditions under which that variance inverts to the implied selection coefficient of Equation~\eqref{eq:sstar}, the extension to a distribution of fitness effects, and the global reduction in effective size when deleterious alleles are purged quickly. Deleterious mutations arise at rate $U_d$ per diploid genome per generation, each at a new site. They are semidominant, with heterozygous effect $s$ on relative fitness (fitnesses $1$, $1-s$, $1-2s$), so a site at frequency $q$ contributes $2q(1-q)s^2$ to $V_A$. Under a distribution of fitness effects (DFE) with density $\varphi(s)$ and mean $\bar{s}$, class $k$ has effect $s_k$ and receives a fraction $\varphi_k$ of new mutations. The effective size is $N_e$.
 
-This appendix states the variance in fitness that recurrent deleterious mutation maintains at mutation--selection--drift balance, and inverts it to the selection coefficient a measured $V_A$ would require. Every result in it is established; we collect them in the notation of the main text and cite their sources. What is ours is the application to wild-vertebrate $V_A$ in total fitness. The comparison itself has a direct precedent: Charlesworth (2015) set observed additive variance in \emph{Drosophila} fitness components against the mutation--selection prediction and concluded that there is too much of it to be explained by mutation--selection balance (see also Johnson and Barton 2005).
-
-\subsection*{D.1\quad Stationary variance}
-
-Let each of $U_d$ new deleterious mutations per diploid genome per generation have heterozygous effect $s$ on relative fitness (fitnesses $1$, $1-s$, $1-2s$), so its average effect is $s$ and a site at frequency $q$ contributes $2q(1-q)s^2$ to $V_A$. A new mutation enters at $q = 1/(2N)$, so the influx of variance is $V_m = U_d s^2$ (Charlesworth 2015, Equation 1). Selection removes a rare allele's variance at rate $s$ and drift removes heterozygosity at rate $1/(2N_e)$, so a flux balance gives
-\begin{equation}
-    V_A \approx \frac{V_m}{s + 1/(2N_e)} = \frac{2N_eU_ds^2}{1+2N_es}.
-\label{eq:D_VA_interp}
-\end{equation}
-This interpolates between the mutation--drift limit $V_A = 2N_eV_m$ for $N_es \ll 1$ (Lynch and Hill 1986) and the deterministic rare-allele balance $V_A = U_ds$, $q = \mu/s$, for $N_es \gg 1$ (Mukai et al. 1972; Charlesworth 2012). It has the same form as the stochastic house-of-cards variance of Bürger et al. (1989).
-
-Equation~\eqref{eq:D_VA_interp} is a heuristic, not the diffusion result. Drift does not change the expected allele frequency, and under irreversible mutation $\mathbb{E}[q]$ has no stationary value, so the balance has to be written for expected heterozygosity. The diffusion solution for a semidominant deleterious allele (Kimura 1969) gives, per site, $\mathbb{E}[H] = 8N_e\mu\left[1/\beta - 1/(e^\beta - 1)\right]$ with $\beta = 4N_es$, and therefore
-\begin{equation}
-    V_A = U_d\,s\left[1 - \frac{4N_es}{e^{4N_es}-1}\right].
-\label{eq:D_VA_exact}
-\end{equation}
+\subsection{Stationary variance}\label{app:D_stationary}
+For a semidominant deleterious allele the diffusion solution (Kimura 1969) gives the expected heterozygosity per site, $\mathbb{E}[H] = 8N_e\mu\left[1/\beta - 1/(e^\beta - 1)\right]$, with $\beta = 4N_es$ and $\mu$ the mutation rate per site. Each site contributes $\mathbb{E}[H]\,s^2$ to $V_A$. Summing over the $L$ sites of the target, with $U_d = 2\mu L$, gives Equation~\eqref{eq:VA_MSD}, $V_A = U_d\,s\left[1 - 4N_es/(e^{4N_es} - 1)\right]$.
 % UNVERIFIED: equation number in Kimura (1969) not checked; formula confirmed by quadrature of the sojourn density and a Wright-Fisher simulation (2Ns = 2).
-Both expressions share their two limits. Between them Equation~\eqref{eq:D_VA_interp} is low by up to 29\%, at $4N_es \approx 3$. Our data lie deep in the strong-selection limit ($2N_es^* = 9{,}400$ to $390{,}000$ where $N_e = \pi/4\mu$ is available), where the two agree to better than one part in $10^3$.
+The bracket never exceeds one. For $N_es \ll 1$ it is $2N_es$, and $V_A$ is the mutation--drift variance $2N_eU_ds^2$ (Lynch and Hill 1986). For $N_es \gg 1$ it is one: each allele is held near $q = \mu/s$, and $V_A = U_ds$ (Mukai et al. 1972; Charlesworth 2012). The flux balance $V_A \approx 2N_eU_ds^2/(1 + 2N_es)$ has the same two limits (cf.\ B\"urger et al. 1989), but it is up to 29\% low between them, at $4N_es \approx 3$, and is not used.
 
-\subsection*{D.2\quad The implied selection coefficient}
-
-In the strong-selection limit, Equation~\eqref{eq:D_VA_exact} inverts to
+\subsection{Inversion and its conditions}\label{app:D_inversion}
+In the strong-selection limit Equation~\eqref{eq:HoC} inverts to Equation~\eqref{eq:sstar}, $s^* = \bar{V}_A/U_d$, which is self-consistent when $2N_es^* \gg 1$. The weak-selection branch cannot hold instead. With $V_A \approx 2N_eU_ds^2$, the condition $2N_es \ll 1$ requires
 \begin{equation}
-    s^* = \frac{V_A}{U_d}.
-\label{eq:sHoC}
+    N_e \ll \frac{U_d}{2V_A},
 \end{equation}
-With $U_d = 4\mu L_\text{coding}$ (Methods) and the direct mutation-rate estimates, $U_d = 0.34$--$1.26$ across the 18 populations with an annotated genome. The posterior modes of $V_A$ then give $s^* = 0.006$--$0.78$, median 0.16, and $P(s^* > 0.01) > 0.89$ in 17 of the 18 posteriors (0.71 in the snow vole). The limit is self-consistent: $2N_es^*$ is $9{,}400$ or more in every population where $N_e$ can be computed. The weak-selection branch fails its own premise. $2N_es \ll 1$ with $V_A \approx 2N_eU_ds^2$ requires $N_e \ll U_d/(2V_A)$, about 3 for the median population (range 0.6--81).
+an effective size of a few individuals for $U_d$ of order one and $V_A$ of order 0.1. Methods reports both quantities for the populations here.
 
-Against a mean heterozygous effect of order $10^{-3}$ to $10^{-2}$ in vertebrate DFEs (Eyre-Walker and Keightley 2007; Huber et al. 2017), $s^*$ is one to two orders of magnitude too large. Read forward, $V_A = U_ds$ at $s = 10^{-3}$, $5 \times 10^{-3}$ and $10^{-2}$ falls short of the measured median $V_A$ by factors of 160, 32 and 16.
-% UNVERIFIED: whether Huber et al. 2017 and Kim et al. 2017 report s as the homozygous effect (h = 0.5); if so the heterozygous mean is s/2, which widens the gap.
-
-\paragraph{Retention of associations.} An association between a neutral site and a deleterious allele of effect $s$ survives a generation with probability $(1-s)(1-r)$ (Nordborg et al. 1996; Charlesworth 2012, Appendix), so the retention of the main text is $Z = 1 - s$ in the strong-selection limit ($1 - s - 1/(2N_e)$ with drift), whatever the size of $V_A$. Under a distribution of effects each class $k$ keeps its own $Z_k = 1 - s_k$ and carries the share $\nu_k = \varphi_ks_k/\bar{s}$ of $V_A$, and interference is averaged over classes with these weights (Theory). The total variance decays at the aggregate rate $V_m/V_A = \mathbb{E}[s^2]/\mathbb{E}[s] = \bar{s}(1 + \mathrm{CV}_s^2)$, the $\nu$-weighted mean of the $s_k$ (Santiago and Caballero 1998). It is well above $\bar{s}$ for leptokurtic DFEs, $6\bar{s}$ for a gamma DFE of shape 0.2, but because interference is nonlinear in $Z$ it is not used in place of the classes.
-
-\subsection*{D.3\quad Distributions of fitness effects}
-
-Let heterozygous effects $s$ follow a density $\varphi(s)$. In the strong-selection limit each class contributes $U_d\,s$, so
+\subsection{Distributions of fitness effects}\label{app:D_dfe}
+Summing Equation~\eqref{eq:VA_MSD} over classes gives the variance a DFE maintains,
 \begin{equation}
-    V_A = U_d \int_0^\infty \varphi(s)\,s\,ds = U_d\,\bar{s}, \qquad s^* = \frac{V_A}{U_d},
-\label{eq:VA_DFE}
-\end{equation}
-whatever the shape of the DFE. The inversion of Equation~\eqref{eq:sHoC} therefore applies to its arithmetic mean. Shape enters only through nearly neutral mutations ($4N_es \lesssim 1$), which contribute less than $U_ds$ (Equation~\eqref{eq:D_VA_exact} applied class by class). A more leptokurtic DFE with the same mean puts more mass there, which lowers the sustainable $V_A$ and widens the gap. Two cautions apply. DFEs inferred from site-frequency spectra do not constrain the strongly deleterious tail, so their mean is partly an extrapolation. And the variance-weighted mean $\mathbb{E}[s^2]/\mathbb{E}[s]$, not $\bar{s}$, is the aggregate rate $V_m/V_A$; the retention itself is set class by class.
-
-\paragraph{Forward prediction.} Summing Equation~\eqref{eq:D_VA_exact} over a discretised DFE gives the variance a given DFE can sustain:
-\begin{equation}
-    V_A^{\text{DFE}} = U_d \sum_k \varphi_k\, s_k\left[1 - \frac{4N_es_k}{e^{4N_es_k}-1}\right],
+    V_A^{\text{DFE}} = U_d \sum_k \varphi_k\, s_k\left[1 - \frac{4N_es_k}{e^{4N_es_k}-1}\right] \le U_d\,\bar{s},
 \label{eq:VA_forward}
 \end{equation}
-with $\varphi_k$ the fraction of new mutations in class $k$ and $s_k$ its mean effect. With vertebrate-calibrated classes (Rettelbach et al. 2025) this yields $V_A^{\text{DFE}} \approx$ [XX].
-% UNVERIFIED: Rettelbach et al. 2025 not located; possibly Rettelbach et al. 2019 (Genetics, collared flycatcher). Check before citing.
+with equality in the strong-selection limit, where every class contributes $U_d\,s_k$ whatever the shape of the DFE. So $s^*$ estimates the arithmetic mean $\bar{s}$. Shape enters only through nearly neutral classes ($4N_es_k \lesssim 1$), which contribute less than $U_d\,s_k$. At a fixed mean, more mass there lowers the variance maintained. The analysis uses $U_d\,\bar{s}$ with the DFE assigned to each population (Lin et al. 2026; Methods). This is the upper limit of Equation~\eqref{eq:VA_forward}, and so the case most favourable to balance. DFEs inferred from site-frequency spectra constrain the strongly deleterious tail poorly, so their means are partly extrapolations. The retention of each class at balance, $Z_k = 1 - s_k$, and its share of $V_A$, $\nu_k = \varphi_ks_k/\bar{s}$, are derived in Appendix~\ref{app:A_Z}.
+% UNVERIFIED: whether Lin et al. (2026) report s as the heterozygous or the homozygous effect;
+% if homozygous (h = 0.5) the heterozygous mean is s/2, which widens the gap. (Carried over from
+% the earlier Huber et al. 2017 / Kim et al. 2017 flag.)
 
-\paragraph{Unlinked interference under fast purging.} Deleterious alleles of large effect are purged within a few generations, so their associations with unlinked neutral sites decay faster than by Mendelian segregation alone: at retention $Z_k = 1 - s_k$ the unlinked factor of the main text (Equation~\eqref{eq:Q}) is $Q = 2/(1+s_k)$ in place of 2. Following Charlesworth (2012, Appendix) and Santiago and Caballero (1998), the unlinked term becomes
+\subsection{The global reduction under fast purging}\label{app:D_purge}
+Alleles of large effect are purged within a few generations, so their associations with unlinked neutral sites decay faster than by segregation alone. At retention $Z_k = 1 - s_k$ the transmission factor of Equation~\eqref{eq:Q} is $Q_k = 2/(1 + s_k)$ in place of 2 (Santiago and Caballero 1998; Charlesworth 2012, Appendix). Class $k$ carries the share $\nu_k$ of $V_A = U_d\bar{s}$, so the class average of $Q^2V_A$ is
 \begin{equation}
-    \frac{N_e}{N} = \frac{1}{1 + 4\kappa\,U_d\,\bar{s}_\text{eff}}, \qquad \bar{s}_\text{eff} = \int_0^\infty \varphi(s)\,\frac{s}{(1+s)^2}\,ds < \bar{s},
-\label{eq:B_corrected}
+    \sum_k \nu_k\,Q_k^2\,V_A = 4U_d\,\bar{s}_\text{eff}, \qquad \bar{s}_\text{eff} = \sum_k \varphi_k\,\frac{s_k}{(1+s_k)^2} < \bar{s}.
+\label{eq:D_purge}
 \end{equation}
-which replaces $4\kappa V_A = 4\kappa U_d\bar{s}$. This is the class-by-class average of $Q^2$ with the weights $\nu_k$. It acts in the same direction as truncation of the upper tail of log-fitness (Appendix~\ref{app:A_tail}): both lower the reduction below the multiplicative upper bound. At the implied $s^*$, the factor $1/(1+s^*)^2$ is 0.31--0.99 (median 0.74). The diversity predictions of the main text, which take $Q = 2$, therefore overstate the unlinked reduction at the selection coefficients the measured $V_A$ would require.
+It replaces $4\kappa V_A$ by $4\kappa U_d\bar{s}_\text{eff}$ in the global reduction, in its exponential or its first-order form. The substitution is exact without a pair bond and under strict monogamy. With extra-pair paternity $\kappa$ itself depends on $Z$ (Equation~\eqref{eq:B_kappa_general}), and holding it at its value for $Z = 1$ understates the reduction, by at most 2.3\% for $s_k \le 0.1$. Like truncation of the upper tail of log-fitness (Appendix~\ref{app:A_tail}), purging lowers the reduction below the bound used in the main text. Methods gives its size at $s^*$.
 
-\paragraph{The unlinked limit of background selection.} Equation~\eqref{eq:B_corrected} is the global effective size of the main text written for deleterious mutations, and it is also what background selection becomes at unlinked loci. Consider a selected locus with deleterious mutation rate $u$ per gamete and heterozygous effect $s$. At equilibrium the mutant frequency is $q \approx u/s$, each of an individual's two copies carries variance $qs^2 = us$, and the locus contributes $2us$ to $V_A$. The single-locus background-selection effect on a neutral site at recombination fraction $r$ (Nordborg et al. 1996) is $\exp[-us/(s + r(1-s))^2]$; at $r = 1/2$ it is $\exp[-Q(s)^2\,us]$ with $Q(s) = 2/(1+s)$, the cumulative factor times the variance of the copy in cis. At an unlinked locus the homologous copy is reshuffled exactly as often as the cis copy and contributes the same amount, so the locus reduces $N_e/N$ by $Q(s)^2 \cdot 2us$, and the sum over loci, $4U_d\,\bar{s}_\text{eff}$ with $U_d = \sum 2u$, is Equation~\eqref{eq:B_corrected} to first order. A sum of the single-locus effect over cis copies alone therefore recovers half of the global reduction. Within a chromosome the same accounting gives the partition of Equation~\eqref{total_red}: the cis variance $v_h = v_i/2$ enters the local term, and the homologous half stays in the global one. Buffalo and Kern (2024) omitted the associations with the homologous haplotype; here that variance is assigned to the global term.
+\subsection{The unlinked limit of background selection}\label{app:D_bgs}
+Equation~\eqref{eq:D_purge} is also what background selection becomes at unlinked loci. Consider a selected locus with deleterious mutation rate $u$ per gamete and heterozygous effect $s$. Its mutant frequency is $q \approx u/s$, so it contributes $2qs^2 = 2us$ to $V_A$, $us$ through each homolog. Its background-selection effect on a neutral site at recombination fraction $r$ is $\exp[-us/(s + r(1-s))^2]$ (Hudson and Kaplan 1995; Nordborg et al. 1996), which at $r = \tfrac12$ is $\exp[-Q(s)^2us]$ with $Q(s) = 2/(1+s)$. That counts only the copy in cis. At an unlinked locus the homologous copy is reshuffled as often as the cis copy and contributes as much, so the locus lowers $N_e/N$ by the factor $\exp[-Q(s)^2\,2us]$. Summed over loci, with $U_d = \sum 2u$, the exponent is $4U_d\bar{s}_\text{eff}$, Equation~\eqref{eq:D_purge} without a pair bond. A sum over the cis copies alone therefore recovers half of the global reduction. Within a chromosome the same accounting gives the partition of Equation~\eqref{total_red}: the cis variance $v_h = v_i/2$ enters the local term, and the homologous half stays in the global one. Buffalo and Kern (2024) count only the cis half; here the homologous half is assigned to the global term.
 % CHECK (2026-10-19): derived here. Confirm the per-gamete convention for u in Nordborg et al.
 % (1996) and Hudson and Kaplan (1995), and compare with Santiago and Caballero (1998), before
 % submission.
