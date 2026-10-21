@@ -953,7 +953,8 @@ the code implements, not necessarily what `scratch.tex` now specifies.
   (open item 6a); do not re-run `data_gen.R`'s Z as is.
 - **Code names vs manuscript symbols (code not renamed, 2026-10-19):** `kappa_pair(..., G, ...)`, the
   `G_correct` flag of `ne_ratio()` and the columns `G_sym`/`reduction_Gsym` all mean the retention $Z$;
-  `Qu2()` is $Q^2$ at retention $Z$; `kappa_mult_bound()` is $\kappa(0)$.
+  `Qu2()` is $Q^2$ at retention $Z$; `kappa_mult_bound()` is $\kappa(0)$; `kappa_pair(..., rho)` is
+  $r_{mf}$ (not the linked $\rho$), and its `Phi` is Appendix B's Ψ (`eq:B_kappa_general`).
 - **Variance allocation:** `f_i = L_coding_bp / L_coding_total` (coding bp, not physical length),
   `v_i = Va * f_i`, then halved (`v_i/2`) — a focal neutral allele is linked to only one homolog.
 - **Filters:** autosomes only (drop X/Y/Z/W/MT), macrochromosomes only
@@ -969,6 +970,34 @@ the code implements, not necessarily what `scratch.tex` now specifies.
   intentional, not a bug.
 
 ## Known staleness & inconsistencies (Rule 5 log)
+
+**Logged 2026-10-21 — Appendix B rewritten (branch `worktree-appendix-b-compact`; the user asked for
+the Appendix A assessment applied to B, then "apply the recommended changes").** The algebra was
+re-derived by hand and was correct throughout; only the presentation changed. **No equation
+changed.**
+
+- **New title:** "Effective Size with Separate Sexes and Pair Bonds".
+- **Opening:** the model and every assumption, once. Model A/B and γ are defined here.
+- **B.1** (`app:B_kappa`): one general derivation with $\bar c$, θ and Ψ, each from one stated
+  expectation; `eq:B_L`, `eq:kappa_def`, and **new `eq:B_kappa_general`**, which displays the full
+  $\kappa(\alpha,\gamma,Z,r_{mf})$. Checked identical to `kappa_pair()` on a grid.
+- **B.2** (`app:B_limits`): $\kappa_B$ (cites `eq:kappaB`, not re-displayed), $\kappa_A$, α = 0
+  gives SC's pair family, and the **no-pair-bond limit $\kappa = Q^2/4$, now derived** (it was
+  asserted). $Z$ per sex is the same in both sexes under Model B.
+- **B.3** (`app:B_split`): the own/partner/cis split, with the linked kernel named.
+- **B.4** (`app:B_mult`): the all-orders bracket, moved last. Its notation is fixed: $\mathbf a$
+  replaces $\mathbf u$, which clashed with $u_X$; $c_f$/$c_m$ replace $c_s$; $y$ is gone.
+- **Cut:**
+  - "what is not new" and "Appendix A unchanged";
+  - Woolliams' $\beta_q = 2\alpha_q$ (imported notation, and $\alpha_q$ collided with α);
+  - the $r_{mf}$-vs-κ commentary (one clause now);
+  - the additive-map/$b$ sentence;
+  - the vague "split carries over to the multiplicative model" sentence;
+  - the Assumptions paragraph and its duplicate closing display;
+  - the stale "scratch.tex is authoritative" header.
+- 2,279 → 1,739 source words.
+- Theory's five Appendix B references now point to B.2/B.3 by `\ref`. The build has 51 pages,
+  0 errors and 0 undefined references.
 
 **Logged 2026-10-21 — Introduction re-cut (branch `worktree-intro-recut`; the user asked for an
 assessment against the GENETICS exemplar, then "apply all the changes, merge and push").** Prose
