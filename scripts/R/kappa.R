@@ -85,7 +85,7 @@ ne_ratio <- function(Va, pair, alpha = NA, gamma = 1, G_correct = FALSE, rho = 0
 }
 
 # ------------------------------------------------------------------------------
-# Multiplicative fitness map (Appendix A.3; decided 2026-10-19). Log-fitness is
+# Multiplicative fitness map (Appendix A; pair bond and EPP in Appendix B since 2026-10-21; decided 2026-10-19). Log-fitness is
 # additive and Gaussian, w ∝ e^z, the structure of Bonnet et al.'s log-link model,
 # for which V_A(w) = Var(z) (de Villemereuil et al. 2016). Reproductive value of an
 # ancestor with log value z is exp(2(z - zbar) - 2V) and coalescence goes as its

@@ -13,7 +13,7 @@
 #                 assignment is a mixture. (Before 2026-10-20: s in [1e-3, 1e-2].)
 #   posterior     measured V_A: 95% HPD (thin), 50% interval (thick), mode
 #   required      smallest V_A that could produce the observed deficit at unlinked sites,
-#                 from the multiplicative upper bound on the reduction (Appendix A.3,
+#                 from the multiplicative upper bound on the reduction (Appendix B, eq:B_mult_pair,
 #                 decided 2026-10-19): V_A = ln(1/delta) / (4 kappa_mult), kappa_mult = 2
 #                 with a pair bond and 1 without; delta = pi / (4 mu N_c); bar spans the
 #                 95% CI on mu. (Until 2026-10-19 this was the first-order inversion

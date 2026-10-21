@@ -204,8 +204,8 @@ rather than a 2×2 link-scale $\mathbf{G}$: those posteriors are post-back-trans
 | $V_A$ | additive variance in **relative** fitness, $\bar w = 1$ (S–C's $C^2$) | ✅ 19 posterior modes |
 | $\kappa$ | mating-system scalar: 1 without a pair bond, $\kappa_B \in [9/8, 2]$ under social monogamy | ✅ from EPP |
 | $Z$ | **retention**: fraction of a gene copy's association with its selective background surviving one generation of selection. SC 1995's $G$ and Buffalo & Kern's $1-\kappa$ — the same quantity (2026-10-19). 1 for Gaussian infinitesimal $z$; $Z_k = 1 - s_k$ per effect class at MSD | Theory `msdb`, Appendix A.4 |
-| $z$ | additive log-fitness (Bonnet's latent scale); $\mathrm{Var}(z) = V_A$ at $\bar w = 1$ | Appendix A.2 |
-| $\kappa(0)$ | κ without extra-pair paternity, used in the multiplicative bound $e^{-4\kappa(0)V_A}$: 1 without a pair bond (Barton & Etheridge 2011), 2 with: the strict-monogamy result of Weissman & Barton 2012 (was $\kappa_\text{mult}$ until 2026-10-19) | Appendix A.3 |
+| $z$ | additive log-fitness (Bonnet's latent scale); $\mathrm{Var}(z) = V_A$ at $\bar w = 1$ | Theory `sec:onemodel` (estimand); Appendix A |
+| $\kappa(0)$ | κ without extra-pair paternity, used in the multiplicative bound $e^{-4\kappa(0)V_A}$: 1 without a pair bond (Barton & Etheridge 2011), 2 with: the strict-monogamy result of Weissman & Barton 2012 (was $\kappa_\text{mult}$ until 2026-10-19) | Appendix A.1 (α = 0), Appendix B `eq:B_mult_pair` |
 | $r_{mf}$ | correlation of mates' breeding values (SC's $r$); 0 in primary results | Appendix A, B |
 
 **One symbol, one meaning — our own conventions, held dogmatically (user, 2026-10-19).** Do not import
@@ -223,13 +223,13 @@ Fixed on 2026-10-19:
 | $M$, $M_i$ | map length in Morgans **only** | long-term contribution |
 | $r$ | recombination fraction **only** ($r_{mf}$ is mates' correlation) | long-term contributions |
 | $h_t$ | expected breeding value of a gene copy's carriers in generation $t$ (Appendix B) | a log breeding value |
-| $\boldsymbol\lambda$ | exponent vectors in Appendix A.3's lognormal moments | — |
+| $\boldsymbol\lambda$ | exponent vectors in Appendix B's all-orders lognormal moments (`eq:B_moments`) | — |
 | $Z$, $Z_k$ | retention (above); per effect class $Z_k = 1 - s_k$, independent of $V_A$ | SC 1995's $G$ (named once, as theirs); B&K's $1-\kappa$ |
 | $Q$ | the **unlinked** transmission factor $2/[2 - Z(1+r_{mf})]$, = 2 at $Z = 1$ | $Q_u$, $Q(s)$, $Q(t)$ (all retired: same object) |
 | $\overline{Q^2}_i$ | linked interference on chromosome $i$ (map length $M_i$); $\overline{Q^2}_\text{H}$, $_\text{L}$ only in Appendix C, for Haldane vs linear map | $\overline{Q^2}_\text{linked}$ (retired) |
 | $\kappa$, $\kappa(0)$ | our mating-system scalar; its value at α = 0 | B&K's κ (= $1 - Z$; footnoted at first use) |
 | $s$, $s_k$, $\bar s$, $s^*$; $\varphi$, $\varphi_k$; $\nu_k$ | heterozygous effect; class $k$; DFE mean; mean implied by $V_A$; DFE density and class fractions; class share of $V_A$, $\varphi_ks_k/\bar s$ | $t$, $s_\text{het}$, $\bar t$ (retired); $\omega$ (Woolliams) |
-| $m'$, $f'$ | social partner of a female / of a male (Appendices A.3, B) | $s$ as a partner subscript |
+| $m'$, $f'$ | social partner of a female / of a male (Appendix B) | $s$ as a partner subscript |
 | $\Gamma$, $\eta$, $\epsilon$ | Haldane-kernel constants $1 - Z/2$, $Z/2$, $\eta/\Gamma$ (Appendix C.2) | $A$, $B$, $q$ there |
 | $\Lambda_\text{L}$, $\Lambda_\text{own}$, $\Lambda_\text{U}$ | exponents in the Ω ≤ 1 proof (Appendix C.5) | $x$, $y$, $K$ there |
 | $\Psi$, $\chi$, $\xi_{1,2}$, $m_X$ | Appendix B's general-form coefficient, $\rho/(1-\rho)$, partner weights, carrier's own weight | $\Phi$ (normal CDF), $X$ (the individual), $b$, $w_0$ |
@@ -630,7 +630,7 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
        **Appendix A.1 compressed** to a cited statement (user: published results, keep compact).
        **The Introduction is edited in Overleaf by the author**, from paste-ready text (1a–1c).
        **Novelty ledger (keep derivations only for these):**
-       - the EPP bracket at all orders (A.3);
+       - the EPP bracket at all orders (Appendix B since 2026-10-21; was A.3);
        - $\kappa(\alpha)$ Models A/B, and the own/partner/cis split at first order (Appendix B);
        - Haldane position-averaging with closed form, the linear lower bound, Ω ≤ 1 and the
          spatial result (Appendix C);
@@ -965,6 +965,39 @@ the code implements, not necessarily what `scratch.tex` now specifies.
   intentional, not a bug.
 
 ## Known staleness & inconsistencies (Rule 5 log)
+
+**Logged 2026-10-21 — Appendix A rewritten as one chain (branch `worktree-appendix-a-compact`;
+user asked for an assessment against the GENETICS exemplar, then "apply all the changes").**
+
+- **New Appendix A** ("Effective Size under Heritable Variance in Log-Fitness", about 1,000 words,
+  was 2,055). The model and all its assumptions are stated once, in the opening.
+  - A.1 long-term contributions: (A1) $R(z)$; (A2) $N/N_e = E[R^2]/E[R]^2$; (A3) $e^{-4V_A}$;
+    (A4) strict monogamy $e^{-8V_A}$, from $\mathrm{Var}(\log R) = 8V_A$.
+  - A.2 first order: (A5) $1/(1+Q^2V_A)$.
+  - A.3 upper tail (`app:A_tail`).
+  - A.4 retention (`app:A_Z`): (A6) $Z = K''(1)/K''(0)$, the CGF of $z$ under multiplicative
+    fitness; (A7) $Z_k = 1 - s_k$ with weights $\nu_k$, from rare alleles of carrier fitness
+    $1 - s_k$; (A8) `eq:Zarch` for a linear map only, plus the additive-map remark.
+    `eq:Gcorrected` was dropped (only stale `scratch.tex` cites it).
+  - Bonnet's estimand (old A.2) moved to Theory `sec:onemodel` as the first-order identity
+    $\ln w = \ln p + l_2$.
+  - Theory now says "second moment" of $R$, not "variance".
+- **The EPP bracket moved to Appendix B** (paragraph "All orders under multiplicative fitness",
+  `eq:B_moments`, `eq:B_mult_pair`). **Its upper end is now proved, not only checked
+  numerically.** Jensen's inequality plus AM–GM, with route shares $w = (1-\alpha, \alpha)$, give
+  exactly $4\kappa_B$, so the bound holds whenever the extra-pair route carries at most α of a
+  copy's expected contribution.
+  - The share is exactly α when EP siring ∝ $e^z$ ($c_f = e^{3V_A/2}$, $c_m = e^{2V_A}$), and below
+    α at the code's $c = 1$ (`ne_ratio_mult`).
+  - Checked numerically on 140 cases with $c$ up to $e^{2V_A}$; the check script is not committed.
+- **GENETICS numbering:** `_main.tex` now prints appendix headings as "Appendix X: Title" (the
+  "Appendix X:" prefix was removed from the B–D titles) and numbers equations (A1), (B1), ….
+  Hard-coded "Appendix A.x" replaced by `\ref` everywhere; Appendix A's subsections are numbered.
+  B–D keep `\subsection*`.
+- **Fixed on the way:** Appendix B's θ = (G/2)… → (Z/2); Theory "about 6 SD" → 6.1.
+- **The model is now named wherever "one model of fitness" appeared:** the `tab:onemodel` and
+  `tab_reduction` captions (the latter in `tab_reduction.R` too). Still open: `scratch.tex` is stale
+  by rule.
 
 **Logged 2026-10-20 — Results draft (branch `worktree-results-draft`).** Fixed in Methods: the
 mutation–selection subsection now compares $s^*$ with the assigned $\bar s$ and reports

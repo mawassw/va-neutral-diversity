@@ -9,7 +9,7 @@
 # one model of fitness of Theory (sec:onemodel), with full retention (Z = 1):
 #   first order     N_e/N = 1 / (1 + 4 kappa V_A)   (Robertson; Santiago & Caballero),
 #                   the reduction at the measured values, valid while V_A << 1
-#   multiplicative  N_e/N at all orders (Barton & Etheridge 2011; Appendix A.3):
+#   multiplicative  N_e/N at all orders (Barton & Etheridge 2011; Appendix A; pair bond, Appendix B):
 #                   exp(-4 V_A) without a pair bond, the Model-B nest-sharing value
 #                   with one (reduction_mult); its upper bound on the reduction,
 #                   exp(-4 kappa(0) V_A), kappa(0) = 2 with a pair bond and 1 without

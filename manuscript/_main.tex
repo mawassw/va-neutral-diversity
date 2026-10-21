@@ -83,6 +83,16 @@
 \beginsupplement
 
 \appendix
+% GENETICS style (2026-10-21): headings "Appendix A: Title", equations (A1), (B1), ...
+\makeatletter
+\renewcommand{\@seccntformat}[1]{\csname appfmt@#1\endcsname}
+\newcommand{\appfmt@section}{Appendix \thesection:\ }
+\newcommand{\appfmt@subsection}{\thesubsection\quad}
+\newcommand{\appfmt@subsubsection}{\thesubsubsection\quad}
+\@addtoreset{equation}{section}
+\makeatother
+\renewcommand{\theequation}{\thesection\arabic{equation}}
+\renewcommand{\theHequation}{app.\thesection.\arabic{equation}}
 \input{supp/appendix_A}
 \input{supp/appendix_B}
 \input{supp/appendix_C}
