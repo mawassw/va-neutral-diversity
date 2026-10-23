@@ -73,7 +73,7 @@ theme_fig <- theme_classic(base_size = 9, base_family = "sans") +
         legend.position = "bottom", legend.text = element_text(size = 8, hjust = 0),
         legend.key.width = unit(7, "mm"), plot.tag = element_text(face = "bold"))
 
-ne_lab <- expression("Effective size relative to census, " * italic(N)[e] / italic(N))
+ne_lab <- expression("Effective size relative to breeding adults, " * italic(N)[e] / italic(N))
 ne_brk <- c(0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1)
 ne_log <- function() scale_x_log10(limits = c(0.01, 1.05), breaks = ne_brk, labels = format(ne_brk),
                                    expand = c(0, 0))
@@ -128,7 +128,7 @@ pB <- ggplot() +
   scale_y_log10(breaks = ne_brk, labels = format(ne_brk), expand = c(0, 0)) +
   coord_cartesian(xlim = c(1e-3, 2), ylim = c(0.01, 1.05)) +
   labs(x = expression(italic(V)[A]),
-       y = ne_lab, tag = "B") +
+       y = expression(italic(N)[e] / italic(N)), tag = "B") +
   guides(colour = guide_legend(ncol = 1, order = 1),
          linetype = guide_legend(ncol = 1, order = 2)) +
   theme_fig + theme(panel.grid.major.y = element_line(colour = "grey92", linewidth = 0.3),

@@ -8,7 +8,7 @@
 #   supp/FigS_omega.{pdf,tiff}           the linked factor Omega_bar alone
 #
 # One row per population in the linked set (9: mapped autosomes, microchromosomes
-# included), on one log axis of N_e/N (effective size relative to census):
+# included), on one log axis of N_e/N (effective size relative to breeding adults):
 #   unlinked      1 / (1 + 4 kappa hat V_A): mode (circle), 95% HPD (line)
 #   with linkage  the total, unlinked and linked combined:
 #                 Omega_bar / (1 + 4 kappa hat V_A), Omega_bar the linked factor of
@@ -143,7 +143,7 @@ plot_total <- function(part) {
                         guide = guide_legend(ncol = 1)) +
     x_log(c(1e-5, 1.25), 10^(-5:0)) + y_scale +
     facet_grid(taxon ~ ., scales = "free_y", space = "free_y") +
-    labs(x = expression("Effective size relative to census, " * italic(N)[e] / italic(N)), y = NULL) +
+    labs(x = expression("Effective size relative to breeding adults, " * italic(N)[e] / italic(N)), y = NULL) +
     theme_rows
 }
 

@@ -976,6 +976,35 @@ the code implements, not necessarily what `scratch.tex` now specifies.
 
 ## Known staleness & inconsistencies (Rule 5 log)
 
+**Logged 2026-10-23 — Methods and Results: GENETICS-exemplar assessment applied (branch
+`worktree-methods-results-assessment`; user: "apply all these changes, then push and merge to
+main").** No result changed. Methods 2,229 → 1,944 words, Results 3,265 → 3,013.
+
+- **Fixed:** Results' stale "$2N_es^* \ge 9{,}400$" now reads 2,900–320,000 (11 populations).
+  **Figs. 1 and 2 relabelled** "relative to breeding adults" (they said "census", against the
+  Theory definition of $N_e/N$); Fig. 1B's axis is $N_e/N$ alone. Methods uses $\kappa(\alpha)$,
+  MSDB and $V_{A,\delta}$. The gamma DFE shape is now $b$, scale $\beta$ (α is the EPP rate).
+- **Methods restructured:** procedure only, past tense. **New subsection "Distribution of fitness
+  effects" (`sec:dfe_methods`)** before the maintenance comparison; it holds the assignment, its
+  justification and the discretization that the linked and rescaling subsections used to repeat,
+  and now states that hyenas and meerkats get the cetacean mixture (carnivore DFEs excluded).
+  "Linked interference" renamed "Local reduction at linked sites"; the unreported uniform
+  0.005/0.02 grid dropped (only $s = 0.01$ and $s = s^*$ are reported). $2N_es^*$, $U_d/(2V_A)$ and
+  the purging factor moved to Results `res_msd`. Script path moved to a new **Data Availability**
+  statement in `add_info.tex` (sources, R 4.6.0, packages; repository still TBD).
+- **Results:** analysis sets named once ("deficit set", "mapped set"); passages re-explaining
+  Theory cut to pointers (nest sharing, upper tail, curve reading, $c$ directions, census biases);
+  `res_ceiling` retitled "Neutral diversity sets no upper limit on the measured variance" and leads
+  with that finding; "linked factor $\overline\Omega$" defined once; "one to two orders" →
+  "a median of about 20 times, and up to several hundred"; Fig. 5 caption descriptive; Fig. 4
+  caption uses $s^*$.
+- **Numbers rechecked 2026-10-23:** `fig4_selection.R` (all $s^*$ statistics) and the
+  phylogenetic-μ median $s^*$ recomputed directly (0.115, quoted 0.12).
+- **Still open:** the four Methods `[author: …]`/`CHECK` flags (EPP sources and offspring vs
+  brood; sex-averaged maps; $f_i$ partition; Lin et al. heterozygous $s$); Frankham 1995 and
+  McVicker et al. 2009 not in `references.bib`; `discussion.tex` and `abstract.tex` still stale.
+- Build: 50 pages, zero undefined references, zero errors.
+
 **Logged 2026-10-22 — Theory revoiced by the author, then the GENETICS-exemplar assessment applied
 (branch `worktree-theory-assessment-apply`; user: "apply all these recommendations… then push and
 merge to main").** On top of the author's Overleaf revoicing (`421ac19`). **No result changed**
