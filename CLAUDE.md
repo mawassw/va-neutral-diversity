@@ -976,6 +976,25 @@ the code implements, not necessarily what `scratch.tex` now specifies.
 
 ## Known staleness & inconsistencies (Rule 5 log)
 
+**Logged 2026-10-23 — Introduction reassessed against the settled spine (branch
+`worktree-intro-reassess`; user: "apply all these changes, then merge and push to main").** Order
+unchanged; 1,379 → 1,388 words (the two additions below offset the trims).
+
+- **Added:** the aims paragraph now says what the rescaling separates (an unrepresentative study
+  period vs processes the model leaves out; one $c$ per population, so the two tests together
+  separate them). The results paragraph now ends on the pedigree-free conflict (`eq:compat`): the
+  variance MSDB maintains at the measured DFEs removes only a few percent of diversity, and
+  linkage barely changes this.
+- **Fixed:** the gap sentence qualified to "total-fitness $V_A$ in wild vertebrates … quantitatively"
+  (it contradicted the Charlesworth and Connallon–Czuppon precedents in the paragraph before);
+  maintenance paragraph uses $V_m = U_d\,\mathbb E[s^2]$ and $N_es \gg 1$ as Theory does; **MSDB is
+  now defined in the Introduction** (its first use) and Theory `sec:quantity` uses it bare;
+  Murphy et al. 2023 cited beside Buffalo and Kern (UNVERIFIED); "the global reduction needs
+  nothing but $V_A$" → "needs only $V_A$ and how long it is sustained"; the results paragraph is
+  in magnitudes, with the opaque "purifying selection that this variance is too large for" clause
+  replaced; DFE means are "assigned to these populations".
+- Build: 50 pages, zero undefined references, zero errors.
+
 **Logged 2026-10-23 — Methods and Results: GENETICS-exemplar assessment applied (branch
 `worktree-methods-results-assessment`; user: "apply all these changes, then push and merge to
 main").** No result changed. Methods 2,229 → 1,944 words, Results 3,265 → 3,013.
