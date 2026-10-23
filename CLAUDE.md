@@ -154,9 +154,12 @@ rather than a 2×2 link-scale $\mathbf{G}$: those posteriors are post-back-trans
 
 ### Scope conditions — these must appear in the manuscript, at the point of use
 
-1. **$N_e/N = 1/(1 + Q^2 V_A)$ is exact, conditional on $V_A$ being the long-term equilibrium additive
-   variance in relative fitness.** Say "exact under long-term equilibrium" where the equation is
-   introduced, name the quantity it needs, and say what breaks otherwise. Observed at MWPG 2026 to be
+1. **$N_e/N = 1/(1 + Q^2 V_A)$ needs fixed additive effects, and then only the long-term mean
+   $\bar V_A$ of its trajectory** (user, 2026-10-22, replacing "exact under long-term equilibrium").
+   It does not hold when an allele's fitness effect depends on its own frequency (underdominance,
+   stabilizing selection; the user's preliminary simulations). Within that regime only $\bar V_A$
+   enters (`eq:harmonic`). State the regime where the equation is introduced, name the quantity it
+   needs, and say what breaks otherwise. Observed at MWPG 2026 to be
    the one thing a competent reader could not infer from the poster.
 2. **Bonnet's $V_A(w)$ is single-generation and environment-conditional by construction.** $\mathbf{d}$
    is an average partial derivative *evaluated at the observed population state* — integrated over the
@@ -972,6 +975,32 @@ the code implements, not necessarily what `scratch.tex` now specifies.
   intentional, not a bug.
 
 ## Known staleness & inconsistencies (Rule 5 log)
+
+**Logged 2026-10-22 — Theory revoiced by the author, then the GENETICS-exemplar assessment applied
+(branch `worktree-theory-assessment-apply`; user: "apply all these recommendations… then push and
+merge to main").** On top of the author's Overleaf revoicing (`421ac19`). **No result changed**
+(Fig. 1 and 3 numbers and `tab_reduction` identical).
+
+- **Notation decisions (user):** $\kappa(0)$ → **$\kappa_\text{max}$**, the largest $\kappa$ of a
+  mating system (2 with a pair bond, 1 without), in the bound, `eq:vamax_mult`, `eq:compat`;
+  $V_{A,\max}^{(\text{mult})}$ → **$V_{A,\delta}$** (it is a minimum: the least variance that could
+  explain δ). $V_{A,\max}$ now means only the first-order ceiling, whose display `eq:vamax` moved to
+  Appendix A.2. **Model A/B labels dropped from Theory**: $\kappa(\alpha)$ there is Model B; Methods
+  and Appendix B keep the labels. "Without a pair bond" replaces "random mating" for κ = 1.
+  **MSDB** is defined once in `sec:quantity` P1 and used throughout Theory.
+- **Fixed:** eight `\autoref{msdb}` (label is now `sec:msdb`), Appendix D's `eq:HoC` (now
+  `eq:strong`), the Fig. 3 caption's `eq:vamax`; `eq:harmonic` restored to the harmonic mean (the
+  Overleaf edit had $T\sum N_e(t)/N$); $\pi = 4N_{eC}\mu$ restored, μ defined once as the per-site
+  rate; the sentence placing the relaxation of $Z = 1$ in the linkage section.
+- **Restructured:** strong/weak qualifiers back to a footnote in `sec:msdb`; `sec:linkage` P1–P2
+  merged (amount from the pedigree, persistence $Z_k$, $\nu_k$ from MSDB); κ_cis/κ_own motivated
+  before `eq:ne_chrom`; the special cases after `total_red` left to Appendix C.5; `sec:conditions`
+  refers back to the limits on $c$ of `sec:quantity`; `sec:approx` given a framing sentence and the
+  Haldane item. Fig. 1 and 3 plot labels and `tab_reduction` caption updated and re-rendered.
+- **New citations, not Crossref-checked or in `references.bib` (flagged `% UNVERIFIED` in the
+  text):** Murphy et al. 2023, Mulder et al. 1994; also Nei and Murata 1966 (10.1017/S0016672300010119),
+  Woolliams et al. 1993 (10.1017/S0016672300031943), Frankham 1995. Citations are still prose.
+- Build: 51 pages, zero undefined references, zero errors.
 
 **Logged 2026-10-21 — Appendix D rewritten (branch `worktree-appendix-d-compact`; the user asked
 for the same assessment, then "apply the recommended changes").** **No equation changed.**

@@ -12,7 +12,7 @@
 #   multiplicative  N_e/N at all orders (Barton & Etheridge 2011; Appendix A; pair bond, Appendix B):
 #                   exp(-4 V_A) without a pair bond, the Model-B nest-sharing value
 #                   with one (reduction_mult); its upper bound on the reduction,
-#                   exp(-4 kappa(0) V_A), kappa(0) = 2 with a pair bond and 1 without
+#                   exp(-4 kappa_max V_A), kappa_max = 2 with a pair bond and 1 without
 #                   (reduction_mult_bound). The two coincide without a pair bond.
 #   A  one row per population (19), rows as in Figure 4: first order at the hat V_A
 #      mode (circle), 50% and 95% HPD (thick, thin); multiplicative at the mode
@@ -91,7 +91,7 @@ pA <- ggplot(d, aes(y = label)) +
                      name = NULL,
                      labels = list(expression("First order: mode, 50% and 95% HPD"),
                                    "All orders, multiplicative: mode",
-                                   expression("Its upper bound, " * e^{-4 * kappa(0) * hat(italic(V))[A]} *
+                                   expression("Its upper bound, " * e^{-4 * kappa[max] * hat(italic(V))[A]} *
                                                 ": mode"))) +
   ne_log() +
   scale_y_discrete(labels = function(l) parse(text = d$label_math[match(l, d$label)])) +
