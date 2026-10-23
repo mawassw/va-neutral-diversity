@@ -998,6 +998,35 @@ the code implements, not necessarily what `scratch.tex` now specifies.
 
 ## Known staleness & inconsistencies (Rule 5 log)
 
+**Logged 2026-10-23 — EPP rates sourced, Methods flags resolved, Discussion and Abstract
+rewritten (branch `worktree-discussion-abstract`).**
+
+- **EPP rates (user: "the sources were not saved; search and update").** A literature search
+  replaced the unsourced values; every rate and its citation is now in **`data/epp_sources.csv`**.
+  Changed: BTR 0.16 → 0.14, CF 0.19 → 0.15, SFW 0.76 → 0.61 (Hajduk et al. 2018, 26 years),
+  SSP 0.28 → 0.284, HT and HK 0.46 → 0.60 (0.46 was Mokoia Island; Karori has no estimate and
+  uses Tiritiri), GTU 0.047 → 0.13, GTN 0.047 → 0.177 (neighbouring Westerheide; no Hoge Veluwe
+  estimate), MK 0.25 → 0.097 (share of the dominant female's pups; 0.25 was population-wide).
+  BTP 0.25 and BTM 0.18 kept: within the published Corsican range, per-site assignment
+  unconfirmed (needs the Charmantier et al. 2004 full text). κ now 1.32–1.86 (was 1.22–1.93).
+  **Effect on results:** small-variance median $N_e/N$ 0.60 → 0.61, multiplicative median
+  0.51 → 0.53; minima, deficits, linked values and every rescaling number unchanged ($c_\text{div}$
+  uses $\kappa_\text{max}$). Fig. 1, 2, 5, FigS_linked_fgene and the reduction table regenerated.
+- **Methods flags resolved (user):** linkage maps are sex-averaged; the coding-bp partition is
+  primary and gene count supplementary; Lin et al.'s $|s|$ is heterozygous.
+- **Discussion rewritten from scratch** to the settled claim and wording (the old one asserted
+  the retired "exceeds $V_{A,\max}$" and "two to three orders" claims): result → why no correction
+  to the estimate passes both tests → what maintains the variance (a DFE tail invisible to the
+  SFS would need about 30% of new mutations at $s \approx 0.5$) → what explains the deficit
+  (heritable plus demographic reductions explain about 20-fold at most) → linked selection and BGS
+  maps (the global reduction is invisible to them) → Fisher's theorem asymmetry → assumptions →
+  reusable results ($V_{A,\delta}$, `eq:compat`). **Abstract written** (249 words).
+- **Introduction corrected:** "a few-fold at most, to no less than a fifth" held only under the
+  small-variance approximation (the multiplicative model gives 0.021 for the Muro blue tits).
+- **New citations, unverified and not in `references.bib`:** the EPP sources above, Chen et al.
+  2019, and the bias citations carried over from the old Discussion (Kruuk and Hadfield 2007,
+  Stopher et al. 2012, Baud et al. 2022, Mawass and Milot 2025, Engen et al. 2005).
+
 **Logged 2026-10-23 — Introduction reassessed against the settled spine (branch
 `worktree-intro-reassess`; user: "apply all these changes, then merge and push to main").** Order
 unchanged; 1,379 → 1,388 words (the two additions below offset the trims).
