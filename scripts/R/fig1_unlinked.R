@@ -44,7 +44,7 @@ d <- pops %>%
   left_join(h50, by = "code") %>%
   mutate(
     taxon = if_else(code %in% birds, "Birds", "Mammals"),
-    system = if_else(pair_bond == "social_monogamy", "Social monogamy", "No pair bond"),
+    system = if_else(pair_bond == "social_monogamy", "Social monogamy", "Random mating"),
     species_lab = sub(" \\(.*\\)$", "", common_name),
     location_lab = sub("^tiritiri", "Tiritiri", location),
     label = paste(species_lab, location_lab, sep = ", "),
@@ -89,9 +89,9 @@ pA <- ggplot(d, aes(y = label)) +
              key_glyph = key_hpd) +
   scale_shape_manual(values = c(first = 21, mult = 2, bound = 4), breaks = c("first", "mult", "bound"),
                      name = NULL,
-                     labels = list(expression("First order: mode, 50% and 95% HPD"),
-                                   "All orders, multiplicative: mode",
-                                   expression("Its upper bound, " * e^{-4 * kappa[max] * hat(italic(V))[A]} *
+                     labels = list(expression("Small-variance approximation: mode, 50% and 95% HPD"),
+                                   "Multiplicative model: mode",
+                                   expression("Multiplicative bound, " * e^{-4 * kappa[max] * hat(italic(V))[A]} *
                                                 ": mode"))) +
   ne_log() +
   scale_y_discrete(labels = function(l) parse(text = d$label_math[match(l, d$label)])) +
@@ -106,9 +106,9 @@ pA <- ggplot(d, aes(y = label)) +
 # --- B: the forms as curves -----------------------------------------------------
 va <- 10^seq(-3, log10(2), length.out = 300)
 curves <- bind_rows(
-  tibble::tibble(Va = va, ne = 1 / (1 + 4 * va), sys = "No pair bond", form = "first"),
+  tibble::tibble(Va = va, ne = 1 / (1 + 4 * va), sys = "Random mating", form = "first"),
   tibble::tibble(Va = va, ne = 1 / (1 + 8 * va), sys = "Social monogamy", form = "first"),
-  tibble::tibble(Va = va, ne = exp(-4 * va), sys = "No pair bond", form = "mult"),
+  tibble::tibble(Va = va, ne = exp(-4 * va), sys = "Random mating", form = "mult"),
   tibble::tibble(Va = va, ne = exp(-8 * va), sys = "Social monogamy", form = "mult")) %>%
   filter(form == "mult" | Va <= 1)
 
@@ -119,10 +119,10 @@ pB <- ggplot() +
              fill = "white", stroke = 0.7) +
   annotate("text", x = 0.0012, y = 0.012, hjust = 0, vjust = 0, size = 2.2, colour = "grey30",
            lineheight = 0.9,
-           label = "curves: κ = 1 and κ = 2\npoints: first order at\neach mode and own κ\ngrey: V_A > 1") +
-  scale_colour_manual(values = c("No pair bond" = col_np, "Social monogamy" = col_sm), name = NULL) +
+           label = "curves: κ = 1 and κ = 2\npoints: small-variance\napproximation at each\nmode and own κ\ngrey: V_A > 1") +
+  scale_colour_manual(values = c("Random mating" = col_np, "Social monogamy" = col_sm), name = NULL) +
   scale_linetype_manual(values = c(first = "solid", mult = "22"), name = NULL,
-                        labels = c(first = "first order", mult = "multiplicative upper bound")) +
+                        labels = c(first = "small-variance approximation", mult = "multiplicative bound")) +
   scale_x_log10(breaks = c(10^(-3:0), 2), labels = c("0.001", "0.01", "0.1", "1", "2"),
                 expand = c(0, 0)) +
   scale_y_log10(breaks = ne_brk, labels = format(ne_brk), expand = c(0, 0)) +

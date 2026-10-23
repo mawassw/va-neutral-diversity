@@ -98,10 +98,10 @@ pop_c <- d %>%
 col_msd <- "#2C7FB8"; col_req <- "#D95F0E"
 lab_msd <- expression(bar(italic(V))[A] / italic(U)[d] * bar(italic(s)) *
                         ":  long-run " * italic(V)[A] * " ÷ the " * italic(V)[A] *
-                        " mutation–selection balance maintains")
+                        " MSDB maintains")
 lab_div <- expression((italic(N)[e] / italic(N))[pred] / delta *
-                        ":  predicted ÷ observed diversity, multiplicative upper bound")
-lab_div1 <- expression("the same at first order, " * 1 / (1 + 4 * kappa * bar(italic(V))[A]) *
+                        ":  predicted ÷ observed diversity, multiplicative bound")
+lab_div1 <- expression("the same under the small-variance approximation, " * 1 / (1 + 4 * kappa * bar(italic(V))[A]) *
                          ", while " * bar(italic(V))[A] <= 1)
 
 regimes <- tibble::tibble(

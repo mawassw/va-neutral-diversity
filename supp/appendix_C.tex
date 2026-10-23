@@ -36,7 +36,7 @@ An association between the neutral site and a selected locus $\ell$ Morgans away
 \begin{equation}
     \sum_{t=0}^{\infty}\left[(1 - r(\ell))\,Z\right]^t = \frac{1}{1-(1-r(\ell))Z}.
 \end{equation}
-This is the cumulative factor of Santiago and Caballero (2016) and Buffalo and Kern (2024, Equation 3). It enters the variance of long-term contributions squared, as $Q$ does in Equation~\eqref{eq:A_first}, so a locus at distance $\ell$ contributes $f(\ell) = [1 - (1 - r(\ell))Z]^{-2}$. With $F(D) = \int_0^D f(\ell)\,d\ell$, the profile and its chromosome average are
+This is the cumulative factor of Santiago and Caballero (2016) and Buffalo and Kern (2024, Equation 3). It appears squared in the variance of long-term contributions, as $Q$ does in Equation~\eqref{eq:A_first}, so a locus at distance $\ell$ contributes $f(\ell) = [1 - (1 - r(\ell))Z]^{-2}$. With $F(D) = \int_0^D f(\ell)\,d\ell$, the profile and its chromosome average are
 \begin{gather}
     \overline{Q^2}(y) = \frac{1}{M}\int_0^M f(\vert x-y\vert)\,dx = \frac{1}{M}\left[F(y) + F(M-y)\right], \label{eq:C_profile} \\
     \frac{1}{M}\int_0^M \overline{Q^2}(y)\,dy = \frac{2}{M^2}\int_0^M (M-\ell)\,f(\ell)\,d\ell = \frac{2}{M^2}\int_0^M F(D)\,dD, \label{eq:C_haldane_avg}
@@ -104,7 +104,7 @@ Because $f_\text{H}$ decreases from $(1-Z)^{-2}$ to $Q^2$, every profile satisfi
 \begin{equation}
     \Lambda_\text{L} = \kappa_\text{cis}\overline{Q^2}_iv_h, \qquad \Lambda_\text{own} = \kappa_\text{own}Q^2v_h, \qquad \Lambda_\text{U} = Q^2\kappa V_A.
 \end{equation}
-In the primary model $\kappa_\text{cis} = \kappa_\text{own}$ (Appendix~\ref{app:B_split}), so $\Lambda_\text{L} \ge \Lambda_\text{own}$; and $\Lambda_\text{U} \ge \Lambda_\text{own}$, because $v_h \le V_A$ and $\kappa \ge \kappa_\text{own}$. Under the multiplicative form of Equation~\eqref{total_red}, $\Omega_i = e^{-(\Lambda_\text{L} - \Lambda_\text{own})} \le 1$ at once. Equality holds on a freely recombining chromosome, where $\overline{Q^2}_i \to Q^2$. With the first-order global factor $1/(1 + \Lambda_\text{U} - \Lambda_\text{own})$ the bound also holds, because $e^{-\Lambda} \le 1/(1+\Lambda)$:
+In the primary model $\kappa_\text{cis} = \kappa_\text{own}$ (Appendix~\ref{app:B_split}), so $\Lambda_\text{L} \ge \Lambda_\text{own}$; and $\Lambda_\text{U} \ge \Lambda_\text{own}$, because $v_h \le V_A$ and $\kappa \ge \kappa_\text{own}$. Under the multiplicative form of Equation~\eqref{total_red}, $\Omega_i = e^{-(\Lambda_\text{L} - \Lambda_\text{own})} \le 1$ at once. Equality holds on a freely recombining chromosome, where $\overline{Q^2}_i \to Q^2$. With the small-variance global factor $1/(1 + \Lambda_\text{U} - \Lambda_\text{own})$ the bound also holds, because $e^{-\Lambda} \le 1/(1+\Lambda)$:
 \begin{equation}
     \Omega_i = e^{-\Lambda_\text{L}}\,\frac{1+\Lambda_\text{U}}{1+\Lambda_\text{U}-\Lambda_\text{own}} \le \frac{1+\Lambda_\text{U}}{(1+\Lambda_\text{own})(1+\Lambda_\text{U}-\Lambda_\text{own})} \le 1.
 \end{equation}

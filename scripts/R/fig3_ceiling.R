@@ -91,13 +91,13 @@ p <- ggplot() +
   geom_line(data = filter(first, !is.na(f1)), aes(delta, f1), colour = col_first, linewidth = 0.6) +
   geom_line(data = first, aes(delta, f2), colour = col_first, linewidth = 0.6) +
   annotate("text", x = 1.4e-5, y = 5.2, parse = TRUE, colour = col_mult, size = 2.6, hjust = 0,
-           label = '"All orders:"~~italic(V)[A*","*delta] == frac(ln(1/delta), 4*kappa[max])') +
-  annotate("text", x = 1.1e-3, y = 4.3, colour = col_mult, size = 2.2, hjust = 0, lineheight = 0.9,
-           label = "from the upper bound on the reduction: the least variance\nthat could explain δ; upper line no pair bond, lower pair bond") +
+           label = '"Multiplicative bound:"~~italic(V)[A*","*delta] == frac(ln(1/delta), 4*kappa[max])') +
+  annotate("text", x = 4e-3, y = 4.3, colour = col_mult, size = 2.2, hjust = 0, lineheight = 0.9,
+           label = "the least variance that could explain δ;\nupper line random mating,\nlower strict monogamy") +
   annotate("text", x = 0.06, y = 0.012, parse = TRUE, colour = col_first, size = 2.6, hjust = 1,
-           label = '"First order:"~~italic(V)[A*","*max] == frac(1 - delta, 4*kappa*delta)') +
+           label = '"Small-variance approximation:"~~italic(V)[A*","*max] == frac(1 - delta, 4*kappa*delta)') +
   annotate("text", x = 0.06, y = 0.0045, colour = col_first, size = 2.2, hjust = 1, lineheight = 0.9,
-           label = "drawn inside its domain, ceiling ≤ 1 (δ ≥ 0.11–0.2);\nband κ = 1 to 2") +
+           label = "drawn where it holds, ceiling ≤ 1 (δ ≥ 0.11–0.2);\nband κ = 1 to 2") +
   # linked ceilings, one per linked-set population (upper bound, most generous DFE)
   { if (show_linked) list(
       geom_line(data = lcurve, aes(delta, V, group = code), colour = col_link, linewidth = 0.35,

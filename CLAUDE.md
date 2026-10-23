@@ -259,6 +259,28 @@ prose. Applied throughout the manuscript and the Overleaf section files on 2026-
 `reduction_G1`/`reduction_Gsym`/`reduction_mult`/`reduction_mult_bound` are $N/N_e$ internally, so
 convert before quoting them.
 
+**Wording conventions (user, 2026-10-23) — apply in every section, figure and caption.**
+
+- **"Test", never "comparison"**, for the diversity test and the maintenance test; a test is
+  "passed" where its ratio is at most 1.
+- **"Random mating"** for the no-pair-bond case (κ = 1), against "social monogamy" (and "strict
+  monogamy" at α = 0). "Pairing at random with respect to breeding value" ($r_{mf} = 0$) is a
+  separate assumption and keeps that wording.
+- **Three names for the three forms of the reduction, used consistently:** the
+  **small-variance approximation**, $1/(1+4\kappa V_A)$ (and the small-variance ceiling
+  $V_{A,\max}$); the **multiplicative model**, the exact reduction under $w \propto e^z$; and the
+  **multiplicative bound**, $e^{-4\kappa_\text{max}V_A}$ (and $V_{A,\delta}$). Never "first order",
+  "all orders" or "upper bound on the reduction" in prose, captions or figure labels; inside
+  appendix derivations, "for small $V_A$".
+- **No "enter(s)" or "fall(s)"**: use "is included in", "contributes to", "is used in",
+  "decreases", "is lower than", "lie on".
+- **Cut sentences that only restate what Methods or Theory already says** (e.g. "Each analysis
+  uses the populations that have the data it needs").
+- **No footnote distinguishing our κ from Buffalo and Kern's**: κ is ours.
+- The small-variance ceiling's range is stated as "a population that retains at least
+  $1/(1+4\kappa)$ of its neutral expectation, about a fifth under random mating and a ninth under
+  strict monogamy".
+
 Two distinct ratios are both called "$N_e/N$" and the project has slid between them before. The
 **demographic** $N_{eV}/N$ (family-size variance, sex ratio) is 0.1–0.5. The **diversity**
 $(\pi/4\mu)/N_c$ is $10^{-2}$–$10^{-5}$. **Every sentence containing "$N_e/N$" must say which.**
