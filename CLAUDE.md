@@ -252,6 +252,23 @@ the same quantity for a chromosome segment (Theory, linked selection). Citations
 2026-10-19. Candidates for the Discussion, not yet used: Chen et al. 2019 (*PNAS* 116:2158, scrub-jay
 expected contributions) and Reid et al. 2019 (*Evol. Lett.* 3:271, song sparrows; authors unchecked).
 
+**Ancestor-centered and gene-centered readings (user, 2026-10-23) — point it out wherever it helps
+the reader.** One quantity, two units. *Ancestor-centered*: the individual's expected long-term
+contribution $R(z)$, and drift from its variance among ancestors (Robertson; Wray & Thompson).
+*Gene-centered*: a neutral copy's association with its selected background, summed over the
+generations it lasts ($Q$). **Barton & Etheridge 2011 is the essential citation for the bridge**:
+"the probability that a gene will survive is proportional to the reproductive value of the
+individual that carries it". The readings coincide at an unlinked site (the copy's only lasting
+background is its carrier's breeding value), which is *why* the global effective size is global.
+They part when part of the individual's contribution does not travel with the copy: linkage (the
+unit becomes the chromosome segment, the user's "change of unit scale"), the homologous haplotype
+($v_h = v_i/2$) and the social partner ($\kappa_\text{own}$/$\kappa_\text{partner}$/$\kappa_\text{cis}$).
+**Consequence used in Theory §linkage:** a pedigree measures variance among individuals, all the
+global reduction needs; the local reduction needs segment-level inputs ($f_i$, $Z_k$), which is why
+MSDB is required only there. Names fixed: "ancestor-centered", "gene-centered" (American spelling).
+Placed in: Introduction P2–P4, Theory §unlinked/§linkage/cis paragraph, Appendices A.1, B.3, C.1,
+Discussion linked paragraph.
+
 **Present effective-size results as $N_e/N$, never $N/N_e$ (user, 2026-10-16; field convention).**
 Write $N_e/N = 1/(1 + 4\kappa V_A)$, not "$N/N_e = 1 + 4\kappa V_A$", and state bounds in that form:
 "$N_e/N$ is at least 0.22", not "the reduction is at most 4.5". "A twofold reduction" is fine as
@@ -603,7 +620,7 @@ results; anything needing $U_d$, maps or annotations is on 8. Say which set each
    - **Theory §linkage now says the linked term is a hybrid:** the kernel, the $Z_k$ and the
      $\nu_k$ presuppose MSD, and only the amount of variance departs from it (user's question,
      2026-10-20).
-7. **Check Matheson & Masel (2025)** — logged as corroborating the unlinked component's importance,
+7. **Check Matheson & Masel (2024, *GBE* 16:evae050; earlier cited as 2025)** — logged as corroborating the unlinked component's importance,
    with one methodological question not yet identified. We quantify what they argue qualitatively:
    1.4× at the median reported $V_A$, ~3× at the maximum.
 8. ~~**The domain of the $N_e/N$ formula**~~ **RESOLVED 2026-10-19 by item 9's one-model-family
@@ -997,6 +1014,26 @@ the code implements, not necessarily what `scratch.tex` now specifies.
   intentional, not a bug.
 
 ## Known staleness & inconsistencies (Rule 5 log)
+
+**Logged 2026-10-23 — Introduction P2 restructured; ancestor- vs gene-centered readings placed
+through the paper (branch `worktree-ancestor-gene`; user: "make all the changes you recommend",
+citing Barton & Etheridge 2011).** No equation, label or number changed.
+
+- **Introduction order:** P2 ancestor-centered (Robertson → long-term contributions, Wray &
+  Thompson → SC equation; $Q$ defined as the ancestor's advantage over generations) → **new P3**
+  gene-centered (Barton & Etheridge's bridge, $Q = 1 + \tfrac12 + \dots = 2$, global effective size,
+  multiplicative model) → P4 linked (now opens on the change of unit) → **new P5**, why the global
+  reduction has been left out (two arguments, Matheson & Masel, gap) → maintenance (now opens on
+  Li & Berg, moved from the end of P4). The theory paragraphs end on theory; P5 carries the gap.
+- **Theory:** §unlinked gains the two-readings paragraph; its closing sentence shortened. §linkage
+  opens on the change of unit and on what a pedigree can supply; "the pedigree estimate supplies
+  the amount" → "the total, and the genome annotation each chromosome's share". The cis paragraph
+  opens on where the readings part.
+- **Appendices:** A.1 says why it follows a gene copy (B&E); B.3 one sentence; C.1 names the kernel
+  as the segment's counterpart of $Q$. **Discussion** (linked paragraph): the unit sentence and "a
+  pedigree supplies exactly what the global reduction needs".
+- **Citations still prose and unverified:** Matheson & Masel 2024, Elyashiv et al. 2016, McVicker
+  et al. 2009 (flagged in `introduction.tex`).
 
 **Logged 2026-10-23 — EPP rates sourced, Methods flags resolved, Discussion and Abstract
 rewritten (branch `worktree-discussion-abstract`).**

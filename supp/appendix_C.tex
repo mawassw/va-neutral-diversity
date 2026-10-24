@@ -36,7 +36,7 @@ An association between the neutral site and a selected locus $\ell$ Morgans away
 \begin{equation}
     \sum_{t=0}^{\infty}\left[(1 - r(\ell))\,Z\right]^t = \frac{1}{1-(1-r(\ell))Z}.
 \end{equation}
-This is the cumulative factor of Santiago and Caballero (2016) and Buffalo and Kern (2024, Equation 3). It appears squared in the variance of long-term contributions, as $Q$ does in Equation~\eqref{eq:A_first}, so a locus at distance $\ell$ contributes $f(\ell) = [1 - (1 - r(\ell))Z]^{-2}$. With $F(D) = \int_0^D f(\ell)\,d\ell$, the profile and its chromosome average are
+This is the cumulative factor of Santiago and Caballero (2016) and Buffalo and Kern (2024, Equation 3). It is the counterpart of $Q$ for the chromosome segment that carries the neutral site: the advantage counted over every generation in which the segment keeps the selected locus. It appears squared in the variance of the segment's long-term contributions, as $Q$ does in Equation~\eqref{eq:A_first}, so a locus at distance $\ell$ contributes $f(\ell) = [1 - (1 - r(\ell))Z]^{-2}$. With $F(D) = \int_0^D f(\ell)\,d\ell$, the profile and its chromosome average are
 \begin{gather}
     \overline{Q^2}(y) = \frac{1}{M}\int_0^M f(\vert x-y\vert)\,dx = \frac{1}{M}\left[F(y) + F(M-y)\right], \label{eq:C_profile} \\
     \frac{1}{M}\int_0^M \overline{Q^2}(y)\,dy = \frac{2}{M^2}\int_0^M (M-\ell)\,f(\ell)\,d\ell = \frac{2}{M^2}\int_0^M F(D)\,dD, \label{eq:C_haldane_avg}
