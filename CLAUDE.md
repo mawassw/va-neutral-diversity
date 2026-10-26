@@ -331,10 +331,6 @@ convert before quoting them.
   gain in mean breeding value for fitness, and the mutational loss that cancels it. Defined in
   Theory `sec:quantity` P2; interpreted in the Discussion.
 - **No footnote distinguishing our κ from Buffalo and Kern's**: κ is ours.
-- **No "clause; clause" sentences (user, 2026-10-26).** Do not join two statements with a
-  semicolon, and do not run lists on semicolons in prose. Use separate sentences or a subordinate
-  clause. Semicolons inside citation parentheses are fine. When compacting, merge through syntax,
-  never through a semicolon. Theory and the Introduction were cleared of them on 2026-10-26.
 - The small-variance ceiling's range is stated as "a population that retains at least
   $1/(1+4\kappa)$ of its neutral expectation, about a fifth under random mating and a ninth under
   strict monogamy".
