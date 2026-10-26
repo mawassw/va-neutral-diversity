@@ -172,6 +172,17 @@ rather than a 2×2 link-scale $\mathbf{G}$: those posteriors are post-back-trans
    persist only ~2 generations, so the unlinked baseline applies under MSD balance, sweeps *and*
    fluctuating selection (`scratch.tex` line 40 is right). $\pi$ reaching a new equilibrium needs
    $\sim 4N_e$ generations, which is why the target quantity is the long-term equilibrium $V_A$.
+   **Amended 2026-10-26 (user): stationarity.** Inherited advantages increase drift in all three
+   regimes, but SC's formula gives the *size* of the increase only under steady selection: a
+   retention constant across generations ($G_1 = G_2 = \dots = G$ in SC 1995) and a variance at
+   its stationary value. A constant retention presupposes a constant selected background (Barton
+   1998, 2000; Appendix A.4), which **MSDB with fixed additive effects provides and the
+   alternatives do not** (a changing environment changes the retention; Connallon–Czuppon
+   balancing selection has $V_A(w)$ only away from equilibrium and frequency-dependent effects).
+   So the diversity prediction is exact under its assumptions only for the variance MSDB
+   maintains, and an approximation for the measured one. Stated in Theory `sec:unlinked` and
+   `sec:quantity` P2, and in the Discussion. "Only" is relative to the processes the paper
+   considers: SC 1998's steady input of advantageous mutations is also a stationary case.
 4. **Census timescale mismatch** (raised by a faculty visitor at MWPG 2026; the only substantive
    methodological objection of the session). $\pi/(4\mu)$ is long-run coalescent; every available
    census $N$ is contemporary. **Prefer a long-term or historical census scaled by a breeder fraction
@@ -1013,28 +1024,39 @@ quantitative and population geneticists).**
   and used "directional" once, wrongly ("during directional sweeps", Theory `sec:unlinked`,
   now "while beneficial alleles sweep"). The gap was that Bonnet's adaptive reading (phenotypic)
   and the MSDB reading (purifying, on alleles) of the same $V_A$ were never set side by side.
-  The Discussion's "balancing selection ... can hold large additive variance in fitness" was
-  imprecise: at a polymorphism held by constant fitnesses $V_A(w) = 0$ at equilibrium.
+  The Discussion's "balancing selection ... can hold large additive variance in fitness" did
+  not say what Connallon and Czuppon 2026 claim. **Their claim (abstract and article read
+  2026-10-26):** classical theory gives $V_A(w) = 0$ at a balanced equilibrium, but drift and
+  modest fluctuations of the equilibrium displace overdominant and NFDS polymorphisms enough
+  that one balanced locus contributes as much $V_A(w)$ as ~100–10,000 loci at
+  mutation–selection balance, most in small populations. The Discussion now says exactly that.
 - **Added:** Introduction ¶1 (the secondary theorem; directional selection on phenotypes; does
   not say which alleles move; stasis); Introduction MSDB ¶ (purifying at every locus; $U_d\bar s$
   is also the mutational loss, so breeding values do not change); Theory `sec:quantity` new P2
   (the two levels, the convention above, which result depends on which level); Theory
   `sec:msdb` one sentence (selection removes as much as mutation adds); Theory `sec:unlinked`
-  frequency-dependent selection added to the fixed-effects exclusions; Discussion: alternatives
-  sentence qualified (fluctuating or frequency-dependent balancing selection; migration in the
-  place of mutation), **two new paragraphs** before the Fisher paragraph (the two readings; the
-  maintenance test as the share of directional selection purifying selection can be, about a
-  twentieth; the rest cancelled by changing conditions; MSDB vs environmental cancellation leave
-  different traces; the diversity verdict is nearly indifferent to the maintaining process,
-  with the frequency-dependence and hitchhiking qualifications), Fisher paragraph trimmed.
+  frequency-dependent selection added to the fixed-effects exclusions, and the stationarity
+  requirement (scope condition 3, amended); Discussion: Connallon–Czuppon stated as they claim
+  it, migration in the place of mutation, **two new paragraphs** before the Fisher paragraph
+  (the two readings; the maintenance test as the share of directional selection purifying
+  selection can be, about a twentieth; the rest cancelled either by a changing environment,
+  which is adaptation in Bonnet's sense, or by drift around a balanced equilibrium, which is
+  not; the traces differ; the diversity verdict on firmest ground under MSDB, the only
+  stationary case considered, and an approximation for the measured variance; hitchhiking),
+  Fisher paragraph trimmed.
+- **User decisions 2026-10-26:** do not name Fisher before the Discussion; interpretation is
+  fine if neither too strong nor too weak for its basis; the user builds `references.bib` and
+  checks the Abstract.
 - **New citations, Crossref-checked 2026-10-26, not yet in `references.bib`:** Robertson 1966
   (10.1017/S0003356100037752), Price 1970 (10.1038/227520a0), Morrissey et al. 2010
-  (10.1111/j.1420-9101.2010.02084.x), Merilä et al. 2001 (10.1023/A:1013391806317). Fisher 1930
-  (book) cited in the Discussion.
-- **Open flags:** `% AUTHOR` on the constant-fitness statement vs Connallon and Czuppon's
-  mechanism; `% CHECK` that Buffalo 2021 fits hitchhiking as well as background selection.
-  Abstract unchanged (at 249 words). Scaffolding; voice is the author's.
-- Build: 49 pages, zero undefined references, zero errors.
+  (10.1111/j.1420-9101.2010.02084.x), Merilä et al. 2001 (10.1023/A:1013391806317).
+- **Checked:** Buffalo 2021 fits hard-sweep hitchhiking and BGS (eLife 67509, read).
+  **Still open:** Barton 1998, 2000 full text could not be retrieved (PMC, Europe PMC and the
+  publisher blocked download); the stationarity attribution is carried over from Appendix A.4
+  and flagged `% CHECK` in Theory and the Discussion.
+- **Fixed on the way:** the first-round AUTHOR comment had swallowed two Discussion sentences
+  ("Each predicts…", "The remaining possibility…") into a LaTeX comment; restored.
+- Build: 50 pages, zero undefined references, zero errors.
 
 **Logged 2026-10-23 — EPP rates sourced, Methods flags resolved, Discussion and Abstract
 rewritten (branch `worktree-discussion-abstract`).**
