@@ -342,6 +342,13 @@ convert before quoting them.
   gain in mean breeding value for fitness, and the mutational loss that cancels it. Defined in
   Theory `sec:quantity` P2; interpreted in the Discussion.
 - **No footnote distinguishing our κ from Buffalo and Kern's**: κ is ours.
+- **Avoid "clause: clause" colons (user, 2026-10-26).** Do not join two full statements with a
+  colon. Use separate sentences or a subordinate clause. The rule is about colons, **not
+  semicolons** (a semicolon pass was made by mistake and reverted the same day). Colons that
+  introduce a displayed equation, deliver a definition (the style guide's "colon-delivered
+  definitions") or introduce a list stay. When compacting, merge through syntax, not through a
+  colon. The six colons the compactions had added were removed on 2026-10-26. The author's own
+  clause-colons in Theory and the Introduction await the author's decision.
 - The small-variance ceiling's range is stated as "a population that retains at least
   $1/(1+4\kappa)$ of its neutral expectation, about a fifth under random mating and a ninth under
   strict monogamy".
