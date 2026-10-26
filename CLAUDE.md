@@ -347,8 +347,10 @@ convert before quoting them.
   semicolons** (a semicolon pass was made by mistake and reverted the same day). Colons that
   introduce a displayed equation, deliver a definition (the style guide's "colon-delivered
   definitions") or introduce a list stay. When compacting, merge through syntax, not through a
-  colon. The six colons the compactions had added were removed on 2026-10-26. The author's own
-  clause-colons in Theory and the Introduction await the author's decision.
+  colon. The six colons the compactions had added were removed on 2026-10-26. The same day the
+  author asked for every clause-colon in the Introduction to go, their own included. Only two list
+  colons remain there ("raises two questions: …", "Both inputs … are now measured: …"). The
+  author's own clause-colons in Theory have not been changed yet.
 - The small-variance ceiling's range is stated as "a population that retains at least
   $1/(1+4\kappa)$ of its neutral expectation, about a fifth under random mating and a ninth under
   strict monogamy".
