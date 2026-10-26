@@ -198,6 +198,18 @@ rather than a 2×2 link-scale $\mathbf{G}$: those posteriors are post-back-trans
    $V_{A,\max} = (1-\delta)/(4\kappa\delta)$, any $\delta \ge 1$ gives $V_{A,\max} \le 0$: that is a
    failed model check, not a strong result. Report the trichotomy openly — uninformative
    ($\delta \ge 1$), violation, consistent — and say how many fell out.
+6. **Stage of life (user, 2026-10-26).** Bonnet's $V_A$ is a variance among all individuals
+   recorded in each pedigree: zero LBS makes up 53% (yellow baboons) to 96% (Muro blue tits) of
+   records. $N$, $Q$ and $Z$ refer to breeding adults, and $Z$ is the link (offspring-weighted
+   variance among contributors). Non-heritable pre-breeding mortality leaves $V_A$ unchanged.
+   **Heritable pre-breeding survival is flagged, not analysed** (user: preprint first). The flag
+   is in the Discussion assumptions: counted at breeders, its advantage persists one generation
+   less ($Q \approx 1$, not 2), so the mapping overstates its contribution unless survival and
+   fecundity are negatively genetically correlated. **Checked by a quick simulation, not
+   committed and not in the paper** (infinitesimal log-fitness, $N_b = 400$, 3 reps): with
+   variance from birth 0.2 in fecundity, 0.2 in viability, or 0.1 + 0.1, $N_e/N$ was
+   0.48 / 0.90 / 0.65, against 0.56 / 0.56 / 0.56 from $Q = 2$ on the total and
+   0.56 / 0.83 / 0.67 from $Q_f = 2$, $Q_s = 1$.
 
 **Bias directions, for the Methods table.**
 
@@ -1039,6 +1051,41 @@ the code implements, not necessarily what `scratch.tex` now specifies.
   intentional, not a bug.
 
 ## Known staleness & inconsistencies (Rule 5 log)
+
+**Logged 2026-10-26 — evenness of $Q$, stage of life, non-equilibrium processes (branch
+`worktree-nonequilibrium`; user: "do all you suggest", with heritable juvenile survival flagged
+only).**
+
+- **Theory `sec:unlinked`:**
+  - **new paragraph:** $Q$ is an expected accumulation that assumes the selective variance is
+    spread evenly over families and steadily over generations;
+  - **how each departure changes the reduction:** variance in time works through its mean
+    (Jensen under the multiplicative model); right skew raises $Z$ above 1; limits on fitness
+    lower the reduction; selection whose sign reverses each generation gives $Q < 2$ (2/3);
+  - **`eq:harmonic` sentence:** when $V_A$ and $1/N$ covary, $\bar V_A$ is the $1/N$-weighted mean.
+- **Theory `sec:quantity`:** the stage-of-life sentences (scope condition 6).
+- **Methods:** the zero-LBS range, from `science.abk0853_data_s1/ArchivedData`.
+- **Discussion:**
+  - **new paragraph after the diversity paragraph** reads three non-equilibrium processes
+    through Table 1, each with recent work:
+    - a moving or fluctuating optimum: de Villemereuil et al. 2020 (PNAS); Wittmann et al. 2023
+      (*Genetics*) and Johnson et al. 2026 (30–50% reductions);
+    - demographic volatility: Charlesworth & Jensen 2022, Lewin & Eyre-Walker 2026, and the
+      $1/N$ weighting;
+    - metapopulation turnover, as Robertson's mechanism at the scale of the deme: Pannell &
+      Charlesworth 2000, Whitlock & Barton 1997, Barton 2000 §3.
+  - **assumptions paragraph:** "a single deme" and the heritable-survival flag.
+  - **trims to stay near length:** the bottleneck sentence moved into the new paragraph; the
+    two-readings and "firmest ground" paragraphs were tightened.
+  - **net length:** 2,279 → 2,532 words.
+- **New citations, Crossref-checked, not in `references.bib`:**
+  - de Villemereuil et al. 2020 (10.1073/pnas.2009003117);
+  - Wittmann et al. 2023 (10.1093/genetics/iyad022);
+  - Charlesworth & Jensen 2022 (10.1093/gbe/evac096);
+  - Pannell & Charlesworth 2000 (10.1098/rstb.2000.0740);
+  - Whitlock & Barton 1997 (10.1093/genetics/146.1.427);
+  - Johnson et al. 2026: bioRxiv 10.64898/2026.03.30.715388 only; the G3 version is UNVERIFIED.
+- Build: 53 pages, zero undefined references, zero errors.
 
 **Logged 2026-10-26 — selection on phenotypes vs on alleles (branch `worktree-selection-levels`;
 user: make sure purifying and directional selection are not conflated, then comment on it for
