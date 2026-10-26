@@ -1040,6 +1040,46 @@ the code implements, not necessarily what `scratch.tex` now specifies.
 
 ## Known staleness & inconsistencies (Rule 5 log)
 
+**Logged 2026-10-26 — main figures restyled for GENETICS (branch `worktree-figure-edits`;
+user asked for the edits below).** No number changed.
+
+- **One style, `scripts/R/theme_genetics.R`, sourced by `fig1`–`fig5`.**
+  - **What GENETICS requires** (author guidelines, checked 2026-10-26): lowercase panel
+    letters (a, b, c) in the upper left; vector PDF for graphs (TIFF ≥ 600 dpi for line art);
+    colour-vision-safe palettes; the caption must fully describe the figure.
+  - **What OUP's general guidance adds:** one standard font, embedded (the PDFs embed Arial
+    and Symbol subsets).
+  - **Sizes used:** 8 pt axis titles, 7 pt axis and legend text in black, and nothing below
+    about 6 pt.
+  - **Not specified by GENETICS:** column widths and font sizes. The figures stay at their
+    print widths (178 mm, or 120–150 mm).
+- **Row labels:** "Species (Location)" at one size (`pop_label()`), in Figs 1, 2 and 4. The
+  location had been set in plotmath scriptstyle, about 5 pt at print size.
+- **Panel letters** are lowercase in the figures, in the captions and in every
+  `\ref{fig:…}a` in Results, Methods, Discussion and `supp_figures.tex`.
+- **Fig. 1:**
+  - panel b's text box was removed and its content moved to the caption;
+  - legends at 7 pt and compact, each under its own panel;
+  - height 115 → 100 mm.
+- **Fig. 2:**
+  - panel c is `free()`d from panel a's row-label alignment, which had put a wide gap between
+    its axis and its axis title;
+  - the "cM/Mb" header in panel b collided with the tag, so the unit moved to the caption;
+  - height 160 → 150 mm.
+- **Fig. 3:**
+  - **In-panel text replaced by a legend.** The dashed $V_A = 1$ and $\delta = 1/(1+4\kappa)$
+    guides are explained in the caption.
+  - **The deficit set is now plotted as points** at (observed δ, $\hat V_A$ mode), with HPD and
+    μ-CI bars (the x rug is gone). The user asked why observed δ was not shown as dots.
+  - **A dotted line runs from each point to its own required $V_A$**, with an orange tick
+    without linkage at its $\kappa_\text{max}$ and a teal tick with linkage for the six mapped
+    populations. The teal lines are per population, and a point can sit above *another*
+    population's teal line (Muro blue tits), so each point needs its own target.
+  - Caption rewritten. Results `res_ceiling` cites the points. Height 95 → 125 mm.
+- **Figs 4 and 5:** theme only.
+- **Not restyled:** the supplementary figures `figS_gap.R` and `figS_rescaling_linked.R`.
+  `FigS_linked_fgene` and `FigS_omega` come from `fig2_linked.R` and carry the new theme.
+
 **Logged 2026-10-26 — selection on phenotypes vs on alleles (branch `worktree-selection-levels`;
 user: make sure purifying and directional selection are not conflated, then comment on it for
 quantitative and population geneticists).**

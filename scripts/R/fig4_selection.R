@@ -31,6 +31,7 @@ suppressPackageStartupMessages({
 })
 source("scripts/R/load_data.R")
 source("scripts/R/linked.R")
+source("scripts/R/theme_genetics.R")
 
 x_min <- 1e-4; x_max <- 10
 
@@ -76,8 +77,7 @@ d <- pops %>%
     taxon = if_else(code %in% birds, "Birds", "Mammals"),
     species_lab = sub(" \\(.*\\)$", "", common_name),
     location_lab = sub("^tiritiri", "Tiritiri", location),
-    label = paste(species_lab, location_lab, sep = ", "),
-    label_math = sprintf('"%s"~~scriptstyle("%s")', species_lab, location_lab),
+    label = pop_label(species_lab, location_lab),
     lo95 = pmax(lo95, x_min), lo50 = pmax(lo50, x_min),
     P_lab = formatC(floor(P_band * 100) / 100, format = "f", digits = 2)
   )
@@ -131,29 +131,18 @@ p <- ggplot(d, aes(y = label)) +
             hjust = -0.05, vjust = -0.4, size = 2.4) +
   scale_x_log10(limits = c(x_min, x_max), expand = c(0, 0), breaks = 10^seq(-4, 1),
                 labels = scales::label_math(10^.x, format = log10)) +
-  scale_y_discrete(labels = function(l) parse(text = d$label_math[match(l, d$label)])) +
   facet_grid(taxon ~ ., scales = "free_y", space = "free_y", switch = "y") +
   coord_cartesian(clip = "off") +
   labs(x = expression("Mean heterozygous selection coefficient, " * italic(s)), y = NULL) +
   guides(fill = guide_legend(order = 3, ncol = 1), shape = guide_legend(order = 2),
          colour = guide_legend(order = 1)) +
-  theme_classic(base_size = 9, base_family = "sans") +
+  theme_genetics(grid_x = TRUE) +
   theme(
-    strip.background = element_blank(),
     strip.placement = "outside",
-    strip.text.y.left = element_text(angle = 90, face = "bold"),
-    panel.grid.major.x = element_line(colour = "grey92", linewidth = 0.3),
+    strip.text.y.left = element_text(angle = 90),
     panel.spacing = unit(2.5, "mm"),
-    legend.position = "bottom",
     legend.direction = "vertical",
     legend.box = "vertical",
-    legend.location = "plot",
-    legend.spacing.y = unit(0, "mm"),
-    legend.margin = margin(0, 0, 0, 0),
-    legend.key.height = unit(3.5, "mm"),
-    legend.key.spacing.y = unit(0.5, "mm"),
-    legend.text = element_text(size = 8, hjust = 0),
-    legend.key.width = unit(7, "mm"),
     plot.margin = margin(5, 14, 2, 2, "mm")
   )
 

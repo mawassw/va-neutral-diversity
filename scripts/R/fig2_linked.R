@@ -37,6 +37,7 @@ suppressPackageStartupMessages({
 })
 source("scripts/R/load_data.R")
 source("scripts/R/linked.R")
+source("scripts/R/theme_genetics.R")
 
 pops <- load_populations("linked")
 obs <- load_diversity()
@@ -77,8 +78,7 @@ base <- pops %>%
     taxon = if_else(code %in% birds, "Birds", "Mammals"),
     species_lab = sub(" \\(.*\\)$", "", common_name),
     location_lab = sub("^tiritiri", "Tiritiri", location),
-    label = paste(species_lab, location_lab, sep = ", "),
-    label_math = sprintf('"%s"~~scriptstyle("%s")', species_lab, location_lab),
+    label = pop_label(species_lab, location_lab),
     unl    = 1 / (1 + 4 * kappa * va_mode),
     unl_lo = 1 / (1 + 4 * kappa * va_hpd95_hi),
     unl_hi = 1 / (1 + 4 * kappa * va_hpd95_lo),
@@ -104,16 +104,10 @@ key_bar <- function(data, params, size) {
                        gp = grid::gpar(col = alpha(data$colour, 0.4), lwd = 2.2 * .pt, lineend = "butt")),
     draw_key_point(data, params, size))
 }
-theme_rows <- theme_classic(base_size = 9, base_family = "sans") +
-  theme(strip.background = element_blank(),
-        strip.text.y = element_text(angle = 0, face = "bold", hjust = 0),
-        panel.grid.major.x = element_line(colour = "grey92", linewidth = 0.3),
-        panel.spacing = unit(2.5, "mm"),
-        legend.position = "bottom", legend.location = "plot",
-        legend.key.spacing.y = unit(0.5, "mm"), legend.key.spacing.x = unit(4, "mm"),
-        legend.text = element_text(size = 8, hjust = 0), legend.key.width = unit(7, "mm"),
-        plot.margin = margin(2, 2, 2, 2, "mm"), plot.tag = element_text(face = "bold"))
-y_scale <- scale_y_discrete(labels = function(l) parse(text = base$label_math[match(l, base$label)]))
+theme_rows <- theme_genetics(grid_x = TRUE) +
+  theme(strip.text.y = element_text(angle = 0, hjust = 0),
+        panel.spacing = unit(2.5, "mm"))
+y_scale <- scale_y_discrete()
 x_log <- function(lims, brks) scale_x_log10(limits = lims, breaks = brks, expand = c(0, 0), oob = scales::oob_squish,
                                             labels = scales::label_math(10^.x, format = log10))
 
@@ -186,19 +180,17 @@ plot_arch_rows <- function() {
     geom_vline(xintercept = 1, linewidth = 0.3, colour = "grey60") +
     geom_segment(aes(x = 1, xend = om_bar, yend = label), linewidth = 0.4, colour = "grey70") +
     geom_point(aes(x = om_bar, colour = taxon), size = 2) +
+    # map length per megabase (cM/Mb); the unit is given in the caption, since a
+    # header here would collide with the panel tag
     geom_text(aes(x = 0.42, label = sprintf("%.1f", cM_Mb)), size = 2.3, hjust = 0, colour = "grey30") +
-    geom_text(data = data.frame(taxon = "Birds"), aes(x = 0.42, y = Inf, label = "cM/Mb"),
-              inherit.aes = FALSE, hjust = 0, vjust = -0.6, size = 2.3, colour = "grey30") +
     scale_colour_manual(values = col_tx, guide = "none") +
     scale_x_continuous(limits = c(0.4, 1.02), breaks = c(0.6, 0.8, 1), expand = c(0, 0)) +
     scale_y_discrete(labels = NULL) +
     facet_grid(taxon ~ ., scales = "free_y", space = "free_y") +
     coord_cartesian(clip = "off") +
-    labs(x = expression(bar(Omega) * ", maps only"), y = NULL,
-         tag = "B") +
+    labs(x = expression(bar(Omega) * ", maps only"), y = NULL, tag = "b") +
     theme_rows + theme(strip.text.y = element_blank(), axis.ticks.y = element_blank(),
-                       plot.margin = margin(9, 2, 2, 1, "mm"),
-                       plot.tag.position = c(0.05, 1.07))
+                       plot.margin = margin(2, 2, 2, 1, "mm"))
 }
 plot_arch_chrom <- function() {
   ggplot(arch, aes(f / M, om_i)) +
@@ -209,11 +201,9 @@ plot_arch_chrom <- function() {
     scale_x_log10(labels = scales::label_math(10^.x, format = log10)) +
     scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.25)) +
     labs(x = expression("Selective target per Morgan, " * italic(f)[i] / italic(M)[i]),
-         y = expression("Chromosome " * Omega[i]), tag = "C") +
-    theme_classic(base_size = 9, base_family = "sans") +
-    theme(panel.grid.major = element_line(colour = "grey92", linewidth = 0.3),
-          legend.position = "bottom", legend.text = element_text(size = 8),
-          plot.tag = element_text(face = "bold"))
+         y = expression("Chromosome " * Omega[i]), tag = "c") +
+    theme_genetics(grid_x = TRUE, grid_y = TRUE) +
+    theme(legend.location = "panel")
 }
 
 save_fig <- function(p, stem, w, h) {
@@ -226,10 +216,12 @@ save_fig <- function(p, stem, w, h) {
                          units = "mm", dpi = 200, device = ragg::agg_png)
 }
 library(patchwork)
-fig2 <- ((plot_total("bp") + labs(tag = "A") + theme(legend.location = "panel",
-           legend.justification = "left")) + plot_arch_rows() + plot_layout(widths = c(4, 1))) /
-  plot_arch_chrom() + plot_layout(heights = c(1, 0.9))
-save_fig(fig2,               "main/Fig2_linked",       178, 160)
+# c is freed from the row-label alignment of a, which otherwise puts a wide gap
+# between its axis and its axis title
+fig2 <- ((plot_total("bp") + labs(tag = "a") + theme(legend.location = "panel")) +
+           plot_arch_rows() + plot_layout(widths = c(4, 1))) /
+  free(plot_arch_chrom()) + plot_layout(heights = c(1, 0.85))
+save_fig(fig2,               "main/Fig2_linked",       178, 150)
 save_fig(plot_total("gene"), "supp/FigS_linked_fgene", 178, 80)
 save_fig(plot_omega("bp"),   "supp/FigS_omega",        150, 70)
 

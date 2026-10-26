@@ -33,6 +33,7 @@ suppressPackageStartupMessages({
 })
 source("scripts/R/load_data.R")
 source("scripts/R/linked.R")
+source("scripts/R/theme_genetics.R")
 
 dfe_pop <- dfe_assigned()
 s_bar <- vapply(dfe_pop, `[[`, numeric(1), "s_bar")
@@ -149,13 +150,8 @@ p <- ggplot(avg_plot, aes(c)) +
                         italic(c) == bar(italic(V))[A] / hat(italic(V))[A]),
        y = "Ratio") +
   guides(colour = guide_legend(ncol = 1, override.aes = list(linewidth = 1.1, alpha = 1))) +
-  theme_classic(base_size = 9, base_family = "sans") +
-  theme(
-    legend.position = "bottom",
-    legend.text = element_text(size = 8),
-    legend.key.width = unit(7, "mm"),
-    plot.margin = margin(2, 3, 2, 2, "mm")
-  )
+  theme_genetics() +
+  theme(plot.margin = margin(2, 3, 2, 2, "mm"))
 
 dir.create("main", showWarnings = FALSE)
 ggsave("main/Fig5_rescaling.pdf", p, width = 120, height = 100, units = "mm", device = cairo_pdf)

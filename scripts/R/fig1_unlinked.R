@@ -31,6 +31,7 @@ suppressPackageStartupMessages({
 })
 source("scripts/R/load_data.R")
 source("scripts/R/kappa.R")
+source("scripts/R/theme_genetics.R")
 
 pops <- load_populations("va")
 draws <- load_va_draws(long = TRUE)
@@ -47,8 +48,7 @@ d <- pops %>%
     system = if_else(pair_bond == "social_monogamy", "Social monogamy", "Random mating"),
     species_lab = sub(" \\(.*\\)$", "", common_name),
     location_lab = sub("^tiritiri", "Tiritiri", location),
-    label = paste(species_lab, location_lab, sep = ", "),
-    label_math = sprintf('"%s"~~scriptstyle("%s")', species_lab, location_lab),
+    label = pop_label(species_lab, location_lab),
     ne    = 1 / (1 + 4 * kappa * va_mode),
     ne95a = 1 / (1 + 4 * kappa * va_hpd95_hi), ne95b = 1 / (1 + 4 * kappa * va_hpd95_lo),
     ne50a = 1 / (1 + 4 * kappa * hi50),        ne50b = 1 / (1 + 4 * kappa * lo50),
@@ -68,10 +68,7 @@ key_hpd <- function(data, params, size) {
                        gp = grid::gpar(col = data$colour, lwd = 1.3 * .pt, lineend = "butt")),
     draw_key_point(data, params, size))
 }
-theme_fig <- theme_classic(base_size = 9, base_family = "sans") +
-  theme(panel.grid.major.x = element_line(colour = "grey92", linewidth = 0.3),
-        legend.position = "bottom", legend.text = element_text(size = 8, hjust = 0),
-        legend.key.width = unit(7, "mm"), plot.tag = element_text(face = "bold"))
+theme_fig <- theme_genetics(grid_x = TRUE)
 
 ne_lab <- expression("Effective size relative to breeding adults, " * italic(N)[e] / italic(N))
 ne_brk <- c(0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1)
@@ -94,13 +91,12 @@ pA <- ggplot(d, aes(y = label)) +
                                    expression("Multiplicative bound, " * e^{-4 * kappa[max] * hat(italic(V))[A]} *
                                                 ": mode"))) +
   ne_log() +
-  scale_y_discrete(labels = function(l) parse(text = d$label_math[match(l, d$label)])) +
   facet_grid(taxon ~ ., scales = "free_y", space = "free_y", switch = "y") +
-  labs(x = ne_lab, y = NULL, tag = "A") +
-  guides(shape = guide_legend(ncol = 1, override.aes = list(colour = c("black", col_mult, col_mult)))) +
+  labs(x = ne_lab, y = NULL, tag = "a") +
+  guides(shape = guide_legend(ncol = 1, order = 1, override.aes = list(colour = c("black", col_mult, col_mult)))) +
   theme_fig +
   theme(strip.background = element_blank(), strip.placement = "outside",
-        strip.text.y.left = element_text(angle = 90, face = "bold"),
+        strip.text.y.left = element_text(angle = 90),
         panel.spacing = unit(2.5, "mm"))
 
 # --- B: the forms as curves -----------------------------------------------------
@@ -117,33 +113,32 @@ pB <- ggplot() +
   geom_line(data = curves, aes(Va, ne, colour = sys, linetype = form), linewidth = 0.6) +
   geom_point(data = d, aes(va_mode, ne, colour = system), size = 1.7, shape = 21,
              fill = "white", stroke = 0.7) +
-  annotate("text", x = 0.0012, y = 0.012, hjust = 0, vjust = 0, size = 2.2, colour = "grey30",
-           lineheight = 0.9,
-           label = "curves: κ = 1 and κ = 2\npoints: small-variance\napproximation at each\nmode and own κ\ngrey: V_A > 1") +
+  # what the curves, points and grey region are is stated in the caption
   scale_colour_manual(values = c("Random mating" = col_np, "Social monogamy" = col_sm), name = NULL) +
   scale_linetype_manual(values = c(first = "solid", mult = "22"), name = NULL,
-                        labels = c(first = "small-variance approximation", mult = "multiplicative bound")) +
+                        labels = c(first = "Small-variance approximation", mult = "Multiplicative bound")) +
   scale_x_log10(breaks = c(10^(-3:0), 2), labels = c("0.001", "0.01", "0.1", "1", "2"),
                 expand = c(0, 0)) +
   scale_y_log10(breaks = ne_brk, labels = format(ne_brk), expand = c(0, 0)) +
   coord_cartesian(xlim = c(1e-3, 2), ylim = c(0.01, 1.05)) +
   labs(x = expression(italic(V)[A]),
-       y = expression(italic(N)[e] / italic(N)), tag = "B") +
-  guides(colour = guide_legend(ncol = 1, order = 1),
-         linetype = guide_legend(ncol = 1, order = 2)) +
-  theme_fig + theme(panel.grid.major.y = element_line(colour = "grey92", linewidth = 0.3),
-                    legend.direction = "vertical", legend.box = "vertical",
-                    legend.box.just = "left", plot.margin = margin(2, 5, 2, 2, "mm"))
+       y = expression(italic(N)[e] / italic(N)), tag = "b") +
+  guides(colour = guide_legend(ncol = 1, order = 2),
+         linetype = guide_legend(ncol = 1, order = 3)) +
+  theme_genetics(grid_x = TRUE, grid_y = TRUE) +
+  theme(legend.direction = "vertical", legend.box = "vertical",
+        plot.margin = margin(2, 5, 2, 2, "mm"))
 
-p <- pA + pB + plot_layout(widths = c(1.25, 1))
+# each legend left-aligned under its own panel
+p <- pA + pB + plot_layout(widths = c(1.4, 1))
 
 dir.create("main", showWarnings = FALSE)
-ggsave("main/Fig1_unlinked.pdf", p, width = 178, height = 115, units = "mm", device = cairo_pdf)
-ggsave("main/Fig1_unlinked.tiff", p, width = 178, height = 115, units = "mm", dpi = 600,
+ggsave("main/Fig1_unlinked.pdf", p, width = 178, height = 100, units = "mm", device = cairo_pdf)
+ggsave("main/Fig1_unlinked.tiff", p, width = 178, height = 100, units = "mm", dpi = 600,
        device = ragg::agg_tiff, compression = "lzw")
 if (nzchar(Sys.getenv("FIG_PREVIEW_DIR")))
   ggsave(file.path(Sys.getenv("FIG_PREVIEW_DIR"), "Fig1_unlinked.png"), p, width = 178,
-         height = 115, units = "mm", dpi = 200, device = ragg::agg_png)
+         height = 100, units = "mm", dpi = 200, device = ragg::agg_png)
 
 cat(sprintf("First order: median %.2f, min %.2f (%s); at the upper 95%% HPD min %.2f\nMultiplicative: median %.2f, min %.3f (%s); bound min %.3f\n",
             median(d$ne), min(d$ne), d$code[which.min(d$ne)], min(d$ne95a),
