@@ -69,7 +69,7 @@ The retention $Z$ is the additive variance among parents weighted by their offsp
 \begin{equation}
     Z = \frac{K''(1)}{K''(0)}. \label{eq:Zcgf}
 \end{equation}
-For a Gaussian $z$, $K(\theta) = \theta\bar{z} + \theta^2V_A/2$, and $Z = 1$ at every value of $V_A$: selection shifts the mean of the selected parents by $V_A$ and leaves their variance unchanged. This is the case used for the genome-wide reduction.
+For a Gaussian $z$, $K(\theta) = \theta\bar{z} + \theta^2V_A/2$, and $Z = 1$ at every value of $V_A$: selection shifts the mean of the selected parents by $V_A$ and leaves their variance unchanged. This is the case used for the genome-wide reduction. More generally, a Taylor expansion of $K''$ about zero gives $Z = 1 + [K'''(0) + \tfrac12K''''(0) + \dots]/V_A$, where $K'''(0)$ is the third cumulant of $z$, so a right-skewed distribution of breeding values, with the variance concentrated in a few lineages, raises the retention above one (\autoref{sec:approx}).
 
 Suppose instead that $V_A$ is carried by rare deleterious alleles at mutation--selection balance. A heterozygous carrier of an allele in effect class $k$ has relative fitness $1 - s_k$, a deviation $\ln(1 - s_k)$ in $z$, and the allele has frequency $q_k \approx \mu/s_k$. Cumulants add over unlinked loci, and for a rare allele $K_k''(\theta) \approx 2q_k \ln^2(1 - s_k)\,(1 - s_k)^{\theta}$. Equation~\eqref{eq:Zcgf} then gives, to leading order in $s_k$,
 \begin{equation}

@@ -41,7 +41,7 @@ In the strong-selection limit Equation~\eqref{eq:strong} inverts to Equation~\eq
 \begin{equation}
     N_e \ll \frac{U_d}{2V_A},
 \end{equation}
-an effective size of a few individuals for $U_d$ of order one and $V_A$ of order 0.1. Methods reports both quantities for the populations here.
+an effective size of a few individuals for $U_d$ of order one and $V_A$ of order 0.1. Results report both quantities for the populations here.
 
 \subsection{Distributions of fitness effects}\label{app:D_dfe}
 Summing Equation~\eqref{eq:VA_MSD} over classes gives the variance a DFE maintains,
@@ -60,7 +60,7 @@ Alleles of large effect are purged within a few generations, so their associatio
     \sum_k \nu_k\,Q_k^2\,V_A = 4U_d\,\bar{s}_\text{eff}, \qquad \bar{s}_\text{eff} = \sum_k \varphi_k\,\frac{s_k}{(1+s_k)^2} < \bar{s}.
 \label{eq:D_purge}
 \end{equation}
-It replaces $4\kappa V_A$ by $4\kappa U_d\bar{s}_\text{eff}$ in the global reduction, in the multiplicative model or its small-variance approximation. The substitution is exact under random mating and under strict monogamy. With extra-pair paternity $\kappa$ itself depends on $Z$ (Equation~\eqref{eq:B_kappa_general}), and holding it at its value for $Z = 1$ understates the reduction, by at most 2.3\% for $s_k \le 0.1$. Like truncation of the upper tail of log-fitness (Appendix~\ref{app:A_tail}), purging lowers the reduction below the bound used in the main text. Methods gives its size at $s^*$.
+It replaces $4\kappa V_A$ by $4\kappa U_d\bar{s}_\text{eff}$ in the global reduction, in the multiplicative model or its small-variance approximation. The substitution is exact under random mating and under strict monogamy. With extra-pair paternity $\kappa$ itself depends on $Z$ (Equation~\eqref{eq:B_kappa_general}), and holding it at its value for $Z = 1$ understates the reduction, by at most 2.3\% for $s_k \le 0.1$. Like truncation of the upper tail of log-fitness (Appendix~\ref{app:A_tail}), purging lowers the reduction below the bound used in the main text. Results give its size at $s^*$.
 
 \subsection{The unlinked limit of background selection}\label{app:D_bgs}
 Equation~\eqref{eq:D_purge} is also what background selection becomes at unlinked loci. Consider a selected locus with deleterious mutation rate $u$ per gamete and heterozygous effect $s$. Its mutant frequency is $q \approx u/s$, so it contributes $2qs^2 = 2us$ to $V_A$, $us$ through each homolog. Its background-selection effect on a neutral site at recombination fraction $r$ is $\exp[-us/(s + r(1-s))^2]$ (Hudson and Kaplan 1995; Nordborg et al. 1996), which at $r = \tfrac12$ is $\exp[-Q(s)^2us]$ with $Q(s) = 2/(1+s)$. That counts only the copy in cis. At an unlinked locus the homologous copy is reshuffled as often as the cis copy and contributes as much, so the locus lowers $N_e/N$ by the factor $\exp[-Q(s)^2\,2us]$. Summed over loci, with $U_d = \sum 2u$, the exponent is $4U_d\bar{s}_\text{eff}$, Equation~\eqref{eq:D_purge} under random mating. A sum over the cis copies alone therefore recovers half of the global reduction. Within a chromosome the same accounting gives the partition of Equation~\eqref{total_red}: the cis variance $v_h = v_i/2$ contributes to the local term, and the homologous half stays in the global one. Buffalo and Kern (2024) count only the cis half; here the homologous half is assigned to the global term.

@@ -1052,6 +1052,50 @@ the code implements, not necessarily what `scratch.tex` now specifies.
 
 ## Known staleness & inconsistencies (Rule 5 log)
 
+**Logged 2026-10-26 — Theory compacted (branch `worktree-theory-compact`; user asked for a
+compacting analysis, then answered its three decisions).** Prose 5,864 → 4,561 words. No equation
+changed, and every label cited outside Theory is kept.
+
+- **User decisions:**
+  1. The $Q = 2$ derivation stays in Theory (`sec:unlinked` P1). The Introduction now says it in
+     words ("twice the carrier's own advantage"), without the sum.
+  2. The two-levels paragraph (`sec:quantity` P2) is cut to the convention and the dependence map.
+     The secondary-theorem account lives in Introduction ¶1 and the Discussion.
+  3. Table 1 (`tab:c`) moved from `sec:quantity` into the merged closing section, beside the
+     closed forms of $c_\text{div}$ and $c_\text{MSD}$.
+- **Structure:** 9 → 8 subsections. `sec:ceiling` was merged into `sec:conditions`, now titled
+  "The two tests as conditions on the long-term variance". The order there is δ → $V_{A,\delta}$
+  → $V_{A,\max}$ → linked root → $c_\text{MSD}$, $c_\text{div}$ → Table 1 → `eq:compat`.
+- **Displays and labels dropped (cited nowhere):** `unlinked_baseline` (now inline) and
+  `eq:ne_chrom` (`total_red` follows directly). The label `sec:ceiling` is gone.
+- **Each point now stated once.** Cut as restatements of other sections:
+  - the coupling of effect and maintenance in prior models (the Introduction has it);
+  - "$U_d s$ is also the mutational decline" (Introduction, Discussion);
+  - the Charlesworth 2015 precedent (Introduction, Results, Discussion);
+  - "$V_{A,\delta}$ can be used by anyone" (Discussion);
+  - the δ ≥ 1 exclusion (Methods);
+  - the additive map (Appendix A.4);
+  - the "most favorable" asides (`sec:approx` only);
+  - the second Jensen statement.
+- **Cut as restatements of appendices:**
+  - DFE shape and nearly neutral classes (D.3);
+  - the weak branch (D.2; the numbers are in Results);
+  - Crow–Denniston and the reasoning for κ(1) = 9/8 (B.1–B.2);
+  - $R(z)$ = exp and the second moment (A.1);
+  - the two ends of the bracket (B.4).
+- **Dropped:** the fairy-wren illustration, and with it the UNVERIFIED Mulder et al. 1994.
+- **Rehomed from the removed "expected accumulation" paragraph:**
+  - **right skew → $Z > 1$:** now in `sec:approx`, as the one departure that runs against the
+    conservative direction, and in Appendix A.4 as
+    $Z = 1 + [K'''(0) + \tfrac12K''''(0) + \dots]/V_A$;
+  - **sign-reversing selection lowers $Q$ (2/3 if it alternates every generation):** now in the
+    Discussion's fluctuating-optimum sentence.
+- **Stale pointers fixed:** Theory `sec:msdb` and Appendix D.2/D.4 pointed to Methods for
+  $U_d/(2V_A)$ and the purging factor. Both have been in Results since 2026-10-23.
+- **Not done (optional):** the Table 1 cells could be cut by about a third. They were left in the
+  author's wording.
+- Build: 50 pages, zero undefined references, zero errors.
+
 **Logged 2026-10-26 — evenness of $Q$, stage of life, non-equilibrium processes (branch
 `worktree-nonequilibrium`; user: "do all you suggest", with heritable juvenile survival flagged
 only).**
