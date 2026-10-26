@@ -276,6 +276,13 @@ convert before quoting them.
   "decreases", "is lower than", "lie on".
 - **Cut sentences that only restate what Methods or Theory already says** (e.g. "Each analysis
   uses the populations that have the data it needs").
+- **Two levels of selection (user, 2026-10-26).** "Directional selection" is used **only for
+  phenotypes** (the quantitative-genetic sense: $V_A > 0$ means every trait that covaries
+  genetically with fitness is predicted to change, Robertson 1966 / Price 1970). For alleles use
+  **"purifying"** (against an allele) and **"positive"** (toward its fixation). Never "directional
+  sweeps". At MSDB both descriptions hold at once: $U_d\bar s$ is the variance, the per-generation
+  gain in mean breeding value for fitness, and the mutational loss that cancels it. Defined in
+  Theory `sec:quantity` P2; interpreted in the Discussion.
 - **No footnote distinguishing our κ from Buffalo and Kern's**: κ is ours.
 - The small-variance ceiling's range is stated as "a population that retains at least
   $1/(1+4\kappa)$ of its neutral expectation, about a fifth under random mating and a ninth under
@@ -997,6 +1004,37 @@ the code implements, not necessarily what `scratch.tex` now specifies.
   intentional, not a bug.
 
 ## Known staleness & inconsistencies (Rule 5 log)
+
+**Logged 2026-10-26 — selection on phenotypes vs on alleles (branch `worktree-selection-levels`;
+user: make sure purifying and directional selection are not conflated, then comment on it for
+quantitative and population geneticists).**
+
+- **Scan result:** no outright conflation. The manuscript never said "purifying" or "positive"
+  and used "directional" once, wrongly ("during directional sweeps", Theory `sec:unlinked`,
+  now "while beneficial alleles sweep"). The gap was that Bonnet's adaptive reading (phenotypic)
+  and the MSDB reading (purifying, on alleles) of the same $V_A$ were never set side by side.
+  The Discussion's "balancing selection ... can hold large additive variance in fitness" was
+  imprecise: at a polymorphism held by constant fitnesses $V_A(w) = 0$ at equilibrium.
+- **Added:** Introduction ¶1 (the secondary theorem; directional selection on phenotypes; does
+  not say which alleles move; stasis); Introduction MSDB ¶ (purifying at every locus; $U_d\bar s$
+  is also the mutational loss, so breeding values do not change); Theory `sec:quantity` new P2
+  (the two levels, the convention above, which result depends on which level); Theory
+  `sec:msdb` one sentence (selection removes as much as mutation adds); Theory `sec:unlinked`
+  frequency-dependent selection added to the fixed-effects exclusions; Discussion: alternatives
+  sentence qualified (fluctuating or frequency-dependent balancing selection; migration in the
+  place of mutation), **two new paragraphs** before the Fisher paragraph (the two readings; the
+  maintenance test as the share of directional selection purifying selection can be, about a
+  twentieth; the rest cancelled by changing conditions; MSDB vs environmental cancellation leave
+  different traces; the diversity verdict is nearly indifferent to the maintaining process,
+  with the frequency-dependence and hitchhiking qualifications), Fisher paragraph trimmed.
+- **New citations, Crossref-checked 2026-10-26, not yet in `references.bib`:** Robertson 1966
+  (10.1017/S0003356100037752), Price 1970 (10.1038/227520a0), Morrissey et al. 2010
+  (10.1111/j.1420-9101.2010.02084.x), Merilä et al. 2001 (10.1023/A:1013391806317). Fisher 1930
+  (book) cited in the Discussion.
+- **Open flags:** `% AUTHOR` on the constant-fitness statement vs Connallon and Czuppon's
+  mechanism; `% CHECK` that Buffalo 2021 fits hitchhiking as well as background selection.
+  Abstract unchanged (at 249 words). Scaffolding; voice is the author's.
+- Build: 49 pages, zero undefined references, zero errors.
 
 **Logged 2026-10-23 — EPP rates sourced, Methods flags resolved, Discussion and Abstract
 rewritten (branch `worktree-discussion-abstract`).**
