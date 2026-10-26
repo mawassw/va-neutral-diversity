@@ -1052,6 +1052,30 @@ the code implements, not necessarily what `scratch.tex` now specifies.
 
 ## Known staleness & inconsistencies (Rule 5 log)
 
+**Logged 2026-10-26 — Introduction compacted (branch `worktree-intro-compact`; user: "apply
+everything").** 1,901 → 1,740 words. Order, equations and labels (`eq:intro_sc`,
+`eq:intro_mukai`) unchanged.
+
+- **User decisions:**
+  1. The neglect paragraph's second argument (that the global reduction is absorbed into the
+     neutral baseline) is cut. It was our own reading, against the published-results-only rule.
+     The Discussion makes it, with McVicker et al. 2009. Elyashiv et al. 2016 and McVicker et al.
+     2009 are no longer cited in the Introduction.
+  2. **Standing preference: default to merging and compacting sentences rather than asking.**
+  3. The $V_m = U_d\,\mathbb E[s^2]$ sentence is cut; Theory `sec:msdb` defines $V_m$.
+- **Merged:**
+  - ¶1: the secondary theorem, now in one sentence. Its clause "changes the mean breeding value of
+    fitness by $V_A$" stays, because Theory `sec:quantity` points to it. Morrissey et al. 2010 and
+    the covariance with every trait are now in the Discussion only.
+  - ¶6: the three MSDB "gain equals loss" sentences, now one.
+  - ¶7: the stationarity sentence moved in from the aims paragraph ("the stationarity the diversity
+    test assumes and the maintenance test examines").
+  - Smaller merges in ¶2–¶4, ¶8 and ¶9.
+- **Smaller than estimated:** the plan expected about 1,500 words. The remaining text is mostly
+  what the Introduction rules require: both precedents, a gap at the end of each paragraph, and
+  the opposite-direction spine.
+- Build: 50 pages, zero undefined references, zero errors.
+
 **Logged 2026-10-26 — main figures restyled for GENETICS (branch `worktree-figure-edits`;
 user asked for the edits below).** No number changed.
 
