@@ -172,17 +172,23 @@ rather than a 2×2 link-scale $\mathbf{G}$: those posteriors are post-back-trans
    persist only ~2 generations, so the unlinked baseline applies under MSD balance, sweeps *and*
    fluctuating selection (`scratch.tex` line 40 is right). $\pi$ reaching a new equilibrium needs
    $\sim 4N_e$ generations, which is why the target quantity is the long-term equilibrium $V_A$.
-   **Amended 2026-10-26 (user): stationarity.** Inherited advantages increase drift in all three
-   regimes, but SC's formula gives the *size* of the increase only under steady selection: a
-   retention constant across generations ($G_1 = G_2 = \dots = G$ in SC 1995) and a variance at
-   its stationary value. A constant retention presupposes a constant selected background (Barton
-   1998, 2000; Appendix A.4), which **MSDB with fixed additive effects provides and the
-   alternatives do not** (a changing environment changes the retention; Connallon–Czuppon
-   balancing selection has $V_A(w)$ only away from equilibrium and frequency-dependent effects).
-   So the diversity prediction is exact under its assumptions only for the variance MSDB
-   maintains, and an approximation for the measured one. Stated in Theory `sec:unlinked` and
-   `sec:quantity` P2, and in the Discussion. "Only" is relative to the processes the paper
-   considers: SC 1998's steady input of advantageous mutations is also a stationary case.
+   **Amended 2026-10-26 (user; Barton 2000 read in full, `11127900.pdf` at the repo root).**
+   Inherited advantages increase drift in all three regimes, but SC's formula gives the *size*
+   of the increase only under two conditions: a retention constant across generations ("steady
+   selection", $G_1 = G_2 = \dots = G$, SC 1995) and **allele frequencies at the selected loci
+   that change little while an association persists** (Barton 2000: SC 1998 "depend on the
+   infinitesimal model, in which changes in allele frequency are negligible"). That is Barton's
+   condition. **It is not stationarity of $V_A$, and MSDB is not the only model that meets it:**
+   the infinitesimal model meets it "for any kind of selection", directional included. What MSDB
+   uniquely adds among the candidates is a $V_A$ held constant over the coalescent window.
+   Under sweeps the drift is "much stronger than indicated by the variance in fitness", bounded
+   by the slow rate of molecular evolution. Under fluctuating balanced polymorphisms
+   (Connallon–Czuppon's mechanism) Barton says diversity is reduced "over a wide range" and the
+   effect "could in principle" exceed both substitutions and inherited variance, net effect
+   "as yet unknown". **This is the one open route by which the diversity verdict could be too
+   generous:** stated in the Discussion as an open question. It is not the retired "fluctuating
+   selection as an escape from the ceiling", which runs the other way. Stated in Theory
+   `sec:unlinked` and `sec:quantity` P2, Appendix A.4 and the Discussion.
 4. **Census timescale mismatch** (raised by a faculty visitor at MWPG 2026; the only substantive
    methodological objection of the session). $\pi/(4\mu)$ is long-run coalescent; every available
    census $N$ is contemporary. **Prefer a long-term or historical census scaled by a breeder fraction
@@ -1051,11 +1057,15 @@ quantitative and population geneticists).**
   (10.1017/S0003356100037752), Price 1970 (10.1038/227520a0), Morrissey et al. 2010
   (10.1111/j.1420-9101.2010.02084.x), Merilä et al. 2001 (10.1023/A:1013391806317).
 - **Checked:** Buffalo 2021 fits hard-sweep hitchhiking and BGS (eLife 67509, read).
-  **Still open:** Barton 1998, 2000 full text could not be retrieved (PMC, Europe PMC and the
-  publisher blocked download); the stationarity attribution is carried over from Appendix A.4
-  and flagged `% CHECK` in Theory and the Discussion.
-- **Fixed on the way:** the first-round AUTHOR comment had swallowed two Discussion sentences
-  ("Each predicts…", "The remaining possibility…") into a LaTeX comment; restored.
+  **Barton 2000 read in full** (user placed `11127900.pdf` at the repo root). The second-round
+  wording ("a constant selected background"; "only MSDB provides one") overstated it and was
+  corrected to his condition (amended scope condition 3). Appendix A.4's sentence was reworded
+  to match. **Barton 1998 (Genet. Res. 72:123) still not read**; it stays cited beside 2000.
+- **Fixed on the way:** two comments had swallowed prose into LaTeX comments, both restored.
+  The first-round AUTHOR comment had taken two Discussion sentences ("Each predicts…", "The
+  remaining possibility…"). The second-round `% CHECK` in Theory `sec:unlinked` had taken the
+  sentence introducing `eq:harmonic`. **Lesson: never end an Edit's insertion with a comment line
+  in the middle of a paragraph.** All added comment lines were audited afterwards.
 - Build: 50 pages, zero undefined references, zero errors.
 
 **Logged 2026-10-23 — EPP rates sourced, Methods flags resolved, Discussion and Abstract
