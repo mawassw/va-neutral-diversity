@@ -198,6 +198,18 @@ rather than a 2×2 link-scale $\mathbf{G}$: those posteriors are post-back-trans
    $V_{A,\max} = (1-\delta)/(4\kappa\delta)$, any $\delta \ge 1$ gives $V_{A,\max} \le 0$: that is a
    failed model check, not a strong result. Report the trichotomy openly — uninformative
    ($\delta \ge 1$), violation, consistent — and say how many fell out.
+6. **Stage of life (user, 2026-10-26).** Bonnet's $V_A$ is a variance among all individuals
+   recorded in each pedigree: zero LBS makes up 53% (yellow baboons) to 96% (Muro blue tits) of
+   records. $N$, $Q$ and $Z$ refer to breeding adults, and $Z$ is the link (offspring-weighted
+   variance among contributors). Non-heritable pre-breeding mortality leaves $V_A$ unchanged.
+   **Heritable pre-breeding survival is flagged, not analysed** (user: preprint first). The flag
+   is in the Discussion assumptions: counted at breeders, its advantage persists one generation
+   less ($Q \approx 1$, not 2), so the mapping overstates its contribution unless survival and
+   fecundity are negatively genetically correlated. **Checked by a quick simulation, not
+   committed and not in the paper** (infinitesimal log-fitness, $N_b = 400$, 3 reps): with
+   variance from birth 0.2 in fecundity, 0.2 in viability, or 0.1 + 0.1, $N_e/N$ was
+   0.48 / 0.90 / 0.65, against 0.56 / 0.56 / 0.56 from $Q = 2$ on the total and
+   0.56 / 0.83 / 0.67 from $Q_f = 2$, $Q_s = 1$.
 
 **Bias directions, for the Methods table.**
 
@@ -1079,6 +1091,85 @@ user asked for the edits below).** No number changed.
 - **Figs 4 and 5:** theme only.
 - **Not restyled:** the supplementary figures `figS_gap.R` and `figS_rescaling_linked.R`.
   `FigS_linked_fgene` and `FigS_omega` come from `fig2_linked.R` and carry the new theme.
+
+**Logged 2026-10-26 — Theory compacted (branch `worktree-theory-compact`; user asked for a
+compacting analysis, then answered its three decisions).** Prose 5,864 → 4,561 words. No equation
+changed, and every label cited outside Theory is kept.
+
+- **User decisions:**
+  1. The $Q = 2$ derivation stays in Theory (`sec:unlinked` P1). The Introduction now says it in
+     words ("twice the carrier's own advantage"), without the sum.
+  2. The two-levels paragraph (`sec:quantity` P2) is cut to the convention and the dependence map.
+     The secondary-theorem account lives in Introduction ¶1 and the Discussion.
+  3. Table 1 (`tab:c`) moved from `sec:quantity` into the merged closing section, beside the
+     closed forms of $c_\text{div}$ and $c_\text{MSD}$.
+- **Structure:** 9 → 8 subsections. `sec:ceiling` was merged into `sec:conditions`, now titled
+  "The two tests as conditions on the long-term variance". The order there is δ → $V_{A,\delta}$
+  → $V_{A,\max}$ → linked root → $c_\text{MSD}$, $c_\text{div}$ → Table 1 → `eq:compat`.
+- **Displays and labels dropped (cited nowhere):** `unlinked_baseline` (now inline) and
+  `eq:ne_chrom` (`total_red` follows directly). The label `sec:ceiling` is gone.
+- **Each point now stated once.** Cut as restatements of other sections:
+  - the coupling of effect and maintenance in prior models (the Introduction has it);
+  - "$U_d s$ is also the mutational decline" (Introduction, Discussion);
+  - the Charlesworth 2015 precedent (Introduction, Results, Discussion);
+  - "$V_{A,\delta}$ can be used by anyone" (Discussion);
+  - the δ ≥ 1 exclusion (Methods);
+  - the additive map (Appendix A.4);
+  - the "most favorable" asides (`sec:approx` only);
+  - the second Jensen statement.
+- **Cut as restatements of appendices:**
+  - DFE shape and nearly neutral classes (D.3);
+  - the weak branch (D.2; the numbers are in Results);
+  - Crow–Denniston and the reasoning for κ(1) = 9/8 (B.1–B.2);
+  - $R(z)$ = exp and the second moment (A.1);
+  - the two ends of the bracket (B.4).
+- **Dropped:** the fairy-wren illustration, and with it the UNVERIFIED Mulder et al. 1994.
+- **Rehomed from the removed "expected accumulation" paragraph:**
+  - **right skew → $Z > 1$:** now in `sec:approx`, as the one departure that runs against the
+    conservative direction, and in Appendix A.4 as
+    $Z = 1 + [K'''(0) + \tfrac12K''''(0) + \dots]/V_A$;
+  - **sign-reversing selection lowers $Q$ (2/3 if it alternates every generation):** now in the
+    Discussion's fluctuating-optimum sentence.
+- **Stale pointers fixed:** Theory `sec:msdb` and Appendix D.2/D.4 pointed to Methods for
+  $U_d/(2V_A)$ and the purging factor. Both have been in Results since 2026-10-23.
+- **Not done (optional):** the Table 1 cells could be cut by about a third. They were left in the
+  author's wording.
+- Build: 50 pages, zero undefined references, zero errors.
+
+**Logged 2026-10-26 — evenness of $Q$, stage of life, non-equilibrium processes (branch
+`worktree-nonequilibrium`; user: "do all you suggest", with heritable juvenile survival flagged
+only).**
+
+- **Theory `sec:unlinked`:**
+  - **new paragraph:** $Q$ is an expected accumulation that assumes the selective variance is
+    spread evenly over families and steadily over generations;
+  - **how each departure changes the reduction:** variance in time works through its mean
+    (Jensen under the multiplicative model); right skew raises $Z$ above 1; limits on fitness
+    lower the reduction; selection whose sign reverses each generation gives $Q < 2$ (2/3);
+  - **`eq:harmonic` sentence:** when $V_A$ and $1/N$ covary, $\bar V_A$ is the $1/N$-weighted mean.
+- **Theory `sec:quantity`:** the stage-of-life sentences (scope condition 6).
+- **Methods:** the zero-LBS range, from `science.abk0853_data_s1/ArchivedData`.
+- **Discussion:**
+  - **new paragraph after the diversity paragraph** reads three non-equilibrium processes
+    through Table 1, each with recent work:
+    - a moving or fluctuating optimum: de Villemereuil et al. 2020 (PNAS); Wittmann et al. 2023
+      (*Genetics*) and Johnson et al. 2026 (30–50% reductions);
+    - demographic volatility: Charlesworth & Jensen 2022, Lewin & Eyre-Walker 2026, and the
+      $1/N$ weighting;
+    - metapopulation turnover, as Robertson's mechanism at the scale of the deme: Pannell &
+      Charlesworth 2000, Whitlock & Barton 1997, Barton 2000 §3.
+  - **assumptions paragraph:** "a single deme" and the heritable-survival flag.
+  - **trims to stay near length:** the bottleneck sentence moved into the new paragraph; the
+    two-readings and "firmest ground" paragraphs were tightened.
+  - **net length:** 2,279 → 2,532 words.
+- **New citations, Crossref-checked, not in `references.bib`:**
+  - de Villemereuil et al. 2020 (10.1073/pnas.2009003117);
+  - Wittmann et al. 2023 (10.1093/genetics/iyad022);
+  - Charlesworth & Jensen 2022 (10.1093/gbe/evac096);
+  - Pannell & Charlesworth 2000 (10.1098/rstb.2000.0740);
+  - Whitlock & Barton 1997 (10.1093/genetics/146.1.427);
+  - Johnson et al. 2026: bioRxiv 10.64898/2026.03.30.715388 only; the G3 version is UNVERIFIED.
+- Build: 53 pages, zero undefined references, zero errors.
 
 **Logged 2026-10-26 — selection on phenotypes vs on alleles (branch `worktree-selection-levels`;
 user: make sure purifying and directional selection are not conflated, then comment on it for
