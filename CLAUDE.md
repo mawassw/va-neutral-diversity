@@ -323,6 +323,17 @@ convert before quoting them.
   "decreases", "is lower than", "lie on".
 - **Cut sentences that only restate what Methods or Theory already says** (e.g. "Each analysis
   uses the populations that have the data it needs").
+- **Discussion: no figure citations (user, 2026-10-26).** Results state numbers and cite
+  figures; the Discussion carries only the load-bearing numbers in words, and may cite Theory
+  tables, equations and sections. **Sentence mechanics of the GENETICS exemplar and rmt-pca:**
+  the work is the agent ("we", "our", the result) at paragraph openings; mechanism in the main
+  clause, consequence in a "so"/"which"/"because" clause; **no mirrored sentence pairs** (the
+  "opposite verdicts" spine had become a sentence template: "Set against X… / Set against Y…",
+  "On the maintenance side… / On the diversity side…", "To a quantitative geneticist… / To a
+  population geneticist…"); no signpost or enumeration sentences ("Two escapes… are unlikely",
+  "The second is…"); paragraphs close on an implication, not on a restatement of the spine.
+  The style guide's short-punch rhythm (Part 6) became a tic at Discussion scale: at most one
+  short sentence every two or three paragraphs.
 - **Two levels of selection (user, 2026-10-26).** "Directional selection" is used **only for
   phenotypes** (the quantitative-genetic sense: $V_A > 0$ means every trait that covaries
   genetically with fitness is predicted to change, Robertson 1966 / Price 1970). For alleles use
@@ -1075,6 +1086,27 @@ everything").** 1,901 → 1,740 words. Order, equations and labels (`eq:intro_sc
   what the Introduction rules require: both precedents, a gap at the end of each paragraph, and
   the opposite-direction spine.
 - Build: 50 pages, zero undefined references, zero errors.
+
+**Logged 2026-10-26 — Discussion redrafted to the sentence mechanics of the GENETICS exemplar
+and rmt-pca (branch `worktree-discussion-redraft`; user asked for an assessment and plan, agreed
+to the order and ruled out figure citations).** No claim, number or citation changed; content
+was moved and merged, not cut.
+
+- **Diagnosis (measured):** 2,510 words in 11 paragraphs (exemplar 1,160, rmt 1,460); sentence
+  length sd 12.4 against 8–9.5, with 18% of sentences of 12 words or fewer and ten of 44 or
+  more; "we"/"our" 2 times against 10 and 19; 33 of 101 sentences opening "The …". Five
+  mirrored sentence pairs, about ten signpost fragments, and Connallon–Czuppon in three
+  paragraphs.
+- **New order (follows Results):** summary → diversity → global vs local reduction →
+  maintenance (Charlesworth 2015) → two levels of selection → rescaling $c$ (moved from second
+  place) → non-equilibrium processes through Table 1 → what diversity records (Fisher) →
+  results others can use → assumptions → Barton's condition and the open question (last, as in
+  the exemplar). The orphan "We computed the local reduction under MSDB" is folded into the last
+  paragraph.
+- **After:** 2,080 words; mean sentence 29 words (sd 7.7), longest 44, none of 12 or fewer;
+  "we"/"our" 9 times; no figure citations (the Fig. 2C pointer became a sentence). Build: 50
+  pages, zero undefined references, zero errors.
+- **Scaffolding:** the voice is the author's to revise.
 
 **Logged 2026-10-26 — main figures restyled for GENETICS (branch `worktree-figure-edits`;
 user asked for the edits below).** No number changed.
