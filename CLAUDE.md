@@ -342,6 +342,16 @@ convert before quoting them.
   gain in mean breeding value for fitness, and the mutational loss that cancels it. Defined in
   Theory `sec:quantity` P2; interpreted in the Discussion.
 - **No footnote distinguishing our κ from Buffalo and Kern's**: κ is ours.
+- **Linkage disequilibrium (user, 2026-10-26).** The "association" between a neutral site and
+  its selected background is LD, and the manuscript names it.
+  - **Definitions:** first in Introduction ¶3, citing Barton 2000, with the point that the term
+    applies to unlinked sites too; again in Theory `sec:unlinked`, as LD summed over loci with
+    weights equal to their effects.
+  - **LD is used where its decay is the point:** halved each generation at unlinked sites
+    (Introduction ¶3 and ¶5), broken down as fast as sites recombine (¶4), Barton's condition
+    (`sec:unlinked`) and the linked kernel ρ (`sec:linkage`).
+  - Elsewhere "association" stays as the plain word.
+  - No symbol is introduced for LD ($D$ is not used).
 - **Avoid "clause: clause" colons (user, 2026-10-26).** Do not join two full statements with a
   colon. Use separate sentences or a subordinate clause. The rule is about colons, **not
   semicolons** (a semicolon pass was made by mistake and reverted the same day). Colons that
