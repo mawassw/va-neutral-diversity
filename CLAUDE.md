@@ -70,7 +70,8 @@ Three properties, and all three must survive any edit to the framing:
    The first-order inversion's 12–25 (and 29–6,000 for the observed deficits) is an extrapolation
    outside $V_A \ll 1$ and **must not be quoted**. The $G = 1 - V_A$ cap ($N_e/N \ge 1/2$) is an
    artifact of the additive map and is retired except as the Appendix A.4 remark.
-   **Present the snapshot problem through $c = \bar V_A/\hat V_A$** (Fig. 5): under the multiplicative
+   **Present the snapshot problem through $c = \bar V_A/\hat V_A$** (Fig. 5; and since 2026-10-26
+   Table 1, `tab:c`, which reads $c$ as a diagnostic of non-equilibrium): under the multiplicative
    bound the diversity side needs $c \approx 9$ on average (2.4–80 per population, median 14).
    **Since 2026-10-20 MSD is evaluated at each population's assigned empirical $\bar s$**
    (`data/dfe_assignment.csv`, the same DFE as the linked curve), not $s = 10^{-2}$. MSD then needs
@@ -1066,7 +1067,29 @@ quantitative and population geneticists).**
   remaining possibility…"). The second-round `% CHECK` in Theory `sec:unlinked` had taken the
   sentence introducing `eq:harmonic`. **Lesson: never end an Edit's insertion with a comment line
   in the middle of a paragraph.** All added comment lines were audited afterwards.
-- Build: 50 pages, zero undefined references, zero errors.
+- **$c$ as a diagnostic of non-equilibrium dynamics (user, 2026-10-26).** New **Table 1**
+  (`tab:c`) in Theory `sec:quantity`. It is a 2 × 2 of the two verdicts at $c = 1$:
+  - rows: diversity passed or failed ($c_\text{div} \le 1$ or $> 1$);
+  - columns: maintenance passed or failed ($c_\text{MSD} \ge 1$ or $< 1$);
+  - cells: one reading each.
+
+  Its logic:
+  - A required $c \ne 1$ means an unrepresentative study period, or a departure from the
+    test's equilibrium.
+  - Off the diagonal, a single $c$ exists if $c_\text{div} \le c_\text{MSD}$.
+  - In the lower right none ever exists ($c_\text{div} > 1 > c_\text{MSD}$), so the shared
+    equilibrium fails.
+  - The caption names the parameterizations (multiplicative bound with and without linkage;
+    strong-selection limit at the assigned DFE) and why a failure is conservative.
+
+  Also changed:
+  - $c_\text{MSD}$ and $c_\text{div}$ are now named in `sec:quantity`, before their closed forms
+    in `sec:conditions`.
+  - Results `res_rescaling` now says every population in the deficit set lies in the lower
+    right.
+  - The main-text table numbers shift: `tab_reduction` is now Table 2, cited by `\ref`.
+- Build: 50 pages, zero undefined references, zero errors. The two overfull boxes come from
+  `tab_reduction` and `supp/notation.tex` (already there), not `tab:c`.
 
 **Logged 2026-10-23 — EPP rates sourced, Methods flags resolved, Discussion and Abstract
 rewritten (branch `worktree-discussion-abstract`).**
