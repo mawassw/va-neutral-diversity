@@ -28,8 +28,8 @@
 % Q^2 is the unlinked constant); kernel -> closed form -> limits -> linear lower bound ->
 % Omega <= 1 for any placement -> non-uniform placement. All numbers re-checked in R.
 
-\section{Linked Interference along a Chromosome}\label{app:chromosapp}
-This appendix evaluates the chromosome-wide interference $\overline{Q^2}_i$ of Equation~\eqref{eq:haldane_avg}. It gives the closed form, the limits, the linear map as a lower bound, the bound $\Omega_i \le 1$ on the penalty of Equation~\eqref{linked_penalty}, and the effect of placing selected variance unevenly. Consider one effect class with retention $Z$ (Equation~\eqref{eq:Z}); under a distribution of fitness effects each expression is averaged over classes with the weights $\nu_k$ of \autoref{sec:linkage}. A chromosome has map length $M$ Morgans, and two sites $\ell$ Morgans apart recombine with probability $r(\ell)$. Selected variance and neutral sites are spread uniformly along the map until Appendix~\ref{app:C_spatial}. We drop the chromosome index. $\overline{Q^2}(y)$ is the interference at a neutral site at position $y$, averaged over selected loci. $\overline{Q^2}_\text{H}$ and $\overline{Q^2}_\text{L}$ are its averages over the chromosome under the Haldane and linear maps; $\overline{Q^2}_\text{H}$ is the $\overline{Q^2}_i$ of the main text. $Q^2 = [2/(2-Z)]^2$ denotes only the unlinked value (Equation~\eqref{eq:Q}).
+\section{The linked factor along a Haldane map}\label{app:chromosapp}
+This appendix evaluates the chromosome-wide average $\overline{Q^2}_i$ of Equation~\eqref{eq:haldane_avg}. It gives the closed form, the limits, the linear map as a lower bound, the bound $\Omega_i \le 1$ on the linked factor of Equation~\eqref{linked_penalty}, and the effect of placing selected variance unevenly. Consider one effect class with retention $Z$ (Equation~\eqref{eq:Z}); under a distribution of fitness effects each expression is averaged over classes with the weights $\nu_k$ of \autoref{sec:linkage}. A chromosome has map length $M$ Morgans, and two sites $\ell$ Morgans apart recombine with probability $r(\ell)$. Selected variance and neutral sites are spread uniformly along the map until Appendix~\ref{app:C_spatial}. We drop the chromosome index. $\overline{Q^2}(y)$ is the interference at a neutral site at position $y$, averaged over selected loci. $\overline{Q^2}_\text{H}$ and $\overline{Q^2}_\text{L}$ are its averages over the chromosome under the Haldane and linear maps; $\overline{Q^2}_\text{H}$ is the $\overline{Q^2}_i$ of the main text. $Q^2 = [2/(2-Z)]^2$ denotes only the unlinked value (Equation~\eqref{eq:Q}).
 
 \subsection{The kernel and its average}\label{app:C_kernel}
 An association between the neutral site and a selected locus $\ell$ Morgans away survives one generation with probability $(1 - r(\ell))Z$: recombination breaks it with probability $r(\ell)$, and selection retains a fraction $Z$. Summed over generations, the cumulative advantage that the locus confers on the neutral site, per unit of its effect, is
@@ -63,7 +63,7 @@ Integrating once more, with $\int_0^M \ln(\Gamma - \eta e^{-2D})\,dD = M\ln \Gam
 \end{equation}
 with $\mathrm{Li}_2$ the dilogarithm. Equation~\eqref{eq:C_closed_haldane} is the form the analysis computes (Methods). It agrees with quadrature of Equation~\eqref{eq:C_haldane_avg} to ten significant digits for $Z \in [0.5, 0.999]$ and $M \in [0.05, 50]$.
 
-\subsection{Limits}\label{app:C_limits}
+\subsection{Short and long maps}\label{app:C_limits}
 As $M \to 0$ every distance vanishes and $\overline{Q^2}_\text{H} \to (1-Z)^{-2}$, the limit of background selection without recombination. Reaching it needs the whole chromosome to lie within the decay distance of the kernel, $M \ll 1 - Z$, not merely a short map: at $Z = 0.99$ and $M = 0.5$, $\overline{Q^2}_\text{H} = 387$, against $(1-Z)^{-2} = 10^4$. At large distances $f_\text{H}(\ell) \to \Gamma^{-2} = Q^2$, the unlinked value at the same retention, but the approach is slow:
 \begin{equation}
     \overline{Q^2}_\text{H} = Q^2 + \frac{2}{M}\int_0^\infty \left[f_\text{H}(\ell) - Q^2\right]d\ell + O(M^{-2}).
@@ -99,7 +99,7 @@ Because $e^{-2\ell} > 1 - 2\ell$, the Haldane recombination fraction is below th
 \end{equation}
 Equation~\eqref{eq:closed_form} is a lower bound on interference, and hence on the reduction in $N_e$. The gap grows with $M$ and with $1-Z$. $\overline{Q^2}_\text{L}/\overline{Q^2}_\text{H}$ is 0.99, 0.95 and 0.91 at $M = 0.1$, 1 and 3 Morgans for $Z = 0.99$, and 0.99, 0.85 and 0.68 for $Z = 0.9$. The main text uses the Haldane closed form, Equation~\eqref{eq:C_closed_haldane}.
 
-\subsection{The linkage penalty does not exceed one}\label{app:omega}
+\subsection{The linked factor does not exceed one}\label{app:omega}
 Because $f_\text{H}$ decreases from $(1-Z)^{-2}$ to $Q^2$, every profile satisfies $\overline{Q^2}(y) \ge Q^2$. So does the chromosome average under any placement of selected variance (Appendix~\ref{app:C_spatial}). Write
 \begin{equation}
     \Lambda_\text{L} = \kappa_\text{cis}\overline{Q^2}_iv_h, \qquad \Lambda_\text{own} = \kappa_\text{own}Q^2v_h, \qquad \Lambda_\text{U} = Q^2\kappa V_A.

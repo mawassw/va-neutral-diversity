@@ -28,7 +28,7 @@
 % all orders -> first order -> upper tail -> retention Z. The extra-pair-paternity bracket
 % moved to Appendix B (it rests on Model B); Bonnet's estimand moved to Theory sec:onemodel.
 
-\section{Effective Size under Heritable Variance in Log-Fitness}\label{app:unlinkedapp}
+\section{Effective size under heritable variance in log-fitness}\label{app:unlinkedapp}
 This appendix derives the unlinked reduction in effective size used in the main text, under the multiplicative model (Equation~\eqref{eq:ne_mult}) and its small-variance approximation (Equation~\eqref{eq:Q}), and the retention $Z$ of \autoref{sec:msdb}. The model is that of Barton and Etheridge (2011). A population has $N$ breeding adults. A parent's expected number of offspring is proportional to $e^{z}$, where $z$ is its breeding value for log-fitness, additive and Gaussian with variance $V_A$, and realized family sizes are Poisson about that expectation. Only additive effects are included, because dominance and epistatic deviations are not transmitted stably across generations. Mating is random: each offspring's other parent is drawn independently and at random with respect to $z$. The neutral site is unlinked to every selected locus. Pair bonds and extra-pair paternity are treated in Appendix~B.
 
 \subsection{Long-term contributions and effective size}\label{app:A_R}
@@ -75,7 +75,7 @@ Suppose instead that $V_A$ is carried by rare deleterious alleles at mutation--s
 \begin{equation}
     Z = \sum_k \nu_k Z_k, \qquad Z_k = 1 - s_k, \qquad \nu_k = \frac{\varphi_k s_k}{\bar{s}}, \label{eq:Zclass}
 \end{equation}
-with $\varphi_k$ the fraction of new mutations in class $k$. Each class is retained at its carriers' relative fitness, because the association is lost with the carriers that selection removes (Equation~\eqref{eq:Z}). The weights $\nu_k$ are the classes' shares of $V_A$. The weighted mean is the aggregate $1 - \mathbb{E}[s^2]/\mathbb{E}[s]$ of Santiago and Caballero (1998), but $Q$ and the linked interference are nonlinear in $Z$, so the main text carries the classes separately. Faster purging lowers $Z$, and with it $Q$ and the reduction, below the Gaussian case. Rare beneficial alleles ($s_k < 0$) give $Z_k > 1$.
+with $\varphi_k$ the fraction of new mutations in class $k$. Each class is retained at its carriers' relative fitness, because the association is lost with the carriers that selection removes (Equation~\eqref{eq:Z}). The weights $\nu_k$ are the classes' shares of $V_A$. The weighted mean is the aggregate $1 - \mathbb{E}[s^2]/\mathbb{E}[s]$ of Santiago and Caballero (1998), but $Q$ and $\overline{Q^2}_i$ are nonlinear in $Z$, so the main text carries the classes separately. Faster purging lowers $Z$, and with it $Q$ and the reduction, below the Gaussian case. Rare beneficial alleles ($s_k < 0$) give $Z_k > 1$.
 
 Equation~\eqref{eq:Zcgf} is specific to multiplicative fitness. If a parent's expected family size were instead linear in its breeding value, $1 + b\,a$ with $\mathbb{E}[a] = 0$, the offspring-weighted variance would be $\mathbb{E}[(1 + ba)a^2] - \mathbb{E}[(1 + ba)a]^2 = V_A + b\mu_3 - b^2V_A^2$, with $\mu_3$ the third central moment of $a$, so
 \begin{equation}

@@ -146,7 +146,7 @@ Appendix D's currency. **Nothing to rescale.**
 | $L_X$, $h_t$, $x_i$ | Appendix B/A quantities (first-order excess, carriers' breeding value, neutral frequency) |
 | $\rho = (1-r)Z$ | linked persistence; kernel $1/(1-\rho)$ |
 | $M$, $M_i$; $r$; $r_{mf}$ | map length (Morgans) only; recombination fraction only; mates' correlation (0 in primary) |
-| $\overline{Q^2}_i$, $\overline{Q^2}(y)$ | linked interference on chromosome $i$; profile at $y$ (bare $Q^2$ = unlinked constant) |
+| $\overline{Q^2}_i$, $\overline{Q^2}(y)$ | position-averaged $Q^2$ on chromosome $i$ (not "interference", which reads as crossover interference); profile at $y$ (bare $Q^2$ = unlinked constant) |
 | $s, s_k, \bar s, s^*$; $\varphi_k$; $\nu_k$ | heterozygous effect; DFE density/fractions; class share of $V_A$, $\varphi_ks_k/\bar s$ |
 | $m'$, $f'$ | social partner (Appendix B) |
 | Γ, η, ε; Λ; Ψ, χ, ξ, $m_X$; $n_i$ | Appendix C.2 constants; C.5 exponents; Appendix B coefficients; C.6 element count |
@@ -199,6 +199,10 @@ required only there.
 - Report the per-population test in π units ($\pi_\text{pred} = 4\mu N(N_e/N)_\text{pred}$ vs
   $\pi_\text{obs}$); δ stays as the x-axis of the ceiling curve.
 - **Default to merging and compacting sentences rather than asking**; ask only about real content cuts.
+- **Headings (2026-10-27):** sentence case everywhere, appendices included. Say "at unlinked / linked
+  sites" in headings, not "global / local" (defined only inside Theory `sec:unlinked`). Ω is "the
+  linked factor", never "penalty". "Long-term", never "long-run". Results headings are declarative
+  findings; Methods names each test it runs ("Maintenance test", "… and the diversity test").
 
 ### Supporting results — real, not the identity (never in title or abstract's first paragraph)
 

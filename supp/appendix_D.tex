@@ -28,7 +28,7 @@
 % (symbols only; population numbers in Methods and Results) -> DFE -> fast purging -> the
 % unlinked limit of background selection. Retention and class weights are derived in A.4.
 
-\section{Mutation--Selection--Drift Balance and the Implied Selection Coefficient}\label{app:msdbapp}
+\section{Mutation--selection--drift balance and the implied selection coefficient}\label{app:msdbapp}
 This appendix derives the variance that recurrent deleterious mutation maintains at mutation--selection--drift balance (Equation~\eqref{eq:VA_MSD}). It also gives the conditions under which that variance inverts to the implied selection coefficient of Equation~\eqref{eq:sstar}, the extension to a distribution of fitness effects, and the global reduction in effective size when deleterious alleles are purged quickly. Deleterious mutations arise at rate $U_d$ per diploid genome per generation, each at a new site. They are semidominant, with heterozygous effect $s$ on relative fitness (fitnesses $1$, $1-s$, $1-2s$), so a site at frequency $q$ contributes $2q(1-q)s^2$ to $V_A$. Under a distribution of fitness effects (DFE) with density $\varphi(s)$ and mean $\bar{s}$, class $k$ has effect $s_k$ and receives a fraction $\varphi_k$ of new mutations. The effective size is $N_e$.
 
 \subsection{Stationary variance}\label{app:D_stationary}
@@ -36,7 +36,7 @@ For a semidominant deleterious allele the diffusion solution (Kimura 1969) gives
 % UNVERIFIED: equation number in Kimura (1969) not checked; formula confirmed by quadrature of the sojourn density and a Wright-Fisher simulation (2Ns = 2).
 The bracket never exceeds one. For $N_es \ll 1$ it is $2N_es$, and $V_A$ is the mutation--drift variance $2N_eU_ds^2$ (Lynch and Hill 1986). For $N_es \gg 1$ it is one: each allele is held near $q = \mu/s$, and $V_A = U_ds$ (Mukai et al. 1972; Charlesworth 2012). The flux balance $V_A \approx 2N_eU_ds^2/(1 + 2N_es)$ has the same two limits (cf.\ B\"urger et al. 1989), but it is up to 29\% low between them, at $4N_es \approx 3$, and is not used.
 
-\subsection{Inversion and its conditions}\label{app:D_inversion}
+\subsection{Inverting for \texorpdfstring{$s^*$}{s*}, and why the weak-selection branch fails}\label{app:D_inversion}
 In the strong-selection limit Equation~\eqref{eq:strong} inverts to Equation~\eqref{eq:sstar}, $s^* = \bar{V}_A/U_d$, which is self-consistent when $2N_es^* \gg 1$. The weak-selection branch cannot hold instead. With $V_A \approx 2N_eU_ds^2$, the condition $2N_es \ll 1$ requires
 \begin{equation}
     N_e \ll \frac{U_d}{2V_A},

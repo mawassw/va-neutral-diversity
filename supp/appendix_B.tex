@@ -28,7 +28,7 @@
 % derivation of kappa (with Z and r_mf), then its limits; own/partner/cis split; the
 % all-orders bracket last. Matches kappa_pair() in scripts/R/kappa.R.
 
-\section{Effective Size with Separate Sexes and Pair Bonds}\label{app:matingapp}
+\section{Effective size with separate sexes, pair bonds and extra-pair paternity}\label{app:matingapp}
 This appendix derives the mating-system scalar $\kappa$ of Equations~\eqref{unlinked_mating} and \eqref{eq:kappaB}, its split into the components used in Equation~\eqref{total_red}, and the multiplicative-model bracket of Equation~\eqref{eq:ne_mult_pair}. It applies the expected long-term contributions of Woolliams, Bijma and Villanueva (1999) and the two-sex combination of Santiago and Caballero (1995). The population is diploid, with discrete generations, $N$ breeding adults and an equal sex ratio. Each individual has a breeding value $a$ for relative lifetime breeding success, with $\mathrm{Var}(a) = V_A$ in both sexes; for small advantages $a = z - \bar{z}$ (Appendix~A). This is the single variance that Bonnet et al. (2022) estimate, from one animal model per population with both sexes in the data and sex as a fixed effect.
 
 Under random mating, a parent's relative family size is $1 + a$. Under social monogamy the nest is the unit of productivity. A female with social partner $m'$ has relative family size $1 + u_f$, with $u_f = a_f + a_{m'}$. Extra-pair paternity at rate $\alpha$ moves paternity out of the nest without changing its productivity, so a male with social partner $f'$ has
@@ -56,7 +56,7 @@ This is Equation~\eqref{unlinked_mating}. Partners' values correlate $r_{mf}$, s
     \kappa = \frac{v\!\left(1+\Psi,\ 1+\Psi(1-\alpha)\right) + v\!\left(m+\Psi,\ (1-\alpha)(1+\Psi)\right)}{8}. \label{eq:B_kappa_general}
 \end{equation}
 
-\subsection{Limits}\label{app:B_limits}
+\subsection{\texorpdfstring{$\kappa$}{kappa} under Models A and B}\label{app:B_limits}
 At $Z = 1$ and $r_{mf} = 0$, $\theta = 1/2$ and $\Psi = \bar{m}$. Model B ($m = \bar{m} = 1$) then gives Equation~\eqref{eq:kappaB}, $\kappa_B = 2 - \tfrac32\alpha + \tfrac58\alpha^2$. Model A ($m = 1 - \alpha$, $\bar{m} = 1 - \alpha/2$) gives
 \begin{equation}
     \kappa_A(\alpha) = \frac{(4-\alpha)^2\left[1+(1-\alpha)^2\right] + (4-3\alpha+\alpha^2)^2 + (4-3\alpha)^2}{32}.
@@ -83,7 +83,7 @@ The partner's genes are never on the focal copy's haplotype, so the partner comp
 \end{equation}
 which decreases from $(1+m^2)/2$ as $\rho \to 0$ to $\bar{m}^2$ under tight linkage. Under random mating, and under Model B, $m = 1$, so $\kappa_\text{own} = \kappa_\text{cis} = 1$ and $\kappa_\text{partner} = \kappa - 1$. Equation~\eqref{total_red} uses this split: $\kappa_\text{cis}$ on the linked term, and $Q^2(\kappa V_A - \kappa_\text{own}v_h)$ in the exponent of the unlinked background, with $Q = 2/(2-Z)$ at the same retention as the linked term.
 
-\subsection{The multiplicative model}\label{app:B_mult}
+\subsection{The multiplicative model with pair bonds}\label{app:B_mult}
 Under Model B with $w \propto e^{z}$, a copy's long-term contribution mixes two routes. A copy in a female is in a nest of productivity $e^{z_f + z_{m'}}$, and a fraction $1 - \alpha$ of her offspring are sired by $m'$ and a fraction $\alpha$ by extra-pair males. A copy in a male gains within-pair offspring from his own nest and extra-pair offspring elsewhere, in proportion to $e^{z_m}$. From the next generation on, a carrier contributes in proportion to $e^{2a}$, where $a = z - \bar{z}$ is its deviation (Equation~\eqref{eq:A_R}), so
 \begin{equation}
     R_f \propto (1-\alpha)\,e^{2a_f + 2a_{m'}} + \alpha c_f\,e^{2a_f + a_{m'}}, \qquad
