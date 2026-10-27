@@ -159,7 +159,8 @@ Retired: $Q_u$, $Q(s)$, $t$, $s_\text{het}$, $\overline{Q^2}_\text{linked}$, $\k
 rate $s$ = "fast/slow purging". $V_A$ vs 1 = "small variance" / multiplicative. Never a bare
 "strong/weak" for the other two.
 
-**Ancestor-centered vs gene-centered readings** (American spelling) — point out where it helps.
+**Ancestor-centered vs gene-centered perspectives** (American spelling; "perspectives", never
+"readings") — point out where it helps.
 Ancestor: $R(z)$ and drift from its variance (Robertson; Wray & Thompson 1990). Gene: a neutral
 copy's association with its background summed over generations ($Q$). Barton & Etheridge 2011 is the
 bridge citation. They coincide at unlinked sites (why the global $N_e$ is global) and part under
@@ -199,6 +200,25 @@ required only there.
 - Report the per-population test in π units ($\pi_\text{pred} = 4\mu N(N_e/N)_\text{pred}$ vs
   $\pi_\text{obs}$); δ stays as the x-axis of the ceiling curve.
 - **Default to merging and compacting sentences rather than asking**; ask only about real content cuts.
+- **Diction (author's Overleaf pass, adopted 2026-10-27).** No "read" for "interpret" (or "read the
+  other way"/"read forward"); no "run(s)" for ranges ("ranges from") or directions; name the noun
+  rather than a distant "one"; "a single" for the determiner "one"; "requires" not "needs";
+  "offset" not "cancel"; "amplifies" for linkage's effect (not "deepens"/"exacerbates"); "resolve"
+  not "close" a gap; "predicted" wherever a model output could be read as observed. Results and
+  Theory use $\hat V_A$ / $\bar V_A$ / $Z$ for the quantities; Discussion and Abstract keep words.
+  The verdict wording is "too small" (never "too restricted"). Comma after an introductory phrase
+  that precedes math.
+- **"Biased toward passing"** is the one phrase for approximations chosen to favor a test (not
+  "optimistic", "most favourable to explaining").
+- **Captions:** bold first sentence stating the figure's claim (supersedes the 2026-10-23
+  "descriptive caption" choice), then description; no formulas, equation refs or citations beyond
+  what defines a plotted quantity. Fig. 3 / Fig. S4 linkage color is "green".
+- **rmt-pca voice items adopted 2026-10-27:** a question opener at most once in Results
+  (`sec:res_deficit`); graded plausibility diction ("large but not inconceivable"); an
+  "Intuitively," sentence after a formal result; derived (not data) worked numbers allowed in
+  Theory; underbraced factor names in `total_red`; "we" only in Results setup sentences; one
+  forward bridge at the hinge between the two tests (end of `sec:res_ceiling`). Not imported:
+  sentence-initial "Thus/However", "i.e./e.g.", formulas in captions.
 
 ### Supporting results — real, not the identity (never in title or abstract's first paragraph)
 
