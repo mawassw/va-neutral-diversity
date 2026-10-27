@@ -200,6 +200,10 @@ required only there.
 - Report the per-population test in π units ($\pi_\text{pred} = 4\mu N(N_e/N)_\text{pred}$ vs
   $\pi_\text{obs}$); δ stays as the x-axis of the ceiling curve.
 - **Default to merging and compacting sentences rather than asking**; ask only about real content cuts.
+- **Discussion vs Results (2026-10-27):** every number first appears in Results (or Theory, if
+  derived); Results carry no literature-interpretive or summary sentences. Discussion order is fixed
+  in the header comment of `discussion.tex`; each cited work in one paragraph; no figure or table
+  citations; ~1,800 words (exemplar 1,184, wider audience).
 - **Headings (2026-10-27):** sentence case everywhere, appendices included. Say "at unlinked / linked
   sites" in headings, not "global / local" (defined only inside Theory `sec:unlinked`). Ω is "the
   linked factor", never "penalty". "Long-term", never "long-run". Results headings are declarative
@@ -296,7 +300,8 @@ $V_A$ as input. Not competitors.
    Matheson & Masel 2024 (*GBE* 16:evae050), Murphy et al. 2023, Frankham 1995, McVicker et al. 2009,
    Johnson et al. 2026 (G3 version), Chen et al. 2019, EPP sources, Kruuk & Hadfield 2007, Stopher et
    al. 2012, Baud et al. 2022, Mawass & Milot 2025, Engen et al. 2005, SC 1998 Eq. 8, Kimura 1969
-   equation number. Barton 1998 not yet read.
+   equation number, and (added to the Discussion 2026-10-27, from memory) Burt 1995, Hendry et al.
+   2018, Bürger & Lynch 1995, Lande & Shannon 1996. Barton 1998 not yet read.
 5. **SLiM test** (once installed): additive vs multiplicative maps at $V_A$ = 0.01–1.5, measuring
    $N_e$ directly, fitness truncation; monogamy + EPP under Models A and B.
 6. Supplementary figures `figS_gap.R`, `figS_rescaling_linked.R` not restyled to `theme_genetics.R`.
