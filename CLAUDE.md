@@ -293,15 +293,14 @@ $V_A$ as input. Not competitors.
 2. Re-voicing of all sections by the author (Introduction, Theory, Results, Discussion and Abstract
    are drafted scaffolding).
 3. Methods reviewer pass.
-4. **Citations are still prose** in every section; `references.bib` is built by the user. Pending
-   Crossref-checked entries: Robertson 1966, Price 1970, Morrissey et al. 2010, Merilä et al. 2001,
-   de Villemereuil et al. 2020, Wittmann et al. 2023, Charlesworth & Jensen 2022, Pannell &
-   Charlesworth 2000, Whitlock & Barton 1997, Nei & Murata 1966, Woolliams et al. 1993. Unverified:
-   Matheson & Masel 2024 (*GBE* 16:evae050), Murphy et al. 2023, Frankham 1995, McVicker et al. 2009,
-   Johnson et al. 2026 (G3 version), Chen et al. 2019, EPP sources, Kruuk & Hadfield 2007, Stopher et
-   al. 2012, Baud et al. 2022, Mawass & Milot 2025, Engen et al. 2005, SC 1998 Eq. 8, Kimura 1969
-   equation number, and (added to the Discussion 2026-10-27, from memory) Burt 1995, Hendry et al.
-   2018, Bürger & Lynch 1995, Lande & Shannon 1996. Barton 1998 not yet read.
+4. **Citations (2026-10-27):** every citation is `\cite{}` (biblatex `numeric-comp`, `sorting=none`,
+   10 names before "et al."); `references.bib` holds all 92 cited works, Crossref-checked. Keys are
+   first author + year (`buffaloKern2024`, `wangobbard2023`); new citations follow the same scheme.
+   Narrative citations keep the names ("Charlesworth~\cite{...}"). Still to confirm: Crow 1958 and
+   Lewontin 1974 (no DOI, `% UNVERIFIED`); identity of Barton 1998 (hitchhiking genealogies; not yet
+   read), Mawass & Milot 2025 (taken as the JEB pedigree-attributes paper), Engen et al. 2005 (the
+   *Genetics* age-structure paper), Kimura 1969 (*Genetics* 61:893); Henderson 1975 end page; SC 1998
+   Eq. 8 and Kimura 1969 equation numbers.
 5. **SLiM test** (once installed): additive vs multiplicative maps at $V_A$ = 0.01–1.5, measuring
    $N_e$ directly, fitness truncation; monogamy + EPP under Models A and B.
 6. Supplementary figures `figS_gap.R`, `figS_rescaling_linked.R` not restyled to `theme_genetics.R`.

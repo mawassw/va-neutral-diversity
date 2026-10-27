@@ -36,12 +36,12 @@ An association between the neutral site and a selected locus $\ell$ Morgans away
 \begin{equation}
     \sum_{t=0}^{\infty}\left[(1 - r(\ell))\,Z\right]^t = \frac{1}{1-(1-r(\ell))Z}.
 \end{equation}
-This is the cumulative factor of Santiago and Caballero (2016) and Buffalo and Kern (2024, Equation 3). It is the counterpart of $Q$ for the chromosome segment that carries the neutral site: the advantage counted over every generation in which the segment keeps the selected locus. It appears squared in the variance of the segment's long-term contributions, as $Q$ does in Equation~\eqref{eq:A_first}, so a locus at distance $\ell$ contributes $f(\ell) = [1 - (1 - r(\ell))Z]^{-2}$. With $F(D) = \int_0^D f(\ell)\,d\ell$, the profile and its chromosome average are
+This is the cumulative factor of Santiago and Caballero~\cite{santiago2016} and Buffalo and Kern~\cite[Equation~3]{buffaloKern2024}. It is the counterpart of $Q$ for the chromosome segment that carries the neutral site: the advantage counted over every generation in which the segment keeps the selected locus. It appears squared in the variance of the segment's long-term contributions, as $Q$ does in Equation~\eqref{eq:A_first}, so a locus at distance $\ell$ contributes $f(\ell) = [1 - (1 - r(\ell))Z]^{-2}$. With $F(D) = \int_0^D f(\ell)\,d\ell$, the profile and its chromosome average are
 \begin{gather}
     \overline{Q^2}(y) = \frac{1}{M}\int_0^M f(\vert x-y\vert)\,dx = \frac{1}{M}\left[F(y) + F(M-y)\right], \label{eq:C_profile} \\
     \frac{1}{M}\int_0^M \overline{Q^2}(y)\,dy = \frac{2}{M^2}\int_0^M (M-\ell)\,f(\ell)\,d\ell = \frac{2}{M^2}\int_0^M F(D)\,dD, \label{eq:C_haldane_avg}
 \end{gather}
-where the middle form weights each distance by the number of pairs of sites at that distance. The split of the profile at $y$ follows Santiago and Caballero (2016) and Buffalo and Kern (2024, Supplementary Equation 32). Under Haldane's map, $r(\ell) = \tfrac12(1 - e^{-2\ell})$, Equation~\eqref{eq:C_haldane_avg} is Equation~\eqref{eq:haldane_avg}.
+where the middle form weights each distance by the number of pairs of sites at that distance. The split of the profile at $y$ follows Santiago and Caballero~\cite{santiago2016} and Buffalo and Kern~\cite[Supplementary Equation~32]{buffaloKern2024}. Under Haldane's map, $r(\ell) = \tfrac12(1 - e^{-2\ell})$, Equation~\eqref{eq:C_haldane_avg} is Equation~\eqref{eq:haldane_avg}.
 
 \subsection{Closed form under the Haldane map}\label{app:C_closed}
 Under Haldane's map the survival probability is $\tfrac{Z}{2}(1 + e^{-2\ell})$, so
@@ -68,7 +68,7 @@ As $M \to 0$ every distance vanishes and $\overline{Q^2}_\text{H} \to (1-Z)^{-2}
 \begin{equation}
     \overline{Q^2}_\text{H} = Q^2 + \frac{2}{M}\int_0^\infty \left[f_\text{H}(\ell) - Q^2\right]d\ell + O(M^{-2}).
 \end{equation}
-The integral is close to $1/(1-Z)$: 10.3 at $Z = 0.9$ and 105 at $Z = 0.99$. Free recombination is therefore reached only when $M \gg 1/(1-Z)$. At $Z = 0.99$ and $M = 10$, $\overline{Q^2}_\text{H} = 24.8$, against $Q^2 = 3.9$. Real chromosomes lie between the two limits, near $\overline{Q^2}_\text{H} \approx 2/[M(1-Z)]$ (Santiago and Caballero 1998, Equation 8). Short chromosomes do not approach the first limit either: with one obligate crossover per bivalent, avian microchromosomes have map lengths of about 0.5 M or more. Table~\ref{tab:linked_limits} gives the limits for a class of deleterious mutations purged at rate $s$.
+The integral is close to $1/(1-Z)$: 10.3 at $Z = 0.9$ and 105 at $Z = 0.99$. Free recombination is therefore reached only when $M \gg 1/(1-Z)$. At $Z = 0.99$ and $M = 10$, $\overline{Q^2}_\text{H} = 24.8$, against $Q^2 = 3.9$. Real chromosomes lie between the two limits, near $\overline{Q^2}_\text{H} \approx 2/[M(1-Z)]$~\cite[Equation~8]{santiago1998}. Short chromosomes do not approach the first limit either: with one obligate crossover per bivalent, avian microchromosomes have map lengths of about 0.5 M or more. Table~\ref{tab:linked_limits} gives the limits for a class of deleterious mutations purged at rate $s$.
 % UNVERIFIED: SC 1998 equation number taken from Buffalo & Kern 2024 Supplementary Eqs 34-35; SC 1998 body not read.
 
 \begin{table}[h!]
@@ -86,7 +86,7 @@ Slow ($s \to 0$, $Z \to 1$) & $\infty$ & $4$ \\
 \end{table}
 
 \subsection{The linear map as a lower bound}\label{app:C_linear}
-The linear map, $r(\ell) = \ell$, gives $f_\text{L}(\ell) = (1 - Z + \ell Z)^{-2}$ and $F_\text{L}(D) = D/[(1-Z)(1-Z+DZ)]$. Its mid-chromosome profile is Buffalo and Kern's (2024) Supplementary Equation 33. Equation~\eqref{eq:C_haldane_avg} gives
+The linear map, $r(\ell) = \ell$, gives $f_\text{L}(\ell) = (1 - Z + \ell Z)^{-2}$ and $F_\text{L}(D) = D/[(1-Z)(1-Z+DZ)]$. Its mid-chromosome profile is Buffalo and Kern's~\cite{buffaloKern2024} Supplementary Equation 33. Equation~\eqref{eq:C_haldane_avg} gives
 \begin{equation}
     \overline{Q^2}_\text{L} = \frac{2}{M^2(1-Z)}\int_0^M \frac{y}{1-Z+yZ}\,dy = \frac{2}{MZ(1-Z)} - \frac{2}{M^2Z^2}\ln\!\left(1+\frac{MZ}{1-Z}\right).
 \label{eq:closed_form}
@@ -111,7 +111,7 @@ In the primary model $\kappa_\text{cis} = \kappa_\text{own}$ (Appendix~\ref{app:
 The last step holds because $(1+\Lambda_\text{own})(1+\Lambda_\text{U}-\Lambda_\text{own}) - (1+\Lambda_\text{U}) = \Lambda_\text{own}(\Lambda_\text{U}-\Lambda_\text{own}) \ge 0$. On a freely recombining chromosome this form gives $\Omega_i = 1 - \Lambda_\text{own}\Lambda_\text{U}/(1 + \Lambda_\text{U}) + O(\Lambda_\text{own}^2)$. That departure, of order $v_hV_A$, reflects only the difference between the exponential and reciprocal forms of the same variance. Under a distribution of fitness effects the argument applies to each effect class.
 
 \subsection{Non-uniform placement of selected variance}\label{app:C_spatial}
-The genetic architecture of fitness in wild populations is unresolved (Barton and Keightley 2002), so the uniform density is a baseline. Let $g(x) \ge 0$, with $\int_0^M g(x)\,dx = 1$, be the density of selected variance along the chromosome. With neutral sites still uniform, the chromosome average is
+The genetic architecture of fitness in wild populations is unresolved~\cite{barton2002}, so the uniform density is a baseline. Let $g(x) \ge 0$, with $\int_0^M g(x)\,dx = 1$, be the density of selected variance along the chromosome. With neutral sites still uniform, the chromosome average is
 \begin{equation}
     \overline{Q^2}_\text{H}[g] = \frac{1}{M}\int_0^M\!\!\int_0^M g(x)\, f_\text{H}(\vert x-y\vert)\,dx\,dy = \int_0^M g(x)\,\overline{Q^2}(x)\,dx, \label{general_g}
 \end{equation}
@@ -125,7 +125,7 @@ so a localized locus retains, on average, more neutral diversity than the same v
 \begin{equation}
     \mathbb{E}\left[\exp\left(-\kappa_\text{cis} v_h \overline{Q^2}_\text{H}[g]\right)\right] - \exp\left(-\kappa_\text{cis} v_h \overline{Q^2}_\text{H}\right) \approx \frac{(\kappa_\text{cis} v_h)^2}{2J}\exp\left(-\kappa_\text{cis} v_h \overline{Q^2}_\text{H}\right)\mathrm{Var}_x\left[\overline{Q^2}(x)\right].
 \end{equation}
-Under random placement the uniform density therefore gives the largest expected reduction, so it does not understate the effect of linkage. This ordering assumes that loci are placed independently of local recombination rate. If selected alleles are concentrated where recombination is suppressed, as in pericentromeric regions or inversions (Kirkpatrick and Barton 2006; Yeaman 2013), their density in map distance rises. $\overline{Q^2}(x_j)$ then exceeds $\overline{Q^2}_\text{H}$, and the gap can close or reverse.
+Under random placement the uniform density therefore gives the largest expected reduction, so it does not understate the effect of linkage. This ordering assumes that loci are placed independently of local recombination rate. If selected alleles are concentrated where recombination is suppressed, as in pericentromeric regions or inversions~\cite{kirkpatrick2006,yeaman2013}, their density in map distance rises. $\overline{Q^2}(x_j)$ then exceeds $\overline{Q^2}_\text{H}$, and the gap can close or reverse.
 
 \ifdefined\isMainDocument
 \else
