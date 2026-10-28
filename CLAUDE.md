@@ -88,6 +88,10 @@ used everywhere in text; 10–590 birds, up to 35 mammals; the posterior-mode-wi
 is not quoted); exceeds 1 in 16 of 18, below 3× only in snow voles, red squirrels, meerkats.
 Diversity verdict robust to μ CI (min margin 1.66) and to δ×10 (breeders) unlinked; with linkage
 bighorn and song sparrow come within a few % at δ×10 (audit 2026-10-28). $2N_es^*$ = 2,900–320,000 (11 populations): strong-selection limit holds.
+**Target size (2026-10-28, `functional_target.R`, Fig. S_noncoding):** annotated target (CDS ∪ UTR ∪ ncRNA
+exons) = 0.8–2.0× the doubled exome (median 1.19), so the primary $U_d$ is *not* generous; with φ = 15% of
+unannotated sequence the median $\hat V_A/(U_d\bar s)$ falls 21 → 4 and only meerkats newly drop below 1
+(φ ≈ 3%). Linked $N_e/N$ moves ≤13% (Wytham +40%); every mapped population stays ≥70× short.
 
 **Linked (assigned DFE, `linked.R`):** total $N_e/N$ at the mode — great tits 0.019 (Wytham), 0.44
 (NL); song sparrow 0.077; collared flycatcher 0.68; mammals 0.24–0.48. Every population falls short
@@ -330,7 +334,10 @@ $V_A$ as input. Not competitors.
 9. **Staleness found 2026-10-28 (not fixed):** Fig. 3 linkage colour is teal in code, "green" in the
    caption (code stale; rerun `fig3_ceiling.R`); `data/README.md` κ range (1.22–1.93, now
    1.32–1.86); `data/processed/parameters.csv` unused; `genomic_parameters_summary.csv` blue-tit row is an
-   old assembly; `load_chromosomes()` defaults and `fig2_linked.R` l.238 comment stale.
+   old assembly; `load_chromosomes()` defaults and `fig2_linked.R` l.238 comment stale. Bighorn `Physical_Length_bp` in
+   `chromosomes.csv` is the last annotated coordinate (≤205 kb short; negligible). Red squirrel assembly
+   GCA_057657825.1 sums to 5.13 Gb of autosomes (check; it only affects $L_\text{other}$ in Fig. S_noncoding).
+   `figS_noncoding.R` writes `data/processed/noncoding_sensitivity.csv` (not a `00_prepare_data.R` output).
 
 ## Venue and prose authority
 
