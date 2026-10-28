@@ -82,7 +82,7 @@ above every upper 95% HPD (max 0.70); at the modes the bound falls short by 80×
 `manuscript/tables/tab_reduction.tex`.
 
 **MSD side** (18 populations, autosomal $L_\text{coding}$, $U_d = 4\mu L_\text{coding}$, both μ):
-$U_d$ 0.34–1.26 (direct μ). $s^* = V_A/U_d$ median 0.16 (phylo 0.115). $P(s^* > \bar s) \ge 0.89$ in
+$U_d$ 0.34–1.26 (direct μ). $s^* = V_A/U_d$ median 0.16 (phylo 0.12, point convention as in the text). $P(s^* > \bar s) \ge 0.89$ in
 17 of 18 (snow vole 0.70); $s^*/\bar s$ = $\hat V_A/(U_d\bar s)$ median **21** (point convention,
 used everywhere in text; 10–590 birds, up to 35 mammals; the posterior-mode-with-$U_d$-draws value 18
 is not quoted); exceeds 1 in 16 of 18, below 3× only in snow voles, red squirrels, meerkats.
@@ -322,11 +322,12 @@ $V_A$ as input. Not competitors.
 6. Supplementary figures `figS_gap.R`, `figS_rescaling_linked.R` not restyled to `theme_genetics.R`.
 7. Author's own clause-colons in Theory not yet removed.
 8. **Provenance decisions for the author (2026-10-28, marked `% TODO(author)` in Methods/Table S1):**
-   the species each $\mu_\text{phylo}$ (Wang & Obbard 2023 predictions) was predicted for; source of the
-   snow vole $\mu_\text{direct}$ CI (point value Bergeron 2023 *Mus*); Muro EPP 0.18 (by elimination from
+   $\mu_\text{phylo}$ species for the spotted hyena (others = the $\mu_\text{direct}$ species; meerkats *Felis
+   catus*, author 2026-10-28); whether Soay/bighorn should borrow from *Bos taurus* (Bovidae) rather than
+   *Cervus nippon*; source of the snow vole $\mu_\text{direct}$ CI (point value Bergeron 2023 *Mus*); hihi
+   chromosome-level assembly (author has requested access; NCBI has scaffold only); Muro EPP 0.18 (by elimination from
    Charmantier et al. 2004; Rouvière 0.14 and Pirio 0.25 confirmed in Charmantier & Blondel 2003);
-   flycatcher 0.15 (Björklund & Gustafsson 2013 Data S2 gives 0.5 EP offspring/clutch ≈ 8%, citing
-   Brommer et al. 2010; check Sheldon & Ellegren 1999 before keeping 0.15);
+   (flycatcher 0.15 confirmed 2026-10-28 in Sheldon & Ellegren 1999: 71/459 = 15.5%, Gotland 1994);
    Kimura 1969 formula in Appendix D.1.
    Resolved 2026-10-28: `alldistzip` = MCMC draws supplied by T. Bonnet (Data S1 holds only phenotypes
    and Ainv); LG↔chromosome by name, microchromosomes by physical-length/map-length agreement; baboon
@@ -336,7 +337,7 @@ $V_A$ as input. Not competitors.
    1.32–1.86); `data/processed/parameters.csv` unused; `genomic_parameters_summary.csv` blue-tit row is an
    old assembly; `load_chromosomes()` defaults and `fig2_linked.R` l.238 comment stale. Bighorn `Physical_Length_bp` in
    `chromosomes.csv` is the last annotated coordinate (≤205 kb short; negligible). Red squirrel assembly
-   GCA_057657825.1 sums to 5.13 Gb of autosomes (check; it only affects $L_\text{other}$ in Fig. S_noncoding).
+   GCA_057657825.1 sums to 5.13 Gb of autosomes — correct (NCBI genome 5.7 Gb haploid, hap2; author 2026-10-28).
    `figS_noncoding.R` writes `data/processed/noncoding_sensitivity.csv` (not a `00_prepare_data.R` output).
 
 ## Venue and prose authority

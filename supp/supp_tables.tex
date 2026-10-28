@@ -17,11 +17,11 @@
 \begin{table}[h!]
 \centering
 \footnotesize
-\caption{Sources of the inputs for each population. Assembly: NCBI accession (assembly name); all are of the study species except where a species is named. Map: published pedigree linkage map, where one was joined to the assembly. $\mu_\text{direct}$: species of the direct mutation-rate estimate, from the compilation of Lewin and Eyre-Walker~\cite{lewin2026}. $\pi$: source of nucleotide diversity. $N_c$: census size of the study species from Buffalo~\cite{buffalo2021}. A dash: none used.}
+\caption{Sources of the inputs for each population. Assembly: NCBI accession (assembly name); all are of the study species except where a species is named. Map: published pedigree linkage map, where one was joined to the assembly. $\mu$: species of the direct mutation-rate estimate, from the compilation of Lewin and Eyre-Walker~\cite{lewin2026}, and of the phylogenetic prediction of Wang and Obbard~\cite{wangobbard2023}, which is the same species except where noted. $\pi$: source of nucleotide diversity. $N_c$: census size of the study species from Buffalo~\cite{buffalo2021}. A dash: none used.}
 \label{tab:S_sources}
 \begin{tabular}{p{2.5cm}p{3.3cm}p{2.1cm}p{2.5cm}p{2.6cm}p{0.5cm}}
 \toprule
-Population & Assembly & Map & $\mu_\text{direct}$ & $\pi$ & $N_c$ \\
+Population & Assembly & Map & $\mu$ & $\pi$ & $N_c$ \\
 \midrule
 Blue tits (La Rouvi\`ere, Pirio, Muro) & GCF\_971803275.1 (bCyaCae1.hap1.1) & --- & own species~\cite{bergeron2023} & species mean~\cite{lewin2026} & yes \\
 Collared flycatchers (Gotland) & GCF\_000247815.1 (FicAlb1.5)~\cite{kawakami2014} & \cite{kawakami2014} & own species~\cite{smeds2016} & species mean~\cite{lewin2026} & yes \\
@@ -36,7 +36,7 @@ Bighorn sheep (Ram Mountain) & GCF\_042477335.2 (ARS-UI\_OviCan\_v2) & \cite{poi
 Rhesus macaques (Cayo Santiago) & GCF\_049350105.2 (T2T-MMU8v2.0) & male-only, captive~\cite{versoza2024} & own species~\cite{wang2020,bergeron2021} & species mean~\cite{lewin2026} & yes \\
 Yellow baboons (Amboseli) & GCF\_008728515.1 (Panubis1.0, \emph{Papio anubis})~\cite{batra2020} & \emph{P.\ hamadryas}, captive~\cite{rogers2000,cox2006} & \emph{Papio anubis}~\cite{wu2020} & \emph{P.\ anubis}~\cite{lewin2026} & --- \\
 Spotted hyenas (Ngorongoro) & GCF\_008692635.1 (BGI\_CrCroc\_1.0, scaffold-level)~\cite{yang2020} & --- & \emph{Panthera pardus}~\cite{armstrong2024,bergeron2023} & --- & --- \\
-Meerkats (Kalahari) & GCF\_006229205.1 (DNA Zoo Hi-C)~\cite{dudchenko2017} & --- & \emph{Neofelis nebulosa}~\cite{armstrong2024} & --- & --- \\
+Meerkats (Kalahari) & GCF\_006229205.1 (DNA Zoo Hi-C)~\cite{dudchenko2017} & --- & \emph{Neofelis nebulosa}~\cite{armstrong2024}; $\mu_\text{phylo}$, \emph{Felis catus} & --- & --- \\
 Snow voles (Churwalden) & GCF\_950005125.1 (mChiNiv1.1)~\cite{janzekovic2025} & --- & \emph{Mus musculus}~\cite{bergeron2023} & --- & --- \\
 Red squirrels (Kluane) & GCA\_057657825.1 (mTamHud3.hap1) & --- & \emph{Cavia aperea}~\cite{bergeron2023} & --- & --- \\
 \bottomrule
