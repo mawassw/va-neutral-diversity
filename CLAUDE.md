@@ -315,11 +315,11 @@ $V_A$ as input. Not competitors.
 6. Supplementary figures `figS_gap.R`, `figS_rescaling_linked.R` not restyled to `theme_genetics.R`.
 7. Author's own clause-colons in Theory not yet removed.
 8. **Provenance decisions for the author (2026-10-28, marked `% TODO(author)` in Methods/Table S1):**
-   which species/tip each $\mu_\text{phylo}$ was predicted for (author says Lewin & Eyre-Walker's
-   supplement, but the values are not in `data/lewin_eyre_walker_2026_data.xlsx`); source of the snow
-   vole $\mu_\text{direct}$ CI (the point value is Bergeron 2023 *Mus*); Pirio/Muro EPP split (sources
-   cited; only the per-site assignment of 0.25/0.18 is unconfirmed — needs Charmantier et al. 2004 full
-   text); flycatcher 0.15 read only second-hand; Kimura 1969 formula in Appendix D.1.
+   the species each $\mu_\text{phylo}$ (Wang & Obbard 2023 predictions) was predicted for; source of the
+   snow vole $\mu_\text{direct}$ CI (point value Bergeron 2023 *Mus*); Muro EPP 0.18 (by elimination from
+   Charmantier et al. 2004; Rouvière 0.14 and Pirio 0.25 confirmed in Charmantier & Blondel 2003);
+   flycatcher 0.15 (not in Björklund & Gustafsson 2013 main text; check Sheldon & Ellegren 1999);
+   Kimura 1969 formula in Appendix D.1.
    Resolved 2026-10-28: `alldistzip` = MCMC draws supplied by T. Bonnet (Data S1 holds only phenotypes
    and Ainv); LG↔chromosome by name, microchromosomes by physical-length/map-length agreement; baboon
    map Rogers 2000 except chr 5, 12, 18 (Cox 2006); gene counts → protein-coding only.
