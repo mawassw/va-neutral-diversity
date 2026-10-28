@@ -27,7 +27,10 @@ neutral diversity and too large for mutation–selection balance.*
 variation in fitness; the Introduction presents one literature for each. Precedents: effect —
 Buffalo & Kern 2024 (humans), Buffalo & Coop 2019/2020 (*Drosophila*); maintenance — Charlesworth
 2015 (PNAS 112:1662, *Drosophila*; acknowledge plainly, do not borrow significance; Johnson & Barton
-2005 related). Originality: (1) the same tests applied to wild vertebrates with directly measured
+2005 related). **Charlesworth & Jensen 2022** (GBE 14:evac096) already applied $1/(1+4V_A)$ to the
+*mean* of Bonnet's estimates (16–55% at unlinked sites; verified 2026-10-28) — credit it in the
+Introduction; the per-population tests with measured μ, DFE and π are ours. Their "order of magnitude
+above MSB" sentence is about *Drosophila* (Gardner 2005), not Bonnet. Originality: (1) the same tests applied to wild vertebrates with directly measured
 total-fitness $V_A$; (2) the analysis centres on how a pedigree snapshot must be scaled,
 $c = \bar V_A/\hat V_A$, to fit each model. Buffalo 2021 is a locating citation only. Connallon &
 Czuppon 2026 (*Evolution* 80:926, verified) makes no quantitative comparison of Bonnet's $V_A$ with
@@ -47,7 +50,7 @@ paragraph ends on the gap it leaves for wild vertebrates. Fisher is not named be
 3. **The two ends do not meet.** Under the multiplicative bound, a deficit $1/\delta$ needs
    $V_A \ge \ln(1/\delta)/(4\kappa_\text{max})$: ~1.15 for 100×, ~2.3 for 10⁴× under random mating
    (half with a pair bond), **1.1–1.7 for the nine observed deficits**. MSD needs $V_A \lesssim 10^{-2}$.
-   At measured values the small-variance form gives $N_e/N$ = 0.22–0.99 (median ~0.6); the
+   At measured values the small-variance form gives $N_e/N$ = 0.22–0.98 (median 0.61; multiplicative 0.53, bound 0.50 — "roughly halves" only with the multiplicative model named); the
    multiplicative model agrees except where $\hat V_A > 0.25$. The first-order inversion's "12–25" /
    "29–6,000" is outside its domain and **must not be quoted**.
    **Present the snapshot problem through $c$** (Fig. 5; Table 1 `tab:c` reads $c$ as a diagnostic of
@@ -77,8 +80,11 @@ above every upper 95% HPD (max 0.70); at the modes the bound falls short by 80×
 
 **MSD side** (18 populations, autosomal $L_\text{coding}$, $U_d = 4\mu L_\text{coding}$, both μ):
 $U_d$ 0.34–1.26 (direct μ). $s^* = V_A/U_d$ median 0.16 (phylo 0.115). $P(s^* > \bar s) \ge 0.89$ in
-17 of 18 (snow vole 0.70); $s^*/\bar s$ median 18 (0.45–480); mode exceeds $U_d\bar s$ in 16 of 18,
-median 21×. $2N_es^*$ = 2,900–320,000 (11 populations): strong-selection limit holds.
+17 of 18 (snow vole 0.70); $s^*/\bar s$ = $\hat V_A/(U_d\bar s)$ median **21** (point convention,
+used everywhere in text; 10–590 birds, up to 35 mammals; the posterior-mode-with-$U_d$-draws value 18
+is not quoted); exceeds 1 in 16 of 18, below 3× only in snow voles, red squirrels, meerkats.
+Diversity verdict robust to μ CI (min margin 1.66) and to δ×10 (breeders) unlinked; with linkage
+bighorn and song sparrow come within a few % at δ×10 (audit 2026-10-28). $2N_es^*$ = 2,900–320,000 (11 populations): strong-selection limit holds.
 
 **Linked (assigned DFE, `linked.R`):** total $N_e/N$ at the mode — great tits 0.019 (Wytham), 0.44
 (NL); song sparrow 0.077; collared flycatcher 0.68; mammals 0.24–0.48. Every population falls short
@@ -283,7 +289,10 @@ $V_A$ as input. Not competitors.
   `data/dfe_assignment.csv`): collared flycatcher own; other passerines pied + collared flycatcher
   ($\bar s$ = 0.0013); bighorn, Soay, red deer, hyena, meerkat vaquita + fin whale (0.0195); macaque,
   baboon human (0.0139); rodents house mouse. Lin et al. 2026 $|s|$ is heterozygous.
-- Linkage maps are sex-averaged; coding-bp $f_i$ is primary, gene count supplementary.
+- Linkage maps (sources in `supp/supp_tables.tex`, Table S1): sex-averaged **except** rhesus macaque
+  (Versoza 2024, male-only, captive Indian-origin) and baboon (*P. hamadryas* colony, sex-averaging
+  unconfirmed). Coding-bp $f_i$ is primary, gene count supplementary. π is a species-level
+  approximation to neutral diversity (Lewin & Eyre-Walker means mix 4-fold, synonymous, all sites).
 - **Analysis sets:** 19 for $V_A$-only/unlinked; "deficit set" (9, with π and $N_c$); "mapped set"
   for linked. Say which set each result uses.
 
@@ -305,6 +314,17 @@ $V_A$ as input. Not competitors.
    $N_e$ directly, fitness truncation; monogamy + EPP under Models A and B.
 6. Supplementary figures `figS_gap.R`, `figS_rescaling_linked.R` not restyled to `theme_genetics.R`.
 7. Author's own clause-colons in Theory not yet removed.
+8. **Provenance decisions for the author (2026-10-28, marked `% TODO(author)` in Methods/Table S1):**
+   origin of the `alldistzip` posterior draws (not in Bonnet Data S1); which species/tip each
+   $\mu_\text{phylo}$ was predicted for; the snow vole $\mu_\text{direct}$ (matches no Lewin entry);
+   Pirio/Muro EPP split (needs Charmantier et al. 2004 full text); flycatcher 0.15 read only
+   second-hand; basis of the curated LG↔chromosome correspondence and which baboon LGs come from which
+   paper; Kimura 1969 formula in Appendix D.1.
+9. **Staleness found 2026-10-28 (not fixed):** Fig. 3 linkage colour is teal in code, "green" in the
+   caption (code stale; rerun `fig3_ceiling.R`); gene counts are all `gene` features for 11 legacy
+   assemblies (recompute as protein-coding for Fig. S2); `data/README.md` κ range (1.22–1.93, now
+   1.32–1.86); `data/processed/parameters.csv` unused; `genomic_parameters_summary.csv` blue-tit row is an
+   old assembly; `load_chromosomes()` defaults and `fig2_linked.R` l.238 comment stale.
 
 ## Venue and prose authority
 

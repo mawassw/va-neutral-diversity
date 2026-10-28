@@ -1,0 +1,51 @@
+\ifdefined\isMainDocument
+\else
+    \documentclass{article}
+    \usepackage{fullpage}
+    \usepackage{amsmath, amsfonts, amssymb}
+    \usepackage{caption}
+    \usepackage{booktabs}
+    \usepackage{biblatex}
+    \addbibresource{../manuscript/references.bib}
+    \begin{document}
+\fi
+% Added 2026-10-28 (provenance audit): one row per population, the source of every input that is
+% not the V_A posterior. Accessions from genomic_data/*/assembly_data_report.jsonl; maps from
+% data/raw/species.xlsx (red deer identified from the map length); mu_direct relatives from
+% data/mutation_rate_sources.csv; pi from data/pi_literature.csv and Lewin & Eyre-Walker STable3.
+% TODO(author): snow vole mu_direct (5.35e-9) matches no Lewin & Eyre-Walker entry; confirm source.
+\section*{Supplementary Tables}
+\begin{table}[h!]
+\centering
+\footnotesize
+\caption{Sources of the inputs for each population. Assembly: NCBI accession (assembly name); all are of the study species except where a species is named. Map: published pedigree linkage map, where one was joined to the assembly. $\mu_\text{direct}$: species of the direct mutation-rate estimate, from the compilation of Lewin and Eyre-Walker~\cite{lewin2026}. $\pi$: source of nucleotide diversity. $N_c$: census size of the study species from Buffalo~\cite{buffalo2021}. A dash: none used.}
+\label{tab:S_sources}
+\begin{tabular}{p{2.5cm}p{3.3cm}p{2.1cm}p{2.5cm}p{2.6cm}p{0.5cm}}
+\toprule
+Population & Assembly & Map & $\mu_\text{direct}$ & $\pi$ & $N_c$ \\
+\midrule
+Blue tits (La Rouvi\`ere, Pirio, Muro) & GCF\_971803275.1 (bCyaCae1.hap1.1) & --- & own species~\cite{bergeron2023} & species mean~\cite{lewin2026} & yes \\
+Collared flycatchers (Gotland) & GCF\_000247815.1 (FicAlb1.5)~\cite{kawakami2014} & \cite{kawakami2014} & own species~\cite{smeds2016} & species mean~\cite{lewin2026} & yes \\
+Great tits (Wytham Woods, Hoge Veluwe) & GCF\_001522545.3 (Parus\_major1.1)~\cite{laine2016} & \cite{vanoers2014} & \emph{Cyanistes caeruleus}~\cite{bergeron2023} & ten European males~\cite{barton2019} & yes \\
+Song sparrows (Mandarte) & GCF\_035770615.1 (bMelMel2.pri) & \cite{nietlisbach2015} & \emph{Taeniopygia guttata}~\cite{bergeron2023} & \emph{M.\ m.\ rufina}~\cite{carbeck2023} & yes \\
+Superb fairy-wrens (Canberra) & GCA\_009741485.1 (mCya\_1.0, unannotated)~\cite{penalba2020} & --- & \emph{Taeniopygia guttata}~\cite{bergeron2023} & --- & --- \\
+Hihi (Tiritiri Matangi, Karori) & GCA\_013398075.1 (scaffold-level; B10K annotation)~\cite{feng2020} & --- & \emph{Ficedula albicollis}~\cite{smeds2016} & --- & --- \\
+\addlinespace
+Red deer (Rum) & GCF\_910594005.1 (mCerEla1.1)~\cite{pemberton2021} & \cite{johnston2017} & \emph{Cervus elaphus yarkandensis}~\cite{bergeron2023} & \emph{C.\ e.\ yarkandensis}~\cite{lewin2026} & --- \\
+Soay sheep (St Kilda) & GCF\_016772045.2 (ARS-UI\_Ramb\_v3.0, domestic sheep) & \cite{johnston2016} & \emph{Cervus nippon}~\cite{bergeron2023} & --- & --- \\
+Bighorn sheep (Ram Mountain) & GCF\_042477335.2 (ARS-UI\_OviCan\_v2) & \cite{poissant2010} & \emph{Cervus nippon}~\cite{bergeron2023} & six Rocky Mountain genomes~\cite{wang2023} & yes \\
+Rhesus macaques (Cayo Santiago) & GCF\_049350105.2 (T2T-MMU8v2.0) & male-only, captive~\cite{versoza2024} & own species~\cite{wang2020,bergeron2021} & species mean~\cite{lewin2026} & yes \\
+Yellow baboons (Amboseli) & GCF\_008728515.1 (Panubis1.0, \emph{Papio anubis})~\cite{batra2020} & \emph{P.\ hamadryas}, captive~\cite{rogers2000,cox2006} & \emph{Papio anubis}~\cite{wu2020} & \emph{P.\ anubis}~\cite{lewin2026} & --- \\
+Spotted hyenas (Ngorongoro) & GCF\_008692635.1 (BGI\_CrCroc\_1.0, scaffold-level)~\cite{yang2020} & --- & \emph{Panthera pardus}~\cite{armstrong2024,bergeron2023} & --- & --- \\
+Meerkats (Kalahari) & GCF\_006229205.1 (DNA Zoo Hi-C)~\cite{dudchenko2017} & --- & \emph{Neofelis nebulosa}~\cite{armstrong2024} & --- & --- \\
+Snow voles (Churwalden) & GCF\_950005125.1 (mChiNiv1.1)~\cite{janzekovic2025} & --- & \emph{Mus musculus} & --- & --- \\
+Red squirrels (Kluane) & GCA\_057657825.1 (mTamHud3.hap1) & --- & \emph{Cavia aperea}~\cite{bergeron2023} & --- & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\ifdefined\isMainDocument
+\else
+    \printbibliography
+    \end{document}
+\fi
