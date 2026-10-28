@@ -106,6 +106,7 @@ process_chromosomes <- function(species_path) {
   }
   
   # --- F. Calculate Gene Count ---
+  # STALE (2026-10-28): counts every gene feature; Gene_Count in data/raw/clean_chromosome_data.csv was recounted as protein-coding only (data/README.md).
   if ("gene" %in% unique(gr$type)) {
     genes_gr <- gr[gr$type == "gene"]
     gene_counts <- table(seqnames(genes_gr))

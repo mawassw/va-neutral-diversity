@@ -324,8 +324,7 @@ $V_A$ as input. Not competitors.
    and Ainv); LG↔chromosome by name, microchromosomes by physical-length/map-length agreement; baboon
    map Rogers 2000 except chr 5, 12, 18 (Cox 2006); gene counts → protein-coding only.
 9. **Staleness found 2026-10-28 (not fixed):** Fig. 3 linkage colour is teal in code, "green" in the
-   caption (code stale; rerun `fig3_ceiling.R`); gene counts are all `gene` features for 11 legacy
-   assemblies (recompute as protein-coding for Fig. S2); `data/README.md` κ range (1.22–1.93, now
+   caption (code stale; rerun `fig3_ceiling.R`); `data/README.md` κ range (1.22–1.93, now
    1.32–1.86); `data/processed/parameters.csv` unused; `genomic_parameters_summary.csv` blue-tit row is an
    old assembly; `load_chromosomes()` defaults and `fig2_linked.R` l.238 comment stale.
 

@@ -13,7 +13,8 @@
 #   data/species_EPP.csv                        mating system, EPP, mu, legacy Ud
 #   data/raw/clean_chromosome_data.csv          per-chromosome assembly stats
 #                                               (data_gen_2.R output; live
-#                                               intermediate despite living in raw/)
+#                                               intermediate despite living in raw/;
+#                                               Gene_Count protein-coding since 2026-10-28)
 #   data/assembly_stats_added.csv               assemblies added 2026-10-10
 #                                               (fetch_extract_assemblies.R)
 #   data/lg_orthology.csv                       map LG <-> assembly chromosome for
