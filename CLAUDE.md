@@ -32,7 +32,10 @@ Buffalo & Kern 2024 (humans), Buffalo & Coop 2019/2020 (*Drosophila*); maintenan
 Introduction; the per-population tests with measured μ, DFE and π are ours. Their "order of magnitude
 above MSB" sentence is about *Drosophila* (Gardner 2005), not Bonnet. Originality: (1) the same tests applied to wild vertebrates with directly measured
 total-fitness $V_A$; (2) the analysis centres on how a pedigree snapshot must be scaled,
-$c = \bar V_A/\hat V_A$, to fit each model. Buffalo 2021 is a locating citation only. Connallon &
+$c = \bar V_A/\hat V_A$, to fit each model; (3) **sizing what each equilibrium leaves to other processes**
+(2026-10-28): MSDB maintains ~1/20 of $\hat V_A$ in the median population, and $V_A$ accounts for ~2× of
+230–38,000× deficits — the quantitative version of Charlesworth & Jensen's qualitative "other forms of
+selection must contribute" (which they wrote about *Drosophila*). Precedent, not a question we answer. Buffalo 2021 is a locating citation only. Connallon &
 Czuppon 2026 (*Evolution* 80:926, verified) makes no quantitative comparison of Bonnet's $V_A$ with
 $U_d s$.
 
@@ -318,7 +321,8 @@ $V_A$ as input. Not competitors.
    the species each $\mu_\text{phylo}$ (Wang & Obbard 2023 predictions) was predicted for; source of the
    snow vole $\mu_\text{direct}$ CI (point value Bergeron 2023 *Mus*); Muro EPP 0.18 (by elimination from
    Charmantier et al. 2004; Rouvière 0.14 and Pirio 0.25 confirmed in Charmantier & Blondel 2003);
-   flycatcher 0.15 (not in Björklund & Gustafsson 2013 main text; check Sheldon & Ellegren 1999);
+   flycatcher 0.15 (Björklund & Gustafsson 2013 Data S2 gives 0.5 EP offspring/clutch ≈ 8%, citing
+   Brommer et al. 2010; check Sheldon & Ellegren 1999 before keeping 0.15);
    Kimura 1969 formula in Appendix D.1.
    Resolved 2026-10-28: `alldistzip` = MCMC draws supplied by T. Bonnet (Data S1 holds only phenotypes
    and Ainv); LG↔chromosome by name, microchromosomes by physical-length/map-length agreement; baboon
