@@ -26,7 +26,7 @@
 % Working copy (since 2026-10-17 the section files, not scratch.tex, are edited directly).
 % Rewritten 2026-10-21 (user): setup once; stationary variance -> inversion and its conditions
 % (symbols only; population numbers in Methods and Results) -> DFE -> fast purging -> the
-% unlinked limit of background selection. Retention and class weights are derived in A.4.
+% unlinked limit of background selection. retention factor and class weights are derived in A.4.
 
 \section{Mutation--selection--drift balance and the implied selection coefficient}\label{app:msdbapp}
 This appendix derives the variance that recurrent deleterious mutation maintains at mutation--selection--drift balance (Equation~\eqref{eq:VA_MSD}). It also gives the conditions under which that variance inverts to the implied selection coefficient of Equation~\eqref{eq:sstar}, the extension to a distribution of fitness effects, and the global reduction in effective size when deleterious alleles are purged quickly. Deleterious mutations arise at rate $U_d$ per diploid genome per generation, each at a new site. They are semidominant, with heterozygous effect $s$ on relative fitness (fitnesses $1$, $1-s$, $1-2s$), so a site at frequency $q$ contributes $2q(1-q)s^2$ to $V_A$. Under a distribution of fitness effects (DFE) with density $\varphi(s)$ and mean $\bar{s}$, class $k$ has effect $s_k$ and receives a fraction $\varphi_k$ of new mutations. The effective size is $N_e$.
@@ -49,13 +49,13 @@ Summing Equation~\eqref{eq:VA_MSD} over classes gives the variance a DFE maintai
     V_A^{\text{DFE}} = U_d \sum_k \varphi_k\, s_k\left[1 - \frac{4N_es_k}{e^{4N_es_k}-1}\right] \le U_d\,\bar{s},
 \label{eq:VA_forward}
 \end{equation}
-with equality in the strong-selection limit, where every class contributes $U_d\,s_k$ whatever the shape of the DFE. So $s^*$ estimates the arithmetic mean $\bar{s}$. Shape matters only through nearly neutral classes ($4N_es_k \lesssim 1$), which contribute less than $U_d\,s_k$. At a fixed mean, more mass there lowers the variance maintained. The analysis uses $U_d\,\bar{s}$ with the DFE assigned to each population~\cite{lin2026} (Methods). This is the upper limit of Equation~\eqref{eq:VA_forward}, and so the case most favorable to balance. DFEs inferred from site-frequency spectra constrain the large-effect tail poorly, so their means are partly extrapolations. The retention of each class at balance, $Z_k = 1 - s_k$, and its share of $V_A$, $\nu_k = \varphi_ks_k/\bar{s}$, are derived in Appendix~\ref{app:A_Z}.
+with equality in the strong-selection limit, where every class contributes $U_d\,s_k$ whatever the shape of the DFE. So $s^*$ estimates the arithmetic mean $\bar{s}$. Shape matters only through nearly neutral classes ($4N_es_k \lesssim 1$), which contribute less than $U_d\,s_k$. At a fixed mean, more mass there lowers the variance maintained. The analysis uses $U_d\,\bar{s}$ with the DFE assigned to each population~\cite{lin2026} (Methods). This is the upper limit of Equation~\eqref{eq:VA_forward}, and so the case most favorable to balance. DFEs inferred from site-frequency spectra constrain the large-effect tail poorly, so their means are partly extrapolations. The retention factor of each class at balance, $Z_k = 1 - s_k$, and its share of $V_A$, $\nu_k = \varphi_ks_k/\bar{s}$, are derived in Appendix~\ref{app:A_Z}.
 % UNVERIFIED: whether Lin et al. (2026) report s as the heterozygous or the homozygous effect;
 % if homozygous (h = 0.5) the heterozygous mean is s/2, which widens the gap. (Carried over from
 % the earlier Huber et al. 2017 / Kim et al. 2017 flag.)
 
 \subsection{The global reduction under fast purging}\label{app:D_purge}
-Alleles of large effect are purged within a few generations, so their associations with unlinked neutral sites decay faster than by segregation alone. At retention $Z_k = 1 - s_k$ the transmission factor of Equation~\eqref{eq:Q} is $Q_k = 2/(1 + s_k)$ in place of 2~\cite{santiago1998}; \cite[Appendix]{charlesworth2012}. Class $k$ carries the share $\nu_k$ of $V_A = U_d\bar{s}$, so the class average of $Q^2V_A$ is
+Alleles of large effect are purged within a few generations, so their associations with unlinked neutral sites decay faster than by segregation alone. At retention factor $Z_k = 1 - s_k$ the transmission factor of Equation~\eqref{eq:Q} is $Q_k = 2/(1 + s_k)$ in place of 2~\cite{santiago1998}; \cite[Appendix]{charlesworth2012}. Class $k$ carries the share $\nu_k$ of $V_A = U_d\bar{s}$, so the class average of $Q^2V_A$ is
 \begin{equation}
     \sum_k \nu_k\,Q_k^2\,V_A = 4U_d\,\bar{s}_\text{eff}, \qquad \bar{s}_\text{eff} = \sum_k \varphi_k\,\frac{s_k}{(1+s_k)^2} < \bar{s}.
 \label{eq:D_purge}
