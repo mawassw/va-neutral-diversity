@@ -83,7 +83,7 @@ above every upper 95% HPD (max 0.70); at the modes the bound falls short by 80×
 
 **MSD side** (18 populations, autosomal $L_\text{coding}$, $U_d = 4\mu L_\text{coding}$, both μ):
 $U_d$ 0.34–1.26 (direct μ). $s^* = V_A/U_d$ median 0.16 (phylo 0.12, point convention as in the text). $P(s^* > \bar s) \ge 0.89$ in
-17 of 18 (snow vole 0.70); $s^*/\bar s$ = $\hat V_A/(U_d\bar s)$ median **21** (point convention,
+17 of 18 (snow vole 0.72); $s^*/\bar s$ = $\hat V_A/(U_d\bar s)$ median **21** (point convention,
 used everywhere in text; 10–590 birds, up to 35 mammals; the posterior-mode-with-$U_d$-draws value 18
 is not quoted); exceeds 1 in 16 of 18, below 3× only in snow voles, red squirrels, meerkats.
 Diversity verdict robust to μ CI (min margin 1.66) and to δ×10 (breeders) unlinked; with linkage
@@ -233,7 +233,7 @@ required only there.
   "optimistic", "most favourable to explaining").
 - **Captions:** bold first sentence stating the figure's claim (supersedes the 2026-10-23
   "descriptive caption" choice), then description; no formulas, equation refs or citations beyond
-  what defines a plotted quantity. Fig. 3 / Fig. S4 linkage color is "green".
+  what defines a plotted quantity. Fig. 3 / Fig. S4 linkage color is "teal" (`#01665E`, as drawn; author 2026-10-29).
 - **rmt-pca voice items adopted 2026-10-27:** a question opener at most once in Results
   (`sec:res_deficit`); graded plausibility diction ("large but not inconceivable"); an
   "Intuitively," sentence after a formal result; derived (not data) worked numbers allowed in
@@ -312,20 +312,22 @@ $V_A$ as input. Not competitors.
 4. **Citations (2026-10-27):** every citation is `\cite{}` (biblatex `numeric-comp`, `sorting=none`,
    10 names before "et al."); `references.bib` holds all 92 cited works, Crossref-checked. Keys are
    first author + year (`buffaloKern2024`, `wangobbard2023`); new citations follow the same scheme.
-   Narrative citations keep the names ("Charlesworth~\cite{...}"). Still to confirm: Crow 1958 and
-   Lewontin 1974 (no DOI, `% UNVERIFIED`); identity of Barton 1998 (hitchhiking genealogies; not yet
-   read), Mawass & Milot 2025 (taken as the JEB pedigree-attributes paper), Engen et al. 2005 (the
-   *Genetics* age-structure paper); Henderson 1975 end page. (Kimura 1969 and all pinpoint equation
-   citations confirmed by the author 2026-10-29.)
+   Narrative citations keep the names ("Charlesworth~\cite{...}"). Still to confirm: identity of
+   Barton 1998 (hitchhiking genealogies; not yet read), Mawass & Milot 2025 (taken as the JEB
+   pedigree-attributes paper), Engen et al. 2005 (the *Genetics* age-structure paper). Resolved
+   2026-10-29: Kimura 1969 and all pinpoint equation citations (author); Henderson 1975 pp. 423–447;
+   Crow 1958 has a JSTOR URL (pre-DOI); Lewontin 1974 is the book (no DOI — 10.1093/ije/dyl062 is a
+   different 1974 Lewontin paper).
 5. **SLiM test** (once installed): additive vs multiplicative maps at $V_A$ = 0.01–1.5, measuring
    $N_e$ directly, fitness truncation; monogamy + EPP under Models A and B.
 6. Supplementary figures `figS_gap.R`, `figS_rescaling_linked.R` not restyled to `theme_genetics.R`.
 7. Author's own clause-colons in Theory not yet removed.
 8. **Provenance decisions for the author (2026-10-28, marked `% TODO(author)` in Methods/Table S1):**
-   source of the snow vole $\mu_\text{direct}$ CI (point value Bergeron 2023 *Mus*); hihi
-   chromosome-level assembly (author has requested access; NCBI has scaffold only); Muro EPP 0.18 (by elimination from
-   Charmantier et al. 2004; Rouvière 0.14 and Pirio 0.25 confirmed in Charmantier & Blondel 2003);
-   (flycatcher 0.15 confirmed 2026-10-28 in Sheldon & Ellegren 1999: 71/459 = 15.5%, Gotland 1994);
+   hihi chromosome-level assembly (author has requested access, 2026-10-28; NCBI has scaffold only).
+   EPP all confirmed: Rouvière 0.14 and Pirio 0.25 (Charmantier & Blondel 2003), Muro 0.18 (Charmantier
+   et al. 2004, author 2026-10-29), flycatcher 0.15 (Sheldon & Ellegren 1999: 71/459 = 15.5%, 1994).
+   Snow vole $\mu_\text{direct}$ switched 2026-10-29 to Lewin STable1 *Mus* 5.08e-9 [4.73, 5.56]e-9 (was
+   5.35e-9 with an unsourced CI); Fig. 4, S_gap, S_noncoding regenerated.
    Resolved 2026-10-28: `alldistzip` = MCMC draws supplied by T. Bonnet (Data S1 holds only phenotypes
    and Ainv); LG↔chromosome by name, microchromosomes by physical-length/map-length agreement; baboon
    map Rogers 2000 except chr 5, 12, 18 (Cox 2006); gene counts → protein-coding only. 2026-10-29:
@@ -335,8 +337,7 @@ $V_A$ as input. Not competitors.
    citations checked by the author against the sources (SC95 Eq 16, SC98 Eq 8, Charlesworth 2012 App.,
    de Villemereuil 2016 Eqs 15-16, B&K24 S-Eqs 28-29/32/33, B&E 2011 App. B, Woolliams 1999 Eq 6b,
    Kimura 1969); Appendix D.1 now writes E[H] in 4N_es (no β, which Methods uses for the gamma scale).
-9. **Staleness found 2026-10-28 (not fixed):** Fig. 3 linkage colour is teal in code, "green" in the
-   caption (code stale; rerun `fig3_ceiling.R`); `data/README.md` κ range (1.22–1.93, now
+9. **Staleness found 2026-10-28 (not fixed):** `data/README.md` κ range (1.22–1.93, now
    1.32–1.86); `data/processed/parameters.csv` unused; `genomic_parameters_summary.csv` blue-tit row is an
    old assembly; `load_chromosomes()` defaults and `fig2_linked.R` l.238 comment stale. Bighorn `Physical_Length_bp` in
    `chromosomes.csv` is the last annotated coordinate (≤205 kb short; negligible). Red squirrel assembly

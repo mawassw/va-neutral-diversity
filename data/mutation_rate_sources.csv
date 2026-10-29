@@ -1,6 +1,6 @@
 code,mu_direct_species,mu_direct_relation,mu_direct_note
 RD,Cervus elaphus yarkandensis,subspecies,Bergeron et al. 2023 via Lewin & Eyre-Walker 2026 STable1
-SV,Mus musculus,same superfamily (Muroidea),value 5.35e-9 matches no single STable1 entry; close to a Wang & Obbard 2023 compilation entry for Mus musculus (5.34e-9); source of the CI not recorded
+SV,Mus musculus,same superfamily (Muroidea),Lewin & Eyre-Walker 2026 STable1 Mus_musculus u_mean 5.08e-9 [4.73e-9, 5.56e-9] (mean of the STable2 direct estimates, incl. Bergeron et al. 2023 5.34e-9); switched 2026-10-29 from 5.35e-9 [3.46e-9, 8.26e-9], whose CI had no recorded source, for consistency with every other population
 NH,Panthera pardus,same suborder (Feliformia),no direct estimate for Hyaenidae or Herpestidae
 BTR,Cyanistes caeruleus,own species,Bergeron et al. 2023
 BTP,Cyanistes caeruleus,own species,Bergeron et al. 2023
