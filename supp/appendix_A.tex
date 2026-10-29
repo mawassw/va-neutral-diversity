@@ -36,11 +36,15 @@ Follow a neutral gene copy carried by an ancestor with breeding value $z$. We fo
 \begin{equation}
     R(z) = \exp\left[Q(z - \bar{z}) - \tfrac12 Q^2V_A\right], \qquad Q = 2. \label{eq:A_R}
 \end{equation}
-The rate of inbreeding is proportional to the second moment of long-term contributions~\cite{wray1990}, and the probability that an ancestor is involved in a coalescence goes as the square of $R$~\cite{barton2011}. Hence
+Two neutral copies sampled in a distant generation coalesce in the ancestral generation when both descend from the same ancestral copy. Copy $j$, carried by an ancestor with breeding value $z_j$, is the source of a fraction $p_j = R(z_j)/\sum_k R(z_k) = R(z_j)/(2N\,\mathbb{E}[R])$ of later copies, and both sampled copies trace to it with probability $p_j^2$~\cite{barton2011}. Summing over the $2N$ ancestral copies gives the rate of inbreeding~\cite{wray1990},
 \begin{equation}
-    \frac{N}{N_e} = \frac{\mathbb{E}[R^2]}{\mathbb{E}[R]^2}, \label{eq:A_ratio}
+    \Delta F = \sum_{j=1}^{2N} p_j^2 = \frac{1}{2N}\,\frac{\mathbb{E}[R^2]}{\mathbb{E}[R]^2}. \label{eq:A_dF}
 \end{equation}
-which is one when $V_A = 0$, the Poisson baseline. Because $\log R$ is Gaussian, the ratio is $\exp[\mathrm{Var}(\log R)]$. Under random mating $\mathrm{Var}(\log R) = Q^2V_A = 4V_A$, so
+Without heritable variance every copy has $R = \mathbb{E}[R]$ and $\Delta F = 1/(2N)$, the Poisson baseline. Heritable variance replaces $\mathbb{E}[R]^2$ by $\mathbb{E}[R^2]$, and setting $\Delta F = 1/(2N_e)$ gives
+\begin{equation}
+    \frac{N_e}{N} = \frac{\mathbb{E}[R]^2}{\mathbb{E}[R^2]}. \label{eq:A_ratio}
+\end{equation}
+Because $\log R$ is Gaussian, the ratio is $\exp[-\mathrm{Var}(\log R)]$. Under random mating $\mathrm{Var}(\log R) = Q^2V_A = 4V_A$, so
 \begin{equation}
     \frac{N_e}{N} = e^{-4V_A}. \label{eq:A_mult}
 \end{equation}
@@ -51,7 +55,7 @@ This is the $e^{4V_A}$ increase in the rate of coalescence that Weissman and Bar
 Weissman and Barton~\cite{weissman2012} find the same factor, $e^{-8V_A}$, for the reduction in fixation probability under monogamy. Equation~\eqref{eq:A_mono} is the multiplicative-model form of the pair-mated family variance $C^2 = 2V_A$ of Santiago and Caballero~\cite{santiago1995}.
 
 \subsection{The small-variance approximation}\label{app:A_first}
-For small $V_A$, $R \approx 1 + Q(z - \bar{z})$, and Equation~\eqref{eq:A_ratio} gives $N/N_e = 1 + \mathrm{Var}(R) = 1 + Q^2V_A$, the expansion of Equation~\eqref{eq:A_mult}:
+For small $V_A$, $R \approx 1 + Q(z - \bar{z})$, so $\mathbb{E}[R^2] = 1 + \mathrm{Var}(R) = 1 + Q^2V_A$, and Equation~\eqref{eq:A_ratio} gives the expansion of Equation~\eqref{eq:A_mult}:
 \begin{equation}
     \frac{N_e}{N} = \frac{1}{1 + Q^2V_A}. \label{eq:A_first}
 \end{equation}
