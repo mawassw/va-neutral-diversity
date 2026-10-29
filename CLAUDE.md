@@ -56,7 +56,7 @@ paragraph ends on the gap it leaves for wild vertebrates. Fisher is not named be
    At measured values the small-variance form gives $N_e/N$ = 0.22–0.98 (median 0.61; multiplicative 0.53, bound 0.50 — "roughly halves" only with the multiplicative model named); the
    multiplicative model agrees except where $\hat V_A > 0.25$. The first-order inversion's "12–25" /
    "29–6,000" is outside its domain and **must not be quoted**.
-   **Present the snapshot problem through $c$** (Fig. 5; Table 1 `tab:c` reads $c$ as a diagnostic of
+   **Present the snapshot problem through $c$** (Fig. 5; Table 2 `tab:c` reads $c$ as a diagnostic of
    non-equilibrium). Diversity needs $c \approx 9$ on average (2.4–80, median 14). MSD, evaluated at
    each population's assigned empirical $\bar s$ (`data/dfe_assignment.csv`), needs $c \lesssim 0.024$
    on average (0.0017–0.11): a gap of ~390× on average, 108–1,890× per population. No single $c$
@@ -180,6 +180,19 @@ bridge citation. They coincide at unlinked sites (why the global $N_e$ is global
 linkage, the homologous haplotype, and the social partner. Consequence: a pedigree supplies all the
 global reduction needs; the local reduction needs segment inputs ($f_i$, $Z_k$), which is why MSDB is
 required only there.
+
+**Long-term contribution as the shared basis (2026-10-29).** Robertson/SC 1995, Woolliams et al.
+1999 and B&E 2011/W&B 2012 all compute $R$; at unlinked sites $N/N_e = \mathbb E[R^2]/\mathbb E[R]^2$
+(`eq:ratio`, Theory `sec:unlinked`, moved from Appendix A). They differ only in $R$'s dependence on
+breeding values: linear with slope $Q$, $Z$ a parameter (SC → $Q$, $Z_k$); linear regression on
+several advantages (Woolliams → κ(α), own/partner/cis); exponential, $Z = 1$ exactly (B&E →
+multiplicative model, bound, $\kappa_\text{max}$). State each model's role where it is used; Table
+`tab:models` (Theory, end of `sec:onemodel`) maps them. κ = variance of $R$ averaged over sexes in
+units of $4V_A$; $\kappa_\text{max}$ the same for $\log R$. $\hat V_A$ = variance of $R$'s first
+factor (own expected relative breeding success); $Q = 2$ = descendants add as much again. **Shared
+assumption** = same selection over the few generations a contribution spans (SC's steady retention,
+general form), **not** constancy of $V_A$ over the coalescent window. **Exact only at unlinked sites**;
+at linked sites the segment's contribution sets drift.
 
 ### Wording conventions — every section, figure, caption
 
