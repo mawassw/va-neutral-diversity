@@ -315,23 +315,26 @@ $V_A$ as input. Not competitors.
    Narrative citations keep the names ("Charlesworth~\cite{...}"). Still to confirm: Crow 1958 and
    Lewontin 1974 (no DOI, `% UNVERIFIED`); identity of Barton 1998 (hitchhiking genealogies; not yet
    read), Mawass & Milot 2025 (taken as the JEB pedigree-attributes paper), Engen et al. 2005 (the
-   *Genetics* age-structure paper), Kimura 1969 (*Genetics* 61:893); Henderson 1975 end page; SC 1998
-   Eq. 8 and Kimura 1969 equation numbers.
+   *Genetics* age-structure paper); Henderson 1975 end page. (Kimura 1969 and all pinpoint equation
+   citations confirmed by the author 2026-10-29.)
 5. **SLiM test** (once installed): additive vs multiplicative maps at $V_A$ = 0.01–1.5, measuring
    $N_e$ directly, fitness truncation; monogamy + EPP under Models A and B.
 6. Supplementary figures `figS_gap.R`, `figS_rescaling_linked.R` not restyled to `theme_genetics.R`.
 7. Author's own clause-colons in Theory not yet removed.
 8. **Provenance decisions for the author (2026-10-28, marked `% TODO(author)` in Methods/Table S1):**
-   $\mu_\text{phylo}$ species for the spotted hyena (others = the $\mu_\text{direct}$ species; meerkats *Felis
-   catus*, author 2026-10-28); whether Soay/bighorn should borrow from *Bos taurus* (Bovidae) rather than
-   *Cervus nippon*; source of the snow vole $\mu_\text{direct}$ CI (point value Bergeron 2023 *Mus*); hihi
+   source of the snow vole $\mu_\text{direct}$ CI (point value Bergeron 2023 *Mus*); hihi
    chromosome-level assembly (author has requested access; NCBI has scaffold only); Muro EPP 0.18 (by elimination from
    Charmantier et al. 2004; Rouvière 0.14 and Pirio 0.25 confirmed in Charmantier & Blondel 2003);
    (flycatcher 0.15 confirmed 2026-10-28 in Sheldon & Ellegren 1999: 71/459 = 15.5%, Gotland 1994);
-   Kimura 1969 formula in Appendix D.1.
    Resolved 2026-10-28: `alldistzip` = MCMC draws supplied by T. Bonnet (Data S1 holds only phenotypes
    and Ainv); LG↔chromosome by name, microchromosomes by physical-length/map-length agreement; baboon
-   map Rogers 2000 except chr 5, 12, 18 (Cox 2006); gene counts → protein-coding only.
+   map Rogers 2000 except chr 5, 12, 18 (Cox 2006); gene counts → protein-coding only. 2026-10-29:
+   $\mu_\text{phylo}$ = Wang & Obbard predictions for the $\mu_\text{direct}$ species (hyena *Panthera
+   pardus*; meerkats *Felis catus*); Soay/bighorn keep *Cervus nippon* (author; *Bos* direct rate is a
+   CI-less preprint; *Capra* alternative recorded in Methods comment). All pinpoint equation/section
+   citations checked by the author against the sources (SC95 Eq 16, SC98 Eq 8, Charlesworth 2012 App.,
+   de Villemereuil 2016 Eqs 15-16, B&K24 S-Eqs 28-29/32/33, B&E 2011 App. B, Woolliams 1999 Eq 6b,
+   Kimura 1969); Appendix D.1 now writes E[H] in 4N_es (no β, which Methods uses for the gamma scale).
 9. **Staleness found 2026-10-28 (not fixed):** Fig. 3 linkage colour is teal in code, "green" in the
    caption (code stale; rerun `fig3_ceiling.R`); `data/README.md` κ range (1.22–1.93, now
    1.32–1.86); `data/processed/parameters.csv` unused; `genomic_parameters_summary.csv` blue-tit row is an
