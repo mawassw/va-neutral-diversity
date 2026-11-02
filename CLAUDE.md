@@ -245,6 +245,15 @@ at linked sites the segment's contribution sets drift.
   that precedes math.
 - **"Biased toward passing"** is the one phrase for approximations chosen to favor a test (not
   "optimistic", "most favourable to explaining").
+- **Discussion and Abstract state a model's conditions, not its name (2026-11-02).** Not "under the
+  multiplicative model" but "if the effects of loci on fitness multiply and breeding values for
+  log-fitness are normally distributed (as the animal model assumes)"; the bound adds "nothing limits
+  the fitness of the most favored lineages and socially monogamous partners share all their
+  offspring"; the small-variance approximation is "an approximation that holds while the variance is
+  small". Theory/Results/Methods keep the names.
+- Discussion ¶1 compares the median unlinked reduction with Charlesworth & Jensen 2022 (16–55% from
+  the mean estimate). C&J 2022 is now cited in three Discussion paragraphs (¶1 and the two demography
+  paragraphs), against the one-paragraph rule — author to consolidate.
 - **Captions:** bold first sentence stating the figure's claim (supersedes the 2026-10-23
   "descriptive caption" choice), then description; no formulas, equation refs or citations beyond
   what defines a plotted quantity. Fig. 3 / Fig. S4 linkage color is "teal" (`#01665E`, as drawn; author 2026-10-29).
