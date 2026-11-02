@@ -250,6 +250,21 @@ at linked sites the segment's contribution sets drift.
   that precedes math.
 - **"Biased toward passing"** is the one phrase for approximations chosen to favor a test (not
   "optimistic", "most favourable to explaining").
+- **The wording must not stand between the reader and the claim (author, 2026-11-02).** Five checks,
+  applied to the whole Discussion on 2026-11-02: (1) **no label for content**, so state a model's
+  conditions, not its name, and no symbols or acronym-terms ($c$, δ, $U_d$, "global/local reduction",
+  "coalescent window", "strong-selection regime", "Santiago–Caballero prediction") in Discussion
+  prose; (2) **no figurative verbs** that hide the claim ("locate", "place against", "absorb",
+  "capture", "bear on", "point to", "integrate", "leave traces"); (3) **an abstraction does not act**,
+  so "our test shows that …", never "the test leaves / extends / brings / asks"; (4) **evidence
+  before the general claim**, with the claim in a closing *so* clause; (5) **anchor a result to the
+  matching published one where it is stated**, and cut clauses that add nothing. Applied to Abstract,
+  Introduction, Theory, Methods and Results on 2026-11-02 too (there, check 1 only for terms used
+  before definition or names standing in for needed conditions; symbols stay). Kept at the author's
+  request: Discussion ¶1 "both equilibria leave most of what they are meant to explain"; author's
+  Overleaf "Compared against" in Discussion ¶1 left as written.
+- Discussion is ~400 words longer after the 2026-11-02 de-labelling pass (target ~1,800); a
+  compaction pass is due.
 - **Discussion and Abstract state a model's conditions, not its name (2026-11-02).** Not "under the
   multiplicative model" but "if the effects of loci on fitness multiply and breeding values for
   log-fitness are normally distributed (as the animal model assumes)"; the bound adds "nothing limits
