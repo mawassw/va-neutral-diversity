@@ -182,8 +182,9 @@ global reduction needs; the local reduction needs segment inputs ($f_i$, $Z_k$),
 required only there.
 
 **Long-term contribution as the shared basis (2026-10-29).** Robertson/SC 1995, Woolliams et al.
-1999 and B&E 2011/W&B 2012 all compute $R$; at unlinked sites $N/N_e = \mathbb E[R^2]/\mathbb E[R]^2$
-(`eq:ratio`, Theory `sec:unlinked`, moved from Appendix A). They differ only in $R$'s dependence on
+1999 and B&E 2011/W&B 2012 all compute $R$; at unlinked sites $N_e/N = \mathbb E[R]^2/\mathbb E[R^2]$
+(`eq:ratio`, displayed in Theory `sec:unlinked`; derived from the coalescence sum in Appendix A as
+`eq:A_ratio`, which is $N_{eC}$, not single-generation $N_{eV}$). They differ only in $R$'s dependence on
 breeding values: linear with slope $Q$, $Z$ a parameter (SC → $Q$, $Z_k$); linear regression on
 several advantages (Woolliams → κ(α), own/partner/cis); exponential, $Z = 1$ exactly (B&E →
 multiplicative model, bound, $\kappa_\text{max}$). State each model's role where it is used; Table

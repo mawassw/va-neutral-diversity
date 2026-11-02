@@ -18,14 +18,21 @@
     \renewcommand{\thefigure}{S\arabic{figure}}
 \fi
 % Supplementary figures (added 2026-10-20 with the Results draft), numbered S1, S2, ... by
-% \beginsupplement in _main.tex, in order of first citation in Results.
+% \beginsupplement in _main.tex, in order of first citation in the main text (S_kappa from Theory, the rest from Results).
 
 \section*{Supplementary Figures}
 
 \begin{figure}[h!]
     \centering
+    \includegraphics[width=0.5\textwidth]{FigS_kappa}
+    \caption{\textbf{Extra-pair paternity lowers the mating-system scalar, and under Model B it stays above the random-mating value.} The scalar $\kappa$ against the extra-pair paternity rate $\alpha$, with Model B (extra-pair success proportional to a male's breeding value; primary) in blue and Model A (extra-pair siring independent of it; sensitivity) in orange. Both models give $\kappa = 2$ under strict monogamy. Under Model A, $\kappa$ drops below the random-mating value (dashed line) once $\alpha$ exceeds 0.44. Points and ticks mark the eleven socially monogamous populations at their extra-pair paternity rates.}
+    \label{fig:S_kappa}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
     \includegraphics[width=\textwidth]{FigS_omega}
-    \caption{\textbf{The linked factor is steeply nonlinear in the measured variance.} The linked factor alone, $\overline{\Omega}$, is genome-wide $N_e/N$ with linkage relative to the unlinked value at the same retention, for the nine populations with linkage maps, at the empirical DFE assigned to each population. Dot: at the posterior mode of $\hat{V}_A$; bar: over its 95\% HPD.}
+    \caption{\textbf{The linked factor is steeply nonlinear in the measured variance.} The linked factor alone, $\overline{\Omega}$, is genome-wide $N_e/N$ with linkage relative to the unlinked value at the same retention factor, for the nine populations with linkage maps, at the empirical DFE assigned to each population. Dot: at the posterior mode of $\hat{V}_A$; bar: over its 95\% HPD.}
     \label{fig:S_omega}
 \end{figure}
 
@@ -55,6 +62,13 @@
     \includegraphics[width=0.85\textwidth]{FigS_rescaling_linked}
     \caption{\textbf{Linkage narrows the gap between the two tests but does not resolve it.} As Figure~\ref{fig:rescaling}, with linkage, for the six populations with both an observed deficit and a linkage map (collared flycatchers, rhesus macaques, song sparrows, bighorn sheep and both great tit populations). Blue: $\bar{V}_A/(U_d\bar{s})$. Orange dashed: predicted relative to observed diversity, unlinked, under the multiplicative bound. Green: the same with linkage, multiplied by $\overline{\Omega}(\bar{V}_A)$ at the same assigned DFE, so that both tests share a single distribution of effects. Open circle: the average at $c = U_d\bar{s}/\hat{V}_A$, where the variance is what that DFE maintains, which is the self-consistent prediction of MSDB with background selection. Bold: species averages of the $\log_{10}$ ratio (great tits averaged first); faint: populations.}
     \label{fig:S_rescaling_linked}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{FigS_maps}
+    \caption{\textbf{The linear map and the mid-segment value depart from the Haldane average only on long maps with fast purging, and the mid-segment value briefly overshoots on short ones.} Each value is relative to the Haldane chromosome average $\overline{Q^2}_\text{H}$ used in the analysis, for a single class of deleterious mutations purged at rate $s$. (a) Against map length, at three purging rates. Solid: the linear-map value at the middle of the segment, as used by Buffalo and Kern; dashed: the linear-map chromosome average. (b) The mid-segment value over map length and purging rate. Dashed line: $M = s$, below which the chromosome approaches complete linkage; dotted line: $M = 1/s$, above which it approaches free recombination.}
+    \label{fig:S_maps}
 \end{figure}
 
 \ifdefined\isMainDocument
