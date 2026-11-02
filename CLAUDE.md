@@ -245,6 +245,11 @@ at linked sites the segment's contribution sets drift.
   that precedes math.
 - **"Biased toward passing"** is the one phrase for approximations chosen to favor a test (not
   "optimistic", "most favourable to explaining").
+- **A test shows; it does not act (2026-11-02).** "Our diversity test shows that …", never "the test
+  leaves / extends / brings …". Remaining instances for the author: Results "the multiplicative
+  bound leaves these deficits unexplained", "The two tests ask opposite things"; Introduction "Each
+  test therefore asks"; Discussion "our maintenance test asks", "both equilibria leave most of what
+  they are meant to explain" (kept 2026-11-02 at the author's request).
 - **Discussion and Abstract state a model's conditions, not its name (2026-11-02).** Not "under the
   multiplicative model" but "if the effects of loci on fitness multiply and breeding values for
   log-fitness are normally distributed (as the animal model assumes)"; the bound adds "nothing limits
