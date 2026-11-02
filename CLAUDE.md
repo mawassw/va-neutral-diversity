@@ -85,9 +85,12 @@ above every upper 95% HPD (max 0.70); at the modes the bound falls short by 80×
 $U_d$ 0.34–1.26 (direct μ). $s^* = V_A/U_d$ median 0.16 (phylo 0.12, point convention as in the text). $P(s^* > \bar s) \ge 0.89$ in
 17 of 18 (snow vole 0.72); $s^*/\bar s$ = $\hat V_A/(U_d\bar s)$ median **21** (point convention,
 used everywhere in text; 10–590 birds, up to 35 mammals; the posterior-mode-with-$U_d$-draws value 18
-is not quoted); exceeds 1 in 16 of 18, below 3× only in snow voles, red squirrels, meerkats.
-Diversity verdict robust to μ CI (min margin 1.66) and to δ×10 (breeders) unlinked; with linkage
-bighorn and song sparrow come within a few % at δ×10 (audit 2026-10-28). $2N_es^*$ = 2,900–320,000 (11 populations): strong-selection limit holds.
+is not quoted); exceeds 1 in 16 of 18 (not snow voles 0.65, red squirrels 0.82), between 1 and 3 only in
+meerkats (2.0). Quantities derived from $s^*$ itself (range 0.0064–0.64, $2N_es^*$, $U_d/2V_A$ = 3.3
+[0.78–78], purging 0.37–0.99) use the Fig. 4 posterior modes (audit 2026-11-02).
+Diversity verdict robust to μ CI (min margin 1.66) and to δ×10 (breeders) unlinked (1.17 with both);
+with linkage, under the bound, bighorn/song sparrow at δ×10 reach 1.01/1.03 of their upper HPD at point
+μ and **pass (0.86/0.96) at the low end of the μ CI** (audit 2026-11-02). $2N_es^*$ = 2,900–320,000 (11 populations): strong-selection limit holds.
 **Target size (2026-10-28, `functional_target.R`, Fig. S_noncoding):** annotated target (CDS ∪ UTR ∪ ncRNA
 exons) = 0.8–2.0× the doubled exome (median 1.19), so the primary $U_d$ is *not* generous; with φ = 15% of
 unannotated sequence the median $\hat V_A/(U_d\bar s)$ falls 21 → 4 and only meerkats newly drop below 1
@@ -366,6 +369,19 @@ $V_A$ as input. Not competitors.
    `chromosomes.csv` is the last annotated coordinate (≤205 kb short; negligible). Red squirrel assembly
    GCA_057657825.1 sums to 5.13 Gb of autosomes — correct (NCBI genome 5.7 Gb haploid, hap2; author 2026-10-28).
    `figS_noncoding.R` writes `data/processed/noncoding_sensitivity.csv` (not a `00_prepare_data.R` output).
+10. **Numbers audit 2026-11-02 (`worktree-numbers-audit`).** All scripts rerun; `00_prepare_data.R` and
+   `tab_reduction.tex` reproduce exactly. Fixed in text: listed in that commit. **Author decisions open:**
+   (a) linked diversity test uses the small-variance global factor in Fig. 2 but the bound in Fig. 3 /
+   S_rescaling_linked (Methods says each is "biased toward passing", which the small-variance form is
+   not); results:63 now quotes both shortfalls (75 vs 53 bighorn). (b) Abstract ≈286 words vs the 250
+   limit its comment claims. (c) φ means both DFE density (notation) and unannotated-target fraction
+   (Methods, Fig. S_noncoding); b, μ₃, c̄/c_k, L also reused in appendices. (d) Flycatcher α: data 0.15,
+   source 71/459 = 0.155 (κ 1.79 vs 1.78). (e) Site labels differ between Table 1 and Table S1
+   (Graubünden/Churwalden, Isle of Rum/Rum, St. Kilda/St Kilda). (f) Appendix C quadrature check
+   states Z 0.5–0.999, M ≥ 0.05; DFE classes and great-tit microchromosomes (0.037 M) lie outside it
+   (`linked.R` header records a wider check). Not reproducible here: `functional_target.R` (LFS GFF
+   objects missing locally); its committed CSV is current. Ad hoc numbers with no script: 3,240-fold
+   (recomputes 3,270 per population at own c_MSD), δ×10 linked margins, μ-CI margins.
 
 ## Venue and prose authority
 
