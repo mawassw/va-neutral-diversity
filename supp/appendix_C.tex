@@ -36,24 +36,24 @@ An association between the neutral site and a selected locus $\ell$ Morgans away
 \begin{equation}
     \sum_{t=0}^{\infty}\left[(1 - r(\ell))\,Z\right]^t = \frac{1}{1-(1-r(\ell))Z}.
 \end{equation}
-This corresponds to the cumulative factor of Santiago and Caballero~\cite{santiago2016} and Buffalo and Kern~\cite[Equation~3]{buffaloKern2024}. It is the counterpart of $Q$ for the chromosome segment that carries the neutral site, counting the advantage over every generation in which the segment keeps the selected locus. It appears squared in the variance of the segment's long-term contributions, as $Q$ does in Equation~\eqref{eq:A_first}, so a locus at distance $\ell$ contributes $f(\ell) = [1 - (1 - r(\ell))Z]^{-2}$. With $F(D) = \int_0^D f(\ell)\,d\ell$, the profile and its chromosome average are
+This corresponds to the cumulative factor of Santiago and Caballero~\cite{santiago2016} and Buffalo and Kern~\cite[Equation~3]{buffaloKern2024}. It is the counterpart of $Q$ for the chromosome segment that carries the neutral site, counting the advantage over every generation in which the segment keeps the selected locus. It appears squared in the variance of the segment's long-term contributions, as $Q$ does in Equation~\eqref{eq:A_first}, so a locus at distance $\ell$ contributes $\mathcal{K}(\ell) = [1 - (1 - r(\ell))Z]^{-2}$. With $\mathcal{I}(\ell) = \int_0^\ell \mathcal{K}(\ell')\,d\ell'$, the profile and its chromosome average are
 \begin{gather}
-    \overline{Q^2}(y) = \frac{1}{M}\int_0^M f(\vert x-y\vert)\,dx = \frac{1}{M}\left[F(y) + F(M-y)\right], \label{eq:C_profile} \\
-    \frac{1}{M}\int_0^M \overline{Q^2}(y)\,dy = \frac{2}{M^2}\int_0^M (M-\ell)\,f(\ell)\,d\ell = \frac{2}{M^2}\int_0^M F(D)\,dD, \label{eq:C_haldane_avg}
+    \overline{Q^2}(y) = \frac{1}{M}\int_0^M \mathcal{K}(\vert x-y\vert)\,dx = \frac{1}{M}\left[\mathcal{I}(y) + \mathcal{I}(M-y)\right], \label{eq:C_profile} \\
+    \frac{1}{M}\int_0^M \overline{Q^2}(y)\,dy = \frac{2}{M^2}\int_0^M (M-\ell)\,\mathcal{K}(\ell)\,d\ell = \frac{2}{M^2}\int_0^M \mathcal{I}(\ell)\,d\ell, \label{eq:C_haldane_avg}
 \end{gather}
-where the middle expression of Equation~\eqref{eq:C_haldane_avg}, $\frac{2}{M^2}\int_0^M (M-\ell)\,f(\ell)\,d\ell$, weights each distance $\ell$ by $M - \ell$, the number of pairs of sites at that distance. The split of the profile at $y$ follows Santiago and Caballero~\cite{santiago2016} and Buffalo and Kern~\cite[Supplementary Equation~32]{buffaloKern2024}. Under Haldane's map, $r(\ell) = \tfrac12(1 - e^{-2\ell})$, and Equation~\eqref{eq:C_haldane_avg} becomes Equation~\eqref{eq:haldane_avg} of the main text.
+where the middle expression of Equation~\eqref{eq:C_haldane_avg}, $\frac{2}{M^2}\int_0^M (M-\ell)\,\mathcal{K}(\ell)\,d\ell$, weights each distance $\ell$ by $M - \ell$, the number of pairs of sites at that distance. The split of the profile at $y$ follows Santiago and Caballero~\cite{santiago2016} and Buffalo and Kern~\cite[Supplementary Equation~32]{buffaloKern2024}. Under Haldane's map, $r(\ell) = \tfrac12(1 - e^{-2\ell})$, and Equation~\eqref{eq:C_haldane_avg} becomes Equation~\eqref{eq:haldane_avg} of the main text.
 
 \subsection{Closed form under the Haldane map}\label{app:C_closed}
 Under Haldane's map the survival probability is $\tfrac{Z}{2}(1 + e^{-2\ell})$, so
 \begin{equation}
-    f_\text{H}(\ell) = \left[\Gamma - \eta\, e^{-2\ell}\right]^{-2}, \qquad \Gamma = 1 - \tfrac{Z}{2}, \quad \eta = \tfrac{Z}{2}.
+    \mathcal{K}_\text{H}(\ell) = \left[\Gamma - \eta\, e^{-2\ell}\right]^{-2}, \qquad \Gamma = 1 - \tfrac{Z}{2}, \quad \eta = \tfrac{Z}{2}.
 \end{equation}
 The substitution $\tau = e^{-2\ell}$ gives the arm integral in elementary functions,
 \begin{equation}
-    F_\text{H}(D) = \frac{1}{2}\left\{\frac{2D + \ln\!\left[(\Gamma - \eta e^{-2D})/(1-Z)\right]}{\Gamma^2} + \frac{1}{\Gamma}\left[\frac{1}{1-Z} - \frac{1}{\Gamma - \eta e^{-2D}}\right]\right\}.
+    \mathcal{I}_\text{H}(\ell) = \frac{1}{2}\left\{\frac{2\ell + \ln\!\left[(\Gamma - \eta e^{-2\ell})/(1-Z)\right]}{\Gamma^2} + \frac{1}{\Gamma}\left[\frac{1}{1-Z} - \frac{1}{\Gamma - \eta e^{-2\ell}}\right]\right\}.
 \label{eq:C_arm}
 \end{equation}
-Integrating once more, with $\int_0^M \ln(\Gamma - \eta e^{-2D})\,dD = M\ln \Gamma + \frac{1}{2}\left[\mathrm{Li}_2(\epsilon e^{-2M}) - \mathrm{Li}_2(\epsilon)\right]$ and $\epsilon = \eta/\Gamma$, gives
+Integrating once more, with $\int_0^M \ln(\Gamma - \eta e^{-2\ell})\,d\ell =M\ln \Gamma + \frac{1}{2}\left[\mathrm{Li}_2(\epsilon e^{-2M}) - \mathrm{Li}_2(\epsilon)\right]$ and $\epsilon = \eta/\Gamma$, gives
 \begin{equation}
 \begin{split}
     \overline{Q^2}_\text{H} = \frac{1}{M^2}\Bigg\{ &\frac{M^2 - M\ln(1-Z) + M\ln \Gamma + \tfrac{1}{2}\left[\mathrm{Li}_2(\epsilon e^{-2M}) - \mathrm{Li}_2(\epsilon)\right]}{\Gamma^2} \\
@@ -61,14 +61,14 @@ Integrating once more, with $\int_0^M \ln(\Gamma - \eta e^{-2D})\,dD = M\ln \Gam
 \end{split}
 \label{eq:C_closed_haldane}
 \end{equation}
-with $\mathrm{Li}_2$ the dilogarithm. Equation~\eqref{eq:C_closed_haldane} is the form used in the analysis (Methods). To check the closed form, we also evaluated the double integral of Equation~\eqref{eq:C_haldane_avg} numerically, by adaptive quadrature in R, and the two agree to ten significant digits for every $Z$ from 0.5 to 0.999 and every $M$ from 0.05 to 50 Morgans.
+with $\mathrm{Li}_2$ the dilogarithm. Equation~\eqref{eq:C_closed_haldane} is the form used in the analysis (Methods). To check the closed form, we also evaluated the double integral of Equation~\eqref{eq:C_haldane_avg} numerically, by adaptive quadrature in R, and the two agree to better than one part in $10^{11}$ for every $Z$ from $10^{-9}$ to $1 - 10^{-9}$ and every $M$ from 0.005 to 60 Morgans, which spans every effect class, selection coefficient and map length in the analysis.
 
 \subsection{Short and long maps}\label{app:C_limits}
-As $M \to 0$ every distance vanishes and $\overline{Q^2}_\text{H} \to (1-Z)^{-2}$, the limit of background selection without recombination. Reaching it requires recombination across the whole chromosome to be slower than purging, $M \ll 1 - Z$, and not merely a short map. At $Z = 0.99$ and $M = 0.5$, for example, $\overline{Q^2}_\text{H} = 387$, against $(1-Z)^{-2} = 10^4$. At large distances, $f_\text{H}(\ell) \to \Gamma^{-2} = Q^2$, the value of the unlinked transmission factor squared at the same retention factor (Equation~\eqref{eq:Q}), so a distant locus behaves as if it were on another chromosome. The approach to this limit is slow, however,
+As $M \to 0$ every distance vanishes and $\overline{Q^2}_\text{H} \to (1-Z)^{-2}$, the limit of background selection without recombination. Reaching it requires recombination across the whole chromosome to be slower than purging, $M \ll 1 - Z$, and not merely a short map. At $Z = 0.99$ and $M = 0.5$, for example, $\overline{Q^2}_\text{H} = 387$, against $(1-Z)^{-2} = 10^4$. At large distances, $\mathcal{K}_\text{H}(\ell) \to \Gamma^{-2} = Q^2$, the value of the unlinked transmission factor squared at the same retention factor (Equation~\eqref{eq:Q}), so a distant locus behaves as if it were on another chromosome. The approach to this limit is slow, however,
 \begin{equation}
-    \overline{Q^2}_\text{H} = Q^2 + \frac{2}{M}\int_0^\infty \left[f_\text{H}(\ell) - Q^2\right]d\ell + O(M^{-2}).
+    \overline{Q^2}_\text{H} = Q^2 + \frac{2}{M}\int_0^\infty \left[\mathcal{K}_\text{H}(\ell) - Q^2\right]d\ell + O(M^{-2}).
 \end{equation}
-The integral is close to $1/(1-Z)$: 10.3 at $Z = 0.9$ and 105 at $Z = 0.99$. Free recombination is therefore reached only when $M \gg 1/(1-Z)$. At $Z = 0.99$ and $M = 10$, $\overline{Q^2}_\text{H} = 24.8$, against $Q^2 = 3.9$. Real chromosomes lie between the two limits, near $\overline{Q^2}_\text{H} \approx 2/[M(1-Z)]$~\cite[Equation~8]{santiago1998}. Short chromosomes do not approach the first limit either, because with one obligate crossover per bivalent, avian microchromosomes should have map lengths of about 0.5 M or more; the shortest in the maps analysed here are 0.04--0.2 M (great tits, song sparrows), still many times $1-Z$ for all but the most rapidly purged classes. Table~\ref{tab:linked_limits} gives the limits for a class of deleterious mutations purged at rate $s$.
+The integral is close to $1/(1-Z)$: 10.3 at $Z = 0.9$ and 105 at $Z = 0.99$. Free recombination is therefore reached only when $M \gg 1/(1-Z)$. At $Z = 0.99$ and $M = 10$, $\overline{Q^2}_\text{H} = 24.8$, against $Q^2 = 3.9$. Real chromosomes lie between the two limits, near $\overline{Q^2}_\text{H} \approx 2/[M(1-Z)]$~\cite[Equation~8]{santiago1998}. Short chromosomes do not approach the first limit either, because with one obligate crossover per bivalent, avian microchromosomes should have map lengths of about 0.5 Morgans or more; the shortest in the maps analysed here are 0.04--0.2 Morgans (great tits, song sparrows), still many times $1-Z$ for all but the most rapidly purged classes. Table~\ref{tab:linked_limits} gives the limits for a class of deleterious mutations purged at rate $s$.
 % UNVERIFIED: SC 1998 equation number taken from Buffalo & Kern 2024 Supplementary Eqs 34-35; SC 1998 body not read.
 
 \begin{table}[h!]
@@ -86,36 +86,36 @@ Slow ($s \to 0$, $Z \to 1$) & $\infty$ & $4$ \\
 \end{table}
 
 \subsection{The linear map as a lower bound}\label{app:C_linear}
-The linear map, $r(\ell) = \ell$, gives $f_\text{L}(\ell) = (1 - Z + \ell Z)^{-2}$ and $F_\text{L}(D) = D/[(1-Z)(1-Z+DZ)]$. Its mid-chromosome profile is Buffalo and Kern's~\cite{buffaloKern2024} Supplementary Equation 33. Equation~\eqref{eq:C_haldane_avg} gives
+The linear map, $r(\ell) = \ell$, gives $\mathcal{K}_\text{L}(\ell) = (1 - Z + \ell Z)^{-2}$ and $\mathcal{I}_\text{L}(\ell) = \ell/[(1-Z)(1-Z+\ell Z)]$. Its mid-chromosome profile is Buffalo and Kern's~\cite{buffaloKern2024} Supplementary Equation 33. Equation~\eqref{eq:C_haldane_avg} gives
 \begin{equation}
     \overline{Q^2}_\text{L} = \frac{2}{M^2(1-Z)}\int_0^M \frac{y}{1-Z+yZ}\,dy = \frac{2}{MZ(1-Z)} - \frac{2}{M^2Z^2}\ln\!\left(1+\frac{MZ}{1-Z}\right).
 \label{eq:closed_form}
 \end{equation}
 At large $M$ its leading term is $2/[MZ(1-Z)]$, the intermediate regime of Appendix~\ref{app:C_limits}. At small $M$, $\overline{Q^2}_\text{L} = (1-Z)^{-2} - \frac{2}{3}MZ(1-Z)^{-3} + O(M^2)$, and because $r_\text{H}(\ell) = \ell + O(\ell^2)$ the Haldane form agrees to that order. As $M \to \infty$, however, $\overline{Q^2}_\text{L} \to 0$ rather than $Q^2$, because the linear map lets $r$ exceed $\tfrac12$, and beyond $\ell = 1$ its survival probability is negative.
 
-Because $e^{-2\ell} > 1 - 2\ell$, the Haldane recombination fraction is below the linear one at every distance, $r_\text{H}(\ell) < \ell$. Up to $\ell = 1$ the linear map therefore underestimates the survival of every association, and beyond it $f_\text{L} < 1 < Q^2 \le f_\text{H}$. So $f_\text{L} < f_\text{H}$ at every distance for $Z > 0$, and
+Because $e^{-2\ell} > 1 - 2\ell$, the Haldane recombination fraction is below the linear one at every distance, $r_\text{H}(\ell) < \ell$. Up to $\ell = 1$ the linear map therefore underestimates the survival of every association, and beyond it $\mathcal{K}_\text{L} < 1 < Q^2 \le \mathcal{K}_\text{H}$. So $\mathcal{K}_\text{L} < \mathcal{K}_\text{H}$ at every distance for $Z > 0$, and
 \begin{equation}
     \overline{Q^2}_\text{L} < \overline{Q^2}_\text{H} \qquad \text{for all } M > 0.
 \end{equation}
 Equation~\eqref{eq:closed_form} is therefore a lower bound on $\overline{Q^2}_i$, and hence on the reduction in $N_e$ at linked sites. The gap grows with $M$ and with $1-Z$. $\overline{Q^2}_\text{L}/\overline{Q^2}_\text{H}$ is 0.98, 0.95 and 0.91 at $M = 0.1$, 1 and 3 Morgans for $Z = 0.99$, and 0.99, 0.85 and 0.67 for $Z = 0.9$. Buffalo and Kern~\cite{buffaloKern2024} use instead the linear-map profile at the middle of the segment, $\overline{Q^2}_\text{L}(M/2) = 1/[(1-Z)(1-Z+ZM/2)]$, which is the largest value along the segment. It exceeds $\overline{Q^2}_\text{H}$ by at most about 12\%, on short maps with $M$ a few times $1-Z$, and falls below it once $M$ exceeds about one Morgan and purging is fast, to 0.81 at $M = 10$ for $Z = 0.99$ and 0.41 for $Z = 0.9$ (Figure~\ref{fig:S_maps}). Both linear-map expressions are close to the Haldane average over the rest of the range, which includes the short, densely mapped segments of human data for which the mid-segment value was designed. The main text uses the Haldane closed form, Equation~\eqref{eq:C_closed_haldane}.
 
 \subsection{The linked factor does not exceed one}\label{app:omega}
-Because $f_\text{H}$ decreases from $(1-Z)^{-2}$ to $Q^2$, every profile satisfies $\overline{Q^2}(y) \ge Q^2$. The same bound holds for the chromosome average however the selected variance is distributed along the chromosome, uniformly or concentrated in a few regions, because that average is a weighted mean of the profile $\overline{Q^2}(y)$, each value of which is at least $Q^2$ (Appendix~\ref{app:C_spatial}). Write
+Because $\mathcal{K}_\text{H}$ decreases from $(1-Z)^{-2}$ to $Q^2$, every profile satisfies $\overline{Q^2}(y) \ge Q^2$. The same bound holds for the chromosome average however the selected variance is distributed along the chromosome, uniformly or concentrated in a few regions, because that average is a weighted mean of the profile $\overline{Q^2}(y)$, each value of which is at least $Q^2$ (Appendix~\ref{app:C_spatial}). Write
 \begin{equation}
-    \Lambda_\text{L} = \kappa_\text{cis}\overline{Q^2}_iv_h, \qquad \Lambda_\text{own} = \kappa_\text{own}Q^2v_h, \qquad \Lambda_\text{U} = Q^2\kappa V_A.
+    \Lambda_\text{linked} = \kappa_\text{cis}\overline{Q^2}_iv_h, \qquad \Lambda_\text{own} = \kappa_\text{own}Q^2v_h, \qquad \Lambda_\text{unlinked} = Q^2\kappa V_A.
 \end{equation}
-In the primary model $\kappa_\text{cis} = \kappa_\text{own}$ (Appendix~\ref{app:B_split}), so $\Lambda_\text{L} \ge \Lambda_\text{own}$; and $\Lambda_\text{U} \ge \Lambda_\text{own}$, because $v_h \le V_A$ and $\kappa \ge \kappa_\text{own}$. Under the multiplicative form of Equation~\eqref{total_red}, $\Omega_i = e^{-(\Lambda_\text{L} - \Lambda_\text{own})} \le 1$ follows directly. Equality holds on a freely recombining chromosome, where $\overline{Q^2}_i \to Q^2$. With the small-variance approximation for the unlinked factor, $1/(1 + \Lambda_\text{U} - \Lambda_\text{own})$, the bound also holds, because $e^{-\Lambda} \le 1/(1+\Lambda)$, so
+In the primary model $\kappa_\text{cis} = \kappa_\text{own}$ (Appendix~\ref{app:B_split}), so $\Lambda_\text{linked} \ge \Lambda_\text{own}$; and $\Lambda_\text{unlinked} \ge \Lambda_\text{own}$, because $v_h \le V_A$ and $\kappa \ge \kappa_\text{own}$. Under the multiplicative form of Equation~\eqref{total_red}, $\Omega_i = e^{-(\Lambda_\text{linked} - \Lambda_\text{own})} \le 1$ follows directly. Equality holds on a freely recombining chromosome, where $\overline{Q^2}_i \to Q^2$. With the small-variance approximation for the unlinked factor, $1/(1 + \Lambda_\text{unlinked} - \Lambda_\text{own})$, the bound also holds, because $e^{-\Lambda} \le 1/(1+\Lambda)$, so
 \begin{equation}
-    \Omega_i = e^{-\Lambda_\text{L}}\,\frac{1+\Lambda_\text{U}}{1+\Lambda_\text{U}-\Lambda_\text{own}} \le \frac{1+\Lambda_\text{U}}{(1+\Lambda_\text{own})(1+\Lambda_\text{U}-\Lambda_\text{own})} \le 1.
+    \Omega_i = e^{-\Lambda_\text{linked}}\,\frac{1+\Lambda_\text{unlinked}}{1+\Lambda_\text{unlinked}-\Lambda_\text{own}} \le \frac{1+\Lambda_\text{unlinked}}{(1+\Lambda_\text{own})(1+\Lambda_\text{unlinked}-\Lambda_\text{own})} \le 1.
 \end{equation}
-The last step holds because $(1+\Lambda_\text{own})(1+\Lambda_\text{U}-\Lambda_\text{own}) - (1+\Lambda_\text{U}) = \Lambda_\text{own}(\Lambda_\text{U}-\Lambda_\text{own}) \ge 0$. On a freely recombining chromosome this form gives $\Omega_i = 1 - \Lambda_\text{own}\Lambda_\text{U}/(1 + \Lambda_\text{U}) + O(\Lambda_\text{own}^2)$. That departure, of order $v_hV_A$, reflects only the difference between the exponential and reciprocal forms of the same variance. Under a distribution of fitness effects the argument applies to each effect class.
+The last step holds because $(1+\Lambda_\text{own})(1+\Lambda_\text{unlinked}-\Lambda_\text{own}) - (1+\Lambda_\text{unlinked}) = \Lambda_\text{own}(\Lambda_\text{unlinked}-\Lambda_\text{own}) \ge 0$. On a freely recombining chromosome this form gives $\Omega_i = 1 - \Lambda_\text{own}\Lambda_\text{unlinked}/(1 + \Lambda_\text{unlinked}) + O(\Lambda_\text{own}^2)$. That departure, of order $v_hV_A$, reflects only the difference between the exponential and reciprocal forms of the same variance. Under a distribution of fitness effects the argument applies to each effect class.
 
 \subsection{Non-uniform placement of selected variance}\label{app:C_spatial}
 The genetic architecture of fitness in wild populations is unresolved~\cite{barton2002}, so the uniform density is only a baseline assumption. Let $g(x) \ge 0$, with $\int_0^M g(x)\,dx = 1$, be the density of selected variance along the chromosome. With neutral sites still uniform, the chromosome average is
 \begin{equation}
-    \overline{Q^2}_\text{H}[g] = \frac{1}{M}\int_0^M\!\!\int_0^M g(x)\, f_\text{H}(\vert x-y\vert)\,dx\,dy = \int_0^M g(x)\,\overline{Q^2}(x)\,dx, \label{general_g}
+    \overline{Q^2}_\text{H}[g] = \frac{1}{M}\int_0^M\!\!\int_0^M g(x)\, \mathcal{K}_\text{H}(\vert x-y\vert)\,dx\,dy = \int_0^M g(x)\,\overline{Q^2}(x)\,dx, \label{general_g}
 \end{equation}
-because $f_\text{H}$ depends only on $\vert x - y\vert$, so the inner average over $y$ is the uniform profile at $x$ (Equation~\eqref{eq:C_profile}). With $g = 1/M$ it recovers $\overline{Q^2}_\text{H}$, and for $J$ loci of equal effect at $x_1, \ldots, x_J$ it is the mean of $\overline{Q^2}(x_j)$. Since $\overline{Q^2}(x) \ge Q^2$ everywhere, $\Omega_i \le 1$ holds for every $g$. The profile is strictly concave, because its second derivative, $[f_\text{H}'(x) + f_\text{H}'(M-x)]/M$, is negative. It is largest at the midpoint and smallest at the telomeres, because a central locus is linked to neutral sites on both chromosome arms and a terminal one to sites on one arm only.
+because $\mathcal{K}_\text{H}$ depends only on $\vert x - y\vert$, so the inner average over $y$ is the uniform profile at $x$ (Equation~\eqref{eq:C_profile}). With $g = 1/M$ it recovers $\overline{Q^2}_\text{H}$, and for $J$ loci of equal effect at $x_1, \ldots, x_J$ it is the mean of $\overline{Q^2}(x_j)$. Since $\overline{Q^2}(x) \ge Q^2$ everywhere, $\Omega_i \le 1$ holds for every $g$. The profile is strictly concave, because its second derivative, $[\mathcal{K}_\text{H}'(x) + \mathcal{K}_\text{H}'(M-x)]/M$, is negative. It is largest at the midpoint and smallest at the telomeres, because a central locus is linked to neutral sites on both chromosome arms and a terminal one to sites on one arm only.
 
 The reduction in $N_e$ at linked sites depends on the expectation of the convex function $\exp(-\kappa_\text{cis} v_h \overline{Q^2})$. For a single locus at a uniformly distributed position $x_0$, Jensen's inequality gives
 \begin{equation}

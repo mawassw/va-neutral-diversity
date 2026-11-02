@@ -23,8 +23,8 @@
 #      smaller than the annotation) for 14 of 18, so the axis extends left to the
 #      smallest phi_eq; that strip is shaded, and lines enter it only from phi_eq.
 #      Solid vertical: phi = 0 (annotation only); dashed: median phi_eq.
-#   b  mapped set (9): total genome-wide N_e/N with linkage, Omega_bar / (1 + 4 kappa
-#      hat V_A) as in fig2_linked.R, at the hat V_A mode and assigned DFE, with
+#   b  mapped set (9): total genome-wide N_e/N with linkage, Omega_bar exp(-4 kappa_max
+#      hat V_A) as in fig2_linked.R (multiplicative bound since 2026-11-02), at the hat V_A mode and assigned DFE, with
 #      f_i(phi) = T_i(phi) / sum over all autosomes of T_i(phi). Only Omega_bar
 #      depends on phi (sum_i f_i = 1, so the global term does not move). Grey dashed:
 #      the coding-bp partition of Figure 2. Orange: observed delta, where pi and an
@@ -76,7 +76,7 @@ dfe_pop <- dfe_assigned()
 lb <- bind_rows(lapply(lk$code, function(cd) {
   a <- filter(auto, code == cd); r <- lk[lk$code == cd, ]
   mm <- a$has_map; m <- a[mm, ]
-  unl <- 1 / (1 + 4 * r$kappa * r$va_mode)
+  unl <- exp(-4 * kappa_mult_bound(r$pair_bond == "social_monogamy") * r$va_mode)
   om <- vapply(phi, function(p) {
     Ti <- a$L_annot + p * a$L_other
     omega_fun(m, Ti[mm] / sum(Ti), r$kappa, dfe_pop[[cd]])(r$va_mode)
@@ -139,8 +139,8 @@ pa <- ggplot() +
                      labels = function(x) paste0(100 * x, "%"), expand = c(0, 0)) +
   y_log(c(0.03, 2000), 10^(-1:3)) +
   coord_cartesian(clip = "off") +
-  labs(x = expression("Unannotated sequence under purifying selection, " * varphi),
-       y = expression(hat(italic(V))[A] / (italic(U)[d](varphi) * bar(italic(s)))), tag = "a") +
+  labs(x = expression("Unannotated sequence under purifying selection, " * zeta),
+       y = expression(hat(italic(V))[A] / (italic(U)[d](zeta) * bar(italic(s)))), tag = "a") +
   theme_genetics(grid_y = TRUE) +
   theme(legend.position = "inside", legend.position.inside = c(0.98, 0.98),
         legend.justification = c(1, 1), legend.direction = "vertical")
@@ -170,7 +170,7 @@ pb <- ggplot(lb, aes(phi, total)) +
                      labels = c("0", "5", "10", "15"), expand = c(0, 0)) +
   y_log(c(1e-5, 1), 10^c(-4, -2, 0)) +
   facet_wrap(~ label, ncol = 3, labeller = label_wrap_gen(30)) +
-  labs(x = expression("Unannotated sequence under purifying selection, " * varphi * " (%)"),
+  labs(x = expression("Unannotated sequence under purifying selection, " * zeta * " (%)"),
        y = expression("Genome-wide " * italic(N)[e] / italic(N) * " with linkage"), tag = "b") +
   theme_genetics(grid_y = TRUE) +
   theme(strip.text = element_text(size = 7, face = "plain"), panel.spacing.x = unit(5, "mm"),

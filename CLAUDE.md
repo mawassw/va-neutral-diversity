@@ -92,13 +92,15 @@ Diversity verdict robust to μ CI (min margin 1.66) and to δ×10 (breeders) unl
 with linkage, under the bound, bighorn/song sparrow at δ×10 reach 1.01/1.03 of their upper HPD at point
 μ and **pass (0.86/0.96) at the low end of the μ CI** (audit 2026-11-02). $2N_es^*$ = 2,900–320,000 (11 populations): strong-selection limit holds.
 **Target size (2026-10-28, `functional_target.R`, Fig. S_noncoding):** annotated target (CDS ∪ UTR ∪ ncRNA
-exons) = 0.8–2.0× the doubled exome (median 1.19), so the primary $U_d$ is *not* generous; with φ = 15% of
+exons) = 0.8–2.0× the doubled exome (median 1.19), so the primary $U_d$ is *not* generous; with ζ = 15% of
 unannotated sequence the median $\hat V_A/(U_d\bar s)$ falls 21 → 4 and only meerkats newly drop below 1
-(φ ≈ 3%). Linked $N_e/N$ moves ≤13% (Wytham +40%); every mapped population stays ≥70× short.
+(ζ ≈ 3%). Linked $N_e/N$ moves ≤13% (Wytham +40%); every mapped population with a deficit stays ≥50× short.
 
-**Linked (assigned DFE, `linked.R`):** total $N_e/N$ at the mode — great tits 0.019 (Wytham), 0.44
-(NL); song sparrow 0.077; collared flycatcher 0.68; mammals 0.24–0.48. Every population falls short
-of its observed δ across its whole HPD. At $c = c_\text{MSD}$ linkage barely changes the prediction
+**Linked (assigned DFE, `linked.R`; global factor = multiplicative bound in every figure since
+2026-11-02, user):** total $N_e/N$ at the mode, $\overline\Omega\,e^{-4\kappa_\text{max}\hat V_A}$ —
+great tits 0.016 (Wytham), 0.43 (NL); song sparrow 0.066; collared flycatcher 0.66; mammals 0.15–0.44.
+Shortfall at the mode 53× (bighorn) to 15,000× (NL); with the small-variance global factor 75–15,000×
+(quoted once in Results). Every population falls short of its observed δ across its whole HPD. At $c = c_\text{MSD}$ linkage barely changes the prediction
 (deficit ratio 4,240 vs 4,430). The linked term is a **hybrid**: kernel, $Z_k$, $\nu_k$ presuppose
 MSD; the amount of variance is the **measured** $\hat V_A$ ($v_i = \hat V_A f_i$).
 
@@ -159,13 +161,13 @@ Appendix D's currency. **Nothing to rescale.**
 | $Q$ | unlinked transmission factor $2/[2 - Z(1+r_{mf})]$, = 2 at $Z = 1$ |
 | $z$, $a$ | breeding value for log-fitness ($w \propto e^z$); $a = z - \bar z$ to first order |
 | $R(z)$ | expected long-term contribution, $\exp[2(z-\bar z) - 2V_A]$ |
-| $L_X$, $h_t$, $x_i$ | Appendix B/A quantities (first-order excess, carriers' breeding value, neutral frequency) |
+| $A_X$, $h_t$, $x_i$ | Appendix B/A quantities (first-order cumulative advantage, carriers' breeding value, neutral frequency) |
 | $\rho = (1-r)Z$ | linked persistence; kernel $1/(1-\rho)$ |
 | $M$, $M_i$; $r$; $r_{mf}$ | map length (Morgans) only; recombination fraction only; mates' correlation (0 in primary) |
 | $\overline{Q^2}_i$, $\overline{Q^2}(y)$ | position-averaged $Q^2$ on chromosome $i$ (not "interference", which reads as crossover interference); profile at $y$ (bare $Q^2$ = unlinked constant) |
-| $s, s_k, \bar s, s^*$; $\varphi_k$; $\nu_k$ | heterozygous effect; DFE density/fractions; class share of $V_A$, $\varphi_ks_k/\bar s$ |
+| $s, s_k, \bar s, s^*$; $\varphi_k$; $\nu_k$; $\zeta$ | heterozygous effect; DFE class fractions; class share of $V_A$, $\varphi_ks_k/\bar s$; unannotated sequence counted as target (Fig. S_noncoding) |
 | $m'$, $f'$ | social partner (Appendix B) |
-| Γ, η, ε; Λ; Ψ, χ, ξ, $m_X$; $n_i$ | Appendix C.2 constants; C.5 exponents; Appendix B coefficients; C.6 element count |
+| Γ, η, ε; Λ; Ψ, χ, ξ, $\beta$, $\bar\beta$, $\beta_X$, $\tilde\beta$; $n_i$ | Appendix C.2 constants; C.5 exponents; Appendix B coefficients; C.6 element count |
 | $C^2$ | SC's family-fitness variance: $V_A$ random mating, $2V_A$ with a pair bond |
 
 Retired: $Q_u$, $Q(s)$, $t$, $s_\text{het}$, $\overline{Q^2}_\text{linked}$, $\kappa_\text{mult}$ /
@@ -370,18 +372,21 @@ $V_A$ as input. Not competitors.
    GCA_057657825.1 sums to 5.13 Gb of autosomes — correct (NCBI genome 5.7 Gb haploid, hap2; author 2026-10-28).
    `figS_noncoding.R` writes `data/processed/noncoding_sensitivity.csv` (not a `00_prepare_data.R` output).
 10. **Numbers audit 2026-11-02 (`worktree-numbers-audit`).** All scripts rerun; `00_prepare_data.R` and
-   `tab_reduction.tex` reproduce exactly. Fixed in text: listed in that commit. **Author decisions open:**
-   (a) linked diversity test uses the small-variance global factor in Fig. 2 but the bound in Fig. 3 /
-   S_rescaling_linked (Methods says each is "biased toward passing", which the small-variance form is
-   not); results:63 now quotes both shortfalls (75 vs 53 bighorn). (b) Abstract ≈286 words vs the 250
-   limit its comment claims. (c) φ means both DFE density (notation) and unannotated-target fraction
-   (Methods, Fig. S_noncoding); b, μ₃, c̄/c_k, L also reused in appendices. (d) Flycatcher α: data 0.15,
-   source 71/459 = 0.155 (κ 1.79 vs 1.78). (e) Site labels differ between Table 1 and Table S1
-   (Graubünden/Churwalden, Isle of Rum/Rum, St. Kilda/St Kilda). (f) Appendix C quadrature check
-   states Z 0.5–0.999, M ≥ 0.05; DFE classes and great-tit microchromosomes (0.037 M) lie outside it
-   (`linked.R` header records a wider check). Not reproducible here: `functional_target.R` (LFS GFF
-   objects missing locally); its committed CSV is current. Ad hoc numbers with no script: 3,240-fold
-   (recomputes 3,270 per population at own c_MSD), δ×10 linked margins, μ-CI margins.
+   `tab_reduction.tex` reproduce exactly; unprinted numbers in `scripts/R/audit_numbers.R`. Decisions
+   (user, 2026-11-02): (a) Fig. 2 and Fig. S_noncoding b use the multiplicative bound for the global
+   factor, as Figs 3, 5 and S_rescaling_linked; small-variance shortfalls are mentioned once in
+   Results. (b) Abstract at ~286 words is fine for the preprint. (c) Reused symbols renamed: unannotated
+   target fraction φ → ζ; App A μ₃ → 𝔼[a³], CGF argument θ → ψ, copy index → j′, beneficial s → s₊,
+   Φ → Pr(a < −1); App B own-value weight m, m̄, m_X → β, β̄, β_X, c̄ → β̃, c_f/c_m → 𝓔_f/𝓔_m,
+   c_k → 𝓒_l, route shares w_k → ω_l, route indices → l, l′, v(·,·) → σ²(·,·), L_X/L_f/L_m → A_X/A_f/A_m;
+   App C kernel f → 𝒦, its integral F → ℐ, dummy D → ℓ, Λ_L/Λ_U → Λ_linked/Λ_unlinked, "M" unit →
+   "Morgans"; App D L → L_target, u → μ_locus, 𝔼[H] → 𝔼[2q(1−q)]. Methods describes the gamma DFE in
+   words (no b, β) and Pagel's lambda in words. (d) Flycatcher α = 0.15 stays (closed). (e) Snow voles
+   are Graubünden; Table S1 labels now match Table 1 and the figures; "Superb fairy-wrens" fixed in
+   `data/species_EPP.csv`. (f) Quadrature check widened to Z from 1e-9 to 1−1e-9, M 0.005–60
+   (`scripts/R/check_q2bar_quadrature.R`; max relative difference 2.4e-12). Not reproducible here:
+   `functional_target.R` (LFS GFF objects missing locally); its committed CSV is current. 3,240-fold
+   recomputes as 3,270 per population at its own c_MSD (definitional; left).
 
 ## Venue and prose authority
 

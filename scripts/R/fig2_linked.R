@@ -9,16 +9,19 @@
 #
 # One row per population in the linked set (9: mapped autosomes, microchromosomes
 # included), on one log axis of N_e/N (effective size relative to breeding adults):
-#   unlinked      1 / (1 + 4 kappa hat V_A): mode (circle), 95% HPD (line)
+#   unlinked      exp(-4 kappa_max hat V_A), the multiplicative bound: mode (circle), 95% HPD (line)
 #   with linkage  the total, unlinked and linked combined:
-#                 Omega_bar / (1 + 4 kappa hat V_A), Omega_bar the linked factor of
+#                 Omega_bar exp(-4 kappa_max hat V_A), Omega_bar the linked factor of
 #                 Theory eq. linked_penalty (exponential), with class-by-class
 #                 retention Z_k = 1 - s_k averaged over the empirical DFE assigned
 #                 to the population (data/dfe_assignment.csv: own species, else an
 #                 equal mixture of the closest relatives in Lin et al. 2026; the
 #                 same DFE as Figure 5's maintenance line), at the measured V_A.
 #                 The global factor is drawn at Q = 2 (Z = 1), its upper bound, so
-#                 the total is generous to the mechanism.
+#                 the total is generous to the mechanism. The global factor is the
+#                 multiplicative bound, as in Figures 3, 5 and S_rescaling_linked (user,
+#                 2026-11-02; before: the small-variance 1/(1 + 4 kappa hat V_A), still
+#                 printed below as *_sv for the text).
 #                 Dot: at the hat V_A mode; bar: over the 95% HPD of hat V_A.
 #                 (Before 2026-10-20: a band over every measured DFE of the taxon,
 #                 dot at the most generous; before 2026-10-19: hyperbolic composite
@@ -50,7 +53,7 @@ dfe_pop <- dfe_assigned()
 # at the population's assigned DFE. omega_fun() precomputes the class-averaged
 # coefficients once per population x partition.
 grid <- pops %>%
-  select(code, kappa, lo = va_hpd95_lo, mode = va_mode, hi = va_hpd95_hi) %>%
+  select(code, kappa, pair_bond, lo = va_hpd95_lo, mode = va_mode, hi = va_hpd95_hi) %>%
   tidyr::pivot_longer(c(lo, mode, hi), names_to = "va_at", values_to = "Va") %>%
   tidyr::crossing(partition = c("bp", "gene"))
 om_cache <- list()
@@ -62,7 +65,9 @@ grid$omega <- mapply(function(cd, Va, k, part) {
   }
   om_cache[[key]](Va)
 }, grid$code, grid$Va, grid$kappa, grid$partition)
-grid <- grid %>% mutate(unl = 1 / (1 + 4 * kappa * Va), total = omega * unl)
+glob <- function(Va, pair_bond) exp(-4 * kappa_mult_bound(pair_bond == "social_monogamy") * Va)
+grid <- grid %>% mutate(unl = glob(Va, pair_bond), total = omega * unl,
+                        total_sv = omega / (1 + 4 * kappa * Va))
 
 # the HPD bound of hat V_A that is high gives the low N_e/N, and vice versa
 summ <- grid %>%
@@ -70,7 +75,9 @@ summ <- grid %>%
   summarise(tot_mode = total[va_at == "mode"], tot_lo = total[va_at == "hi"],
             tot_hi = total[va_at == "lo"],
             om_mode = omega[va_at == "mode"], om_lo = omega[va_at == "hi"],
-            om_hi = omega[va_at == "lo"], .groups = "drop")
+            om_hi = omega[va_at == "lo"],
+            tot_sv_mode = total_sv[va_at == "mode"], tot_sv_lo = total_sv[va_at == "hi"],
+            .groups = "drop")
 
 base <- pops %>%
   left_join(obs %>% select(code, pi_obs, pi_lit, log10_Nc), by = "code") %>%
@@ -79,9 +86,10 @@ base <- pops %>%
     species_lab = sub(" \\(.*\\)$", "", common_name),
     location_lab = sub("^tiritiri", "Tiritiri", location),
     label = pop_label(species_lab, location_lab),
-    unl    = 1 / (1 + 4 * kappa * va_mode),
-    unl_lo = 1 / (1 + 4 * kappa * va_hpd95_hi),
-    unl_hi = 1 / (1 + 4 * kappa * va_hpd95_lo),
+    unl    = glob(va_mode, pair_bond),
+    unl_sv = 1 / (1 + 4 * kappa * va_mode),
+    unl_lo = glob(va_hpd95_hi, pair_bond),
+    unl_hi = glob(va_hpd95_lo, pair_bond),
     pi_any = coalesce(pi_obs, pi_lit),
     obs    = pi_any / (4 * mu_direct    * 10^log10_Nc),
     obs_lo = pi_any / (4 * mu_direct_hi * 10^log10_Nc),
@@ -114,8 +122,8 @@ x_log <- function(lims, brks) scale_x_log10(limits = lims, breaks = brks, expand
 # --- Figure 2A (and its gene-count twin): total N_e/N against the observed ------
 plot_total <- function(part) {
   d <- base %>% left_join(filter(summ, partition == part), by = "code")
-  lab_unl <- expression("Unlinked: 1" / (1 + 4 * kappa * hat(italic(V))[A]) * ", mode and 95% HPD")
-  lab_lk  <- expression("With linkage (total): " * bar(Omega) / (1 + 4 * kappa * hat(italic(V))[A]) *
+  lab_unl <- expression("Unlinked, multiplicative bound: " * italic(e)^{-4 * kappa[max] * hat(italic(V))[A]} * ", mode and 95% HPD")
+  lab_lk  <- expression("With linkage (total): " * bar(Omega) * italic(e)^{-4 * kappa[max] * hat(italic(V))[A]} *
                           ", assigned DFE: mode and 95% HPD")
   lab_own <- expression("Observed: " * delta * ", " * pi * " of study species")
   lab_lit <- expression("Observed: " * delta * ", " * pi * " from another population")
@@ -225,9 +233,10 @@ save_fig(fig2,               "main/Fig2_linked",       178, 150)
 save_fig(plot_total("gene"), "supp/FigS_linked_fgene", 178, 80)
 save_fig(plot_omega("bp"),   "supp/FigS_omega",        150, 70)
 
-print(as.data.frame(base %>% select(code, unl, obs) %>%
-  left_join(summ %>% select(code, partition, tot_mode, tot_lo, om_mode, om_lo), by = "code") %>%
-  tidyr::pivot_wider(names_from = partition, values_from = c(tot_mode, tot_lo, om_mode, om_lo)) %>%
+print(as.data.frame(base %>% select(code, unl, unl_sv, obs) %>%
+  left_join(summ %>% select(code, partition, tot_mode, tot_lo, om_mode, om_lo, tot_sv_mode, tot_sv_lo), by = "code") %>%
+  tidyr::pivot_wider(names_from = partition, values_from = c(tot_mode, tot_lo, om_mode, om_lo, tot_sv_mode, tot_sv_lo)) %>%
+  mutate(short_mode = tot_mode_bp / obs, short_sv = tot_sv_mode_bp / obs) %>%
   mutate(across(where(is.numeric), ~ signif(.x, 3)))))
 
 # Methods' uniform effects (s = 0.005, 0.01, 0.02) and s = s* = hat V_A / U_d, at the

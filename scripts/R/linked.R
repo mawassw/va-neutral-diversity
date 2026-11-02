@@ -44,8 +44,10 @@ Li2 <- function(x) {
 
 # Position-averaged Q^2 under a Haldane map, closed form (Appendix C, eq.
 # C_closed_haldane), vectorised over M and Z. Agrees with quadrature of
-# (2/M^2) int_0^M (M - d) / [1 - (Z/2)(1 + exp(-2d))]^2 dd to < 1e-9 (relative)
-# for M in [1e-4, 50] Morgans and 1 - Z in [1e-7, 0.99] (checked 2026-10-19).
+# (2/M^2) int_0^M (M - d) / [1 - (Z/2)(1 + exp(-2d))]^2 dd to < 3e-12 (relative)
+# for M in [0.005, 60] Morgans and Z from 1e-9 to 1 - 1e-9, which spans every class,
+# uniform effect and map length of the analysis (scripts/R/check_q2bar_quadrature.R,
+# 2026-11-02; earlier check 2026-10-19 over 1 - Z in [1e-7, 0.99]).
 Q2bar_haldane <- function(M, Z) {
   stopifnot(all(Z < 1), all(Z >= 0))
   n <- max(length(M), length(Z)); M <- rep_len(M, n); Z <- rep_len(Z, n)
