@@ -263,17 +263,22 @@ at linked sites the segment's contribution sets drift.
   before definition or names standing in for needed conditions; symbols stay). Kept at the author's
   request: Discussion ¶1 "both equilibria leave most of what they are meant to explain"; author's
   Overleaf "Compared against" in Discussion ¶1 left as written.
-- Discussion is ~400 words longer after the 2026-11-02 de-labelling pass (target ~1,800); a
-  compaction pass is due.
+- **Discussion compacted 2026-11-02 (author-approved):** 12 paragraphs → 8 (~1,950 words), each
+  built on one open question in the field: summary → missing diversity (demography) →
+  genome-wide vs along-chromosome effects → maintenance and the deleterious mutation rate → what
+  maintains the rest + Fisher → no single bias reconciles both (spine, narrowest margins) →
+  Barton's condition / balancing selection (open question) → future estimates (closes ¶1's
+  question). The list of approximations, bias numbers and right-skew/clustering departures live in
+  Theory `sec:approx`/Results/Methods only; pre-breeding survival moved to Methods (pedigree
+  estimates subsection).
 - **Discussion and Abstract state a model's conditions, not its name (2026-11-02).** Not "under the
   multiplicative model" but "if the effects of loci on fitness multiply and breeding values for
   log-fitness are normally distributed (as the animal model assumes)"; the bound adds "nothing limits
   the fitness of the most favored lineages and socially monogamous partners share all their
   offspring"; the small-variance approximation is "an approximation that holds while the variance is
   small". Theory/Results/Methods keep the names.
-- Discussion ¶1 compares the median unlinked reduction with Charlesworth & Jensen 2022 (16–55% from
-  the mean estimate). C&J 2022 is now cited in three Discussion paragraphs (¶1 and the two demography
-  paragraphs), against the one-paragraph rule — author to consolidate.
+- Charlesworth & Jensen 2022 is cited in one Discussion paragraph (¶2, missing diversity), both for
+  the 16–55% from the mean estimate and for the demographic account (consolidated 2026-11-02).
 - **Captions:** bold first sentence stating the figure's claim (supersedes the 2026-10-23
   "descriptive caption" choice), then description; no formulas, equation refs or citations beyond
   what defines a plotted quantity. Fig. 3 / Fig. S4 linkage color is "teal" (`#01665E`, as drawn; author 2026-10-29).
