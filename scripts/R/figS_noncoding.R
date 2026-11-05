@@ -15,7 +15,7 @@
 #   U_d(phi) = 2 mu_direct sum_i T_i(phi)      (no extra factor 2; phi replaces it)
 # phi in [0, 0.15], the fraction of unannotated sequence (introns, intergenic) under
 # purifying selection. phi_eq solves U_d(phi_eq) = 4 mu L_coding: the current target.
-#   a  maintenance test, 18 populations with a U_d: hat V_A / (U_d(phi) s_bar) at the
+#   FigS_noncoding: maintenance test, 18 populations with a U_d: hat V_A / (U_d(phi) s_bar) at the
 #      hat V_A posterior mode and the point direct mu, s_bar the mean of the assigned
 #      DFE (dfe_assigned(), the point convention of the text). Faint: populations
 #      (by taxon); bold: median across populations over [0, 0.15]. Open circle: each
@@ -23,7 +23,7 @@
 #      smaller than the annotation) for 14 of 18, so the axis extends left to the
 #      smallest phi_eq; that strip is shaded, and lines enter it only from phi_eq.
 #      Solid vertical: phi = 0 (annotation only); dashed: median phi_eq.
-#   b  mapped set (9): total genome-wide N_e/N with linkage, Omega_bar exp(-4 kappa_max
+#   FigS_noncoding_linked: mapped set (9): total genome-wide N_e/N with linkage, Omega_bar exp(-4 kappa_max
 #      hat V_A) as in fig2_linked.R (multiplicative bound since 2026-11-02), at the hat V_A mode and assigned DFE, with
 #      f_i(phi) = T_i(phi) / sum over all autosomes of T_i(phi). Only Omega_bar
 #      depends on phi (sum_i f_i = 1, so the global term does not move). Grey dashed:
@@ -140,7 +140,7 @@ pa <- ggplot() +
   y_log(c(0.03, 2000), 10^(-1:3)) +
   coord_cartesian(clip = "off") +
   labs(x = expression("Unannotated sequence under purifying selection, " * zeta),
-       y = expression(hat(italic(V))[A] / (italic(U)[d](zeta) * bar(italic(s)))), tag = "a") +
+       y = expression(hat(italic(V))[A] / (italic(U)[d](zeta) * bar(italic(s))))) +
   theme_genetics(grid_y = TRUE) +
   theme(legend.position = "inside", legend.position.inside = c(0.98, 0.98),
         legend.justification = c(1, 1), legend.direction = "vertical")
@@ -171,19 +171,23 @@ pb <- ggplot(lb, aes(phi, total)) +
   y_log(c(1e-5, 1), 10^c(-4, -2, 0)) +
   facet_wrap(~ label, ncol = 3, labeller = label_wrap_gen(30)) +
   labs(x = expression("Unannotated sequence under purifying selection, " * zeta * " (%)"),
-       y = expression("Genome-wide " * italic(N)[e] / italic(N) * " with linkage"), tag = "b") +
+       y = expression("Genome-wide " * italic(N)[e] / italic(N) * " with linkage")) +
   theme_genetics(grid_y = TRUE) +
   theme(strip.text = element_text(size = 7, face = "plain"), panel.spacing.x = unit(5, "mm"),
         panel.spacing.y = unit(1.5, "mm"), legend.key.width = unit(5, "mm"))
 
-fig <- pa / pb + plot_layout(heights = c(1, 1.45))
 dir.create("supp", showWarnings = FALSE)
-ggsave("supp/FigS_noncoding.pdf", fig, width = 178, height = 160, units = "mm", device = cairo_pdf)
-ggsave("supp/FigS_noncoding.tiff", fig, width = 178, height = 160, units = "mm", dpi = 600,
-       device = ragg::agg_tiff, compression = "lzw")
 pv <- Sys.getenv("FIG_PREVIEW_DIR")
-if (nzchar(pv)) ggsave(file.path(pv, "FigS_noncoding.png"), fig, width = 178, height = 160,
-                       units = "mm", dpi = 200, device = ragg::agg_png)
+save_fig <- function(p, name, w, h) {
+  ggsave(file.path("supp", paste0(name, ".pdf")), p, width = w, height = h, units = "mm",
+         device = cairo_pdf)
+  ggsave(file.path("supp", paste0(name, ".tiff")), p, width = w, height = h, units = "mm",
+         dpi = 600, device = ragg::agg_tiff, compression = "lzw")
+  if (nzchar(pv)) ggsave(file.path(pv, paste0(name, ".png")), p, width = w, height = h,
+                         units = "mm", dpi = 200, device = ragg::agg_png)
+}
+save_fig(pa, "FigS_noncoding", 120, 95)
+save_fig(pb, "FigS_noncoding_linked", 178, 170)
 
 # --- report -------------------------------------------------------------------
 options(width = 160)
