@@ -357,6 +357,8 @@ $V_A$ as input. Not competitors.
 2. Re-voicing of all sections by the author (Introduction, Theory, Results, Discussion and Abstract
    are drafted scaffolding).
 3. Methods reviewer pass.
+3a. **Abstract length (2026-11-09):** 318 words after the author's Overleaf revision; GENETICS
+   allows **250**. Trim due before submission.
 4. **Citations (2026-10-27):** every citation is `\cite{}` (biblatex `numeric-comp`, `sorting=none`,
    10 names before "et al."); `references.bib` holds all 92 cited works, Crossref-checked. Keys are
    first author + year (`buffaloKern2024`, `wangobbard2023`); new citations follow the same scheme.
