@@ -178,7 +178,7 @@ everywhere (claim, headings, verdicts): drift never adds variance, so $U_d\bar s
 and the verdict is stronger with drift in. Theory `sec:msdb` states once that the strong-selection
 limit reduces MSDB to mutation--selection balance; "mutation--selection balance" only for genuinely
 no-drift statements ($q \approx \mu/s$ in Appendices A/D; Connallon & Czuppon's loci in Discussion ¶5).
-Abstract S5 says "maintained by mutation".
+Abstract S5 and S10 say "mutation--selection balance" (author, Overleaf 2026-11-09), an exception to this rule.
 
 **Selection regimes have three named axes.** "Strong/weak" = against drift only ($4N_es$). Purging
 rate $s$ = "fast/slow purging". $V_A$ vs 1 = "small variance" / multiplicative. Never a bare
@@ -364,14 +364,12 @@ $V_A$ as input. Not competitors.
 2. Re-voicing of all sections by the author (Introduction, Theory, Results, Discussion and Abstract
    are drafted scaffolding).
 3. Methods reviewer pass.
-3a. **Compaction pass (2026-11-09, author-approved):** abstract 248 words (limit 250); Introduction
+3a. **Compaction pass (2026-11-09, author-approved):** abstract 249 words (limit 250); Introduction
    ~1,610, Theory ~4,800, Methods ~2,915, Results text+captions ~3,185, Discussion ~1,944 (target
    ~1,800; optional cut D2, ¶5's closing "predict different patterns" sentence, kept). Extra-pair
    paternity sources and map citations now live in Table S1 (α column); Methods has the
    bias-direction table `tab:bias`. Bonnet et al. cited in Discussion ¶1 and ¶5, an accepted
-   exception to the one-paragraph rule. Open: abstract S10 says "other than mutation--selection
-   balance" (author's wording; the MSDB naming rule would give "other than mutation"); Results
-   `% AUTHOR` question paragraph in `sec:res_deficit` still to keep, re-voice or cut.
+   exception to the one-paragraph rule. Open: Results `% AUTHOR` question paragraph in `sec:res_deficit` still to keep, re-voice or cut.
 4. **Citations (2026-10-27):** every citation is `\cite{}` (biblatex `numeric-comp`, `sorting=none`,
    10 names before "et al."); `references.bib` holds all 92 cited works, Crossref-checked. Keys are
    first author + year (`buffaloKern2024`, `wangobbard2023`); new citations follow the same scheme.
