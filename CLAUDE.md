@@ -174,10 +174,10 @@ Retired: $Q_u$, $Q(s)$, $t$, $s_\text{het}$, $\overline{Q^2}_\text{linked}$, $\k
 κ(0) (now $\kappa_\text{max}$), Woolliams/B&E symbols. No symbol for LD ($D$ unused).
 
 **MSDB vs MSB (2026-11-09).** The equilibrium tested is named mutation--selection--drift balance
-everywhere (claim, headings, verdicts): drift never adds variance, so $U_dar s$ bounds it at any $N_e$
+everywhere (claim, headings, verdicts): drift never adds variance, so $U_d\bar s$ bounds it at any $N_e$
 and the verdict is stronger with drift in. Theory `sec:msdb` states once that the strong-selection
 limit reduces MSDB to mutation--selection balance; "mutation--selection balance" only for genuinely
-no-drift statements ($q pprox \mu/s$ in Appendices A/D; Connallon & Czuppon's loci in Discussion ¶5).
+no-drift statements ($q \approx \mu/s$ in Appendices A/D; Connallon & Czuppon's loci in Discussion ¶5).
 Abstract S5 says "maintained by mutation".
 
 **Selection regimes have three named axes.** "Strong/weak" = against drift only ($4N_es$). Purging
