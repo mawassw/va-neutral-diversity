@@ -173,6 +173,13 @@ Appendix D's currency. **Nothing to rescale.**
 Retired: $Q_u$, $Q(s)$, $t$, $s_\text{het}$, $\overline{Q^2}_\text{linked}$, $\kappa_\text{mult}$ /
 κ(0) (now $\kappa_\text{max}$), Woolliams/B&E symbols. No symbol for LD ($D$ unused).
 
+**MSDB vs MSB (2026-11-09).** The equilibrium tested is named mutation--selection--drift balance
+everywhere (claim, headings, verdicts): drift never adds variance, so $U_dar s$ bounds it at any $N_e$
+and the verdict is stronger with drift in. Theory `sec:msdb` states once that the strong-selection
+limit reduces MSDB to mutation--selection balance; "mutation--selection balance" only for genuinely
+no-drift statements ($q pprox \mu/s$ in Appendices A/D; Connallon & Czuppon's loci in Discussion ¶5).
+Abstract S5 says "maintained by mutation".
+
 **Selection regimes have three named axes.** "Strong/weak" = against drift only ($4N_es$). Purging
 rate $s$ = "fast/slow purging". $V_A$ vs 1 = "small variance" / multiplicative. Never a bare
 "strong/weak" for the other two.
@@ -357,6 +364,8 @@ $V_A$ as input. Not competitors.
 2. Re-voicing of all sections by the author (Introduction, Theory, Results, Discussion and Abstract
    are drafted scaffolding).
 3. Methods reviewer pass.
+3a. **Abstract length (2026-11-09):** 317 words after the author's Overleaf revision and the 2026-11-09 mirror pass; GENETICS
+   allows **250**. Trim due before submission.
 4. **Citations (2026-10-27):** every citation is `\cite{}` (biblatex `numeric-comp`, `sorting=none`,
    10 names before "et al."); `references.bib` holds all 92 cited works, Crossref-checked. Keys are
    first author + year (`buffaloKern2024`, `wangobbard2023`); new citations follow the same scheme.
