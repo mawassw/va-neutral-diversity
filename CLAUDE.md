@@ -364,8 +364,14 @@ $V_A$ as input. Not competitors.
 2. Re-voicing of all sections by the author (Introduction, Theory, Results, Discussion and Abstract
    are drafted scaffolding).
 3. Methods reviewer pass.
-3a. **Abstract length (2026-11-09):** 317 words after the author's Overleaf revision and the 2026-11-09 mirror pass; GENETICS
-   allows **250**. Trim due before submission.
+3a. **Compaction pass (2026-11-09, author-approved):** abstract 248 words (limit 250); Introduction
+   ~1,610, Theory ~4,800, Methods ~2,915, Results text+captions ~3,185, Discussion ~1,944 (target
+   ~1,800; optional cut D2, ¶5's closing "predict different patterns" sentence, kept). Extra-pair
+   paternity sources and map citations now live in Table S1 (α column); Methods has the
+   bias-direction table `tab:bias`. Bonnet et al. cited in Discussion ¶1 and ¶5, an accepted
+   exception to the one-paragraph rule. Open: abstract S10 says "other than mutation--selection
+   balance" (author's wording; the MSDB naming rule would give "other than mutation"); Results
+   `% AUTHOR` question paragraph in `sec:res_deficit` still to keep, re-voice or cut.
 4. **Citations (2026-10-27):** every citation is `\cite{}` (biblatex `numeric-comp`, `sorting=none`,
    10 names before "et al."); `references.bib` holds all 92 cited works, Crossref-checked. Keys are
    first author + year (`buffaloKern2024`, `wangobbard2023`); new citations follow the same scheme.
