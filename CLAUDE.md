@@ -153,7 +153,7 @@ Appendix D's currency. **Nothing to rescale.**
 | $\pi$, $\mu$ | neutral autosomal diversity; per-site per-generation mutation rate |
 | $N_{eV}$, $N_{eC}$ | variance effective size; coalescent effective size, $\pi = 4N_{eC}\mu$ |
 | δ | $\pi_\text{obs}/(4\mu N)$, derived |
-| $V_A$ | additive variance in relative fitness, $\bar w = 1$ |
+| $V_A$ | additive variance in relative fitness, $\bar w = 1$; written $V_A(w)$ once where each section defines it, $V_A$ after (author's intro, 2026-11-12) |
 | κ, κ(α), $\kappa_\text{max}$ | mating-system scalar: 1 random mating; $\kappa_B = 2 - \tfrac32\alpha + \tfrac58\alpha^2$ under social monogamy; $\kappa_\text{max}$ = 2 with pair bond, 1 without (Weissman & Barton 2012) |
 | $V_{A,\max}$ | small-variance ceiling $(1-\delta)/(4\kappa\delta)$ (Appendix A.2) |
 | $V_{A,\delta}$ | $\ln(1/\delta)/(4\kappa_\text{max})$, least variance that could explain δ |
@@ -255,6 +255,12 @@ at linked sites the segment's contribution sets drift.
   Theory use $\hat V_A$ / $\bar V_A$ / $Z$ for the quantities; Discussion and Abstract keep words.
   The verdict wording is "too small" (never "too restricted"). Comma after an introductory phrase
   that precedes math.
+- **Sentence architecture (author's intro pass, 2026-11-12; propagated to all sections):** split
+  "X, and Y, so Z" chains; front causes ("Because X, Y") or open the consequence sentence with an
+  explicit connective ("However,", "Consequently,", "Yet,", "Similarly,"), overriding the earlier
+  no-sentence-initial-"However" item; name the referent instead of "it"/"this"; plain, precise verbs.
+  **Not** carried outside the intro: intensifiers ("fundamentally", "drastically", "strictly", "vastly")
+  and new em-dashes (user, 2026-11-12). The Discussion keeps its closing *so* clauses.
 - **"Biased toward passing"** is the one phrase for approximations chosen to favor a test (not
   "optimistic", "most favourable to explaining").
 - **The wording must not stand between the reader and the claim (author, 2026-11-02).** Five checks,
