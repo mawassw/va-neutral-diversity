@@ -180,13 +180,23 @@ changes (Crow & Denniston 1988). Never call our $N_e$ "the asymptotic variance e
 verdict reverses only if $N_c$ overstates the harmonic-mean breeders by at least the shortfall (80–31,000×
 unlinked bound; 53–15,000× linked), stated in Results. Under the multiplicative bound a fluctuating $V_A$
 removes more diversity than its mean (convexity), so $V_{A,\delta}$ constrains $(4\kappa_\text{max})^{-1}\ln
-\overline{e^{4\kappa_\text{max}V_A(t)}}$, not $\bar V_A$; stated in Theory `sec:unlinked` and as the third
-opposite-direction factor in `sec:approx`. $c$ covers spatial as well as temporal unrepresentativeness.
+\overline{e^{4\kappa_\text{max}V_A(t)}}$, not $\bar V_A$; stated in Theory `sec:onemodel` (end of the tail
+paragraph, which already had the Jensen sentence; `sec:unlinked` only qualifies "insensitive to trajectory" to
+the small-variance form) and as the third opposite-direction factor in `sec:approx`.
+**Finite-population limit of the bound (2026-11-18, user asked to develop):** a population of $N$ realizes
+$e^{-4\kappa_\text{max}V_A}$ only while $8\kappa_\text{max}V_A \lesssim \ln N$ (ancestors $4\sqrt{\kappa_\text{max}V_A}$
+SD out, fraction $e^{-8\kappa_\text{max}V_A}$), i.e. down to $N_e \approx \sqrt N$; beyond it coalescence comes in
+bursts (multiple mergers). Required $V_{A,\delta}$ = 70–95% (median 88%) of that limit with $N_c$, 48–83% with
+$N_c/10$. Appendix A `app:A_tail` + simulation (`scripts/R/check_tail_realization.R`), Theory `sec:onemodel`,
+Results "How large", Discussion ¶7 (Eldon & Wakeley 2006, Diamantidis et al. 2024, Neher & Hallatschek 2013).
+No new symbol for the limit. $c$ covers spatial as well as temporal unrepresentativeness.
 Why not PSMC/SMC++: every genomic $N_e$ already contains $V_A$-driven drift, none gives long-term $N$ (Methods).
 **Blue tits (checked 2026-11-18):** Rouvière is *deciduous* mainland, Pirio *evergreen* Corsica; the
 Dias & Blondel source–sink maladaptation story concerns mainland evergreen patches and is not tested by
 Charmantier et al. 2016 (Evol Appl 9:135), which is cited only for divergence over km despite gene flow;
-Perrier et al. 2020 (Evol Appl) not read (paywalled). Migration–selection balance (Lenormand 2002) is a named
+Perrier et al. 2020 (Evol Appl 13:1145, read 2026-11-18) does not test it either; it infers strong,
+long-lasting gene flow between neighboring deciduous/evergreen populations (F_ST 0.003) despite strong
+phenotypic divergence, and Corsica–mainland isolation for ~4,500 generations; cited with the review. Migration–selection balance (Lenormand 2002) is a named
 maintenance route in Discussion ¶5.
 
 **Review highlighting (2026-11-18, user).** Every edit is wrapped in `\edit{...}` (yellow soul `\hl`,
