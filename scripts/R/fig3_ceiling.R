@@ -133,8 +133,8 @@ lab_mult  <- expression("Multiplicative bound, " * italic(V)[A*","*delta] == ln(
 lab_first <- expression("Small-variance ceiling, " * italic(V)[A*","*max] == (1 - delta) / 4 * kappa * delta *
                           ", where it holds")
 lab_link  <- "Multiplicative bound with linkage, one line per mapped population"
-lab_rm    <- expression("Measured " * hat(italic(V))[A] * " at observed " * delta * ": random mating")
-lab_sm    <- expression("Measured " * hat(italic(V))[A] * " at observed " * delta * ": social monogamy")
+lab_rm    <- expression("Measured " * hat(italic(V))[A] * " at " * hat(delta) * ": random mating")
+lab_sm    <- expression("Measured " * hat(italic(V))[A] * " at " * hat(delta) * ": social monogamy")
 
 p <- ggplot() +
   # V_A = 1, the limit of the small-variance approximation, and the delta at which its

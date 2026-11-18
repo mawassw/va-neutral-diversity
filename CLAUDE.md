@@ -152,7 +152,7 @@ Appendix D's currency. **Nothing to rescale.**
 | $N_c$ | total census (Buffalo 2021) |
 | $\pi$, $\mu$ | neutral autosomal diversity; per-site per-generation mutation rate |
 | $N_{eV}$, $N_{eC}$ | variance effective size; coalescent effective size, $\pi = 4N_{eC}\mu$ |
-| δ | $\pi_\text{obs}/(4\mu N)$, derived |
+| δ, $\hat\delta$ | δ = $\pi/(4\mu N) \approx N_{eC}/N$, a parameter ($N$ = harmonic-mean breeders over the genealogy); $\hat\delta = \pi_\text{obs}/(4\mu N_c)$, its estimate (2026-11-18). Observed values, table column, Fig 3 points and Fig 5 y-axis are $\hat\delta$; curves over δ stay δ |
 | $V_A$ | additive variance in relative fitness, $\bar w = 1$; written $V_A(w)$ once where each section defines it, $V_A$ after (author's intro, 2026-11-12) |
 | κ, κ(α), $\kappa_\text{max}$ | mating-system scalar: 1 random mating; $\kappa_B = 2 - \tfrac32\alpha + \tfrac58\alpha^2$ under social monogamy; $\kappa_\text{max}$ = 2 with pair bond, 1 without (Weissman & Barton 2012) |
 | $V_{A,\max}$ | small-variance ceiling $(1-\delta)/(4\kappa\delta)$ (Appendix A.2) |
@@ -172,6 +172,32 @@ Appendix D's currency. **Nothing to rescale.**
 
 Retired: $Q_u$, $Q(s)$, $t$, $s_\text{het}$, $\overline{Q^2}_\text{linked}$, $\kappa_\text{mult}$ /
 κ(0) (now $\kappa_\text{max}$), Woolliams/B&E symbols. No symbol for LD ($D$ unused).
+
+**Which $N_e$ (2026-11-18, user).** The predicted $N_e$ is the inbreeding = coalescent size (Appendix A,
+`eq:A_dF`); the variance size converges to it only when $N$ and $V_A$ are constant. The sizes coincide in any
+constant-size, constant-reproduction population (not only Wright–Fisher; Caballero 1994) and part when $N$
+changes (Crow & Denniston 1988). Never call our $N_e$ "the asymptotic variance effective size". The diversity
+verdict reverses only if $N_c$ overstates the harmonic-mean breeders by at least the shortfall (80–31,000×
+unlinked bound; 53–15,000× linked), stated in Results. Under the multiplicative bound a fluctuating $V_A$
+removes more diversity than its mean (convexity), so $V_{A,\delta}$ constrains $(4\kappa_\text{max})^{-1}\ln
+\overline{e^{4\kappa_\text{max}V_A(t)}}$, not $\bar V_A$; stated in Theory `sec:unlinked` and as the third
+opposite-direction factor in `sec:approx`. $c$ covers spatial as well as temporal unrepresentativeness.
+Why not PSMC/SMC++: every genomic $N_e$ already contains $V_A$-driven drift, none gives long-term $N$ (Methods).
+**Blue tits (checked 2026-11-18):** Rouvière is *deciduous* mainland, Pirio *evergreen* Corsica; the
+Dias & Blondel source–sink maladaptation story concerns mainland evergreen patches and is not tested by
+Charmantier et al. 2016 (Evol Appl 9:135), which is cited only for divergence over km despite gene flow;
+Perrier et al. 2020 (Evol Appl) not read (paywalled). Migration–selection balance (Lenormand 2002) is a named
+maintenance route in Discussion ¶5.
+
+**Review highlighting (2026-11-18, user).** Every edit is wrapped in `\edit{...}` (yellow soul `\hl`,
+`_main.tex`; robust, cite/ref/eqref/autoref registered). One `\edit` per paragraph; no `\ ` control space
+inside (soul "Reconstruction failed" — use `~`); never inside a `\cite{}` key. Accept all by redefining
+`\edit` to `#1`.
+
+**Results order (2026-11-18, user).** Results lead with the multiplicative model (Bonnet's animal model
+assumes it); the small-variance approximation follows, with a one-sentence reason why it predicts less
+(multiplicative: variance of long-term contributions $e^{4V_A}-1$ vs $4V_A$). Results give a plain
+mechanism sentence wherever two predictions differ; do not rely on the reader having read Theory.
 
 **MSDB vs MSB (2026-11-09).** The equilibrium tested is named mutation--selection--drift balance
 everywhere (claim, headings, verdicts): drift never adds variance, so $U_d\bar s$ bounds it at any $N_e$
@@ -426,6 +452,11 @@ $V_A$ as input. Not competitors.
    (`scripts/R/check_q2bar_quadrature.R`; max relative difference 2.4e-12). Not reproducible here:
    `functional_target.R` (LFS GFF objects missing locally); its committed CSV is current. 3,240-fold
    recomputes as 3,270 per population at its own c_MSD (definitional; left).
+
+11. **Staleness found 2026-11-18 (not fixed):** Fig. 1a still draws the small-variance approximation as the
+   primary series (circles + HPD bars, triangles for the multiplicative model), against the new Results
+   order; `tab_reduction` columns run approx. → model → bound. Fixed: Overleaf commit `ee1dabe` had
+   reduced three `tab:c` row endings to a lone `\` (broke the build); Fig. 5 "Long-run" axis/legend → "Long-term".
 
 ## Venue and prose authority
 

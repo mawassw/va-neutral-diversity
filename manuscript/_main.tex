@@ -25,6 +25,7 @@
 % \usepackage{natbib}
 \usepackage[style=numeric-comp, sorting=none, maxbibnames=10, minbibnames=10]{biblatex}
 \addbibresource{manuscript/references.bib}
+\usepackage{xcolor}
 \usepackage[colorinlistoftodos]{todonotes}
 % Faint-blue background marking prose written wholesale by Claude (as opposed to
 % relocated or lightly edited existing prose). Strip all highlights by redefining
@@ -32,6 +33,12 @@
 \usepackage{soul}
 \definecolor{claudeblue}{RGB}{227,238,252}
 \newcommand{\claude}[1]{{\sethlcolor{claudeblue}\hl{#1}}}
+% Yellow highlight marking edits for the author's review in Overleaf (2026-11-18 onward).
+% \edit{...} wraps new or changed text within a paragraph (soul cannot span a paragraph
+% break, so each paragraph gets its own \edit). To accept all edits, redefine as
+% \newcommand{\edit}[1]{#1}.
+\definecolor{edityellow}{RGB}{255,240,140}
+\DeclareRobustCommand{\edit}[1]{{\sethlcolor{edityellow}\hl{#1}}}
 % Red text marking a passage that may be moved or cut (\movecandidate{...}), with a
 % visible red note (\movenote{...}).
 \newcommand{\movecandidate}[1]{{\color{red!75!black}#1}}
@@ -48,6 +55,13 @@
 \usepackage{array}
 \usepackage{longtable}
 \setstretch{1.5}
+% Let soul's \hl pass these commands through untouched inside \edit{} and \claude{}.
+\soulregister{\cite}{7}
+\soulregister{\ref}{7}
+\soulregister{\eqref}{7}
+\soulregister{\autoref}{7}
+\soulregister{\emph}{7}
+\soulregister{\textit}{7}
 
 % Define variable to indicate this is the main document
 \newcommand{\beginsupplement}{%

@@ -98,9 +98,9 @@ pop_c <- d %>%
 
 col_msd <- "#2C7FB8"; col_req <- "#D95F0E"
 lab_msd <- expression(bar(italic(V))[A] / italic(U)[d] * bar(italic(s)) *
-                        ":  long-run " * italic(V)[A] * " ÷ the " * italic(V)[A] *
+                        ":  long-term " * italic(V)[A] * " ÷ the " * italic(V)[A] *
                         " MSDB maintains")
-lab_div <- expression((italic(N)[e] / italic(N))[pred] / delta *
+lab_div <- expression((italic(N)[e] / italic(N))[pred] / hat(delta) *
                         ":  predicted ÷ observed diversity, multiplicative bound")
 lab_div1 <- expression("the same under the small-variance approximation, " * 1 / (1 + 4 * kappa * bar(italic(V))[A]) *
                          ", while " * bar(italic(V))[A] <= 1)
@@ -146,7 +146,7 @@ p <- ggplot(avg_plot, aes(c)) +
   scale_y_log10(breaks = 10^seq(-3, 5), expand = c(0, 0),
                 labels = scales::label_math(10^.x, format = log10)) +
   coord_cartesian(xlim = c(1e-4, x_max), ylim = c(1e-3, 1e5)) +
-  labs(x = expression("Long-run " * italic(V)[A] * " as a multiple of the pedigree estimate, " *
+  labs(x = expression("Long-term " * italic(V)[A] * " as a multiple of the pedigree estimate, " *
                         italic(c) == bar(italic(V))[A] / hat(italic(V))[A]),
        y = "Ratio") +
   guides(colour = guide_legend(ncol = 1, override.aes = list(linewidth = 1.1, alpha = 1))) +
