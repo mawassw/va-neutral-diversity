@@ -90,8 +90,10 @@ pA <- ggplot(d, aes(y = label)) +
   geom_linerange(aes(xmin = nm50a, xmax = nm50b), linewidth = 1.3) +
   geom_point(aes(x = ne_bound, shape = "bound"), size = 1.5, stroke = 0.6, colour = col_mult) +
   geom_point(aes(x = ne, shape = "first"), size = 1.5, fill = "white", stroke = 0.5, colour = "grey45") +
-  geom_point(aes(x = ne_mult, shape = "mult"), size = 1.7, stroke = 0.6, key_glyph = key_hpd) +
-  scale_shape_manual(values = c(mult = 16, first = 21, bound = 4), breaks = c("mult", "first", "bound"),
+  # gray fill with a black outline so the mode stands out against its black HPD bars (user, 2026-11-18)
+  geom_point(aes(x = ne_mult, shape = "mult"), size = 2, stroke = 0.5, fill = "grey60",
+             key_glyph = key_hpd) +
+  scale_shape_manual(values = c(mult = 21, first = 21, bound = 4), breaks = c("mult", "first", "bound"),
                      name = NULL,
                      labels = list("Multiplicative model: mode, 50% and 95% HPD",
                                    expression("Its limit for small " * italic(V)[A] * ", the small-variance approximation: mode"),
@@ -100,7 +102,8 @@ pA <- ggplot(d, aes(y = label)) +
   ne_log() +
   facet_grid(taxon ~ ., scales = "free_y", space = "free_y", switch = "y") +
   labs(x = ne_lab, y = NULL, tag = "a") +
-  guides(shape = guide_legend(ncol = 1, order = 1, override.aes = list(colour = c("black", "grey45", col_mult)))) +
+  guides(shape = guide_legend(ncol = 1, order = 1, override.aes = list(colour = c("black", "grey45", col_mult),
+                                                                     fill = c("grey60", "white", NA)))) +
   theme_fig +
   theme(strip.background = element_blank(), strip.placement = "outside",
         strip.text.y.left = element_text(angle = 90),

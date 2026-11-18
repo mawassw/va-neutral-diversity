@@ -199,12 +199,12 @@ long-lasting gene flow between neighboring deciduous/evergreen populations (F_ST
 phenotypic divergence, and Corsica–mainland isolation for ~4,500 generations; cited with the review. Migration–selection balance (Lenormand 2002) is a named
 maintenance route in Discussion ¶5.
 
-**Review highlighting (2026-11-18, user).** Every edit is wrapped in `\edit{...}` (yellow soul `\hl`,
-`_main.tex`; robust, cite/ref/eqref/autoref registered). One `\edit` per paragraph; no `\ ` control space
-inside (soul "Reconstruction failed" — use `~`); never inside a `\cite{}` key. Accept all by redefining
-`\edit` to `#1`. Proposed removals of the author's text are struck through with `\cut{...}` (red soul
-`\st`), verbatim, never nested with `\edit`; accept all by redefining `\cut` to empty. Unreviewed text of
-Claude's own may be deleted outright.
+**Review highlighting (2026-11-18, user; replaces the short-lived `\edit`/`\cut`, which broke Overleaf).**
+New or changed text is wrapped in `\claude{...}` exactly as in rmt-pca (faint-blue soul `\hl`, plain
+`\newcommand`, no `\soulregister`). `\cite`, `\ref`, `\eqref`, `\autoref` and `\texttt` stay **outside**
+the span: close it before the command and reopen after (`\claude{… (Figure}~\ref{fig:x}\claude{a).}`).
+One span never crosses a paragraph break; no `\ ` control space inside (use `~`). **Cuts are made
+outright, not flagged.** Strip all highlights by redefining `\claude` to `#1`.
 **Redundancy pass (2026-11-18, user):** a claim, assumption or condition is stated once at its home
 (Theory for conditions, Results for numbers) and referenced elsewhere; Results carry no sentence that
 restates the heading or the previous sentence. Pre-breeding survival ($Q = 1$) is now a `sec:approx`
@@ -216,7 +216,7 @@ exact for the map the animal model assumes when it estimates $\hat V_A$ ("the pr
 how the estimates were made", never "primary"); bound = the largest reduction the multiplicative model
 allows. Their difference measures dependence on how loci combine (> ¼ only where $\hat V_A > 0.25$, 5 of
 19). Stated in Theory `sec:onemodel`; same order and wording in Results, Methods `sec:meth_mating`,
-Fig. 1 (multiplicative model filled with HPD, limit open, bound cross; panel b bound solid, limit dashed)
+Fig. 1 (multiplicative model gray-filled circle with HPD, limit open, bound cross; panel b bound solid, limit dashed)
 and `tab_reduction` (model, bound, approx.). Results give a plain mechanism sentence wherever two
 predictions differ (multiplicative: variance of long-term contributions $e^{4V_A}-1$ vs $4V_A$); do not
 rely on the reader having read Theory. **Corsican blue tits** (Methods `sec:pi_methods`): species-level
