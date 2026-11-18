@@ -482,6 +482,25 @@ $V_A$ as input. Not competitors.
    ceiling (a reusable curve, kept). Fixed: Overleaf commit `ee1dabe` had
    reduced three `tab:c` row endings to a lone `\` (broke the build); Fig. 5 "Long-run" axis/legend → "Long-term".
 
+12. **Review 2026-11-18 (user-approved; branch `worktree-review-fixes`, not yet applied to the text).**
+   The fix list is **`REVIEW_FIXES.md`** (repo root) and supersedes this file where they differ. Decisions:
+   (a) the contribution on the diversity side is the per-population **sizing**; nobody expects $V_A$ to
+   explain the deficit, and the text says so before each result. (b) The maintenance verdict is stated with
+   its conditions; joint sensitivity (`scripts/R/sens_maintenance_joint.R` →
+   `data/processed/maintenance_joint_sensitivity*.csv`; target × hidden tail at $s$ = 0.5 × inflation of
+   $\hat V_A$, point convention): 16 of 18 fail at baseline (median ratio 21.5); 12 at ζ = 8%, 1% tail,
+   2× inflation (median 1.9; 7 with posterior probability ≥ 0.95); 6 at ζ = 15%, 2% tail, 3× (blue tits ×3,
+   hihi Tiritiri, Wytham great tits, hyenas); 0 only at ζ = 15%, 5% tail, 10×. (c) `eq:compat` is independent
+   of the estimates, so "no single rescaling" restates a known result per population; said explicitly in
+   Theory, Results and Discussion ¶6. (d) Machinery (κ, Haldane averaging, linked factor) is cut from the
+   main text to definition + one result + effect on the verdict. (e) The small-variance ceiling
+   (`sec:res_ceiling`, purple band of Fig. 3) moves to the supplement. (f) Under a log link
+   $\hat V_A = \mathrm{Var}(z)$ exactly (de Villemereuil 2016 Eqs 15–16, `genetics1281.pdf`);
+   $e^{\sigma_z^2}-1$ is the total genotypic variance (their Eq. 28), so Theory l.134 is wrong as written.
+   (g) Theory and Methods are brought to the register of Results and Discussion; Introduction untouched.
+   Staleness: the appendices are in `supp/` at the repo root, not `manuscript/supp/` (Layout below is stale);
+   Fisher is named in Introduction ¶1 and Theory `sec:quantity` against the rule above (author to decide).
+
 ## Venue and prose authority
 
 - **GENETICS (GSA)**; fallbacks Am Nat, Evolution Letters. Figures follow `scripts/R/theme_genetics.R`
