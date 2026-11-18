@@ -39,6 +39,9 @@
 % \newcommand{\edit}[1]{#1}.
 \definecolor{edityellow}{RGB}{255,240,140}
 \DeclareRobustCommand{\edit}[1]{{\sethlcolor{edityellow}\hl{#1}}}
+% Red strike-through marking text proposed for removal (redundancy pass, 2026-11-18). To
+% accept all cuts, redefine as \newcommand{\cut}[1]{}. Never nest \edit inside \cut.
+\DeclareRobustCommand{\cut}[1]{{\setstcolor{red}\st{#1}}}
 % Red text marking a passage that may be moved or cut (\movecandidate{...}), with a
 % visible red note (\movenote{...}).
 \newcommand{\movecandidate}[1]{{\color{red!75!black}#1}}

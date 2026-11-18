@@ -202,7 +202,13 @@ maintenance route in Discussion ¶5.
 **Review highlighting (2026-11-18, user).** Every edit is wrapped in `\edit{...}` (yellow soul `\hl`,
 `_main.tex`; robust, cite/ref/eqref/autoref registered). One `\edit` per paragraph; no `\ ` control space
 inside (soul "Reconstruction failed" — use `~`); never inside a `\cite{}` key. Accept all by redefining
-`\edit` to `#1`.
+`\edit` to `#1`. Proposed removals of the author's text are struck through with `\cut{...}` (red soul
+`\st`), verbatim, never nested with `\edit`; accept all by redefining `\cut` to empty. Unreviewed text of
+Claude's own may be deleted outright.
+**Redundancy pass (2026-11-18, user):** a claim, assumption or condition is stated once at its home
+(Theory for conditions, Results for numbers) and referenced elsewhere; Results carry no sentence that
+restates the heading or the previous sentence. Pre-breeding survival ($Q = 1$) is now a `sec:approx`
+item (Methods already pointed there).
 
 **The three forms are nested, not competing (2026-11-18, user).** Small-variance approximation = the
 small-$V_A$ limit of every smooth fitness map, including the multiplicative one; multiplicative model =
