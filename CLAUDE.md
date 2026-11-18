@@ -204,10 +204,18 @@ maintenance route in Discussion ¶5.
 inside (soul "Reconstruction failed" — use `~`); never inside a `\cite{}` key. Accept all by redefining
 `\edit` to `#1`.
 
-**Results order (2026-11-18, user).** Results lead with the multiplicative model (Bonnet's animal model
-assumes it); the small-variance approximation follows, with a one-sentence reason why it predicts less
-(multiplicative: variance of long-term contributions $e^{4V_A}-1$ vs $4V_A$). Results give a plain
-mechanism sentence wherever two predictions differ; do not rely on the reader having read Theory.
+**The three forms are nested, not competing (2026-11-18, user).** Small-variance approximation = the
+small-$V_A$ limit of every smooth fitness map, including the multiplicative one; multiplicative model =
+exact for the map the animal model assumes when it estimates $\hat V_A$ ("the prediction consistent with
+how the estimates were made", never "primary"); bound = the largest reduction the multiplicative model
+allows. Their difference measures dependence on how loci combine (> ¼ only where $\hat V_A > 0.25$, 5 of
+19). Stated in Theory `sec:onemodel`; same order and wording in Results, Methods `sec:meth_mating`,
+Fig. 1 (multiplicative model filled with HPD, limit open, bound cross; panel b bound solid, limit dashed)
+and `tab_reduction` (model, bound, approx.). Results give a plain mechanism sentence wherever two
+predictions differ (multiplicative: variance of long-term contributions $e^{4V_A}-1$ vs $4V_A$); do not
+rely on the reader having read Theory. **Corsican blue tits** (Methods `sec:pi_methods`): species-level
+π and $N_c$ fit Pirio/Muro less closely than Rouvière (isolation ~4,500 generations, island $N_e$ 7.5×
+smaller, ~4% chance of in-island coalescence since; Perrier et al. 2020).
 
 **MSDB vs MSB (2026-11-09).** The equilibrium tested is named mutation--selection--drift balance
 everywhere (claim, headings, verdicts): drift never adds variance, so $U_d\bar s$ bounds it at any $N_e$
@@ -463,9 +471,9 @@ $V_A$ as input. Not competitors.
    `functional_target.R` (LFS GFF objects missing locally); its committed CSV is current. 3,240-fold
    recomputes as 3,270 per population at its own c_MSD (definitional; left).
 
-11. **Staleness found 2026-11-18 (not fixed):** Fig. 1a still draws the small-variance approximation as the
-   primary series (circles + HPD bars, triangles for the multiplicative model), against the new Results
-   order; `tab_reduction` columns run approx. → model → bound. Fixed: Overleaf commit `ee1dabe` had
+11. **2026-11-18:** Fig. 1 redrawn with the multiplicative model as the HPD series and `tab_reduction`
+   reordered (model, bound, approx.). Open: Results `sec:res_ceiling` still leads with the small-variance
+   ceiling (a reusable curve, kept). Fixed: Overleaf commit `ee1dabe` had
    reduced three `tab:c` row endings to a lone `\` (broke the build); Fig. 5 "Long-run" axis/legend → "Long-term".
 
 ## Venue and prose authority
