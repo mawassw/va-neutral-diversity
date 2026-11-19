@@ -713,6 +713,40 @@ the claim stands.
 
 ---
 
+## Fix 8 — Give the linked factor $\Omega_i$ an intuitive meaning where it is defined
+
+**Problem (checked 2026-11-19).** Nowhere does the paper say in plain words what $\Omega_i$
+is. Theory `sec:linkage` defines it only as a ratio and a formula (`linked_penalty`), and
+calls it "the chromosome-specific linked multiplier"; every other place calls it "the linked
+factor" (Results, notation table, Appendix `app:omega`, captions; CLAUDE.md fixes that name).
+Results `sec:res_linked` uses $\overline\Omega$ without restating what it measures. Appendix
+`app:omega` proves $\Omega_i \le 1$ algebraically and gives no reason a reader could state
+in words. The closest thing to a plain definition is the caption of Figure `fig:S_omega`.
+
+### Edits (apply together with Fix 4, which shortens `sec:linkage`; this sentence stays in the main text)
+
+1. **Theory `sec:linkage`**, at the definition of $\Omega_i$. Use one name, "the linked
+   factor", and follow the equation with an "Intuitively," sentence (allowed after a formal
+   result, CLAUDE.md), in substance:
+   "Intuitively, $\Omega_i$ is the fraction of its neutral diversity that a site on
+   chromosome $i$ keeps relative to a site that assorts independently of every selected
+   locus. Selected alleles on the site's own haplotype stay associated with it until
+   recombination separates them or selection removes them, which takes longer than the
+   generation or two that an unlinked association lasts, so the variance on that haplotype
+   counts for more than the same variance elsewhere in the genome. $\Omega_i$ equals one on a
+   freely recombining chromosome and decreases as a chromosome carries more selected
+   variance per Morgan and as that variance is purged more slowly."
+2. **Same place, the bound.** Give the reason before the pointer to the appendix: linkage can
+   only lengthen an association ($\overline{Q^2}_i \ge Q^2$), so the haplotype's variance
+   never counts for less than it would at an unlinked site, and $\Omega_i \le 1$.
+3. **Results `sec:res_linked`**, first use of $\overline\Omega$: restate it in a clause
+   ("the linked factor $\overline\Omega$, the genome-wide $N_e/N$ with linkage relative to
+   its value without") so that Results do not depend on the reader having read Theory.
+4. **Appendix `app:omega`**: open with the same one-sentence reason as item 2 before the
+   algebra.
+
+---
+
 ## Author decisions (all given 2026-11-18)
 
 1. Fix 1.7: the two shares are adopted. Numbers from `scripts/R/shares.R`.
