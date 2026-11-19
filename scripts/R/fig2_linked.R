@@ -3,9 +3,12 @@
 # ==============================================================================
 # Run from the repo root:   Rscript scripts/R/fig2_linked.R
 # Reads only through load_data.R; model in linked.R. Writes
-#   main/Fig2_linked.{pdf,tiff}          primary: f_i from coding bp
+#   main/Fig2_linked.{pdf,tiff}          primary: f_i from coding bp (single panel since
+#                                        2026-11-19, Fix 4; its old panels b, c are now
+#                                        FigS_omega b, c)
 #   supp/FigS_linked_fgene.{pdf,tiff}    the same with f_i from gene counts
-#   supp/FigS_omega.{pdf,tiff}           the linked factor Omega_bar alone
+#   supp/FigS_omega.{pdf,tiff}           (a) the linked factor Omega_bar alone at the assigned
+#                                        DFE; (b, c) the maps alone (formerly Figure 2b, c)
 #
 # One row per population in the linked set (9: mapped autosomes, microchromosomes
 # included), on one log axis of N_e/N (effective size relative to breeding adults):
@@ -166,7 +169,7 @@ plot_omega <- function(part) {
     theme_rows
 }
 
-# --- Figure 2B, C: map architecture alone ---------------------------------------
+# --- Figure S_omega b, c (Figure 2b, c before 2026-11-19): map architecture alone ---------------------------------------
 # At one common Z and V_A, Omega depends only on each genome's maps and coding
 # partition, so species differences in B and C are differences in recombination
 # landscape, not in DFE (Z) or in measured V_A.
@@ -226,12 +229,15 @@ save_fig <- function(p, stem, w, h) {
 library(patchwork)
 # c is freed from the row-label alignment of a, which otherwise puts a wide gap
 # between its axis and its axis title
-fig2 <- ((plot_total("bp") + labs(tag = "a") + theme(legend.location = "panel")) +
-           plot_arch_rows() + plot_layout(widths = c(4, 1))) /
+# Fix 4 (2026-11-19): Figure 2 keeps only the total against the observed deficit; the
+# map-only panels moved beside the linked factor in FigS_omega.
+fig2 <- plot_total("bp") + theme(legend.location = "panel")
+figS_omega <- ((plot_omega("bp") + labs(tag = "a") + theme(legend.location = "panel")) +
+                 plot_arch_rows() + plot_layout(widths = c(4, 1))) /
   free(plot_arch_chrom()) + plot_layout(heights = c(1, 0.85))
-save_fig(fig2,               "main/Fig2_linked",       178, 150)
+save_fig(fig2,               "main/Fig2_linked",       178, 80)
 save_fig(plot_total("gene"), "supp/FigS_linked_fgene", 178, 80)
-save_fig(plot_omega("bp"),   "supp/FigS_omega",        150, 70)
+save_fig(figS_omega,         "supp/FigS_omega",        178, 150)
 
 print(as.data.frame(base %>% select(code, unl, unl_sv, obs) %>%
   left_join(summ %>% select(code, partition, tot_mode, tot_lo, om_mode, om_lo, tot_sv_mode, tot_sv_lo), by = "code") %>%

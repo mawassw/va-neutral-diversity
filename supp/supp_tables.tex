@@ -14,6 +14,33 @@
 % data/raw/species.xlsx (red deer identified from the map length); mu_direct relatives from
 % data/mutation_rate_sources.csv; pi from data/pi_literature.csv and Lewin & Eyre-Walker STable3.
 \section*{Supplementary Tables}
+% Moved here from Theory sec:unlinked/sec:onemodel on 2026-11-19 (Fix 4, author decision 4); cited
+% once from Theory sec:unlinked, so it prints before tab:S_sources (first cited in Methods).
+\begin{table}[h!]
+\centering
+\caption{\textbf{Foundational theories of drift under selection compute the same core quantity---an ancestor's expected long-term genetic contribution $R$---from its heritable selective advantage.} At linked sites, the long-term contribution governing drift shifts from that of the individual ancestor to that of the chromosomal segment carrying the focal neutral copy.}
+\label{tab:models}
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}p{2.2cm}>{\raggedright\arraybackslash}p{3.0cm}}
+\toprule
+Theory & Expected long-term contribution ($R$) & Persistence of the advantage & Regime of validity & Role in this study \\
+\midrule
+\multicolumn{5}{l}{\textit{Unlinked sites: the ancestor's contribution}} \\
+Robertson~\cite{robertson1961}; Santiago and Caballero~\cite{santiago1995} & Linear in the ancestor's breeding value, with slope $Q$ & Constant retention factor $Z$ per generation, treated as a parameter & Small $V_A$; any smooth mapping from breeding value to fitness & Defines $Q$, the small-variance approximation, and $Z_k$ at MSDB \\
+\addlinespace
+Woolliams et al.~\cite{woolliams1999} & Linear in multiple advantages simultaneously (focal individual and social partner) & Matrix recursion across sexes and partners at retention factor $Z$ & Small $V_A$ & Derives $\kappa(\alpha)$ and partitions its focal, partner, and \textit{cis} components \\
+\addlinespace
+Barton and Etheridge~\cite{barton2011}; Weissman and Barton~\cite{weissman2012} & Exponential in a Gaussian breeding value for log-fitness ($e^{Qz}$) & $Z = 1$ exactly & Any $\mathrm{Var}(z)$ under $w \propto e^{z}$ (given unbounded tail) & Establishes the multiplicative model, the multiplicative bound, and $\kappa_\text{max}$ \\
+\midrule
+\multicolumn{5}{l}{\textit{Linked sites: the chromosomal segment's contribution}} \\
+Santiago and Caballero~\cite{santiago1998}; Buffalo and Kern~\cite{buffaloKern2024} & Linear in the segment's \textit{cis} breeding value, with slope $1/(1-\rho)$ & Joint decay via recombination and purging, $\rho = (1-r)Z$ per generation & Small segment variance; $Z_k$ set by MSDB & Parameterizes the local linked reduction and $\overline{\Omega}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+% Added 2026-10-29 (user): the three unlinked theories as computations of one quantity, R, and the
+% division of labor among them; the linked row marks where the ancestor's contribution stops
+% setting drift. Map of cited results only; no new derivation.
+
 \begin{table}[h!]
 \centering
 \footnotesize

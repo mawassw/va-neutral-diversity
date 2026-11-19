@@ -18,16 +18,18 @@
     \renewcommand{\thefigure}{S\arabic{figure}}
 \fi
 % Supplementary figures (added 2026-10-20 with the Results draft), numbered S1, S2, ... by
-% \beginsupplement in _main.tex, in order of first citation in the main text (S_kappa from Theory, the rest from Results).
+% \beginsupplement in _main.tex, in order of first citation in the main text (S_ceiling and S_kappa from
+% Theory, the rest from Results). 2026-11-19 (Fix 4): S_ceiling now precedes S_kappa, because Theory
+% sec:conditions (which cites S_ceiling) now precedes the mating-system text (which cites S_kappa).
+
+% Supplementary results: linkage. Moved verbatim from Results sec:res_linked on 2026-11-19 (Fix 4),
+% figure pointers updated (old Figure 2b, c are now Figure S_omega b, c).
+\section*{Supplementary Results: linkage}
+In our predictions, the contrast between birds and mammals does not follow the recombination maps. At the same selection coefficient and $V_A$, the maps alone give similar linked factors $\overline{\Omega}$ (Equation~\eqref{linked_penalty}) in the two taxa (0.55--0.73; Figure~\ref{fig:S_omega}b), although the bird genomes recombine about twice as much per megabase. The contrast follows instead the DFEs assigned to the two taxa, whose mean heterozygous effects are 0.0013--0.0021 in birds, an order of magnitude lower than the 0.014--0.020 assigned to the mapped mammals. Because each DFE was assigned by taxon from related species (Methods), the contrast is attributable to the assigned DFEs within the model and is not evidence that the DFEs of these populations differ. The assigned DFEs differ in how fast they purge. Slow purging, in turn, gives a larger local reduction from the same $V_A$ (\autoref{sec:linkage}).
+
+The local reduction is also steeply nonlinear in the amount of variance. The two great tit populations share maps and a DFE, yet $\overline{\Omega}$ is 0.031 at Wytham Woods, where $\hat{V}_A = 0.086$, and 0.49 at Hoge Veluwe, where $\hat{V}_A = 0.016$ (Figure~\ref{fig:S_omega}a). Partitioning the variance among chromosomes by gene count rather than by coding length does not change these results (Figure~\ref{fig:S_fgene}). Partitioning it by the annotated functional target with up to 15\% of the unannotated sequence changes the linked $N_e/N$ by at most 13\% in eight of the nine mapped populations and by 40\% in the great tits at Wytham Woods, and each of the six with an observed deficit remains at least 50-fold short of it (Figure~\ref{fig:S_noncoding_linked}).
 
 \section*{Supplementary Figures}
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.5\textwidth]{FigS_kappa}
-    \caption{\textbf{Extra-pair paternity lowers the mating-system scalar, and under Model B it stays above the random-mating value.} The scalar $\kappa$ against the extra-pair paternity rate $\alpha$, with Model B (extra-pair success proportional to a male's breeding value; primary) in blue and Model A (extra-pair siring independent of it; sensitivity) in orange. Both models give $\kappa = 2$ under strict monogamy. Under Model A, $\kappa$ drops below the random-mating value (dashed line) once $\alpha$ exceeds 0.44. Points and ticks mark the eleven socially monogamous populations at their extra-pair paternity rates.}
-    \label{fig:S_kappa}
-\end{figure}
 
 \begin{figure}[h!]
     \centering
@@ -38,15 +40,22 @@
 
 \begin{figure}[h!]
     \centering
+    \includegraphics[width=0.5\textwidth]{FigS_kappa}
+    \caption{\textbf{Extra-pair paternity lowers the mating-system scalar, and under Model B it stays above the random-mating value.} The scalar $\kappa$ against the extra-pair paternity rate $\alpha$, with Model B (extra-pair success proportional to a male's breeding value; primary) in blue and Model A (extra-pair siring independent of it; sensitivity) in orange. Both models give $\kappa = 2$ under strict monogamy. Under Model A, $\kappa$ drops below the random-mating value (dashed line) once $\alpha$ exceeds 0.44. Points and ticks mark the eleven socially monogamous populations at their extra-pair paternity rates.}
+    \label{fig:S_kappa}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
     \includegraphics[width=\textwidth]{FigS_omega}
-    \caption{\textbf{The linked factor is steeply nonlinear in the measured variance.} The linked factor alone, $\overline{\Omega}$, is genome-wide $N_e/N$ with linkage relative to the unlinked value at the same retention factor, for the nine populations with linkage maps, at the empirical DFE assigned to each population. Dot: at the posterior mode of $\hat{V}_A$; bar: over its 95\% HPD.}
+    \caption{\textbf{The linked factor is steeply nonlinear in the measured variance\claude{, and from the maps alone it is similar in birds and mammals}.} \claude{(a)} The linked factor alone, $\overline{\Omega}$, is genome-wide $N_e/N$ with linkage relative to the unlinked value at the same retention factor, for the nine populations with linkage maps, at the empirical DFE assigned to each population. Dot: at the posterior mode of $\hat{V}_A$; bar: over its 95\% HPD. (b) The linked factor $\overline{\Omega}$ from the maps alone, at a uniform selection coefficient $s = 0.01$ and $V_A = 0.1$, with each genome's map length per megabase (cM/Mb) on the left. (c) The linked factor of each chromosome, $\Omega_i$, against its selected target per Morgan, $f_i/M_i$, at the same values as (b). Open circles: microchromosomes ($< 20$ Mb).}
     \label{fig:S_omega}
 \end{figure}
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=\textwidth]{FigS_linked_fgene}
-    \caption{\textbf{Partitioning the variance by gene count leaves the linked results unchanged.} As Figure~\ref{fig:linked}a, with the additive variance partitioned among chromosomes by annotated protein-coding gene count rather than by coding length.}
+    \caption{\textbf{Partitioning the variance by gene count leaves the linked results unchanged.} As Figure~\ref{fig:linked}, with the additive variance partitioned among chromosomes by annotated protein-coding gene count rather than by coding length.}
     \label{fig:S_fgene}
 \end{figure}
 

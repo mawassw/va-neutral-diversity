@@ -430,7 +430,10 @@ $V_A$ as input. Not competitors.
    are drafted scaffolding).
 3. Methods reviewer pass.
 3a. **Compaction pass (2026-11-09, author-approved):** abstract 249 words (limit 250); Introduction
-   ~1,610, Theory ~4,800, Methods ~2,915, Results text+captions ~3,185, Discussion ~1,944 (target
+   ~1,610, Theory ~4,800, Methods ~2,915, Results text+captions ~3,185, Discussion ~1,944. After Fix 4
+   (2026-11-19, `wc -w` of the whole file, comments included / excluded): Theory 5,723 / 5,210 (was
+   6,563 / 6,091; review target ~3,500), Results 3,262 / 3,046, Introduction 1,821 / 1,586, Abstract
+   319 / 281, Methods 4,212 / 3,963; Discussion unchanged (target
    ~1,800; optional cut D2, ¶5's closing "predict different patterns" sentence, kept). Extra-pair
    paternity sources and map citations now live in Table S1 (α column); Methods has the
    bias-direction table `tab:bias`. Bonnet et al. cited in Discussion ¶1 and ¶5, an accepted
@@ -521,6 +524,31 @@ $V_A$ as input. Not competitors.
    three appendix/notation items).
    Staleness: the appendices are in `supp/` at the repo root, not `manuscript/supp/` (Layout below is stale).
 
+13. **Fix 4 applied 2026-11-19 (machinery cut so the verdict leads).** Theory order: `sec:quantity`,
+   `sec:msdb`, `sec:unlinked`, `sec:onemodel`, `sec:conditions` (moved up), **one subsection
+   "Extensions: mating system and linkage"** (`sec:extensions`, which also carries the old labels
+   `sec:mating` and `sec:linkage`), `sec:approx` (bullets one line each). $\kappa_\text{max}$ is now
+   defined in `sec:onemodel`; `unlinked_mating`, `eq:kappaB` and `eq:ne_mult_pair` sit in
+   `sec:extensions`. Where moved passages went: `tab:models` → `supp/supp_tables.tex` (prints as Table
+   S3, before `tab:S_sources`, now S4; cited once from `sec:unlinked`); the sex-averaging, nest-productivity,
+   Woolliams-regression and Model B rationale sentences were duplicates of Appendix B and were cut; the
+   cis/trans and own/partner bookkeeping → Appendix B `app:B_split`; `eq:haldane_avg` (label kept), the
+   Haldane-versus-linear rationale, the BGS-kernel substitution and the Buffalo & Kern / Santiago &
+   Caballero comparisons → Appendix C `app:C_kernel`; the $M_i \to \infty$ limit → `app:C_limits`; the
+   linked $V_{A,\delta}$ and linked-compatibility sentences moved from `sec:conditions` to the end of
+   `sec:extensions`; the duplicate account of the two perspectives in `sec:unlinked` cut to one sentence.
+   Results `sec:res_linked` is two paragraphs; the bird–mammal, Wytham/Hoge Veluwe and both
+   partition-sensitivity passages are in a "Supplementary Results: linkage" note at the top of
+   `supp/supp_figures.tex`; Results keeps the chromosomes-on-one-curve sentence (for Discussion ¶3) and
+   states once that the linked term is an upper limit on what linkage adds. **Fig. 2 (`Fig2_linked`) is a
+   single panel; its old panels b, c are `FigS_omega` b, c** (`fig2_linked.R`). `fig:S_ceiling` now
+   prints before `fig:S_kappa`. Methods' midpoint-approximation comparison cut to one clause
+   (Appendix C `app:C_linear` already had it). Intro ¶4 lost its two closing map sentences; the Intro's
+   last paragraph and the Abstract name the two extensions in one sentence/clause. Staleness: "Table
+   S1" for the sources table elsewhere in this file now prints as S4 (notation S1, `tab:linked_limits`
+   S2); `tab:linked_limits` prints before `tab:models` though cited only from Appendix C; Fig. 2's
+   legend still says "Observed: δ" where the text uses $\hat\delta$.
+
 ## Venue and prose authority
 
 - **GENETICS (GSA)**; fallbacks Am Nat, Evolution Letters. Figures follow `scripts/R/theme_genetics.R`
@@ -538,10 +566,13 @@ $V_A$ as input. Not competitors.
 ## The model in one screen
 
 1. **Unlinked baseline** — genome-wide $V_A$ depressing $N_e$ (small-variance form and
-   multiplicative model, one model family matching Bonnet's log link).
-2. **Mating-system scalar κ(α)** — modulates the unlinked term by EPP rate α.
+   multiplicative model, one model family matching Bonnet's log link), then **the two tests as limits
+   on $c$** (`sec:conditions`), before any extension.
+2. **Mating-system scalar κ(α)** — modulates the unlinked term by EPP rate α; changes the variance a
+   deficit requires at most twofold. Main text: definition, `eq:kappaB`, limits 2 and 9/8, bound at
+   $\kappa_\text{max}$; everything else in Appendix B.
 3. **Linked term** — chromosome-local variance $v_i$ over map length $M_i$, via position-averaged
-   $\overline{Q^2}$; exponential composite
+   $\overline{Q^2}$ (derivation and `eq:haldane_avg` in Appendix C); exponential composite
    $(N_e/N)_i = \exp\{-[\kappa_\text{cis}\overline{Q^2}_iv_h + Q^2(\kappa V_A - \kappa_\text{own}v_h)]\}$,
    so Ω ≤ 1 is immediate.
 
