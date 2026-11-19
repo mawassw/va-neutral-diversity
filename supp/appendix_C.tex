@@ -68,26 +68,12 @@ Integrating once more, with $\int_0^M \ln(\Gamma - \eta e^{-2\ell})\,d\ell =M\ln
 with $\mathrm{Li}_2$ the dilogarithm. Equation~\eqref{eq:C_closed_haldane} is the form used in the analysis (Methods). To check the closed form, we also evaluated the double integral of Equation~\eqref{eq:C_haldane_avg} numerically, by adaptive quadrature in R, and the two agree to better than one part in $10^{11}$ for every $Z$ from $10^{-9}$ to $1 - 10^{-9}$ and every $M$ from 0.005 to 60 Morgans, which spans every effect class, selection coefficient and map length in the analysis.
 
 \subsection{Short and long maps}\label{app:C_limits}
-As $M \to 0$ every distance vanishes and $\overline{Q^2}_\text{H} \to (1-Z)^{-2}$, the limit of background selection without recombination. Reaching it requires recombination across the whole chromosome to be slower than purging, $M \ll 1 - Z$, and not \claude{only} a short map. At $Z = 0.99$ and $M = 0.5$, for example, $\overline{Q^2}_\text{H} = 387$, against $(1-Z)^{-2} = 10^4$. At large distances, $\mathcal{K}_\text{H}(\ell) \to \Gamma^{-2} = Q^2$, the value of the unlinked transmission factor squared at the same retention factor (Equation~\eqref{eq:Q}), so a distant locus behaves as if it were on another chromosome\claude{, and on a freely recombining chromosome ($M \to \infty$) Equation}~\eqref{total_red} \claude{reduces to the global reduction $e^{-Q^2\kappa V_A}$.} The approach to this limit is slow, however,
+As $M \to 0$ every distance vanishes and $\overline{Q^2}_\text{H} \to (1-Z)^{-2}$, the limit of background selection without recombination. Reaching it requires recombination across the whole chromosome to be slower than purging, $M \ll 1 - Z$, and not \claude{only} a short map. At $Z = 0.99$ and $M = 0.5$, for example, $\overline{Q^2}_\text{H} = 387$, against $(1-Z)^{-2} = 10^4$. At large distances, $\mathcal{K}_\text{H}(\ell) \to \Gamma^{-2} = Q^2$, the value of the unlinked transmission factor squared at the same retention factor (Equation~\eqref{eq:Q}), so a distant locus behaves as if it were on another chromosome\claude{, and on a freely recombining chromosome ($M \to \infty$) the linked and unlinked terms of Equation}~\eqref{total_red} \claude{combine into the reduction at unlinked sites, $e^{-Q^2\kappa V_A}$.} The approach to this limit is slow, however,
 \begin{equation}
     \overline{Q^2}_\text{H} = Q^2 + \frac{2}{M}\int_0^\infty \left[\mathcal{K}_\text{H}(\ell) - Q^2\right]d\ell + O(M^{-2}).
 \end{equation}
 The integral is close to $1/(1-Z)$: 10.3 at $Z = 0.9$ and 105 at $Z = 0.99$. Free recombination is therefore reached only when $M \gg 1/(1-Z)$. At $Z = 0.99$ and $M = 10$, $\overline{Q^2}_\text{H} = 24.8$, against $Q^2 = 3.9$. Real chromosomes lie between the two limits, near $\overline{Q^2}_\text{H} \approx 2/[M(1-Z)]$~\cite[Equation~8]{santiago1998}\claude{, because an allele removed at rate $s = 1 - Z$ stays linked to sites within about $s$ Morgans on either side, a fraction $2s/M$ of the chromosome, for about $1/s$ generations, which gives $(1/s)^2 \times 2s/M$. For the same reason the reduction depends on the selected target per Morgan, $f_i/M_i$.} Short chromosomes do not approach the first limit either, because with one obligate crossover per bivalent, avian microchromosomes should have map lengths of about 0.5 Morgans or more; the shortest in the maps analyzed here are 0.04--0.2 Morgans (great tits, song sparrows), still many times $1-Z$ for all but the \claude{classes purged fastest}. Table~\ref{tab:linked_limits} gives the limits for a class of deleterious mutations purged at rate $s$.
 % UNVERIFIED: SC 1998 equation number taken from Buffalo & Kern 2024 Supplementary Eqs 34-35; SC 1998 body not read.
-
-\begin{table}[h!]
-\centering
-\caption{Limits of the chromosome-wide average $\overline{Q^2}_i$ for one class of deleterious mutations, purged at rate $s$ ($Z = 1 - s$) or slowly ($s \to 0$). The limits require $M_i \ll 1 - Z$ and $M_i \gg 1/(1-Z)$; real chromosomes lie between, near $2/[M_i(1-Z)]$.}
-\label{tab:linked_limits}
-\begin{tabular}{lcc}
-\toprule
-Purging & Complete linkage & Free recombination \\
-\midrule
-At rate $s$ ($Z = 1 - s$) & $s^{-2}$ & $4/(1 + s)^2$ \\
-Slow ($s \to 0$, $Z \to 1$) & $\infty$ & $4$ \\
-\bottomrule
-\end{tabular}
-\end{table}
 
 \subsection{The linear map as a lower bound}\label{app:C_linear}
 The linear map, $r(\ell) = \ell$, gives $\mathcal{K}_\text{L}(\ell) = (1 - Z + \ell Z)^{-2}$ and $\mathcal{I}_\text{L}(\ell) = \ell/[(1-Z)(1-Z+\ell Z)]$. Its mid-chromosome profile is Buffalo and Kern's~\cite{buffaloKern2024} Supplementary Equation 33. Equation~\eqref{eq:C_haldane_avg} gives

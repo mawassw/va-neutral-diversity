@@ -459,7 +459,7 @@ $V_A$ as input. Not competitors.
   `data/dfe_assignment.csv`): collared flycatcher own; other passerines pied + collared flycatcher
   ($\bar s$ = 0.0013); bighorn, Soay, red deer, hyena, meerkat vaquita + fin whale (0.0195); macaque,
   baboon human (0.0139); rodents house mouse. Lin et al. 2026 $|s|$ is heterozygous.
-- Linkage maps (sources in `supp/supp_tables.tex`, Table S1): sex-averaged **except** rhesus macaque
+- Linkage maps (sources in `supp/supp_tables.tex`, `tab:S_sources`, Table S3): sex-averaged **except** rhesus macaque
   (Versoza 2024, male-only, captive Indian-origin) and baboon (*P. hamadryas* colony, sex-averaging
   unconfirmed). Coding-bp $f_i$ is primary, gene count supplementary. π is a species-level
   approximation to neutral diversity (Lewin & Eyre-Walker means mix 4-fold, synonymous, all sites).
@@ -478,7 +478,7 @@ $V_A$ as input. Not competitors.
    6,563 / 6,091; review target ~3,500), Results 3,262 / 3,046, Introduction 1,821 / 1,586, Abstract
    319 / 281, Methods 4,212 / 3,963; Discussion unchanged (target
    ~1,800; optional cut D2, ¶5's closing "predict different patterns" sentence, kept). Extra-pair
-   paternity sources and map citations now live in Table S1 (α column); Methods has the
+   paternity sources and map citations now live in `tab:S_sources` (Table S3, α column); Methods has the
    bias-direction table `tab:bias`. Bonnet et al. cited in Discussion ¶1 and ¶5, an accepted
    exception to the one-paragraph rule. Open: Results `% AUTHOR` question paragraph in `sec:res_deficit` still to keep, re-voice or cut.
 4. **Citations (2026-10-27):** every citation is `\cite{}` (biblatex `numeric-comp`, `sorting=none`,
@@ -494,7 +494,7 @@ $V_A$ as input. Not competitors.
    $N_e$ directly, fitness truncation; monogamy + EPP under Models A and B.
 6. Supplementary figures `figS_gap.R`, `figS_rescaling_linked.R` not restyled to `theme_genetics.R`.
 7. Author's own clause-colons in Theory not yet removed.
-8. **Provenance decisions for the author (2026-10-28, marked `% TODO(author)` in Methods/Table S1):**
+8. **Provenance decisions for the author (2026-10-28, marked `% TODO(author)` in Methods/`tab:S_sources`):**
    hihi chromosome-level assembly (author has requested access, 2026-10-28; NCBI has scaffold only).
    EPP all confirmed: Rouvière 0.14 and Pirio 0.25 (Charmantier & Blondel 2003), Muro 0.18 (Charmantier
    et al. 2004, author 2026-10-29), flycatcher 0.15 (Sheldon & Ellegren 1999: 71/459 = 15.5%, 1994).
@@ -526,7 +526,7 @@ $V_A$ as input. Not competitors.
    App C kernel f → 𝒦, its integral F → ℐ, dummy D → ℓ, Λ_L/Λ_U → Λ_linked/Λ_unlinked, "M" unit →
    "Morgans"; App D L → L_target, u → μ_locus, 𝔼[H] → 𝔼[2q(1−q)]. Methods describes the gamma DFE in
    words (no b, β) and Pagel's lambda in words. (d) Flycatcher α = 0.15 stays (closed). (e) Snow voles
-   are Graubünden; Table S1 labels now match Table 1 and the figures; "Superb fairy-wrens" fixed in
+   are Graubünden; `tab:S_sources` labels now match Table 1 and the figures; "Superb fairy-wrens" fixed in
    `data/species_EPP.csv`. (f) Quadrature check widened to Z from 1e-9 to 1−1e-9, M 0.005–60
    (`scripts/R/check_q2bar_quadrature.R`; max relative difference 2.4e-12). Not reproducible here:
    `functional_target.R` (LFS GFF objects missing locally); its committed CSV is current. 3,240-fold
@@ -575,7 +575,7 @@ $V_A$ as input. Not competitors.
    `sec:mating` and `sec:linkage`), `sec:approx` (bullets one line each). $\kappa_\text{max}$ is now
    defined in `sec:onemodel`; `unlinked_mating`, `eq:kappaB` and `eq:ne_mult_pair` sit in
    `sec:extensions`. Where moved passages went: `tab:models` → `supp/supp_tables.tex` (prints as Table
-   S3, before `tab:S_sources`, now S4; cited once from `sec:unlinked`); the sex-averaging, nest-productivity,
+   S2, before `tab:S_sources`, S3; cited once from `sec:unlinked`); the sex-averaging, nest-productivity,
    Woolliams-regression and Model B rationale sentences were duplicates of Appendix B and were cut; the
    cis/trans and own/partner bookkeeping → Appendix B `app:B_split`; `eq:haldane_avg` (label kept), the
    Haldane-versus-linear rationale, the BGS-kernel substitution and the Buffalo & Kern / Santiago &
@@ -589,10 +589,13 @@ $V_A$ as input. Not competitors.
    single panel; its old panels b, c are `FigS_omega` b, c** (`fig2_linked.R`). `fig:S_ceiling` now
    prints before `fig:S_kappa`. Methods' midpoint-approximation comparison cut to one clause
    (Appendix C `app:C_linear` already had it). Intro ¶4 lost its two closing map sentences; the Intro's
-   last paragraph and the Abstract name the two extensions in one sentence/clause. Staleness: "Table
-   S1" for the sources table elsewhere in this file now prints as S4 (notation S1, `tab:linked_limits`
-   S2); `tab:linked_limits` prints before `tab:models` though cited only from Appendix C; Fig. 2's
-   legend still says "Observed: δ" where the text uses $\hat\delta$.
+   last paragraph and the Abstract name the two extensions in one sentence/clause. Follow-up (2026-11-19, user): `tab:linked_limits` moved from
+   Appendix C to the end of `supp/supp_tables.tex`, so supplementary tables print in citation order
+   (S1 notation, S2 `tab:models`, S3 `tab:S_sources`, S4 `tab:linked_limits`); this file names the
+   sources table by label; the linked figure's legend reads $\hat\delta$; the ceiling clause in
+   `sec:conditions` no longer uses κ before `sec:extensions` defines it, and `sec:onemodel`'s Jensen
+   sentence uses $\kappa_\text{max}$; `sec:res_linked` states its verdict as a share (with linkage,
+   4.7–40% of each deficit, median 19%, six mapped deficit populations; 1.2–20% unlinked under the bound).
 
 ## Venue and prose authority
 

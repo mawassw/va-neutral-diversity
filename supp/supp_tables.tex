@@ -70,6 +70,22 @@ Red squirrels (Kluane) & GCA\_057657825.1 (mTamHud3.hap1) & --- & \emph{Cavia ap
 \end{tabular}
 \end{table}
 
+% Moved from Appendix C (app:C_limits) on 2026-11-19 so that supplementary tables print in citation
+% order (notation, models, sources, linked limits); cited only from app:C_limits.
+\begin{table}[h!]
+\centering
+\caption{Limits of the chromosome-wide average $\overline{Q^2}_i$ for one class of deleterious mutations, purged at rate $s$ ($Z = 1 - s$) or slowly ($s \to 0$). The limits require $M_i \ll 1 - Z$ and $M_i \gg 1/(1-Z)$; real chromosomes lie between, near $2/[M_i(1-Z)]$.}
+\label{tab:linked_limits}
+\begin{tabular}{lcc}
+\toprule
+Purging & Complete linkage & Free recombination \\
+\midrule
+At rate $s$ ($Z = 1 - s$) & $s^{-2}$ & $4/(1 + s)^2$ \\
+Slow ($s \to 0$, $Z \to 1$) & $\infty$ & $4$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \ifdefined\isMainDocument
 \else
     \printbibliography

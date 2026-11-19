@@ -128,8 +128,8 @@ plot_total <- function(part) {
   lab_unl <- expression("Unlinked, multiplicative bound: " * italic(e)^{-4 * kappa[max] * hat(italic(V))[A]} * ", mode and 95% HPD")
   lab_lk  <- expression("With linkage (total): " * bar(Omega) * italic(e)^{-4 * kappa[max] * hat(italic(V))[A]} *
                           ", assigned DFE: mode and 95% HPD")
-  lab_own <- expression("Observed: " * delta * ", " * pi * " of study species")
-  lab_lit <- expression("Observed: " * delta * ", " * pi * " from another population")
+  lab_own <- expression("Observed: " * hat(delta) * ", " * pi * " of study species")
+  lab_lit <- expression("Observed: " * hat(delta) * ", " * pi * " from another population")
   ggplot(d, aes(y = label)) +
     geom_vline(xintercept = 1, linewidth = 0.3, colour = "grey60") +
     geom_linerange(aes(xmin = tot_lo, xmax = tot_hi), colour = col_lk, linewidth = 2.2, alpha = 0.4) +
