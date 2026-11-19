@@ -507,6 +507,12 @@ $V_A$ as input. Not competitors.
    multiplicative model (1.1%–40%; 9 populations; bound 1.3–41%, small-variance 1.0–15.5%). (i) New title
    (above). (j) Abstract's maintenance claim reworded with its conditions and the joint result (draft in
    `REVIEW_FIXES.md` Fix 1.8). (k) `tab:models` and Fig. 2 panels b, c go to the supplement.
+   (l) **Intuition rule (user, 2026-11-19):** each formally defined quantity gets one brief intuitive
+   sentence at its definition; elsewhere (Results, appendices, captions) one sentence relates the formal
+   result to it; the Discussion presents what the derivations showed on the same footing as what the
+   populations showed. `REVIEW_FIXES.md` Fix 8 ($\Omega_i$) and Fix 9 (scan: $R$, `eq:ratio`, $U_d\bar s$,
+   $1/(1-\rho)$ and $\overline{Q^2}_i$, δ and "deficit", the scale of $V_A$, $Z = 1$, κ at its ends, and
+   three appendix/notation items).
    Staleness: the appendices are in `supp/` at the repo root, not `manuscript/supp/` (Layout below is stale).
 
 ## Venue and prose authority

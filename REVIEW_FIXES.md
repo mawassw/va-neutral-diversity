@@ -23,7 +23,9 @@ worktree `.claude/worktrees/review-fixes`, cut from `main` at `115c3df`.
 
 1. Fix 6 (technical correction) and Fix 7c (small errors). Independent of everything else.
 2. Fix 5 (ceiling to the supplement), then Fix 4 (cut the machinery). Structural moves first.
-3. Fixes 1, 2, 3 (framing and claims) on the restructured text.
+3. Fixes 1, 2, 3 (framing and claims) on the restructured text, then Fixes 8 and 9 (one
+   intuitive sentence per quantity at its definition, one relating sentence elsewhere, and
+   the Discussion pairing of formal and comparative results).
 4. Fix 7a–b (register pass on Theory and Methods) last, on the text that survives, including
    any passage moved to the supplement.
 5. R work (figures, table columns) listed under each fix; then the build check.
@@ -723,27 +725,236 @@ Results `sec:res_linked` uses $\overline\Omega$ without restating what it measur
 `app:omega` proves $\Omega_i \le 1$ algebraically and gives no reason a reader could state
 in words. The closest thing to a plain definition is the caption of Figure `fig:S_omega`.
 
-### Edits (apply together with Fix 4, which shortens `sec:linkage`; this sentence stays in the main text)
+### Edits (DECIDED 2026-11-19: state the intuition once, briefly; elsewhere relate each formal result to it in one sentence; apply together with Fix 4)
 
-1. **Theory `sec:linkage`**, at the definition of $\Omega_i$. Use one name, "the linked
-   factor", and follow the equation with an "Intuitively," sentence (allowed after a formal
-   result, CLAUDE.md), in substance:
-   "Intuitively, $\Omega_i$ is the fraction of its neutral diversity that a site on
-   chromosome $i$ keeps relative to a site that assorts independently of every selected
-   locus. Selected alleles on the site's own haplotype stay associated with it until
-   recombination separates them or selection removes them, which takes longer than the
-   generation or two that an unlinked association lasts, so the variance on that haplotype
-   counts for more than the same variance elsewhere in the genome. $\Omega_i$ equals one on a
-   freely recombining chromosome and decreases as a chromosome carries more selected
-   variance per Morgan and as that variance is purged more slowly."
-2. **Same place, the bound.** Give the reason before the pointer to the appendix: linkage can
-   only lengthen an association ($\overline{Q^2}_i \ge Q^2$), so the haplotype's variance
-   never counts for less than it would at an unlinked site, and $\Omega_i \le 1$.
-3. **Results `sec:res_linked`**, first use of $\overline\Omega$: restate it in a clause
-   ("the linked factor $\overline\Omega$, the genome-wide $N_e/N$ with linkage relative to
-   its value without") so that Results do not depend on the reader having read Theory.
-4. **Appendix `app:omega`**: open with the same one-sentence reason as item 2 before the
-   algebra.
+1. **State it once, in Theory `sec:linkage`**, directly after `linked_penalty`. One name, "the
+   linked factor". One "Intuitively," sentence (allowed after a formal result, CLAUDE.md), in
+   substance and no longer than this:
+   "Intuitively, $\Omega_i$ is the share of its diversity that a neutral site on chromosome
+   $i$ keeps once linkage is added, and it is below one because selected alleles on the
+   site's own haplotype stay associated with it for longer than unlinked alleles do, so
+   their variance counts for more."
+   This sentence is the reference point; nothing else in the paper re-explains $\Omega_i$.
+   It stays in the main text when Fix 4 shortens the section. It rests on the meaning of
+   $1/(1-\rho)$ as the number of generations an association lasts (Fix 9, item D), which
+   must precede it.
+
+2. **Relate each formal result to that sentence, one sentence each, no re-explanation:**
+   - Theory, the bound $\Omega_i \le 1$: "because linkage can only lengthen an association
+     ($\overline{Q^2}_i \ge Q^2$), the haplotype's variance never counts for less than it
+     would at an unlinked site". Then the pointer to Appendix `app:omega`.
+   - Results `sec:res_linked`, first use of $\overline\Omega$: one restating clause ("the
+     linked factor $\overline\Omega$, genome-wide $N_e/N$ with linkage relative to its value
+     without").
+   - Results, "large only when the variance is carried by slowly purged alleles": slowly
+     purged alleles are the ones that stay on the haplotype long enough for linkage to
+     prolong the association. (The sentence on $s^*$, "purged within a few generations,
+     before recombination would separate them", already does this for the opposite case;
+     keep it.)
+   - Results (or the supplementary note after Fix 4), chromosomes with more selected target
+     per Morgan lose more diversity: more of the variance then lies within the map distance
+     over which an association outlasts an unlinked one (Fix 9, item D).
+   - Results (or supplementary note), the steep dependence on $\hat V_A$ (Wytham Woods
+     against Hoge Veluwe): the variance on the haplotype multiplies the excess persistence
+     in an exponent, so the factor falls geometrically with $\hat V_A$.
+   - Appendix `app:omega`: open with the reason of the first bullet before the algebra, and
+     after the equality case add that on a freely recombining chromosome no association
+     outlasts an unlinked one, so nothing is added.
+   - Appendix `app:C_spatial`: the existing sentence on central and terminal loci already
+     relates the profile to linkage on one or both arms; add only "which is why $\Omega_i
+     \le 1$ whatever the placement" if not already implied.
+   - Caption of Figure `fig:S_omega`: keep its plain definition; make the wording match the
+     Theory sentence ("the share of diversity kept once linkage is added").
+
+3. **Discussion: formal and comparative results in the same frame.** The Discussion states
+   what the derivations showed on the same footing as what the populations showed, each
+   formal lesson in the words of its Theory intuition (no symbols, no model names) and
+   paired with the comparative finding it explains. For linkage, ¶3 already opens with the
+   two routes (the individual that carries the site, the chromosome segment that carries
+   it). Add or sharpen there:
+   - formal: linkage adds to the loss of diversity only through the variance on a site's
+     own chromosome copy, and only for as long as that variance stays with the site beyond
+     the generation or two an unlinked association lasts; the alleles that stay longest are
+     those removed most slowly, and each such allele contributes least to the variance, so
+     the conditions for a large effect of linkage and for a large maintained variance
+     exclude each other;
+   - comparative: with the measured variance, maps and assigned effects, linkage lowers the
+     effective size by the amounts in Results and still leaves each deficit unexplained.
+   The same pairing applies to every Discussion paragraph; the table at the end of Fix 9
+   lists the formal lesson each paragraph should carry.
+
+---
+
+## Fix 9 — Other formally defined quantities that lack an intuitive or biological statement
+
+**Scan (2026-11-19)** of Theory, Methods, Results, Appendices A–D and the notation table, at
+`115c3df`. Each item below is a quantity that the paper defines by a formula or a ratio and
+that a reader cannot restate in words from what is written.
+
+**Rule for every item (same as Fix 8).** State the intuition **once**, at the definition, in
+one sentence (two at most), after the formal statement. Elsewhere, where a result depends on
+the quantity (Results, an appendix, a caption), add **one** sentence or clause that relates
+the result to that intuition, without repeating it. The Discussion uses the same intuition
+in words. Budget: the additions to Theory total about 250 words, to be recovered from the
+cuts of Fix 4. Draft sentences are scaffolding; keep the content.
+
+Already adequate, leave as they are: $Q = 2$ ("descendants add as much again"); $c$
+("how representative the study period and population are"); $c_\text{div}$, $c_\text{MSD}$;
+$Z_k = 1 - s_k$; $\nu_k$; $s^*$ (the 16% sentence in Results); $V_{A,\delta}$ and the "How
+large" paragraph; the multiplicative bound and its tail (ancestors four standard deviations
+out); the finite-population limit (bursts of coalescence); the harmonic mean and the
+fluctuating-variance result; $U_d/(2V_A)$ (3.3 individuals); $v_h$ (cis half); Appendix B's
+$\omega_l$, $\mathcal E_f$, $\mathcal E_m$; Appendix C's spatial result; Appendix D's cis and
+homologous halves. Appendix C's $\Gamma$, $\eta$, $\epsilon$ are algebraic shorthand and
+need none.
+
+### High priority (the argument depends on them)
+
+**A. The long-term contribution $R$** (Theory `sec:unlinked`, first display; Appendix
+`app:A_R`; notation table). Defined as a product of fitnesses; never said what it is.
+- State once, where $R(z)$ is introduced: "$R$ is the share of the population's genes, many
+  generations later, that descend from this ancestor, relative to the share of an average
+  ancestor."
+- Relate: Appendix `app:A_R` at $p_j$ ("the same share, per gene copy"); notation table
+  entry for $R$; Table `tab:models` caption (now supplementary).
+
+**B. The ratio $N_e/N = \mathbb E[R]^2/\mathbb E[R^2]$** (`eq:ratio`; Appendix `eq:A_ratio`).
+Presented as "derived from the probability of pairwise lineage coalescence", with no reason.
+- State once, after `eq:ratio`: "Intuitively, two lineages are more likely to meet in an
+  ancestor that left a large share of descendants, so the more unequal the shares, the
+  faster lineages coalesce; with equal shares the ratio is one."
+- Relate: Results `sec:res_unlinked`, where the multiplicative model and its limit differ
+  (the existing sentence on $e^{4V_A}-1$ against $4V_A$ can say "the inequality of shares");
+  Appendix `app:A_R` after `eq:A_dF`; Discussion ¶8, which already says pedigrees can
+  measure "the variance of long-term contributions", should use the same words ("how
+  unequal ancestors' shares are").
+
+**C. The variance mutation maintains, $U_d\bar s$** (Theory `sec:msdb`; Appendix
+`app:D_dfe`). The text gives the rate argument ($V_m$ in, a fraction $s$ out) but not why
+only the mean effect matters, which is the property the maintenance test rests on and the
+reason a hidden tail of large effects is the main caveat (Fix 2).
+- State once, after `eq:strong`: "Intuitively, a mutation adds variance in proportion to
+  $s^2$ in each generation it segregates and is removed after about $1/s$ generations, so
+  over its lifetime it contributes in proportion to $s$. Mutations of small effect persist
+  longer and those of large effect add more per generation, which is why only the number of
+  mutations and their mean effect matter."
+- Also say once what $U_d$ is ("the mean number of new deleterious mutations in a zygote"),
+  at its first definition in `sec:msdb`.
+- Relate: Theory, the DFE paragraph ("$s^*$ recovers the arithmetic mean" follows from the
+  sentence above; say so in a clause); Results `sec:res_msd` at "$\hat V_A$ exceeds $U_d$
+  itself, a variance that no selection coefficient can maintain" (add "because a mutation
+  cannot remove more than all of its carrier's fitness"); Results and Methods where the
+  hidden tail is discussed (a tail raises the maintained variance in proportion to its
+  contribution to the mean); Appendix `app:D_dfe` first sentence; Theory `eq:compat` (the
+  maintained variance is of order 0.01 because each mutation contributes only its effect,
+  which is why it removes a few percent of diversity at most).
+- CLAUDE.md already records that at balance $U_d\bar s$ is the variance, the per-generation
+  gain from selection and the mutational loss that offsets it. Check that the text says
+  this once (Theory `sec:quantity`, second paragraph, is the place).
+
+**D. The linked persistence $1/(1-\rho)$ and its chromosome average $\overline{Q^2}_i$**
+(Theory `sec:linkage`; Appendix `app:C_kernel`, `app:C_limits`; notation table). Called "the
+chromosomal segment's cumulative transmission factor" and "position-averaged $Q^2$"; the
+formula is not interpreted. Fix 8's sentence about $\Omega_i$ depends on this one.
+- State once, where $1/(1-\rho)$ is introduced: "$1/(1-\rho)$ is the number of generations
+  that a neutral copy stays associated with a selected allele $\ell$ Morgans away, until
+  recombination separates them or selection removes the allele; for an unlinked allele it
+  is the two generations of $Q$. $\overline{Q^2}_i$ is the square of that number, averaged
+  over where the neutral site and the selected alleles lie on the chromosome."
+- Relate, Appendix `app:C_limits` (the intermediate regime $2/[M(1-Z)]$, now stated without
+  a reason): "an allele removed at rate $s$ stays linked to sites within about $s$ Morgans
+  on either side, a fraction $2s/M$ of the chromosome, for about $1/s$ generations, which
+  gives $(1/s)^2 \times 2s/M$". This is also why the reduction depends on selected target
+  per Morgan, $f_i/M_i$ (Figure 2c x-axis; say so in that caption or its supplementary
+  note).
+- Relate: Appendix `app:C_kernel` after the geometric sum; notation entry for
+  $\overline{Q^2}_i$ ("squared number of generations an association lasts, averaged over
+  positions on chromosome $i$"); Methods `sec:linked_methods` needs no change.
+
+**E. The diversity ratio $\delta$ and "the deficit"** (Theory `sec:quantity`,
+`sec:conditions`; Results throughout). $\delta$ is defined as $\pi/(4N\mu)$; "deficit" is
+used from the Abstract onward and is never defined as $1/\hat\delta$.
+- State once, where $\delta$ is defined in `sec:quantity`: "$\delta$ is the fraction of the
+  neutral diversity expected for a population of its size that the population has, and we
+  call $1/\hat\delta$ its deficit, so a deficit of 1,000-fold means one thousandth of the
+  expected diversity."
+- Relate: Results `sec:res_deficit` first sentence (give the range as deficits and as
+  $\hat\delta$ once, then use "deficit"); `tab_reduction` caption; Fig. 3 x-axis label or
+  caption.
+
+### Medium priority
+
+**F. $V_A$ itself, on a scale a reader can picture** (Theory `sec:quantity`). The only
+translation into offspring numbers is in Results, and only for the required 1.1–1.7 (with
+the median 0.10 as an aside).
+- State once, at the definition: "$\sqrt{V_A}$ is the standard deviation among individuals
+  of the relative fitness expected from their breeding values, so at $V_A = 0.1$ an
+  individual one standard deviation above the mean expects about a third more offspring
+  than average." (A round illustrative value, not a data number, so it may stand in
+  Theory.)
+- Relate: Results "How large is a long-term $\bar V_A$ of 1.1 to 1.7?" keeps its
+  translation and drops the aside on the median, which Theory now covers, or points to it.
+
+**G. Why $Z = 1$ for normally distributed breeding values** (Theory `sec:unlinked`, "This
+mathematical identity explains why ..."). The reason is in Appendix `app:A_Z` only.
+- State once, in Theory: "Selection among parents with normally distributed breeding values
+  shifts their mean and leaves their spread unchanged, so none of an ancestor's advantage is
+  lost to selection."
+- Relate: Appendix `app:A_Z` already has it (keep); Theory `sec:approx`, the right-skew item
+  ("a few extreme lineages" raise $Z$ above one because selection then widens the spread
+  among parents); notation entry for $Z$.
+
+**H. The mating-system scalar at its two ends** (Theory `sec:mating`; Appendix
+`app:B_limits`; Results `sec:res_unlinked`). The mechanism for $\kappa = 2$ is stated in
+Results, not Theory; the main text gives $\kappa = 9/8$ at $\alpha = 1$ with no reason
+(the appendix has one).
+- State once, in Theory after `eq:kappaB`: "Partners who share their offspring also share
+  each other's advantage, which doubles the variance of long-term contributions when no
+  offspring are sired outside the pair. With all offspring sired outside it, $\kappa$ stays
+  above the random-mating value because a female's family size still depends on her social
+  partner."
+- Relate: Results `sec:res_unlinked` shortens its sentence to a pointer ("because partners
+  share each other's advantage, \autoref{...}"); Appendix `app:B_limits` keeps its sentence.
+
+### Low priority (appendix and notation only)
+
+**I. $\kappa_\text{own}$, $\kappa_\text{partner}$, $\kappa_\text{cis}$.** Appendix `app:B_split`
+explains them; the notation table says only "components of $\kappa$ (Appendix B)". Change
+the entry to: "parts of $\kappa$ due to the carrier's own breeding value and to its social
+partner's; the part of the own component that can be linked to the site". If the cis/trans
+bookkeeping moves to the appendix under Fix 4, keep one main-text clause: the partner's
+genome is inherited independently of the site, so only the carrier's own part can be linked.
+
+**J. Appendix B, $\Psi$ and $\theta$.** Defined by formulas inside a derivation. Add one
+clause each where they appear: $\theta$ is the fraction of a carrier's expected breeding
+value that the next carrier keeps (half by segregation, times retention); $\Psi$ is the
+descendants' part of the cumulative advantage, so that $1 + \Psi = Q$ under random mating
+and strict monogamy.
+
+**K. Appendix D, $\bar s_\text{eff}$.** Add one clause after `eq:D_purge`: large effects are
+discounted because their carriers are removed before the association has lasted its two
+generations.
+
+### Discussion: the formal lesson each paragraph should carry
+
+The Discussion presents what the derivations showed on the same footing as what the
+populations showed (Fix 8, item 3). For each paragraph, the formal lesson, in words, and the
+comparative finding it is paired with. Most are present; the entries marked "add" are not.
+
+| ¶ | formal lesson (in the words of the Theory intuition) | comparative finding |
+|---|---|---|
+| 1 | a pedigree measures an ancestor's own advantage, and inheritance by its descendants adds as much again; partners who share offspring share the advantage (**add**, one clause) | the variance roughly halves effective size; the two shares |
+| 2 | each further tenfold loss of diversity requires the same further increment of variance, so large deficits require variances above one (**add**); diversity reflects the variance averaged over the genealogy, and a fluctuating variance removes more than its mean | deficits of 230- to 38,000-fold; demography as the expected cause |
+| 3 | linkage acts only through variance on the site's own chromosome copy and only while it outlasts an unlinked association; slow removal lengthens the association and lowers the variance a mutation contributes (**sharpen**, Fix 8) | linkage lowers effective size but leaves each deficit |
+| 4 | a mutation contributes in proportion to its effect whatever its size, so only the number of mutations and their mean effect matter, and drift can only lower the variance (**add**) | about a twentieth maintained; the joint sensitivity (Fix 2) |
+| 5 | the same variance is directional selection on phenotypes and purifying selection on alleles; a deteriorating environment offsets the gain in mean fitness but not the drift | present |
+| 6 | the condition for one variance to fit both equilibria does not involve the estimate (Fix 3) | gaps of at least 108-fold |
+| 7 | the prediction requires stable allele frequencies and enough exceptional ancestors; near the limit coalescence comes in bursts | required variances at 70–95% of the limit |
+| 8 | unequal shares of ancestors are measurable on a pedigree (item B) | future estimates |
+
+**CLAUDE.md.** Add under "Wording conventions": each formally defined quantity is given one
+intuitive sentence at its definition; results elsewhere relate to it in one sentence; the
+Discussion pairs each formal lesson with its comparative finding.
 
 ---
 
