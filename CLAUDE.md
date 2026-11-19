@@ -110,7 +110,10 @@ MSD; the amount of variance is the **measured** $\hat V_A$ ($v_i = \hat V_A f_i$
 **Units.** Bonnet et al. 2022 fitted a zero-inflated over-dispersed Poisson animal model and
 back-transformed with $V_A(w) = \mathbf d^\top\mathbf G\mathbf d$, so the estimate is observed-scale,
 mean-standardised additive variance in relative fitness — exactly SC's $C^2$ (random mating) and
-Appendix D's currency. **Nothing to rescale.**
+Appendix D's currency. **Nothing to rescale.** Under a log link $\hat V_A = \mathrm{Var}(z)$ exactly
+(de Villemereuil 2016 Eqs 15–16: the average derivative is the mean); $e^{\sigma^2}-1$ is the total
+genotypic variance (their Eq. 28), not the additive one; the zero-inflation component makes the
+equality approximate (Fix 6, 2026-11-19).
 
 ### Scope conditions — state in the manuscript at the point of use
 
@@ -560,13 +563,14 @@ project#3/
 │                          #   pi_literature.csv, master_chromosome_recomb_data.csv, processed/
 │   └── raw/               # ARCHIVE, not input
 ├── genomic_data/          # NCBI annotations (gitignored)
-├── main/, supp/           # results figures
+├── main/                  # main-text figures
+├── supp/                  # supplementary figures + appendix_A–D.tex, notation.tex,
+│                          #   supp_figures.tex, supp_tables.tex (\input from _main.tex)
 ├── poster/                # frozen
 └── manuscript/
     ├── _main.tex          # ROOT. latexmk -pdf manuscript/_main.tex (from repo root)
     ├── abstract, introduction, theory_model, methods_materials, results,
     │   discussion, add_info .tex     # WORKING COPIES — edit these
-    ├── supp/appendix_A–D.tex, notation.tex, supp_figures.tex
     ├── tables/, references.bib (shared, growing — extend, never replace)
     ├── main.tex           # old Overleaf root; delete once Overleaf points at _main.tex
     ├── scratch.tex        # STALE since 2026-10-17 — do not edit
