@@ -20,8 +20,10 @@ and is recoverable with `git log -p -- CLAUDE.md`. **Do not reconstruct retired 
 
 One measured quantity, two equilibrium tests, opposite verdicts.
 
-**Title:** *Heritable variance in fitness in wild vertebrates is too small to explain their missing
-neutral diversity and too large for mutation–selection balance.*
+**Title (changed 2026-11-18, user; not yet applied in `_main.tex`):** *Heritable variance in fitness in
+wild vertebrates accounts for a small share of their missing neutral diversity and exceeds what recurrent
+mutation is estimated to maintain.* The earlier "too large for mutation–selection balance" claimed more
+than the joint sensitivity supports (item 12 of Missing / open work).
 
 **Background organisation.** The work is about the **effect** and the **maintenance** of heritable
 variation in fitness; the Introduction presents one literature for each. Precedents: effect —
@@ -41,7 +43,8 @@ $U_d s$.
 
 **Introduction rules:** before the last paragraph, only published derivations and results (no κ,
 $V_{A,\max}$, $s^*$, $c$). Results only in the last paragraph, GENETICS-style. Each background
-paragraph ends on the gap it leaves for wild vertebrates. Fisher is not named before the Discussion.
+paragraph ends on the gap it leaves for wild vertebrates. Fisher may be named before the Discussion
+(user, 2026-11-18); the theorem is still not a premise of the claim.
 
 ### Why it holds together (all three must survive any edit)
 
@@ -498,8 +501,13 @@ $V_A$ as input. Not competitors.
    $\hat V_A = \mathrm{Var}(z)$ exactly (de Villemereuil 2016 Eqs 15–16, `genetics1281.pdf`);
    $e^{\sigma_z^2}-1$ is the total genotypic variance (their Eq. 28), so Theory l.134 is wrong as written.
    (g) Theory and Methods are brought to the register of Results and Discussion; Introduction untouched.
-   Staleness: the appendices are in `supp/` at the repo root, not `manuscript/supp/` (Layout below is stale);
-   Fisher is named in Introduction ¶1 and Theory `sec:quantity` against the rule above (author to decide).
+   (h) **Two shares adopted** (`scripts/R/shares.R` → `data/processed/shares.csv`, point convention):
+   mutation maintains a median 4.7% of $\hat V_A$ (0.17%–155%; ≥ 100% in snow voles and red squirrels;
+   18 populations); $\hat V_A$ accounts for a median 6.9% of the deficit on a logarithmic scale under the
+   multiplicative model (1.1%–40%; 9 populations; bound 1.3–41%, small-variance 1.0–15.5%). (i) New title
+   (above). (j) Abstract's maintenance claim reworded with its conditions and the joint result (draft in
+   `REVIEW_FIXES.md` Fix 1.8). (k) `tab:models` and Fig. 2 panels b, c go to the supplement.
+   Staleness: the appendices are in `supp/` at the repo root, not `manuscript/supp/` (Layout below is stale).
 
 ## Venue and prose authority
 

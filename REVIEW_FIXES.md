@@ -14,8 +14,9 @@ worktree `.claude/worktrees/review-fixes`, cut from `main` at `115c3df`.
   no span across a paragraph break). Cuts and moves are made outright.
 - Draft sentences below are scaffolding in the Results/Discussion register. Keep the content,
   adjust the wording to the surrounding text.
-- Items marked **AUTHOR** require a decision from Walid before they are applied. Apply
-  everything else.
+- **All author decisions were given on 2026-11-18** and are recorded at the end of this file
+  and inside each fix ("DECIDED"). Nothing in this list is waiting on the author; apply all
+  of it. The Abstract draft in Fix 1.8 is still scaffolding that the author will revoice.
 - Finish with the build check (CLAUDE.md Rule 7) and commit on this branch. Do not merge.
 
 ## Order of execution
@@ -86,27 +87,60 @@ changes is which sentence carries the emphasis.
    smaller than the observed deficits" → a sizing heading, e.g. "Heritable variance in fitness
    accounts for a small share of each observed deficit".
 
-7. **New sizing statistic (AUTHOR to approve the definition).** Each test already yields a
-   share, and reporting both makes the sizing explicit:
-   - share of the measured variance that mutation maintains, $U_d\bar s/\hat V_A = c_\text{MSD}$
-     (median about 1/21 over the 18 populations);
-   - share of the deficit that the measured variance accounts for, on a logarithmic scale,
-     $\ln[1/(N_e/N)_\text{pred}]/\ln(1/\hat\delta)$, which under the multiplicative bound equals
-     $\hat V_A/V_{A,\delta} = 1/c_\text{div}$. From the $c_\text{div}$ values in hand
-     (2.4–80, median 14) this is about 1–42%, median about 7%. **Recompute from
-     `fig5_rescaling.R`; do not quote these back-of-envelope values.**
-   The logarithmic scale is the natural one because successive reductions multiply. If
-   approved: add both as columns of `tab_reduction` (`scripts/R/tab_reduction.R`), state them in
-   `sec:res_deficit` and `sec:res_msd`, and use them in the Abstract and Discussion ¶1.
+7. **The two shares (DECIDED: adopted).** Each test yields a share, and reporting both makes
+   the sizing explicit. Computed by `scripts/R/shares.R` → `data/processed/shares.csv` (point
+   convention: $\hat V_A$ at its mode, point direct $\mu$):
+   - **share of the measured variance that mutation maintains**, $U_d\bar s/\hat V_A$
+     ($= c_\text{MSD}$), 18 populations: **median 4.7%** (quartiles 1.0–9.0%; range 0.17%
+     in the Muro blue tits to 155% in snow voles); at or above 100% in 2 (snow voles, red
+     squirrels); 50% in meerkats. Within the deficit set (9): 0.17–11%, median 1.4%.
+   - **share of the deficit that the measured variance accounts for**, on a logarithmic
+     scale, $\ln[1/(N_e/N)_\text{pred}]/\ln(1/\hat\delta)$, 9 populations: under the
+     multiplicative model **median 6.9%** (quartiles 4.0–19.5%; range 1.1% in the great tits
+     at Hoge Veluwe to 40% in the Muro blue tits); under the multiplicative bound, where it
+     equals $\hat V_A/V_{A,\delta} = 1/c_\text{div}$, 1.3–41% (median 6.9%); under the
+     small-variance approximation 1.0–15.5% (median 5.6%).
+   The logarithmic scale is used because successive reductions multiply; say so in one
+   sentence where the share is defined (Theory `sec:conditions`, next to $c_\text{div}$ and
+   $c_\text{MSD}$, whose reciprocals and values they are). To apply:
+   - add both as columns of `tab_reduction` (`scripts/R/tab_reduction.R`, reading
+     `shares.csv` or recomputing), share of the deficit under the multiplicative model;
+   - state the deficit share in `sec:res_deficit` and the maintained share in `sec:res_msd`,
+     each with its median and range and the populations at the extremes;
+   - use both in the Abstract (item 8) and, in words, in Discussion ¶1 ("about a fifteenth
+     of each deficit on a logarithmic scale", "about a twentieth of the variance");
+   - no new symbols: write them as ratios of defined quantities.
 
-8. **Abstract** (limit 250 words; **AUTHOR** revoices). Changes required:
-   - "We test both equilibrium models" → say that the paper measures how much of the missing
-     diversity the variance accounts for and how much of the variance mutation maintains.
-   - Demote "We extend the models ... to extra-pair paternity and to linked sites at a
-     chromosomal level" to a subordinate clause (Fix 4).
-   - Before or after the "roughly halves" sentence, state that this is the size expected from
-     the mean of the estimates, so the small share of the deficit reads as confirmation.
-   - Keep "too small ... too large" once, as the summary of the two sizes.
+8. **Abstract** (limit 250 words; DECIDED: the maintenance claim is worded to match the
+   results, with its conditions and the joint sensitivity). Replace the abstract with the
+   draft below (about 260 words; trim to 250 while revoicing, keeping every number and
+   condition). What it changes: the paper measures two shares instead of announcing two
+   failed tests; the extensions are one subordinate clause (Fix 4); the halving is stated as
+   the expected size; the maintenance sentence carries its inputs and the joint result (Fix
+   2); the rescaling sentence says the conflict does not depend on the estimates (Fix 3);
+   the last sentence is conditional.
+
+   > Pedigree-based estimates show that wild populations carry substantial additive genetic
+   > variance in lifetime fitness. Classical theory predicts that such variance reduces
+   > neutral diversity and is maintained by recurrent deleterious mutation. It is not
+   > expected to explain the diversity that abundant species are missing, but neither its
+   > share of that deficit nor the share of the variance that mutation maintains has been
+   > measured population by population. We measure both in 19 pedigreed populations of birds
+   > and mammals (18 for maintenance, 9 for diversity), allowing for extra-pair paternity
+   > and chromosome-scale linkage. If loci act multiplicatively on fitness, the measured
+   > variance roughly halves the effective size of the median population, as expected from
+   > the mean of the estimates. It accounts for a median 7% (1–40%) of observed deficits of
+   > 230- to 38,000-fold on a logarithmic scale, and explaining them would require a
+   > long-term variance above one, larger than any estimate. At measured mutation rates and
+   > the mean deleterious effects estimated in related species, mutation--selection balance
+   > maintains about a twentieth of the measured variance in the median population, and less
+   > than all of it in 16 of 18. This excess persists in 12 populations when a larger
+   > mutational target, undetected mutations of large effect and a twofold inflated estimate
+   > are combined, and in 6 under larger departures. Because a variance that
+   > mutation--selection balance can maintain removes at most 5% of neutral diversity at
+   > unlinked sites, no rescaling of the estimates fits both equilibria, whatever the
+   > estimates are. On current estimates, most of the measured variance is maintained by
+   > other processes, and most of the missing diversity has other causes.
 
 9. **Discussion ¶1.** Keep "both equilibria leave most of what they are meant to explain to
    other processes" (author's sentence; it is the sizing claim). Replace "Compared against the
@@ -124,10 +158,20 @@ changes is which sentence carries the emphasis.
     the size ("... accounts for a small part of each observed deficit, with or without
     linkage").
 
-12. **Title (AUTHOR).** The settled title states two verdicts. It can stay. An alternative
-    that leads with the sizing: *How much of their missing neutral diversity does heritable
-    variance in fitness explain in wild vertebrates, and how much of it can mutation
-    maintain?* Do not change the title without the author's decision.
+12. **Title (DECIDED: change it; the author asked for the most accurate title if the current
+    one is not).** The first half of the current title is accurate. The second half, "too
+    large for mutation--selection balance", is an unqualified verdict that the results
+    support for 16 of 18 populations at the primary inputs and for 6 under the stronger joint
+    scenario (Fix 2), so it claims more than we show. New title:
+
+    > **Heritable variance in fitness in wild vertebrates accounts for a small share of
+    > their missing neutral diversity and exceeds what recurrent mutation is estimated to
+    > maintain**
+
+    "A small share" is the median 7% (at most 40%) of Fix 1.7; "is estimated to" carries the
+    dependence on borrowed mutational effects and target size. Apply in
+    `manuscript/_main.tex` (l.72) and `CLAUDE.md` ("Title"). Leave `scratch.tex`,
+    `INTRO_REDRAFT_PLAN.md` and the poster as they are (stale or frozen).
 
 **CLAUDE.md.** Under "The claim", add that the diversity verdict is expected (Charlesworth &
 Jensen 2022) and that the contribution on that side is the per-population size; add the two
@@ -219,14 +263,10 @@ joint scenario. Write to that.
    population requires to pass.
 
 5. **Weaken these statements** (search for each string):
-   - Abstract: "Maintaining the measured variance would require the average new mutation to
-     lower the fitness of a heterozygous carrier by about 16%, a median 21 times the mean
-     effects estimated in related species." Keep the numbers; add the condition and the joint
-     result in one clause (e.g. "... and the discrepancy persists in 12 of 18 populations when
-     the mutational target, the mean effect and the estimate are varied together").
-   - Abstract, last sentence: "most of it is maintained by processes other than
-     mutation--selection balance" → conditional on the effects and target sizes used ("on
-     current estimates of mutational effects").
+   - Abstract (DECIDED): the maintenance sentences are those of the draft in Fix 1.8, which
+     states the inputs, the share maintained, the count failing (16 of 18) and the joint
+     result (12, then 6), and makes the last sentence conditional ("On current estimates").
+     The 16% required effect moves out of the Abstract; it stays in Results and Discussion.
    - Discussion ¶1: "the same variance is more than an order of magnitude larger than
      mutation--selection--drift balance can maintain" and "most of the measured variance must
      be maintained by forces other than recurrent mutation" → remove "must"; state the
@@ -352,8 +392,9 @@ Reorder so that the verdict-bearing material comes first:
      (Appendix B `app:B_split`), the $M_i \to \infty$ limit.
 6. `sec:approx` (keep; it is about the verdict). Shorten each bullet to one line.
 
-`tab:models` (the theories as computations of $R$) → supplement (**AUTHOR**: confirm; it is a
-map of cited work and reads as machinery in the main text). Keep one sentence in
+`tab:models` (the theories as computations of $R$) → supplement (DECIDED), as a
+supplementary table in `supp/supp_tables.tex`, cited once from `sec:unlinked`. Keep one
+sentence in
 `sec:unlinked` that all cited theories compute $R$ and differ in its dependence on breeding
 value.
 
@@ -381,8 +422,8 @@ Target order: unlinked sizing → share of the deficit (Fig. 3, after Fix 5) →
   because it gives the measured variance to alleles purged as slowly as the assigned DFE
   implies, although such alleles could not maintain that variance (cite `sec:approx`).
 
-`Fig. 2` (**AUTHOR**: confirm): keep panel (a) as the main figure; move panels (b) and (c)
-into `FigS_omega`. R: `scripts/R/fig2_linked.R`. Discussion ¶3's prediction about
+`Fig. 2` (DECIDED): keep panel (a) as the main figure; move panels (b) and (c) into
+`FigS_omega`. R: `scripts/R/fig2_linked.R`. Discussion ¶3's prediction about
 macrochromosomes and microchromosomes then points to a supplementary result; keep one Results
 sentence so that the Discussion does not introduce it.
 
@@ -646,11 +687,11 @@ At `115c3df` this returns about 85 hits in Theory and 45 in Methods. Target afte
 zero, apart from technical uses ("a pure log link" may stay as "a log link"; "exact" where a
 result is exact).
 
-**AUTHOR.** Theory l.49 names "Fisher's Fundamental Theorem" and the Introduction ¶1 names
-Fisher, against CLAUDE.md ("Fisher is not named before the Discussion"). The Introduction is
-the author's text, so the rule looks superseded. Decide, then either drop the rule from
-CLAUDE.md or rephrase l.49 ("increases the mean breeding value for fitness by $V_A$ each
-generation" needs no name).
+**Fisher (DECIDED: may be named before the Discussion).** Theory l.49 ("Fisher's Fundamental
+Theorem") and Introduction ¶1 stay as written, apart from lower-casing "fundamental theorem"
+in Theory to match the Introduction. The rule "Fisher is not named before the Discussion" is
+removed from CLAUDE.md (done on this branch). The rule that the theorem is not a premise of
+the claim stands.
 
 ### 7c. Small errors (apply first)
 
@@ -672,10 +713,12 @@ generation" needs no name).
 
 ---
 
-## Decisions required from the author before the dependent edits
+## Author decisions (all given 2026-11-18)
 
-1. Fix 1.7: approve the two "shares" (definition on a logarithmic scale for the deficit).
-2. Fix 1.12: title stays or changes.
-3. Fix 2.5: wording of the maintenance claim in the Abstract.
-4. Fix 4: `tab:models` to the supplement; Fig. 2 panels (b), (c) to the supplement.
-5. Fix 7: Fisher named before the Discussion, or not.
+1. Fix 1.7: the two shares are adopted. Numbers from `scripts/R/shares.R`.
+2. Fix 1.12: the title changes to the one given there, because "too large for
+   mutation--selection balance" claims more than the joint sensitivity supports.
+3. Fix 2.5 / Fix 1.8: the Abstract's maintenance claim is reworded to match the results
+   (draft in Fix 1.8).
+4. Fix 4: `tab:models` and Fig. 2 panels (b) and (c) go to the supplement.
+5. Fix 7: Fisher may be named before the Discussion.
