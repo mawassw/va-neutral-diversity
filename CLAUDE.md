@@ -59,8 +59,12 @@ paragraph ends on the gap it leaves for wild vertebrates. Fisher may be named be
 1. **Both tests target the same quantity** — long-run equilibrium additive variance in relative
    fitness, $\bar w = 1$. Same currency, same timescale class.
 2. **No single bias in the estimate reconciles both.** Inflated $V_A$ shrinks the MSD discrepancy and
-   grows the diversity one, and vice versa. **This is the paper's spine** — robust to the standard
-   criticism of pedigree $V_A$. **The maintenance verdict alone is firm for ~6 populations, within ~2×
+   grows the diversity one, and vice versa. The argument protects against **scale errors** in the
+   estimate (the standard criticism of pedigree $V_A$); its content is `eq:compat`, which does not
+   involve the estimate (it restates, per population, that MSDB variance removes little diversity at
+   unlinked sites; Charlesworth 2012). Were $\hat V_A$ inflated by $1/c_\text{MSD}$ (~20× in the median
+   population) only that known result would remain. The paper says so once in Theory
+   `sec:conditions`, Results `sec:res_rescaling` and Discussion ¶6 (Fix 3, 2026-11-19). **The maintenance verdict alone is firm for ~6 populations, within ~2×
    for the median under the moderate joint scenario** (ζ 8%, 1% tail, 2× inflation; 2026-11-19, Fix 2).
    Never call it robust without naming the scenario; never "cannot be maintained by mutation" unqualified.
 3. **The two ends do not meet.** Under the multiplicative bound, a deficit $1/\delta$ needs
