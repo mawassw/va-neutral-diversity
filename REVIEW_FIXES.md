@@ -935,6 +935,28 @@ and strict monogamy.
 discounted because their carriers are removed before the association has lasted its two
 generations.
 
+**L. Appendix C, the profile $\overline{Q^2}(\cdot)$ changes meaning between `app:C_kernel` and
+`app:C_spatial` without saying so (author's question, 2026-11-19).** In `eq:C_profile` the
+argument $y$ is the position of the **neutral site** and the average is over selected loci
+at $x$. In `general_g`, after the order of integration is exchanged, the same function is
+written $\overline{Q^2}(x)$ with $x$ the position of a **selected locus**, and the average
+is over neutral sites. The two are the same function because the kernel depends only on
+$\vert x - y\vert$, which the text says in half a clause, but the change of role is not
+stated and "$[g]$" is not explained. No equation is wrong. Edits:
+- In `app:C_kernel`, fix the convention in one sentence: "$y$ is always the position of a
+  neutral site and $x$ that of a selected locus."
+- In `app:C_spatial`, after `general_g`, replace the half clause with: "Because
+  $\mathcal{K}_\text{H}$ depends only on the distance between the two sites, the profile has
+  two equivalent meanings. Evaluated at a neutral site, it averages the kernel over selected
+  loci spread uniformly; evaluated at a selected locus, as here, it averages the kernel over
+  neutral sites spread uniformly, and so measures how much a locus at $x$ reduces diversity
+  along the whole chromosome."
+- Say once that the square brackets mark the chromosome average as a function of the whole
+  density $g$, with $\overline{Q^2}_\text{H}[1/M] = \overline{Q^2}_\text{H}$.
+- The sentence "largest at the midpoint and smallest at the telomeres, because a central
+  locus is linked to neutral sites on both chromosome arms" already uses the second meaning;
+  leave it.
+
 ### Discussion: the formal lesson each paragraph should carry
 
 The Discussion presents what the derivations showed on the same footing as what the
