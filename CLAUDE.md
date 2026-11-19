@@ -353,6 +353,13 @@ at linked sites the segment's contribution sets drift.
   and new em-dashes (user, 2026-11-12). The Discussion keeps its closing *so* clauses.
 - **"Biased toward passing"** is the one phrase for approximations chosen to favor a test (not
   "optimistic", "most favourable to explaining").
+- **One intuition per quantity (Fix 9, 2026-11-19):** each formally defined quantity is given one
+  intuitive sentence at its definition; results elsewhere relate to it in one sentence, without
+  re-explaining; the Discussion pairs each formal lesson (in words) with its comparative finding.
+  Homes: $V_A$ scale and δ/"deficit" ($1/\hat\delta$) in `sec:quantity`; $U_d$, $U_d\bar s$ after
+  `eq:strong`; $R$ and `eq:ratio` in `sec:unlinked`; $Z = 1$ at `eq:Q`; κ's two ends after
+  `eq:kappaB`; $1/(1-\rho)$ and $\overline{Q^2}_i$ in `sec:linkage`; $\Omega_i$ after
+  `linked_penalty` (Fix 8).
 - **The wording must not stand between the reader and the claim (author, 2026-11-02).** Five checks,
   applied to the whole Discussion on 2026-11-02: (1) **no label for content**, so state a model's
   conditions, not its name, and no symbols or acronym-terms ($c$, δ, $U_d$, "global/local reduction",
