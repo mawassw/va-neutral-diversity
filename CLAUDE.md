@@ -20,7 +20,15 @@ and is recoverable with `git log -p -- CLAUDE.md`. **Do not reconstruct retired 
 
 One measured quantity, two equilibrium tests, opposite verdicts.
 
-**Title (changed 2026-11-18, user; not yet applied in `_main.tex`):** *Heritable variance in fitness in
+**The diversity verdict is expected; the contribution is the size (Fix 1, applied 2026-11-19).** Nobody
+expects heritable variance in fitness to explain the deficit (Charlesworth & Jensen 2022 already put
+the effect at 16–55% from the mean estimate; demography is the expected cause). The contribution on
+that side is the **per-population size** of the effect, and on the maintenance side the share mutation
+maintains. Every section states the expectation before the result and reports each result as a share
+(the two shares, Numbers in hand); "test" stays as the name of the procedure, the shortfall is never
+presented as a discovery.
+
+**Title (changed 2026-11-18, user; applied in `_main.tex` 2026-11-19, inside `\claude{}`):** *Heritable variance in fitness in
 wild vertebrates accounts for a small share of their missing neutral diversity and exceeds what recurrent
 mutation is estimated to maintain.* The earlier "too large for mutation–selection balance" claimed more
 than the joint sensitivity supports (item 12 of Missing / open work).
@@ -83,6 +91,17 @@ use literature $\pi$, `data/pi_literature.csv`): **230× to 38,000×**. Least $V
 above every upper 95% HPD (max 0.70); at the modes the bound falls short by 80× (bighorn) to 31,000×
 (great tits, Hoge Veluwe). Per population: `scripts/R/tab_reduction.R` →
 `manuscript/tables/tab_reduction.tex`.
+
+**The two shares (Fix 1.7, adopted 2026-11-18; `scripts/R/shares.R` → `data/processed/shares.csv`,
+reproduced 2026-11-19; also the last two columns of `tab_reduction`; point convention).** No new
+symbols; defined in Theory `sec:conditions` as $c_\text{MSD}$ and $1/c_\text{div}$.
+- Share of $\hat V_A$ that mutation maintains, $U_d\bar s/\hat V_A$ (18): median **4.7%** (Q 1.0–9.0%),
+  0.17% (Muro blue tits) to 155% (snow voles); ≥100% in 2 (snow voles, red squirrels 122%); meerkats
+  49%. Deficit set (9): 0.17–11%, median 1.4%. Words: "about a twentieth".
+- Share of the deficit $\hat V_A$ accounts for, log scale, $\ln[1/(N_e/N)_\text{pred}]/\ln(1/\hat\delta)$
+  (9): multiplicative model median **6.9%** (Q 4.0–19.5%), 1.1% (great tits, Hoge Veluwe) to 40% (Muro
+  blue tits); bound 1.3–41% (median 6.9%; $= 1/c_\text{div}$); small-variance 1.0–15.5% (median 5.6%).
+  Words: "about a fifteenth"; Abstract "a median 7% (1–40%)".
 
 **MSD side** (18 populations, autosomal $L_\text{coding}$, $U_d = 4\mu L_\text{coding}$, both μ):
 $U_d$ 0.34–1.26 (direct μ). $s^* = V_A/U_d$ median 0.16 (phylo 0.12, point convention as in the text). $P(s^* > \bar s) \ge 0.89$ in
@@ -234,7 +253,7 @@ everywhere (claim, headings, verdicts): drift never adds variance, so $U_d\bar s
 and the verdict is stronger with drift in. Theory `sec:msdb` states once that the strong-selection
 limit reduces MSDB to mutation--selection balance; "mutation--selection balance" only for genuinely
 no-drift statements ($q \approx \mu/s$ in Appendices A/D; Connallon & Czuppon's loci in Discussion ¶5).
-Abstract S5 and S10 say "mutation--selection balance" (author, Overleaf 2026-11-09), an exception to this rule.
+The Abstract's maintenance and rescaling sentences say "mutation--selection balance" (author, Overleaf 2026-11-09; kept in the Fix 1.8 abstract, 2026-11-19), an exception to this rule.
 
 **Selection regimes have three named axes.** "Strong/weak" = against drift only ($4N_es$). Purging
 rate $s$ = "fast/slow purging". $V_A$ vs 1 = "small variance" / multiplicative. Never a bare
@@ -347,7 +366,9 @@ at linked sites the segment's contribution sets drift.
   offspring"; the small-variance approximation is "an approximation that holds while the variance is
   small". Theory/Results/Methods keep the names.
 - Charlesworth & Jensen 2022 is cited in one Discussion paragraph (¶2, missing diversity), both for
-  the 16–55% from the mean estimate and for the demographic account (consolidated 2026-11-02).
+  the 16–55% from the mean estimate and for the demographic account (consolidated 2026-11-02). Accepted
+  exception (Fix 1.4, 2026-11-19): Results `sec:res_unlinked` also cites it, anchoring the median 47%
+  reduction; the Introduction (¶6) credits it as before.
 - **Captions:** bold first sentence stating the figure's claim (supersedes the 2026-10-23
   "descriptive caption" choice), then description; no formulas, equation refs or citations beyond
   what defines a plotted quantity. Fig. 3 / Fig. S4 linkage color is "teal" (`#01665E`, as drawn; author 2026-10-29).
@@ -429,7 +450,7 @@ $V_A$ as input. Not competitors.
 2. Re-voicing of all sections by the author (Introduction, Theory, Results, Discussion and Abstract
    are drafted scaffolding).
 3. Methods reviewer pass.
-3a. **Compaction pass (2026-11-09, author-approved):** abstract 249 words (limit 250); Introduction
+3a. **Compaction pass (2026-11-09, author-approved):** abstract 249 words (limit 250; replaced 2026-11-19 by the Fix 1.8 draft, 250 words); Introduction
    ~1,610, Theory ~4,800, Methods ~2,915, Results text+captions ~3,185, Discussion ~1,944. After Fix 4
    (2026-11-19, `wc -w` of the whole file, comments included / excluded): Theory 5,723 / 5,210 (was
    6,563 / 6,091; review target ~3,500), Results 3,262 / 3,046, Introduction 1,821 / 1,586, Abstract
