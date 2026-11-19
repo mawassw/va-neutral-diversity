@@ -1,8 +1,14 @@
 # ==============================================================================
-# fig3_ceiling.R — Figure 3: the V_A ceiling set by observed diversity
+# fig3_ceiling.R — Figure 3: the least V_A each observed deficit requires;
+#                  Figure S_ceiling: the small-variance ceiling (supplement)
 # ==============================================================================
 # Run from the repo root:   Rscript scripts/R/fig3_ceiling.R
-# Reads only through load_data.R. Writes main/Fig3_ceiling.{pdf,tiff}.
+# Reads only through load_data.R. Writes main/Fig3_ceiling.{pdf,tiff} and
+# supp/FigS_ceiling.{pdf,tiff}.
+# Fix 5 (2026-11-19, REVIEW_FIXES.md): the small-variance ceiling (purple band, the
+# V_A = 1 line and the two vertical lines where the ceiling reaches 1) moved out of
+# Figure 3 into Figure S_ceiling, which adds the delta at which each of the 19
+# estimates reaches its own ceiling and the count of estimates above it.
 #
 # delta = pi / (4 mu N_c): observed diversity relative to its neutral
 # expectation. The curve is the object: anyone with a delta reads their ceiling
@@ -30,6 +36,7 @@
 suppressPackageStartupMessages({
   library(dplyr)
   library(ggplot2)
+  library(patchwork)
 })
 source("scripts/R/load_data.R")
 source("scripts/R/theme_genetics.R")
@@ -137,21 +144,11 @@ lab_rm    <- expression("Measured " * hat(italic(V))[A] * " at " * hat(delta) * 
 lab_sm    <- expression("Measured " * hat(italic(V))[A] * " at " * hat(delta) * ": social monogamy")
 
 p <- ggplot() +
-  # V_A = 1, the limit of the small-variance approximation, and the delta at which its
-  # ceiling reaches 1 (kappa = 2 and 1): described in the caption
-  geom_hline(yintercept = 1, linewidth = 0.3, linetype = "22", colour = "grey40") +
-  annotate("segment", x = d_enter, xend = d_enter, y = y_lo, yend = 1,
-           linetype = "22", linewidth = 0.3, colour = "grey55") +
   # multiplicative bound: kappa_max = 1 (upper line) to 2 (lower line)
   geom_ribbon(data = curve, aes(x = delta, ymin = m2, ymax = m1, fill = "mult"), alpha = 0.3,
               key_glyph = key_band) +
   geom_line(data = curve, aes(delta, m1), colour = col_mult, linewidth = 0.6) +
   geom_line(data = curve, aes(delta, m2), colour = col_mult, linewidth = 0.6) +
-  # small-variance ceiling, inside its domain: kappa = 1 to 2
-  geom_ribbon(data = first, aes(x = delta, ymin = f2, ymax = coalesce(f1, 1), fill = "first"),
-              alpha = 0.25, key_glyph = key_band) +
-  geom_line(data = filter(first, !is.na(f1)), aes(delta, f1), colour = col_first, linewidth = 0.6) +
-  geom_line(data = first, aes(delta, f2), colour = col_first, linewidth = 0.6) +
   # linked ceilings, one per mapped population, at its assigned DFE
   { if (show_linked)
       geom_line(data = lcurve, aes(delta, V, group = code, colour = "link"), linewidth = 0.35,
@@ -168,8 +165,8 @@ p <- ggplot() +
   geom_linerange(data = d, aes(y = va_mode, xmin = delta_lo, xmax = delta_hi), linewidth = 0.35) +
   geom_point(data = d, aes(delta, va_mode, shape = system), size = 1.6, stroke = 0.6, fill = "white",
              key_glyph = key_cross) +
-  scale_fill_manual(values = c(mult = col_mult, first = col_first), breaks = c("mult", "first"),
-                    labels = list(lab_mult, lab_first), name = NULL) +
+  scale_fill_manual(values = c(mult = col_mult), breaks = "mult",
+                    labels = list(lab_mult), name = NULL) +
   scale_colour_manual(values = c(link = col_link), labels = lab_link, name = NULL) +
   scale_shape_manual(values = c(rm = 16, sm = 21), breaks = c("rm", "sm"),
                      labels = list(lab_rm, lab_sm), name = NULL) +
@@ -200,3 +197,93 @@ cat(sprintf("n = %d populations with delta: %.2g to %.2g\nleast V_A that could e
 print(as.data.frame(need %>% transmute(code, delta = signif(delta, 2), va_mode = signif(va_mode, 2),
                                        va_hi = signif(va_hpd95_hi, 2), v_unl = signif(v_unl, 3),
                                        v_lk = signif(v_lk, 3))))
+
+# ------------------------------------------------------------------------------
+# Figure S_ceiling (Fix 5, 2026-11-19): the small-variance ceiling
+# V_A,max = (1 - delta)/(4 kappa delta), drawn only inside its domain
+# (V_A,max <= 1, delta >= 1/(1 + 4 kappa)); band kappa = 1 to 2.
+# (a) Each of the 19 estimates at the delta where its mode reaches the ceiling at its
+#     population's kappa (kappa_B), delta_reach = 1/(1 + 4 kappa hat V_A); the deficit
+#     set at its observed delta, joined to its own delta_reach by a dotted line.
+# (b) Number of the 19 modes above V_A,max(delta), each at its population's kappa
+#     (the counts quoted in the supplementary note: 0 at delta <= 0.2, 2 at 0.25-0.3,
+#     5 at 0.5, 15 at 0.9; as audit_numbers.R).
+# ------------------------------------------------------------------------------
+reach <- pops %>%
+  mutate(d_reach = 1 / (1 + 4 * kappa * va_mode))
+join <- d %>% select(code, delta, va_mode) %>%
+  left_join(reach %>% select(code, d_reach), by = "code")
+n_above <- function(dl) sum(pops$va_mode > vamax_first(dl, pops$kappa))
+count_grid <- tibble::tibble(delta = 10^seq(-1.2, 0, length.out = 1200)) %>%
+  mutate(n = vapply(delta, n_above, numeric(1)))
+cat("\nestimates above the small-variance ceiling:\n")
+for (dl in c(0.2, 0.25, 0.3, 0.5, 0.9))
+  cat(sprintf("  delta %.2f: %d of %d\n", dl, n_above(dl), nrow(pops)))
+cat(sprintf("delta_reach of the 19: %.2f to %.2f\n", min(reach$d_reach), max(reach$d_reach)))
+cat(sprintf("orders of magnitude from observed delta to delta_reach: %.2f to %.2f\n",
+            min(log10(join$d_reach / join$delta)), max(log10(join$d_reach / join$delta))))
+
+lab_reach <- expression("Each " * hat(italic(V))[A] * " where it reaches its own ceiling")
+lab_join  <- expression("From " * hat(delta) * " to where the estimate reaches its ceiling")
+key_join <- function(data, params, size)
+  grid::segmentsGrob(0.05, 0.5, 0.95, 0.5,
+                     gp = grid::gpar(col = "grey35", lwd = 0.4 * .pt, lty = "13"))
+
+pSa <- ggplot() +
+  # V_A = 1, the limit of the small-variance approximation, and the delta at which its
+  # ceiling reaches 1 (kappa = 2 and 1): described in the caption
+  geom_hline(yintercept = 1, linewidth = 0.3, linetype = "22", colour = "grey40") +
+  annotate("segment", x = d_enter, xend = d_enter, y = y_lo, yend = 1,
+           linetype = "22", linewidth = 0.3, colour = "grey55") +
+  geom_ribbon(data = first, aes(x = delta, ymin = f2, ymax = coalesce(f1, 1), fill = "first"),
+              alpha = 0.25, key_glyph = key_band) +
+  geom_line(data = filter(first, !is.na(f1)), aes(delta, f1), colour = col_first, linewidth = 0.6) +
+  geom_line(data = first, aes(delta, f2), colour = col_first, linewidth = 0.6) +
+  geom_rug(data = pops, aes(y = va_mode), sides = "l", length = unit(2, "mm"),
+           linewidth = 0.35, colour = "grey15") +
+  geom_segment(data = join, aes(x = delta, xend = d_reach, y = va_mode, yend = va_mode,
+                                linetype = "join"),
+               linewidth = 0.4, colour = "grey35", key_glyph = key_join) +
+  geom_point(data = reach, aes(d_reach, va_mode, colour = "reach"), shape = 18, size = 1.8) +
+  geom_linerange(data = d, aes(x = delta, ymin = va_hpd95_lo, ymax = va_hpd95_hi), linewidth = 0.35) +
+  geom_linerange(data = d, aes(y = va_mode, xmin = delta_lo, xmax = delta_hi), linewidth = 0.35) +
+  geom_point(data = d, aes(delta, va_mode, shape = system), size = 1.6, stroke = 0.6, fill = "white",
+             key_glyph = key_cross) +
+  scale_fill_manual(values = c(first = col_first), labels = list(lab_first), name = NULL) +
+  scale_colour_manual(values = c(reach = col_first), labels = list(lab_reach), name = NULL) +
+  scale_linetype_manual(values = c(join = "13"), labels = list(lab_join), name = NULL) +
+  scale_shape_manual(values = c(rm = 16, sm = 21), breaks = c("rm", "sm"),
+                     labels = list(lab_rm, lab_sm), name = NULL) +
+  guides(fill = guide_legend(order = 1), colour = guide_legend(order = 2),
+         linetype = guide_legend(order = 3), shape = guide_legend(order = 4, ncol = 1)) +
+  scale_x_log10(breaks = 10^seq(-5, 0), labels = scales::label_math(10^.x, format = log10),
+                expand = c(0, 0)) +
+  scale_y_log10(breaks = 10^seq(-3, 1), labels = scales::label_math(10^.x, format = log10),
+                expand = c(0, 0)) +
+  coord_cartesian(xlim = c(x_lo, 1), ylim = c(y_lo, y_hi)) +
+  labs(x = expression("Observed diversity relative to its neutral expectation, " * delta),
+       y = expression("Additive genetic variance in relative fitness, " * italic(V)[A]),
+       tag = "a") +
+  theme_genetics(grid_x = TRUE, grid_y = TRUE) +
+  theme(legend.direction = "vertical", legend.box = "vertical",
+        plot.margin = margin(3, 4, 2, 2, "mm"))
+
+pSb <- ggplot(count_grid, aes(delta, n)) +
+  geom_step(colour = col_first, linewidth = 0.6) +
+  scale_x_log10(breaks = c(0.1, 0.2, 0.3, 0.5, 1), labels = c("0.1", "0.2", "0.3", "0.5", "1"),
+                expand = c(0, 0)) +
+  scale_y_continuous(breaks = c(0, 5, 10, 15, 19), limits = c(0, 19.5), expand = c(0, 0)) +
+  coord_cartesian(xlim = c(10^-1.2, 1)) +
+  labs(x = expression(delta),
+       y = "Estimates above the small-variance ceiling (of 19)", tag = "b") +
+  theme_genetics(grid_x = TRUE, grid_y = TRUE) +
+  theme(plot.margin = margin(3, 5, 2, 2, "mm"))
+
+pS <- pSa + pSb + plot_layout(widths = c(1.6, 1))
+dir.create("supp", showWarnings = FALSE)
+ggsave("supp/FigS_ceiling.pdf", pS, width = 178, height = 115, units = "mm", device = cairo_pdf)
+ggsave("supp/FigS_ceiling.tiff", pS, width = 178, height = 115, units = "mm", dpi = 600,
+       device = ragg::agg_tiff, compression = "lzw")
+if (nzchar(Sys.getenv("FIG_PREVIEW_DIR")))
+  ggsave(file.path(Sys.getenv("FIG_PREVIEW_DIR"), "FigS_ceiling.png"), pS, width = 178,
+         height = 115, units = "mm", dpi = 200, device = ragg::agg_png)

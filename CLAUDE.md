@@ -355,13 +355,16 @@ at linked sites the segment's contribution sets drift.
   (`sec:res_deficit`); graded plausibility diction ("large but not inconceivable"); an
   "Intuitively," sentence after a formal result; derived (not data) worked numbers allowed in
   Theory; underbraced factor names in `total_red`; "we" only in Results setup sentences; one
-  forward bridge at the hinge between the two tests (end of `sec:res_ceiling`). Not imported:
+  forward bridge at the hinge between the two tests (end of `sec:res_linked` since Fix 5). Not imported:
   sentence-initial "Thus/However", "i.e./e.g.", formulas in captions.
 
 ### Supporting results — real, not the identity (never in title or abstract's first paragraph)
 
-- **$V_{A,\max}(\delta)$ / $V_{A,\delta}$ curves** — reusable; publish as curves. Not currently
-  exceeded: 0 of 19 at δ ≤ 0.2, 2 at 0.25–0.3, 5 at 0.5, 15 at 0.9; every observed δ is far below.
+- **$V_{A,\max}(\delta)$ / $V_{A,\delta}$ curves** — reusable; publish as curves. $V_{A,\delta}$ is
+  main-text Fig. `fig:ceiling` (`sec:res_deficit`). **$V_{A,\max}$ is supplementary since 2026-11-19
+  (Fix 5):** note at the end of Appendix A `app:A_first`, Fig. `fig:S_ceiling`, one pointer clause in
+  Theory `sec:conditions`. Not currently exceeded: 0 of 19 at δ ≤ 0.2, 2 at 0.25–0.3, 5 at 0.5, 15 at
+  0.9; every $\hat\delta$ is 2–4.5 orders below where its estimate would reach it.
 - **$\overline{Q^2}$ along a Haldane map** — closed form (dilogarithm). Method, not finding.
 - **κ(α)** — makes $N_e/N$ consistent with Bonnet's single $V_A$ across sexes and mating systems.
   Built on Woolliams, Bijma & Villanueva 1999 and SC 1995. Supplementary.
@@ -484,8 +487,8 @@ $V_A$ as input. Not competitors.
    recomputes as 3,270 per population at its own c_MSD (definitional; left).
 
 11. **2026-11-18:** Fig. 1 redrawn with the multiplicative model as the HPD series and `tab_reduction`
-   reordered (model, bound, approx.). Open: Results `sec:res_ceiling` still leads with the small-variance
-   ceiling (a reusable curve, kept). Fixed: Overleaf commit `ee1dabe` had
+   reordered (model, bound, approx.). Closed 2026-11-19 (Fix 5): `sec:res_ceiling` deleted; the
+   small-variance ceiling is supplementary. Fixed: Overleaf commit `ee1dabe` had
    reduced three `tab:c` row endings to a lone `\` (broke the build); Fig. 5 "Long-run" axis/legend → "Long-term".
 
 12. **Review 2026-11-18 (user-approved; branch `worktree-review-fixes`, not yet applied to the text).**
@@ -500,7 +503,7 @@ $V_A$ as input. Not competitors.
    of the estimates, so "no single rescaling" restates a known result per population; said explicitly in
    Theory, Results and Discussion ¶6. (d) Machinery (κ, Haldane averaging, linked factor) is cut from the
    main text to definition + one result + effect on the verdict. (e) The small-variance ceiling
-   (`sec:res_ceiling`, purple band of Fig. 3) moves to the supplement. (f) Under a log link
+   (`sec:res_ceiling`, purple band of Fig. 3) moves to the supplement (applied 2026-11-19). (f) Under a log link
    $\hat V_A = \mathrm{Var}(z)$ exactly (de Villemereuil 2016 Eqs 15–16, `genetics1281.pdf`);
    $e^{\sigma_z^2}-1$ is the total genotypic variance (their Eq. 28), so Theory l.134 is wrong as written.
    (g) Theory and Methods are brought to the register of Results and Discussion; Introduction untouched.
@@ -555,6 +558,7 @@ project#3/
 │   ├── theme_genetics.R  # figure style
 │   ├── fig1_unlinked.R … fig5_rescaling.R → main/Fig1–5
 │   ├── fig2_linked.R also → supp/FigS_omega, FigS_linked_fgene
+│   ├── fig3_ceiling.R also → supp/FigS_ceiling
 │   ├── figS_gap.R, figS_rescaling_linked.R → supp/
 │   ├── tab_reduction.R   → manuscript/tables/tab_reduction.tex
 │   ├── unlinked.R, data_gen.R, data_gen_2.R, supp_fig.R   # LEGACY (see Rules)
@@ -588,8 +592,11 @@ project#3/
    `mu_1` and selects nonexistent `Species.y`; fix = match line 86). Its Z (`1 - Vm/Va`), hardcoded
    `s_het`, 20 Mb filter and CNE multipliers are stale. `unlinked.R` must be sourced before it.
    `data_gen_2.R` hardcodes a wrong `root_dir` (guarded).
-4. **Figures are wired** in the `_main.tex` tree: Figs 1–5 in `results.tex`, S1–S4 in
-   `supp/supp_figures.tex`, cited by `\ref`.
+4. **Figures are wired** in the `_main.tex` tree: Figs 1–5 in `results.tex`, the supplementary figures
+   in `supp/supp_figures.tex`, cited by `\ref`. Since Fix 5 (2026-11-19) `Fig3_ceiling` (label
+   `fig:ceiling`, least $V_A$ each deficit requires) sits in `sec:res_deficit` and so prints as
+   Figure 2, with `Fig2_linked` as Figure 3; file names were not changed. `fig3_ceiling.R` also writes
+   `supp/FigS_ceiling` (`fig:S_ceiling`, the small-variance ceiling).
 5. **Model conventions in code:** κ only from `kappa.R`. Any "V_A needed for a deficit" uses
    `vamax_mult` with `kappa_mult_bound` (= $\kappa_\text{max}$), never the first-order inversion.
    Code names differ from manuscript symbols: `G`/`G_correct`/`G_sym` mean $Z$; `Qu2()` is $Q^2$;
