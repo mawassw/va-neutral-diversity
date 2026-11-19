@@ -60,7 +60,9 @@ paragraph ends on the gap it leaves for wild vertebrates. Fisher may be named be
    fitness, $\bar w = 1$. Same currency, same timescale class.
 2. **No single bias in the estimate reconciles both.** Inflated $V_A$ shrinks the MSD discrepancy and
    grows the diversity one, and vice versa. **This is the paper's spine** — robust to the standard
-   criticism of pedigree $V_A$.
+   criticism of pedigree $V_A$. **The maintenance verdict alone is firm for ~6 populations, within ~2×
+   for the median under the moderate joint scenario** (ζ 8%, 1% tail, 2× inflation; 2026-11-19, Fix 2).
+   Never call it robust without naming the scenario; never "cannot be maintained by mutation" unqualified.
 3. **The two ends do not meet.** Under the multiplicative bound, a deficit $1/\delta$ needs
    $V_A \ge \ln(1/\delta)/(4\kappa_\text{max})$: ~1.15 for 100×, ~2.3 for 10⁴× under random mating
    (half with a pair bond), **1.1–1.7 for the nine observed deficits**. MSD needs $V_A \lesssim 10^{-2}$.
@@ -117,6 +119,15 @@ with linkage, under the bound, bighorn/song sparrow at δ×10 reach 1.01/1.03 of
 exons) = 0.8–2.0× the doubled exome (median 1.19), so the primary $U_d$ is *not* generous; with ζ = 15% of
 unannotated sequence the median $\hat V_A/(U_d\bar s)$ falls 21 → 4 and only meerkats newly drop below 1
 (ζ ≈ 3%). Linked $N_e/N$ moves ≤13% (Wytham +40%); every mapped population with a deficit stays ≥50× short.
+**Joint sensitivity (2026-11-19, Fix 2, `sens_maintenance_joint.R`, Fig. S_maintenance_joint, Methods
+`sec:meth_joint`):** target (primary, or annotation + ζ = 0/3/8/15%) × hidden tail (p = 0–5% of new
+mutations at heterozygous $s$ = 0.5, whole target) × inflation $k$ = 1–10 of $\hat V_A$; point convention.
+Alone: 15 fail at ζ = 15%, 14 with a 5% tail, 14 at 10×. Moderate (ζ 8%, 1%, 2×): **12 fail** (7 birds,
+5 mammals; 7 with $P \ge 0.95$), median ratio 1.9 (share maintained ~54% vs 4.7%). Stronger (ζ 15%, 2%,
+3×): **6 fail** (blue tits ×3, hihi Tiritiri, Wytham great tits, hyenas), median 0.63. All pass only at
+ζ 15%, 5%, 10×; Corsican blue tits last. Birds ($\bar s$ 0.0013–0.0021) hinge on the tail (1% tail
+raises $\bar s$ 3–5×); mammals other than hyenas fail 9–22× at baseline (meerkats 2.0×), 2–5× at ζ 8%
+(meerkats pass), so they hinge on target and estimate. Median share maintained at ζ = 15% ≈ a quarter.
 
 **Linked (assigned DFE, `linked.R`; global factor = multiplicative bound in every figure since
 2026-11-02, user):** total $N_e/N$ at the mode, $\overline\Omega\,e^{-4\kappa_\text{max}\hat V_A}$ —
@@ -523,7 +534,9 @@ $V_A$ as input. Not competitors.
    `data/processed/maintenance_joint_sensitivity*.csv`; target × hidden tail at $s$ = 0.5 × inflation of
    $\hat V_A$, point convention): 16 of 18 fail at baseline (median ratio 21.5); 12 at ζ = 8%, 1% tail,
    2× inflation (median 1.9; 7 with posterior probability ≥ 0.95); 6 at ζ = 15%, 2% tail, 3× (blue tits ×3,
-   hihi Tiritiri, Wytham great tits, hyenas); 0 only at ζ = 15%, 5% tail, 10×. (c) `eq:compat` is independent
+   hihi Tiritiri, Wytham great tits, hyenas); 0 only at ζ = 15%, 5% tail, 10× (applied 2026-11-19: Methods
+   `sec:meth_joint`, DFE caveat in `sec:dfe_methods`, Results `sec:res_msd`, Fig. S_maintenance_joint,
+   Discussion ¶1/3/4/6, Fig. 4 caption). (c) `eq:compat` is independent
    of the estimates, so "no single rescaling" restates a known result per population; said explicitly in
    Theory, Results and Discussion ¶6. (d) Machinery (κ, Haldane averaging, linked factor) is cut from the
    main text to definition + one result + effect on the verdict. (e) The small-variance ceiling
@@ -613,6 +626,8 @@ project#3/
 │   ├── fig3_ceiling.R also → supp/FigS_ceiling
 │   ├── figS_gap.R, figS_rescaling_linked.R → supp/
 │   ├── tab_reduction.R   → manuscript/tables/tab_reduction.tex
+│   ├── sens_maintenance_joint.R → data/processed/maintenance_joint_sensitivity*.csv,
+│   │                       supp/FigS_maintenance_joint (joint target × tail × inflation)
 │   ├── unlinked.R, data_gen.R, data_gen_2.R, supp_fig.R   # LEGACY (see Rules)
 │   └── poster_figs.R     # poster only
 ├── data/                  # species_EPP.csv, epp_sources.csv, dfe_assignment.csv,
