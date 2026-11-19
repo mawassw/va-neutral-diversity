@@ -43,7 +43,7 @@ It is the counterpart of $Q$ for the chromosome segment that carries the neutral
     \overline{Q^2}(y) = \frac{1}{M}\int_0^M \mathcal{K}(\vert x-y\vert)\,dx = \frac{1}{M}\left[\mathcal{I}(y) + \mathcal{I}(M-y)\right], \label{eq:C_profile} \\
     \frac{1}{M}\int_0^M \overline{Q^2}(y)\,dy = \frac{2}{M^2}\int_0^M (M-\ell)\,\mathcal{K}(\ell)\,d\ell = \frac{2}{M^2}\int_0^M \mathcal{I}(\ell)\,d\ell, \label{eq:C_haldane_avg}
 \end{gather}
-where the factor $(M - \ell)$ weights each distance $\ell$ by the density of site pairs separated by $\ell$. Across a whole chromosome, pairs of sites can lie up to $M$ Morgans apart\claude{, often more than $0.5$ Morgans, where a linear mapping function ($r = \ell$) gives recombination fractions above $\tfrac12$. We therefore use} Haldane's mapping function, $r_\text{H}(\ell) = \tfrac12(1 - e^{-2\ell})$, which saturates at $\tfrac12$ \claude{at large distances}. \claude{Under Haldane's map, Equation}~\eqref{eq:C_haldane_avg} \claude{becomes, for chromosome $i$ of map length $M_i$,}
+where the factor $(M - \ell)$ weights each distance $\ell$ by the density of site pairs separated by $\ell$. \claude{Under} Haldane's mapping function, $r_\text{H}(\ell) = \tfrac12(1 - e^{-2\ell})$, which saturates at $\tfrac12$ \claude{for sites far apart on the same chromosome, Equation}~\eqref{eq:C_haldane_avg} \claude{becomes, for chromosome $i$ of map length $M_i$,}
 \begin{equation}
     \overline{Q^2}_i = \frac{2}{M_i^2}\int_0^{M_i} (M_i - \ell)\left(\frac{1}{1 - \dfrac{Z}{2}(1 + e^{-2\ell})}\right)^2 d\ell. \label{eq:haldane_avg}
 \end{equation}
@@ -120,7 +120,7 @@ For $J$ independently placed equal-effect loci, a second-order expansion gives
 \begin{equation}
     \mathbb{E}\!\left[\exp\!\left(-\kappa_\text{cis} v_h \overline{Q^2}_\text{H}[g]\right)\right] - \exp\!\left(-\kappa_\text{cis} v_h \overline{Q^2}_\text{H}\right) \approx \frac{(\kappa_\text{cis} v_h)^2}{2J}\exp\!\left(-\kappa_\text{cis} v_h \overline{Q^2}_\text{H}\right)\mathrm{Var}_x\!\left[\overline{Q^2}(x)\right].
 \end{equation}
-Under random placement independent of recombination rate, uniform density therefore maximizes the expected linked reduction in $N_e$ and is conservative with respect to understating linkage. This ordering can reverse, however, when selected alleles are concentrated in regions of suppressed recombination such as pericentromeres or chromosomal inversions. Even without physical clustering, low recombination compresses large stretches of selected and neutral sequence into a short map interval, locking them together and elevating local linkage above the uniform-map baseline; evolutionary processes that actively concentrate selected alleles within low-recombination regions or inversions~\cite{kirkpatrick2006,yeaman2013} compound this effect further.
+Under random placement independent of recombination rate, uniform density therefore maximizes the expected linked reduction in $N_e$. This ordering can reverse, however, when selected alleles are concentrated in regions of suppressed recombination such as pericentromeres or chromosomal inversions. Even without physical clustering, low recombination compresses large stretches of selected and neutral sequence into a short map interval, locking them together and elevating local linkage above the uniform-map baseline; evolutionary processes that actively concentrate selected alleles within low-recombination regions or inversions~\cite{kirkpatrick2006,yeaman2013} compound this effect further.
 
 \ifdefined\isMainDocument
 \else
