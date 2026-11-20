@@ -68,7 +68,7 @@ Incorporating the general mating-system factor $\kappa(\alpha)$ (Equation~\eqref
 \begin{equation}
     V_{A,\max} = \frac{1 - \delta}{4\kappa(\alpha)\,\delta}, \label{eq:vamax}
 \end{equation}
-above which heritable fitness variance alone would remove more diversity than observed. Because the small-variance expansion holds only for $V_{A,\max} \le 1$, Equation~\eqref{eq:vamax} applies only when $\delta \gtrsim 1/(1 + 4\kappa)$: populations retaining at least $\delta \gtrsim 0.20$ of expected neutral diversity under random mating ($\kappa = 1$), $\delta \gtrsim 0.12$--$0.16$ under social monogamy with extra-pair paternity ($\kappa_B = 1.32$--$1.86$), and $\delta \gtrsim 0.11$ under strict monogamy ($\kappa = 2$). For deeper diversity deficits, the required variance must be evaluated from the exact multiplicative bound $V_{A,\delta}$ (Equation~\eqref{eq:vamax_mult}).
+above which heritable fitness variance alone would remove more diversity than observed. Because the small-variance expansion holds only for $V_{A,\max} \le 1$, Equation~\eqref{eq:vamax} applies only when $\delta \gtrsim 1/(1 + 4\kappa)$: populations retaining at least $0.20$ of expected neutral diversity under random mating ($\kappa = 1$), $\delta \gtrsim 0.12$--$0.16$ under social monogamy with extra-pair paternity ($\kappa_B = 1.32$--$1.86$), and $\delta \gtrsim 0.11$ under strict monogamy ($\kappa = 2$). For deeper diversity deficits, the required variance must be evaluated from the exact multiplicative bound $V_{A,\delta}$ (Equation~\eqref{eq:vamax_mult}).
 
 \claude{At each population's $\kappa$, none of the 19 pedigree estimates exceeds this ceiling at $\delta \le 0.2$; two do at $\delta$ = 0.25--0.3 (the blue tits at Pirio and Muro), five at $\delta = 0.5$ and 15 at $\delta = 0.9$ (Figure}~\ref{fig:S_ceiling}\claude{). Every $\hat{\delta}$ in the deficit set lies two to four and a half orders of magnitude below the $\delta$ at which its own estimate would reach the ceiling. Neutral diversity in these populations therefore sets no upper limit on their fitness variance.}
 
@@ -106,7 +106,7 @@ Finally, Equation~\eqref{eq:Zcgf} relies on the exponential map $w \propto e^z$.
 \begin{equation}
     Z = 1 - V_A + \frac{\mathbb{E}[a^3]}{V_A}. \label{eq:Zarch}
 \end{equation}
-For a symmetric Gaussian breeding value ($\mathbb{E}[a^3] = 0$), $Z = 1 - V_A$, $Q = 2/(1 + V_A)$, and $N_e/N = (1 + V_A)^2/(1 + 6V_A + V_A^2)$. This ratio attains a minimum of $1/2$ at $V_A = 1$ before increasing back toward $1$ at larger $V_A$. That pathological rebound is an artifact of the linear map assigning negative expected offspring ($1 + a < 0$) to a fraction $\Phi(-1/\sqrt{V_A})$ of the cohort ($8\%$ of individuals at $V_A = 0.5$ and $16\%$ at $V_A = 1$); we therefore do not consider the linear fitness map further.
+For a symmetric Gaussian breeding value ($\mathbb{E}[a^3] = 0$), $Z = 1 - V_A$, $Q = 2/(1 + V_A)$, and $N_e/N = (1 + V_A)^2/(1 + 6V_A + V_A^2)$. This ratio reaches a minimum of $1/2$ at $V_A = 1$ before increasing back toward $1$ at larger $V_A$. That pathological rebound is an artifact of the linear map assigning negative expected offspring ($1 + a < 0$) to a fraction $\Phi(-1/\sqrt{V_A})$ of the cohort ($8\%$ of individuals at $V_A = 0.5$ and $16\%$ at $V_A = 1$); we therefore do not consider the linear fitness map further.
 \ifdefined\isMainDocument
 \else
     \printbibliography
