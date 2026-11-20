@@ -29,7 +29,7 @@
 % all-orders bracket last. Matches kappa_pair() in scripts/R/kappa.R.
 
 \section{Effective size with separate sexes, pair bonds and extra-pair paternity}\label{app:matingapp}
-This appendix derives the mating-system scalar $\kappa$ of Equations~\eqref{unlinked_mating} and \eqref{eq:kappaB}, its split into the components used in Equation~\eqref{total_red}, and the multiplicative-model bracket of Equation~\eqref{eq:B_mult_pair}. It applies the expected long-term contributions of Woolliams, Bijma, and Villanueva~\cite{woolliams1999} and the two-sex combination of Santiago and Caballero~\cite{santiago1995}. 
+This appendix derives the mating-system scalar $\kappa$ of Equation~\eqref{unlinked_mating} \claude{(Model B, Equation}~\eqref{eq:kappaB}\claude{)}, its split into the components used in Equation~\eqref{total_red}, and the multiplicative-model bracket of Equation~\eqref{eq:B_mult_pair}. It applies the expected long-term contributions of Woolliams, Bijma, and Villanueva~\cite{woolliams1999} and the two-sex combination of Santiago and Caballero~\cite{santiago1995}. 
 
 Consider a diploid population with discrete generations, $N$ breeding adults, and an equal sex ratio. Each individual possesses an additive breeding value $a$ for relative lifetime breeding success, with variance $\mathrm{Var}(a) = V_A$ assumed equal in both sexes. For small advantages, $a = z - \bar{z}$ (Appendix~\ref{app:unlinkedapp}). Bonnet et al.~\cite{bonnet2022} estimate this single variance from an animal model incorporating both sexes with sex fitted as a fixed effect.
 
@@ -61,9 +61,9 @@ Here $4\kappa V_A$ is the sex-averaged variance of long-term contributions, and 
 \end{equation}
 
 \subsection{\texorpdfstring{$\kappa$}{kappa} under Models A and B}\label{app:B_limits}
-When $Z = 1$ and $r_{mf} = 0$, $\theta = 1/2$ and $\Psi = \bar{\beta}$. Model B ($\beta = \bar{\beta} = 1$) reduces Equation~\eqref{eq:B_kappa_general} to Equation~\eqref{eq:kappaB}:
+When $Z = 1$ and $r_{mf} = 0$, $\theta = 1/2$ and $\Psi = \bar{\beta}$. Model B ($\beta = \bar{\beta} = 1$) reduces Equation~\eqref{eq:B_kappa_general} to
 \begin{equation}
-    \kappa_B = 2 - \tfrac32\alpha + \tfrac58\alpha^2.
+    \kappa_B = 2 - \tfrac32\alpha + \tfrac58\alpha^2. \label{eq:kappaB}
 \end{equation}
 For Model A ($\beta = 1 - \alpha$, $\bar{\beta} = 1 - \alpha/2$),
 \begin{equation}
@@ -87,7 +87,7 @@ The partner's genes are never on the focal copy's haplotype, so the partner comp
 \begin{equation}
     \kappa_\text{cis}(\rho) = \frac{\left[1 + \bar{\beta}\chi\right]^2 + \left[\beta + \bar{\beta}\chi\right]^2}{2(1+\chi)^2},
 \end{equation}
-which decreases from $(1+\beta^2)/2$ as $\rho \to 0$ to $\bar{\beta}^2$ under tight linkage. Under random mating, and under Model B, $\beta = 1$, so $\kappa_\text{own} = \kappa_\text{cis} = 1$ and $\kappa_\text{partner} = \kappa - 1$. The remainder of the genome \claude{(the homologous haplotype and all other chromosomes)} assorts independently of the focal neutral site\claude{, so Equation}~\eqref{total_red} \claude{uses this split, applying} $\kappa_\text{cis}$ to the linked term and $Q^2(\kappa V_A - \kappa_\text{own}v_h)$ to the exponent of the unlinked background, with $Q = 2/(2-Z)$ at the same retention factor as the linked term.
+which decreases from $(1+\beta^2)/2$ as $\rho \to 0$ to $\bar{\beta}^2$ under tight linkage. Under random mating, and under Model B, $\beta = 1$, so $\kappa_\text{own} = \kappa_\text{cis} = 1$ and $\kappa_\text{partner} = \kappa - 1$. The remainder of the genome \claude{(the homologous haplotype and all other chromosomes)} assorts independently of the focal neutral site\claude{, so Equation}~\eqref{total_red} \claude{uses this split, applying} $\kappa_\text{cis}$ to the linked term and $Q^2(\kappa V_A - \kappa_\text{own}v_h)$ to the exponent of the unlinked background, with $Q = 2/(2-Z)$ at the same retention factor as the linked term. \claude{Because the \emph{cis} haplotype variance $v_h$ moves from the unlinked to the linked term, no variance is counted twice. The two terms combine additively in the exponent if selected loci are distributed independently along the genetic map, so that their effects multiply}~\cite{hudson1995,santiago2016}\claude{, and fitness is multiplicative across loci}~\cite[Supplementary Equations~28--29]{buffaloKern2024}; \cite[cf.][]{santiago1998}\claude{. Across a DFE, $\overline{Q^2}_i$ and $Q^2$ are replaced by their averages over the variance weights $\nu_k$, and the multiplicative bound replaces $\kappa$ by $\kappa_\text{max}$ (Appendix}~\ref{app:omega}\claude{ gives the small-variance form).}
 
 \subsection{The multiplicative model with pair bonds}\label{app:B_mult}
 Under Model B with multiplicative fitness ($w \propto e^{z}$), a gene copy's long-term contribution flows through within-pair and extra-pair routes. In females, productivity is $e^{z_f + z_{m'}}$, with a fraction $1 - \alpha$ of offspring sired by $m'$ and $\alpha$ by extra-pair sires. In males, contributions arise from within-nest and extra-pair offspring proportional to $e^{z_m}$. Following Appendix~\ref{app:A_R}, expected contributions evolve as

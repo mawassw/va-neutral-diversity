@@ -105,6 +105,8 @@ The bound also holds when the unlinked factor uses the small-variance reciprocal
 \end{equation}
 where the final inequality holds because $(1+\Lambda_\text{own})(1+\Lambda_\text{unlinked}-\Lambda_\text{own}) - (1+\Lambda_\text{unlinked}) = \Lambda_\text{own}(\Lambda_\text{unlinked}-\Lambda_\text{own}) \ge 0$. Under free recombination, this mixed form gives $\Omega_i = 1 - \Lambda_\text{own}\Lambda_\text{unlinked}/(1 + \Lambda_\text{unlinked}) + O(\Lambda_\text{own}^2)$, an $O(v_h V_A)$ discrepancy arising solely from combining exponential and reciprocal approximations for the same variance. Under a distribution of fitness effects, the bound applies class by class.
 
+\claude{With linkage, the minimum variance that accounts for $\delta$ solves Equation}~\eqref{eq:genome_linked}\claude{ set equal to $\delta$ (Methods), and because $\overline{\Omega} \le 1$ it lies below the unlinked threshold at the same retention factor, $\ln(1/\delta)/(Q^2\kappa)$, which equals $V_{A,\delta}$ at $Z = 1$ and $\kappa = \kappa_\text{max}$.}
+
 \subsection{Non-uniform placement of selected variance}\label{app:C_spatial}
 Because the chromosomal architecture of fitness variance in wild populations is unknown~\cite{barton2002}, uniform placement is a baseline assumption. Let $g(x) \ge 0$ ($\int_0^M g(x)\,dx = 1$) denote the density of selected variance in map distance. With neutral sites uniform in map distance, symmetry of $\mathcal{K}_\text{H}(\vert x-y\vert)$ yields
 \begin{equation}
