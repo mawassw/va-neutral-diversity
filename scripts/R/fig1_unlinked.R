@@ -19,8 +19,11 @@
 #      with the animal model behind hat V_A; its small-V_A limit, the small-variance
 #      approximation (open circle); the multiplicative bound (cross)
 #   B  the forms as curves in V_A for kappa = 1 and 2: multiplicative bound solid; its
-#      small-V_A limit dashed, drawn only inside its domain (V_A <= 1); each population at
-#      its hat V_A mode under the multiplicative model at its own alpha
+#      small-V_A limit dashed, over the whole range (2026-11-23, user: to show where they part);
+#      top axis 100 sqrt(V_A), the SD of breeding value in % of mean fitness; each population
+#      at its hat V_A mode under the multiplicative model at its own alpha
+#   Legends name model and statistic only; equations and limits live in the caption (user,
+#   2026-11-23). Rows of A are labelled by species only; locations are in tab:S_sources.
 # 2026-11-18 (user): multiplicative model made the primary series; the small-variance
 # approximation is shown as its limit for small V_A (any smooth fitness architecture).
 # kappa primary (Model B; 1 without a pair bond). Until 2026-10-20 this figure showed
@@ -64,7 +67,10 @@ d <- pops %>%
 row_order <- c(
   "SFW", "HT", "HK", "BTR", "BTP", "BTM", "GTU", "GTN", "CF", "SSP",
   "SV", "KS", "NH", "MK", "RD", "SSH", "BHS", "CSM", "AB")
-d <- d %>% mutate(label = factor(label, levels = rev(label[match(row_order, code)])))
+# Rows are keyed by population code and labelled by species only (user, 2026-11-23, to keep two
+# panels); populations of a species keep the order of tab:S_sources (Table S3), which gives locations.
+d <- d %>% mutate(label = factor(code, levels = rev(row_order)))
+species_of <- setNames(d$species_lab, d$code)
 
 col_np <- "#1B9E77"; col_sm <- "#7570B3"; col_mult <- "#D95F0E"
 key_hpd <- function(data, params, size) {
@@ -95,10 +101,10 @@ pA <- ggplot(d, aes(y = label)) +
              key_glyph = key_hpd) +
   scale_shape_manual(values = c(mult = 21, first = 21, bound = 4), breaks = c("mult", "first", "bound"),
                      name = NULL,
-                     labels = list("Multiplicative model: mode, 50% and 95% HPD",
-                                   expression("Its limit for small " * italic(V)[A] * ", the small-variance approximation: mode"),
-                                   expression("Multiplicative bound, " * e^{-4 * kappa[max] * hat(italic(V))[A]} *
-                                                ": mode"))) +
+                     labels = c("Multiplicative model: mode, 50% and 95% HPD",
+                                "Small-variance approximation: mode",
+                                "Multiplicative bound: mode")) +
+  scale_y_discrete(labels = species_of) +
   ne_log() +
   facet_grid(taxon ~ ., scales = "free_y", space = "free_y", switch = "y") +
   labs(x = ne_lab, y = NULL, tag = "a") +
@@ -115,11 +121,15 @@ curves <- bind_rows(
   tibble::tibble(Va = va, ne = 1 / (1 + 4 * va), sys = "Random mating", form = "first"),
   tibble::tibble(Va = va, ne = 1 / (1 + 8 * va), sys = "Social monogamy", form = "first"),
   tibble::tibble(Va = va, ne = exp(-4 * va), sys = "Random mating", form = "mult"),
-  tibble::tibble(Va = va, ne = exp(-8 * va), sys = "Social monogamy", form = "mult")) %>%
-  filter(form == "mult" | Va <= 1)
+  tibble::tibble(Va = va, ne = exp(-8 * va), sys = "Social monogamy", form = "mult"))
+# 2026-11-23 (user): the small-variance curves are drawn over the whole range, so the panel shows
+# where the two forms part; the top axis re-expresses V_A as the standard deviation of breeding
+# value in percent of mean fitness (100 sqrt(V_A), the intuition of Theory sec:quantity), and the
+# thin line marks V_A = 1, where that standard deviation equals mean fitness.
+sd_brk <- c(5, 10, 25, 50, 100)
 
 pB <- ggplot() +
-  annotate("rect", xmin = 1, xmax = 2, ymin = 0.01, ymax = 1.05, fill = "grey93") +
+  geom_vline(xintercept = 1, linewidth = 0.3, colour = "grey60") +
   geom_line(data = curves, aes(Va, ne, colour = sys, linetype = form), linewidth = 0.6) +
   geom_point(data = d, aes(va_mode, ne_mult, colour = system), size = 1.7, shape = 21,
              fill = "white", stroke = 0.7) +
@@ -128,7 +138,9 @@ pB <- ggplot() +
   scale_linetype_manual(values = c(mult = "solid", first = "22"), breaks = c("mult", "first"), name = NULL,
                         labels = c(mult = "Multiplicative bound", first = "Small-variance approximation")) +
   scale_x_log10(breaks = c(10^(-3:0), 2), labels = c("0.001", "0.01", "0.1", "1", "2"),
-                expand = c(0, 0)) +
+                expand = c(0, 0),
+                sec.axis = sec_axis(~ 100 * sqrt(.), breaks = sd_brk, labels = paste0(sd_brk, "%"),
+                                    name = "SD of breeding value, % of mean fitness")) +
   scale_y_log10(breaks = ne_brk, labels = format(ne_brk), expand = c(0, 0)) +
   coord_cartesian(xlim = c(1e-3, 2), ylim = c(0.01, 1.05)) +
   labs(x = expression(italic(V)[A]),
@@ -140,7 +152,7 @@ pB <- ggplot() +
         plot.margin = margin(2, 5, 2, 2, "mm"))
 
 # each legend left-aligned under its own panel
-p <- pA + pB + plot_layout(widths = c(1.4, 1))
+p <- pA + pB + plot_layout(widths = c(1.15, 1))
 
 dir.create("main", showWarnings = FALSE)
 ggsave("main/Fig1_unlinked.pdf", p, width = 178, height = 100, units = "mm", device = cairo_pdf)
