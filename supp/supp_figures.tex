@@ -24,12 +24,31 @@
 % 2026-11-23 (user): S_required (the curve of the variance a deficit requires, the main Figure 2 until then)
 % comes first, cited from Theory sec:onemodel at eq:vamax_mult.
 
+% Supplementary methods: approximations. Bullet lists moved verbatim from Theory sec:approx on 2026-11-20
+% (user); the target item is new (Methods sec:meth_ud cited sec:approx for it).
+\section*{Supplementary Methods: approximations biased toward passing}
+On the diversity side, the approximations maximize the reduction in effective size that a given $V_A$ causes, and so minimize $V_{A,\delta}$ (\autoref{sec:approx}):
+\begin{itemize}
+    \item \textbf{Unbounded multiplicative fitness:} The multiplicative bound places no ceiling on family size (\autoref{sec:onemodel}).
+    \item \textbf{Maximum mating-system amplification:} The bound uses $\kappa_\text{max} = 2$ under social monogamy, not the smaller $\kappa(\alpha)$ (\autoref{sec:mating}).
+    \item \textbf{Complete retention at unlinked sites:} The reduction at unlinked sites uses $Z = 1$, so $Q = 2$ rather than $2/(1+s_k)$ (\autoref{sec:unlinked}).
+    \item \textbf{Pre-breeding survival treated as fecundity:} $Q = 2$ applies to all of $\hat{V}_A$, although survival to breeding age has $Q = 1$ (\autoref{sec:meth_va}).
+    \item \textbf{Absence of crossover interference:} Haldane's map omits interference, which raises recombination at intermediate distances and weakens linked selection.
+    \item \textbf{Empirical scaling of linked variance:} The linked term carries all of $\hat{V}_A$, not the smaller $U_d\bar{s}$ that MSDB maintains (\autoref{sec:linkage}).
+\end{itemize}
+
+On the maintenance side, the approximations maximize the variance that recurrent mutation sustains, and so maximize $c_\text{MSD}$ and minimize $s^*$:
+\begin{itemize}
+    \item \textbf{Strong-selection limit:} $U_d\bar{s}$ is the most variance MSDB maintains at any effective size (\autoref{sec:msdb}).
+    \item \claude{\textbf{Deleterious target:} Every mutation in the primary target, twice the autosomal exome, is treated as deleterious, synonymous sites included (}\autoref{sec:meth_ud}\claude{).}
+\end{itemize}
+
 % Supplementary results: linkage. Moved verbatim from Results sec:res_linked on 2026-11-19 (Fix 4),
 % figure pointers updated (old Figure 2b, c are now Figure S_omega b, c).
 \section*{Supplementary Results: linkage}
-In our predictions, the contrast between birds and mammals does not follow the recombination maps. At the same selection coefficient and $V_A$, the maps alone give similar linked factors $\overline{\Omega}$ (Equation~\eqref{linked_penalty}) in the two taxa (0.55--0.73; Figure~\ref{fig:S_omega}b), although the bird genomes recombine about twice as much per megabase. The contrast follows instead the DFEs assigned to the two taxa, whose mean heterozygous effects are 0.0013--0.0021 in birds, an order of magnitude lower than the 0.014--0.020 assigned to the mapped mammals. Because each DFE was assigned by taxon from related species (Methods), the contrast is attributable to the assigned DFEs within the model and is not evidence that the DFEs of these populations differ. The assigned DFEs differ in how fast they purge. Slow purging, in turn, gives a larger local reduction from the same $V_A$ (\autoref{sec:linkage}).
+In our predictions, the contrast between birds and mammals does not follow the recombination maps. At the same selection coefficient and $V_A$, the maps alone give similar linked factors $\overline{\Omega}$ (Equation~\eqref{linked_penalty}) in the two taxa (0.55--0.73; Figure~\ref{fig:S_omega}b), although the bird genomes recombine about twice as much per megabase. The contrast follows instead the DFEs assigned to the two taxa, whose mean heterozygous effects are 0.0013--0.0021 in birds, an order of magnitude lower than the 0.014--0.020 assigned to the mapped mammals. Because each DFE was assigned by taxon from related species (Methods), the contrast is attributable to the assigned DFEs within the model and is not evidence that the DFEs of these populations differ. The assigned DFEs differ in how fast they purge. Slow purging, in turn, gives a larger reduction at linked sites from the same $V_A$ (\autoref{sec:linkage}).
 
-The local reduction is also steeply nonlinear in the amount of variance. The two great tit populations share maps and a DFE, yet $\overline{\Omega}$ is 0.031 at Wytham Woods, where $\hat{V}_A = 0.086$, and 0.49 at Hoge Veluwe, where $\hat{V}_A = 0.016$ (Figure~\ref{fig:S_omega}a). \claude{Because the variance on the haplotype multiplies the excess persistence of its associations in the exponent of Equation}~\eqref{linked_penalty}\claude{, the linked factor of each chromosome decreases geometrically as $\hat{V}_A$ increases.} Partitioning the variance among chromosomes by gene count rather than by coding length does not change these results (Figure~\ref{fig:S_fgene}). Partitioning it by the annotated functional target with up to 15\% of the unannotated sequence changes the linked $N_e/N$ by at most 13\% in eight of the nine mapped populations and by 40\% in the great tits at Wytham Woods, and each of the six with an observed deficit remains at least 50-fold below it (Figure~\ref{fig:S_noncoding_linked}).
+The reduction at linked sites is also steeply nonlinear in the amount of variance. The two great tit populations share maps and a DFE, yet $\overline{\Omega}$ is 0.031 at Wytham Woods, where $\hat{V}_A = 0.086$, and 0.49 at Hoge Veluwe, where $\hat{V}_A = 0.016$ (Figure~\ref{fig:S_omega}a). \claude{Because the variance on the haplotype multiplies the excess persistence of its associations in the exponent of Equation}~\eqref{linked_penalty}\claude{, the linked factor of each chromosome decreases geometrically as $\hat{V}_A$ increases.} Partitioning the variance among chromosomes by gene count rather than by coding length does not change these results (Figure~\ref{fig:S_fgene}). Partitioning it by the annotated functional target with up to 15\% of the unannotated sequence changes the linked $N_e/N$ by at most 13\% in eight of the nine mapped populations and by 40\% in the great tits at Wytham Woods, and each of the six with an observed deficit remains at least 50-fold below it (Figure~\ref{fig:S_noncoding_linked}).
 
 % Supplementary results: maintenance. Moved from Results sec:res_msd on 2026-11-20 (compaction pass, user).
 \section*{Supplementary Results: maintenance}

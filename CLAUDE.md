@@ -257,9 +257,16 @@ how the estimates were made", never "primary"); bound = the largest reduction th
 allows. Their difference measures dependence on how loci combine (> ¼ only where $\hat V_A > 0.25$, 5 of
 19). Stated in Theory `sec:onemodel`; same order and wording in Results, Methods `sec:meth_mating`,
 Fig. 1 (multiplicative model gray-filled circle with HPD, limit open, bound cross; panel b bound solid, limit dashed)
-and `tab_reduction` (model, bound, approx.). Results give a plain mechanism sentence wherever two
-predictions differ (multiplicative: variance of long-term contributions $e^{4V_A}-1$ vs $4V_A$); do not
-rely on the reader having read Theory. **Corsican blue tits** (Methods `sec:pi_methods`): species-level
+and `tab_reduction` (model, bound, approx.). **Mechanism reminders (user, 2026-11-23):** Results name a
+mechanism in one clause or sentence, with a pointer to its Theory home (`\autoref`/`\eqref`), and do not
+re-explain it; naming the cause is not redundancy, re-deriving or re-justifying it is. Exemplar: "The
+multiplicative model predicts a larger reduction because, with expected fitness exponential in the breeding
+value, the variance of long-term contributions grows as $e^{4V_A}-1$ under random mating rather than as
+$4V_A$ (`sec:onemodel`)." No "Recall that". **General finding first (user, 2026-11-23):** a
+Results sentence leads with what holds for most populations and then gives the exceptions with their size;
+never open on the exception and leave the general case to a closing "so in the other N" clause. Every
+relative quantity names its reference ("within a quarter of the small-variance approximation"), and
+"does not depend" is reserved for no difference ("depends little" otherwise). **Corsican blue tits** (Methods `sec:pi_methods`): species-level
 π and $N_c$ fit Pirio/Muro less closely than Rouvière (isolation ~4,500 generations, island $N_e$ 7.5×
 smaller, ~4% chance of in-island coalescence since; Perrier et al. 2020).
 
@@ -334,7 +341,10 @@ at linked sites the segment's contribution sets drift.
   in the header comment of `discussion.tex`; each cited work in one paragraph; no figure or table
   citations; ~1,800 words (exemplar 1,184, wider audience).
 - **Headings (2026-10-27):** sentence case everywhere, appendices included. Say "at unlinked / linked
-  sites" in headings, not "global / local" (defined only inside Theory `sec:unlinked`). Ω is "the
+  sites" in headings. **"Global / local" effective size or reduction is retired as a named term in every
+  section (user, 2026-11-23):** say "the reduction at unlinked / linked sites", "the unlinked factor"
+  and "the linked term" (`total_red` underbraces); Theory `sec:unlinked` keeps the idea, unnamed, that the
+  unlinked reduction reaches every site and linkage adds to it. Ω is "the
   linked factor", never "penalty". "Long-term", never "long-run". Results headings are declarative
   findings; Methods names each test it runs ("Maintenance test", "… and the diversity test").
 - **Diction (author's Overleaf pass, adopted 2026-10-27).** No "read" for "interpret" (or "read the
