@@ -4,7 +4,7 @@
 # Run from the repo root:   Rscript scripts/R/fig4_selection.R
 # Reads only through load_data.R. Writes main/Fig4_selection.{pdf,tiff}.
 #
-# In the strong-selection limit of mutation-selection-drift balance (Appendix D),
+# In the strong-selection limit of mutation-selection-drift balance (Appendix A),
 # the standing additive variance is V_A = U_d s, so measured V_A implies
 #   s* = V_A / U_d,
 # the mean heterozygous selection coefficient deleterious mutations would need

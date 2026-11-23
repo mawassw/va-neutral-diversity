@@ -16,7 +16,7 @@
 #                                      for every population.)
 #   (N_e/N)_pred / delta               diversity the model predicts is retained over the
 #                                      diversity observed to be retained; falls with c.
-# One model of fitness (Appendix A; decided 2026-10-19): the diversity ratio uses the
+# One model of fitness (Appendix B; decided 2026-10-19): the diversity ratio uses the
 # multiplicative upper bound on the reduction, (N_e/N)_pred = exp(-4 kappa_mult bar V_A),
 # kappa_mult = 2 with a pair bond and 1 without, valid at every bar V_A and the form
 # most generous to explaining the deficit. Dashed: the first-order form

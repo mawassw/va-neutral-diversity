@@ -54,11 +54,11 @@ calc_avg_Q2_haldane <- function(M, Z) {
 }
 calc_avg_Q2_vec <- Vectorize(calc_avg_Q2_haldane, vectorize.args = c("M", "Z"))
 
-# 3. Mating System Scalar: Appendix B Model B (primary), re-derived 2026-10-14.
+# 3. Mating System Scalar: Appendix C Model B (primary), re-derived 2026-10-14.
 # species_EPP.csv codes systems without a pair bond as EPP = 1; their kappa is 1.
 source("scripts/R/kappa.R")
 calc_kappa <- function(alpha) ifelse(alpha >= 1, 1, kappa_B(alpha))
-# Linked term (Appendix B split, 2026-10-15): under Model B and without a pair
+# Linked term (Appendix C split, 2026-10-15): under Model B and without a pair
 # bond the cis and own weights are 1; only the partner's part of kappa is unlinked.
 kappa_cis_val <- 1
 kappa_own_val <- 1
@@ -782,7 +782,7 @@ delta_seq <- seq(0.01, 1.0, length.out = 300)
 
 df_bounds <- data.frame(
   Delta = rep(delta_seq, 2),
-  # Kappa = 1 (no pair bond), Kappa = 2 (strict social monogamy), Appendix B
+  # Kappa = 1 (no pair bond), Kappa = 2 (strict social monogamy), Appendix C
   Kappa = rep(c("No pair bond (κ = 1)", "Strict monogamy (κ = 2)"), each = length(delta_seq)),
   Kappa_val = rep(c(1, 2), each = length(delta_seq))
 ) %>%

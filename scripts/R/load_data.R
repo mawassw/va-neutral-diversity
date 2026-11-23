@@ -73,7 +73,7 @@ load_parameters <- function() {
   stats::setNames(p$value, p$name)
 }
 
-# Mating-system scalar, Theory section / Appendix B. Social monogamy only; kappa
+# Mating-system scalar, Theory section / Appendix C. Social monogamy only; kappa
 # is 1 without a pair bond. General forms (G, r_mf) live in scripts/R/kappa.R.
 source("scripts/R/kappa.R")
 calc_kappa <- function(alpha, model = c("A", "B")) {

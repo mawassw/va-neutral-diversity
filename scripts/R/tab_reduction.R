@@ -6,7 +6,7 @@
 #
 # Per population: kappa (Model B; 1 without a pair bond), V_A posterior mode and 95% HPD,
 # the unlinked N_e/N at first order, 1/(1 + 4 kappa V_A), and under the multiplicative map
-# (exact, Appendix B eq:B_moments) and its upper bound on the reduction, exp(-4 kappa_mult V_A).
+# (exact, Appendix C eq:C_moments) and its upper bound on the reduction, exp(-4 kappa_mult V_A).
 # Where pi and a census exist: the observed diversity ratio delta = pi / (4 mu N_c), as log10, and the
 # smallest V_A that could account for it, ln(1/delta) / (4 kappa_mult).
 # The two shares (Fix 1.7, REVIEW_FIXES.md; same definitions as scripts/R/shares.R, recomputed here),

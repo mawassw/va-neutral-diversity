@@ -9,7 +9,7 @@
 # one model of fitness of Theory (sec:onemodel), with full retention (Z = 1):
 #   first order     N_e/N = 1 / (1 + 4 kappa V_A)   (Robertson; Santiago & Caballero),
 #                   the reduction at the measured values, valid while V_A << 1
-#   multiplicative  N_e/N at all orders (Barton & Etheridge 2011; Appendix A; pair bond, Appendix B):
+#   multiplicative  N_e/N at all orders (Barton & Etheridge 2011; Appendix B; pair bond, Appendix C):
 #                   exp(-4 V_A) without a pair bond, the Model-B nest-sharing value
 #                   with one (reduction_mult); its upper bound on the reduction,
 #                   exp(-4 kappa_max V_A), kappa_max = 2 with a pair bond and 1 without
@@ -27,7 +27,7 @@
 # 2026-11-18 (user): multiplicative model made the primary series; the small-variance
 # approximation is shown as its limit for small V_A (any smooth fitness architecture).
 # kappa primary (Model B; 1 without a pair bond). Until 2026-10-20 this figure showed
-# the additive-map G = 1 - V_A sensitivity, retired 2026-10-19 (Appendix A.4).
+# the additive-map G = 1 - V_A sensitivity, retired 2026-10-19 (Appendix B.4).
 # ==============================================================================
 
 suppressPackageStartupMessages({

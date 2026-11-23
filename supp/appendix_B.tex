@@ -24,88 +24,91 @@
     \appendix
 \fi
 % Working copy (since 2026-10-17 the section files, not scratch.tex, are edited directly).
-% Rewritten 2026-10-21 (user): model and assumptions once; one general first-order
-% derivation of kappa (with Z and r_mf), then its limits; own/partner/cis split; the
-% all-orders bracket last. Matches kappa_pair() in scripts/R/kappa.R.
+% Rewritten 2026-10-21 as one chain (user): long-term contributions -> effective size at
+% all orders -> first order -> upper tail -> retention factor Z. The extra-pair-paternity bracket
+% moved to Appendix C (it rests on Model B); Bonnet's estimand moved to Theory sec:onemodel.
 
-\section{Effective size with separate sexes, pair bonds and extra-pair paternity}\label{app:matingapp}
-This appendix derives the mating-system scalar $\kappa$ of Equation~\eqref{unlinked_mating} \claude{(Model B, Equation}~\eqref{eq:kappaB}\claude{)}, its split into the components used in Equation~\eqref{total_red}, and the multiplicative-model bracket of Equation~\eqref{eq:B_mult_pair}. It applies the expected long-term contributions of Woolliams, Bijma, and Villanueva~\cite{woolliams1999} and the two-sex combination of Santiago and Caballero~\cite{santiago1995}. 
+\section{Effective size under heritable variance in log-fitness}\label{app:unlinkedapp}
 
-Consider a diploid population with discrete generations, $N$ breeding adults, and an equal sex ratio. Each individual possesses an additive breeding value $a$ for relative lifetime breeding success, with variance $\mathrm{Var}(a) = V_A$ assumed equal in both sexes. For small advantages, $a = z - \bar{z}$ (Appendix~\ref{app:unlinkedapp}). Bonnet et al.~\cite{bonnet2022} estimate this single variance from an animal model incorporating both sexes with sex fitted as a fixed effect.
+\subsection{Long-term genetic contributions and effective size}\label{app:B_R}
+Following Barton and Etheridge~\cite{barton2011}, consider a diploid population of $N$ breeding adults in which a parent with additive breeding value $z$ for log-fitness produces a Poisson number of offspring with mean proportional to $e^{z}$, where $z \sim \mathcal{N}(\bar{z}, V_A)$. Dominance and epistatic deviations are omitted because they do not transmit stably across generations. Assume initially that mating is random with respect to $z$, and consider a neutral locus unlinked to all selected loci (pair bonds and extra-pair paternity are treated in Appendix~\ref{app:matingapp}, and physical linkage in Appendix~\ref{app:chromosapp}).
 
-Under random mating, a parent's relative family size is $1 + a$. Under social monogamy, the nest serves as the unit of productivity. A female paired with social partner $m'$ has relative family size $1 + u_f = 1 + a_f + a_{m'}$. Extra-pair paternity at rate $\alpha$ moves paternity out of the nest without altering its overall productivity, so a male paired with social partner $f'$ achieves relative success
+Track a neutral gene copy carried by an ancestor with breeding value $z$. Tracking a gene copy rather than an individual allows the same bookkeeping to extend directly to pair bonds and linked sites; at an unlinked site the two perspectives are equivalent because a gene copy's survival probability is proportional to the long-term genetic contribution of its carrier~\cite{barton2011}. Under the infinitesimal model, offspring of carrier $z$ inherit a mean deviation $\tfrac12(z - \bar{z})$ plus a Mendelian segregation residual of variance $\tfrac12 V_A$. Because this segregation variance is homoscedastic (independent of $z$) and expected family sizes multiply along a lineage, deviations in each subsequent generation decay by a factor of $1/2$ and sum on the log scale to $(1 + \tfrac12 + \tfrac14 + \dots)(z - \bar{z}) = 2(z - \bar{z})$. Solving the exact reproductive-value recursion~\cite[Appendix~B]{barton2011}, the expected long-term contribution of the ancestral copy, normalized such that $\mathbb{E}[R] = 1$, is
 \begin{equation}
-    u_m = (1-\alpha)(a_m + a_{f'}) + \alpha\gamma\, a_m,
-\end{equation}
-where $\gamma$ indexes the dependence of extra-pair siring success on the male's own breeding value. Model A sets $\gamma = 0$ (extra-pair siring as a random lottery), whereas Model B sets $\gamma = 1$ (extra-pair gains exactly offset within-pair losses). Model B is the unique parameterization in which a male's breeding value contributes to his total fitness with the same average weight as a female's across all $\alpha$, satisfying the single-variance assumption of the animal model. Model B is therefore adopted for all primary results. 
-
-A carrier's own breeding value therefore contributes to its advantage with weight $1$ in females and $\beta = 1 - \alpha + \alpha\gamma$ in males, averaging $\bar{\beta} = (1+\beta)/2$ across the sexes. Social partners' breeding values exhibit correlation $r_{mf}$. Each generation of selection multiplies a gene copy's association with its selective background by the retention factor $Z$ (Appendix~\ref{app:A_Z}). Except in Section~\ref{app:B_mult}, the following derivations employ the small-variance approximation ($V_A \ll 1$).
-
-\subsection{Long-term contributions and \texorpdfstring{$\kappa$}{kappa}}\label{app:B_kappa}
-Consider a neutral gene copy in individual $X$ with social partner $X'$. The copy's expected number of transmitted descendants is proportional to $1 + u_X$. In a descendant carrier with expected breeding value $h$, the partner's expected breeding value is $r_{mf}h$, contributing to the carrier's advantage with weight $1$ in female nests and $1 - \alpha$ in male nests. The carrier's expected advantage is thus $\tilde{\beta}\,h$, where
-\begin{equation}
-    \tilde{\beta} = \bar{\beta} + \tfrac12 r_{mf}(2 - \alpha).
-\end{equation}
-Offspring that inherit the copy receive half of $h$ and half of the other parent's expected breeding value. The other parent's value is $r_{mf}h$ when that parent is the social partner, with probability $1 - \alpha$, and zero when it is an extra-pair parent. Because selection then multiplies the association by $Z$, expected breeding values decline geometrically, $h_{t+1} = \theta h_t$ with $\theta = (Z/2)[1 + (1-\alpha)r_{mf}]$\claude{, the fraction of a carrier's expected breeding value that the next carrier keeps (half by segregation, raised by a correlated partner, times the retention factor)}. In the first generation the partner's breeding value is known, $h_1 = (Z/2)[a_X + (1-\alpha)a_{X'}]$. Summing $\tilde{\beta}\,h_t$ over $t \ge 1$ gives the cumulative advantage of the copy, $A_X = u_X + \Psi[a_X + (1-\alpha)a_{X'}]$ with $\Psi = \tilde{\beta}(Z/2)/(1-\theta)$\claude{, the descendants' part of the cumulative advantage, so that $1 + \Psi = Q$ under strict monogamy and, at $r_{mf} = 0$, under random mating}:
-\begin{equation}
-    A_f = (1+\Psi)\,a_f + \left[1 + \Psi(1-\alpha)\right] a_{m'}, \qquad
-    A_m = (\beta+\Psi)\,a_m + (1+\Psi)(1-\alpha)\,a_{f'}. \label{eq:B_L}
-\end{equation}
-For small $V_A$, $1 + A_X$ approximates the expected long-term contribution $R$ (Equation~\eqref{eq:A_R}), representing the regression of contribution on ancestral selective advantages~\cite[Equation~6b]{woolliams1999}. In each sex, $\mathbb{E}[R^2] = 1 + \mathrm{Var}(A)$, yielding $N_{e,X}/N = 1/[1 + \mathrm{Var}(A_X)]$. Combining sexes via Santiago and Caballero's~\cite{santiago1995} formula $1/N_e = \frac{1}{4N_{e,m}} + \frac{1}{4N_{e,f}}$ (following Crow and Denniston~\cite{crow1988}) at an equal sex ratio makes $N/N_e$ the mean of $1 + \mathrm{Var}(A)$ across sexes:
-\begin{equation}
-    \frac{N_e}{N} = \frac{1}{1 + \tfrac{1}{2}\left[\mathrm{Var}(A_f) + \mathrm{Var}(A_m)\right]} \equiv \frac{1}{1 + 4\kappa V_A}. \label{eq:kappa_def}
-\end{equation}
-Here $4\kappa V_A$ is the sex-averaged variance of long-term contributions, and $\kappa$ scales this variance relative to its random-mating baseline ($Z = 1$, $r_{mf} = 0$, $4V_A$). For a weighted sum $\xi_1 a + \xi_2 a'$ of partner breeding values with correlation $r_{mf}$, the variance is $V_A\,\sigma^2(\xi_1, \xi_2) = V_A(\xi_1^2 + \xi_2^2 + 2r_{mf}\xi_1\xi_2)$, yielding
-\begin{equation}
-    \kappa = \frac{\sigma^2\!\left(1+\Psi,\ 1+\Psi(1-\alpha)\right) + \sigma^2\!\left(\beta+\Psi,\ (1-\alpha)(1+\Psi)\right)}{8}. \label{eq:B_kappa_general}
+    R(z) = \exp\left[Q(z - \bar{z}) - \tfrac12 Q^2V_A\right], \qquad Q = 2. \label{eq:B_R}
 \end{equation}
 
-\subsection{\texorpdfstring{$\kappa$}{kappa} under Models A and B}\label{app:B_limits}
-When $Z = 1$ and $r_{mf} = 0$, $\theta = 1/2$ and $\Psi = \bar{\beta}$. Model B ($\beta = \bar{\beta} = 1$) reduces Equation~\eqref{eq:B_kappa_general} to
+Two neutral copies sampled in a distant future generation coalesce in the ancestral generation if both descend from the same ancestral copy. Ancestral copy $j$ ($j = 1, \dots, 2N$), carried by an individual with breeding value $z_j$, contributes an expected fraction $p_j = R(z_j)/\sum_{j'=1}^{2N} R(z_{j'}) = R(z_j)/(2N\,\mathbb{E}[R])$ of the descendant gene pool. Conditional on the carrier's breeding value, the two homologous copies within a diploid parent segregate independently into Poisson family sizes, so two sampled lineages trace to copy $j$ with probability $p_j^2$~\cite{barton2011}. Summing over all $2N$ ancestral copies yields the per-generation rate of inbreeding~\cite{wray1990},
 \begin{equation}
-    \kappa_B = 2 - \tfrac32\alpha + \tfrac58\alpha^2. \label{eq:kappaB}
+    \Delta F = \sum_{j=1}^{2N} p_j^2 = \frac{1}{2N}\,\frac{\mathbb{E}[R^2]}{\mathbb{E}[R]^2}. \label{eq:B_dF}
 \end{equation}
-For Model A ($\beta = 1 - \alpha$, $\bar{\beta} = 1 - \alpha/2$),
+Without heritable variance every copy has the same contribution with $R = \mathbb{E}[R]$ and $\Delta F = 1/(2N)$, the Poisson baseline. Heritable variance replaces $\mathbb{E}[R]^2$ by $\mathbb{E}[R^2]$\claude{, so the more unequal the shares $p_j$, the more often two lineages trace to the same copy}. Because $\Delta F$ is the probability that two lineages coalesce in one generation, setting $\Delta F = 1/(2N_e)$ defines the inbreeding effective size, which here is also the coalescent effective size $N_{eC}$ that $\pi$ measures. \claude{The inbreeding, variance and coalescent effective sizes coincide whenever the size and pattern of reproduction of a population remain constant, not only under Wright--Fisher sampling}~\cite{caballero1994}\claude{, and differ when its size changes}~\cite{crow1988}\claude{.} The inbreeding effective size is not the variance effective size of a single generation. That size reflects only one generation's family-size variance and so omits the persistence of the carriers' advantage along the lineage that produces the factor $Q^2$. With $N$ and $V_A$ constant, the long-term $N_{eV}$ converges to the same value, and
 \begin{equation}
-    \kappa_A(\alpha) = \frac{(4-\alpha)^2\left[1+(1-\alpha)^2\right] + (4-3\alpha+\alpha^2)^2 + (4-3\alpha)^2}{32}.
+    \frac{N_e}{N} = \frac{\mathbb{E}[R]^2}{\mathbb{E}[R^2]}, \label{eq:B_ratio}
 \end{equation}
-As $\alpha$ increases to $1$, $\kappa_B$ decreases monotonically to $9/8$ (staying above $1$ because social males retain productivity contributions), whereas $\kappa_A$ drops to $7/16$ and falls below $1$ once $\alpha > 0.44$ (Figure~\ref{fig:S_kappa}).
+giving Equation~\eqref{eq:ratio} of the main text. Because $\log R$ is Gaussian, $\mathbb{E}[R]^2/\mathbb{E}[R^2] = \exp[-\mathrm{Var}(\log R)]$. Under random mating, $\mathrm{Var}(\log R) = Q^2V_A = 4V_A$, yielding Equation~\eqref{eq:ne_mult}:
+\begin{equation}
+    \frac{N_e}{N} = e^{-4V_A}. \label{eq:B_mult}
+\end{equation}
 
-Under strict monogamy ($\alpha = 0$), both models yield $1 + \Psi = \frac{2}{2 - Z(1 + r_{mf})} = Q$, giving $A_f = Q(a_f + a_{m'})$ and recovering the pair-mated model of Santiago and Caballero~\cite{santiago1995} with $\kappa = 2$ at $Z = 1, r_{mf} = 0$. Under random mating, $u = a$ in both sexes ($\tilde{\beta} = 1$), yielding $A = \frac{a}{1-\theta} = Q\,a$ and $\kappa = Q^2/4$ ($1$ at $Z = 1, r_{mf} = 0$). Positive assortative mating ($r_{mf} > 0$) extends association persistence via $\theta$ to elevate $\kappa$; we set $r_{mf} = 0$ in the absence of empirical estimates. Under random mating and Model B, carrier weights equal $1$ in both sexes, preserving the single-sex retention factor $Z = 1$ (Gaussian) or $Z_k = 1 - s_k$ (deleterious classes; Equation~\eqref{eq:Zclass}).
+Under strict lifetime monogamy, pairs form at random and a pair with breeding values $z$ and $z'$ produces offspring in proportion to $e^{z + z'}$~\cite{weissman2012}. Every offspring that inherits the focal neutral copy from parent $z$ simultaneously inherits half of its unlinked background from parent $z$ and half from the monogamous partner $z'$. Consequently, the partner's deviation $(z' - \bar{z})$ is co-transmitted along the focal gene's lineage through the same geometric series ($1 + \tfrac12 + \tfrac14 + \dots = 2$) as the carrier's own deviation, yielding $\log R = 2(z - \bar{z}) + 2(z' - \bar{z}) - 4V_A$. Because $z$ and $z'$ are independent, $\mathrm{Var}(\log R) = 8V_A$ and
+\begin{equation}
+    \frac{N_e}{N} = e^{-8V_A}. \label{eq:B_mono}
+\end{equation}
+Equations~\eqref{eq:B_mult} and \eqref{eq:B_mono} match the $e^{-4V_A}$ and $e^{-8V_A}$ reductions in the fixation probability of a weakly beneficial allele derived by Weissman and Barton~\cite{weissman2012}, as both coalescence and fixation rates scale inversely with the variance of long-term genetic contributions $\mathbb{E}[R^2]/\mathbb{E}[R]^2$~\cite{kimura1962}.
 
-\subsection{Own, partner, and cis components}\label{app:B_split}
-Evaluating linked selection requires partitioning $\kappa$ into components attributable to the carrier versus its social partner (the divergence between ancestor-centered contributions and gene-centered backgrounds; \autoref{sec:unlinked}). Because neither the homologous (\emph{trans}) haplotype nor a social partner's breeding value co-segregates with the focal gene copy, the individual ancestor's long-term contribution no longer governs drift at linked sites. \claude{Because meiosis separates the homologous chromosomes every generation, a neutral allele remains linked only to the selected alleles in \emph{cis} on its own haplotype}~\cite{buffaloKern2024}, which carries half the chromosome's diploid variance ($v_h = v_i/2$). Similarly, only the carrier's own breeding value\claude{, not its mate's,} acts in \emph{cis}. Setting $r_{mf} = 0$, $\mathrm{Var}(A_f) + \mathrm{Var}(A_m)$ separates into carrier and partner variances:
-\begin{equation}
-\begin{gathered}
-    \kappa = \kappa_\text{own} + \kappa_\text{partner}, \\
-    \kappa_\text{own} = \frac{(1+\Psi)^2 + (\beta+\Psi)^2}{8}, \qquad
-    \kappa_\text{partner} = \frac{\left[1+\Psi(1-\alpha)\right]^2 + (1-\alpha)^2(1+\Psi)^2}{8}.
-\end{gathered}
-\label{eq:kappa_split}
-\end{equation}
-The partner's genes are never on the focal copy's haplotype, so the partner component is unlinked. The share of the own component that lies on the focal haplotype, $v_h$, is assigned to the linked term. In the linked term, a selected locus keeps its association with the copy with probability $\rho = (1-r)Z$ per generation. When every carrier has weight 1, the cumulative advantage per unit of the locus's effect is the linked kernel $1/(1-\rho) = 1 + \chi$ of \autoref{sec:linkage}, with $\chi = \rho/(1-\rho)$. With the carrier's own weight $\beta_X$ (1 in females, $\beta$ in males) and later carriers' average weight $\bar{\beta}$, the cumulative advantage is $\beta_X + \bar{\beta}\chi$ instead. The square of this weighted kernel relative to the square of the unweighted one, averaged over the sexes, is
-\begin{equation}
-    \kappa_\text{cis}(\rho) = \frac{\left[1 + \bar{\beta}\chi\right]^2 + \left[\beta + \bar{\beta}\chi\right]^2}{2(1+\chi)^2},
-\end{equation}
-which decreases from $(1+\beta^2)/2$ as $\rho \to 0$ to $\bar{\beta}^2$ under tight linkage. Under random mating, and under Model B, $\beta = 1$, so $\kappa_\text{own} = \kappa_\text{cis} = 1$ and $\kappa_\text{partner} = \kappa - 1$. The remainder of the genome \claude{(the homologous haplotype and all other chromosomes)} assorts independently of the focal neutral site\claude{, so Equation}~\eqref{total_red} \claude{uses this split, applying} $\kappa_\text{cis}$ to the linked term and $Q^2(\kappa V_A - \kappa_\text{own}v_h)$ to the exponent of the unlinked background, with $Q = 2/(2-Z)$ at the same retention factor as the linked term. \claude{Because the \emph{cis} haplotype variance $v_h$ moves from the unlinked to the linked term, no variance is counted twice. The two terms combine additively in the exponent if selected loci are distributed independently along the genetic map, so that their effects multiply}~\cite{hudson1995,santiago2016}\claude{, and fitness is multiplicative across loci}~\cite[Supplementary Equations~28--29]{buffaloKern2024}; \cite[cf.][]{santiago1998}\claude{. Across a DFE, $\overline{Q^2}_i$ and $Q^2$ are replaced by their averages over the variance weights $\nu_k$, and the multiplicative bound replaces $\kappa$ by $\kappa_\text{max}$ (Appendix}~\ref{app:omega}\claude{ gives the small-variance form).}
+\claude{An ancestor's expected contribution is settled within about ten generations, and mostly within the first two, because the initial terms of the $Q$ series dominate}~\cite{barton2011}\claude{. The advantage therefore needs to keep its sign for only a few generations to amplify drift, as it does under MSDB, during sweeps of positively selected alleles and under fluctuating selection that is positively autocorrelated between generations, whereas selection that reverses direction every generation makes the terms alternate in sign and gives $Q = \sum_{t=0}^{\infty}(-\tfrac{1}{2})^t = 2/3$. Over the genealogy, $V_A$ and $N$ may both change. If $N(t)$ fluctuates, $N$ in Equation}~\eqref{eq:harmonic}\claude{ is replaced by its harmonic mean provided $V_A(t)$ and $1/N(t)$ are uncorrelated; if they covary, $\bar{V}_A$ becomes the mean of $V_A(t)$ weighted by $1/N(t)$, because small generations contribute most to both the harmonic mean and the drift that heritable variance in fitness causes.}
 
-\subsection{The multiplicative model with pair bonds}\label{app:B_mult}
-Under Model B with multiplicative fitness ($w \propto e^{z}$), a gene copy's long-term contribution flows through within-pair and extra-pair routes. In females, productivity is $e^{z_f + z_{m'}}$, with a fraction $1 - \alpha$ of offspring sired by $m'$ and $\alpha$ by extra-pair sires. In males, contributions arise from within-nest and extra-pair offspring proportional to $e^{z_m}$. Following Appendix~\ref{app:A_R}, expected contributions evolve as
+\subsection{The small-variance approximation}\label{app:B_first}
+When $V_A \ll 1$, linearizing $R(z) \approx 1 + Q(z - \bar{z})$ gives $\mathbb{E}[R^2] = 1 + \mathrm{Var}(R) \approx 1 + Q^2V_A$, reducing Equation~\eqref{eq:B_ratio} to
 \begin{equation}
-    R_f \propto (1-\alpha)\,e^{2a_f + 2a_{m'}} + \alpha \mathcal{E}_f\,e^{2a_f + a_{m'}}, \qquad
-    R_m \propto (1-\alpha)\,e^{2a_m + 2a_{f'}} + \alpha \mathcal{E}_m\,e^{2a_m},
+    \frac{N_e}{N} = \frac{1}{1 + Q^2V_A}. \label{eq:B_first}
 \end{equation}
-where $\mathcal{E}_f$ and $\mathcal{E}_m$ absorb expectations over outside individuals and equal $1$ at $V_A = 0$. Letting $\mathbf{a} = (a_X, a_{X'})$ denote independent carrier and partner deviations, contributions take the mixture form $R = \sum_l \mathcal{C}_l e^{\boldsymbol{\lambda}_l\cdot\mathbf{a}}$, with exponent vectors $\boldsymbol{\lambda} \in \{(2,2), (2,1)\}$ in females and $\{(2,2), (2,0)\}$ in males, and coefficients $\mathcal{C}_1 = 1 - \alpha$, $\mathcal{C}_2 = \alpha\mathcal{E}_X$. Using the Gaussian moment-generating function $\mathbb{E}[e^{\boldsymbol{\lambda}\cdot\mathbf{a}}] = e^{V_A|\boldsymbol{\lambda}|^2/2}$,
-\begin{equation}
-    \frac{\mathbb{E}[R^2]}{\mathbb{E}[R]^2} = \sum_{l,l'} \omega_l \omega_{l'}\, e^{V_A\,\boldsymbol{\lambda}_l\cdot\boldsymbol{\lambda}_{l'}}, \qquad
-    \omega_l = \frac{\mathcal{C}_l\, e^{V_A|\boldsymbol{\lambda}_l|^2/2}}{\sum_{l'} \mathcal{C}_{l'}\, e^{V_A|\boldsymbol{\lambda}_{l'}|^2/2}}, \label{eq:B_moments}
-\end{equation}
-where $\omega_l$ is route $l$'s share of expected long-term contribution. Averaging over sexes per Equation~\eqref{eq:A_ratio} yields $N_e/N$. Because all dot products $\boldsymbol{\lambda}_l\cdot\boldsymbol{\lambda}_{l'} \le 8$, the ratio in Equation~\eqref{eq:B_moments} is bounded above by $e^{8V_A}$ in either sex. Conversely, Jensen's inequality bounds the sex mean below by $\exp(V_A|\bar{\boldsymbol{\lambda}}_X|^2)$. At baseline weights $(\omega_1, \omega_2) = (1-\alpha, \alpha)$, $\tfrac{1}{2}(|\bar{\boldsymbol{\lambda}}_f|^2 + |\bar{\boldsymbol{\lambda}}_m|^2) = 8 - 6\alpha + \tfrac{5}{2}\alpha^2 = 4\kappa_B$. Consequently, provided extra-pair routes carry no more than proportional share $\alpha$,
-\begin{equation}
-    e^{-8V_A} \le \frac{N_e}{N} \le e^{-4\kappa_B V_A}. \label{eq:B_mult_pair}
-\end{equation}
-This bound holds for extra-pair multipliers $\mathcal{E}_f, \mathcal{E}_m$ up to $e^{2V_A}$. At $\alpha = 0$, $\kappa_B = 2$ and both bounds collapse to Weissman and Barton's~\cite{weissman2012} strict-monogamy result ($e^{-8V_A}$; Equation~\eqref{eq:A_mono}). For small $V_A$, the upper bound recovers $1/(1 + 4\kappa_B V_A)$, whereas for larger $V_A$ the within-pair route dominates $\mathbb{E}[R^2]$, shifting the exact ratio toward the lower bound.
+Robertson~\cite{robertson1961} and Santiago and Caballero~\cite{santiago1995} (reviewed in Wang et al.~\cite{wang2016}) derived Equation~\eqref{eq:B_first} for any smooth mapping from breeding value to fitness, because all such mappings linearize to the same first-order form as $V_A \to 0$. In their general formulation, the cumulative transmission factor is $Q = 2/[2 - Z(1 + r_{mf})]$ (Equation~\eqref{eq:Q}), where $Z$ is the retention factor (Appendix~\ref{app:B_Z}) and $r_{mf}$ is the correlation between mates' breeding values. At $Z = 1$ and $r_{mf} = 0$, $Q = 2$ and $N_e/N = 1/(1 + 4V_A)$; under strict monogamy, expanding Equation~\eqref{eq:B_mono} gives $1/(1 + 8V_A)$.
 
+Incorporating the general mating-system factor $\kappa(\alpha)$ (Equation~\eqref{unlinked_mating}), setting $N_e/N = \delta$, and inverting the small-variance form yields the linear variance ceiling
+\begin{equation}
+    V_{A,\max} = \frac{1 - \delta}{4\kappa(\alpha)\,\delta}, \label{eq:vamax}
+\end{equation}
+above which heritable fitness variance alone would remove more diversity than observed. Because the small-variance expansion holds only for $V_{A,\max} \le 1$, Equation~\eqref{eq:vamax} applies only when $\delta \gtrsim 1/(1 + 4\kappa)$: populations retaining at least $0.20$ of expected neutral diversity under random mating ($\kappa = 1$), $\delta \gtrsim 0.12$--$0.16$ under social monogamy with extra-pair paternity ($\kappa_B = 1.32$--$1.86$), and $\delta \gtrsim 0.11$ under strict monogamy ($\kappa = 2$). For deeper diversity deficits, the required variance must be evaluated from the exact multiplicative bound $V_{A,\delta}$ (Equation~\eqref{eq:vamax_mult}).
+
+\claude{At each population's $\kappa$, none of the 19 pedigree estimates exceeds this ceiling at $\delta \le 0.2$; two do at $\delta$ = 0.25--0.3 (the blue tits at Pirio and Muro), five at $\delta = 0.5$ and 15 at $\delta = 0.9$ (Figure}~\ref{fig:S_ceiling}\claude{). Every $\hat{\delta}$ in the deficit set lies two to four and a half orders of magnitude below the $\delta$ at which its own estimate would reach the ceiling. Neutral diversity in these populations therefore sets no upper limit on their fitness variance.}
+
+\subsection{The upper tail of log-fitness and finite-population truncation}\label{app:B_tail}
+Under random mating, $\mathbb{E}[R^2] \propto \mathbb{E}[e^{4z}]$. Exponentially tilting the Gaussian density of $z$ by $e^{4z}$ shifts its mean to $\bar{z} + 4V_A$ without altering its variance, meaning that the ancestors dominating $\mathbb{E}[R^2]$ lie $4\sqrt{V_A}$ standard deviations above the population mean. A $10^2$-fold reduction in $N_e$ ($V_A = \ln(100)/4 = 1.15$) is driven by ancestors $4.3$ standard deviations above the mean (roughly $1$ in $10^5$ individuals), whereas a $10^4$-fold reduction ($V_A = 2.30$) requires ancestors at $6.1$ standard deviations (roughly $1$ in $10^9$).
+
+Realizing the analytical expectation $\mathbb{E}[R^2]$ therefore requires both an untruncated biological upper tail and a census size large enough to sample that tail. Ecological ceilings on reproductive output—such as territory saturation, clutch-size constraints, or the upper bound of unity on breeding probability in zero-inflated hurdle models~\cite{bonnet2022} (\autoref{sec:onemodel})—truncate the tilted density and lower $\mathbb{E}[R^2]$. Consequently, Equations~\eqref{eq:B_mult}, \eqref{eq:B_mono}, and \eqref{eq:C_mult_pair} represent upper bounds on the reduction in $N_e$ for a given $V_A$.
+
+Finite population size imposes a second, structural ceiling. For a general mating structure with $\mathrm{Var}(\log R) = 4\kappa_{\max}V_A$, the lineages dominating $\mathbb{E}[R^2]$ originate from ancestors $k = 4\sqrt{\kappa_{\max}V_A}$ standard deviations above the mean. To leading exponential order in the Gaussian tail ($\propto e^{-k^2/2}$), such individuals comprise a fraction $\sim e^{-8\kappa_{\max}V_A}$ of the cohort. A population of $N$ breeding adults (or $N/2$ monogamous pairs) samples these ancestors in a typical generation only while
+\begin{equation}
+    8\kappa_{\max}V_A \lesssim \ln N, \label{eq:B_tail_limit}
+\end{equation}
+at which threshold $N_e/N = e^{-4\kappa_{\max}V_A} = N^{-1/2}$. Beyond this threshold, most generations lack the extreme tail individuals needed to achieve $\mathbb{E}[R^2]$; the analytical expectation is recovered only across vast averages dominated by rare generations containing an exceptional founder\claude{, and lineages coalesce in bursts from single exceptional lineages rather than steadily in pairs}~\cite{eldon2006,neher2013,diamantidis2024}. For example, in single-generation Monte Carlo draws of $N = 10^6$ random-mating individuals (where the threshold is $V_A = \ln(10^6)/8 = 1.73$), the median realized pairwise coalescence rate at $V_A = 1.5$ is only $0.56$ of the analytical expectation (range $0.36$--$5.5\times$), dropping at $V_A = 1.73$ to $0.39$, where the single fittest individual accounts for $\sim 1\%$ of all long-term genetic contributions.
+
+\subsection{The retention factor \texorpdfstring{$Z$}{Z}}\label{app:B_Z}
+In an ancestor-centered framing, the retention factor $Z$ is the additive genetic variance among successfully reproducing parents (weighted by their offspring output) divided by the cohort variance $V_A$. In a gene-centered framing, $Z$ is the per-generation retention of a neutral allele's statistical association with its selective background (the factor $G$ of Santiago and Caballero~\cite{santiago1995}). Defining a stationary retention factor $Z$ requires that allele frequencies at selected loci change negligibly over the timescale on which the background association decays~\cite{barton1998,barton2000}, as holds at mutation--selection--drift balance.
+
+Under multiplicative fitness, weighting parents by their expected offspring $e^{z}$ applies an exponential tilt with parameter $\psi = 1$ to the distribution of $z$. Letting $K(\psi) = \ln \mathbb{E}[e^{\psi z}]$ denote the cumulant-generating function of $z$, the variance of the offspring-weighted parent distribution is $K''(1)$, while $V_A = K''(0)$, giving
+\begin{equation}
+    Z = \frac{K''(1)}{K''(0)}. \label{eq:Zcgf}
+\end{equation}
+When $z$ is strictly Gaussian, $K(\psi) = \psi\bar{z} + \tfrac12\psi^2V_A$, so $K''(\psi) = V_A$ for all $\psi$ and $Z = 1$ identically: exponential selection shifts the parental mean by $V_A$ while leaving the variance invariant. Expanding $K''(1)$ around $\psi = 0$ for an arbitrary distribution gives
+\begin{equation}
+    Z = 1 + \frac{K'''(0) + \tfrac12 K''''(0) + \dots}{V_A},
+\end{equation}
+showing that positive skewness in breeding values ($K'''(0) > 0$) elevates $Z > 1$ (\autoref{sec:approx}).
+
+Now suppose $V_A$ is maintained by rare deleterious alleles at mutation--selection balance. A heterozygous carrier of an allele in selective class $k$ has relative fitness $1 - s_k$, a log-fitness deviation $\ln(1 - s_k)$, and equilibrium frequency $q_k \approx \mu/s_k$. Because cumulants sum across unlinked loci, a rare locus in class $k$ contributes $K_k''(\psi) \approx 2q_k \ln^2(1 - s_k)\,(1 - s_k)^{\psi}$. Applying Equation~\eqref{eq:Zcgf} across classes to leading order in $s_k$ yields
+\begin{equation}
+    Z = \sum_k \nu_k Z_k, \qquad Z_k = 1 - s_k, \qquad \nu_k = \frac{\varphi_k s_k}{\bar{s}}, \label{eq:Zclass}
+\end{equation}
+where $\varphi_k$ is the proportion of new deleterious mutations falling in class $k$ and $\nu_k$ is that class's share of total $V_A$. Each mutational class is retained in proportion to its carriers' relative survival $1 - s_k$ (Equation~\eqref{eq:Z}). While the class-weighted average reproduces the aggregate retention factor $1 - \mathbb{E}[s^2]/\mathbb{E}[s]$ of Santiago and Caballero~\cite{santiago1998}, the main text evaluates $Q$ and $\overline{Q^2}_i$ separately by class because both quantities are nonlinear in $Z_k$. Stronger purifying selection ($s_k$ large) accelerates purging, lowering $Z_k$, $Q_k$, and the resulting reduction in $N_e$ below the Gaussian ($Z=1$) limit; conversely, rare beneficial alleles ($s_k < 0$) yield $Z_k > 1$.
+
+Finally, Equation~\eqref{eq:Zcgf} relies on the exponential map $w \propto e^z$. Under an explicitly linear map $w = 1 + a$ with $\mathbb{E}[a] = 0$ and $\mathrm{Var}(a) = V_A$, the offspring-weighted parental variance is $\mathbb{E}[(1 + a)a^2] - \mathbb{E}[(1 + a)a]^2 = V_A + \mathbb{E}[a^3] - V_A^2$, giving
+\begin{equation}
+    Z = 1 - V_A + \frac{\mathbb{E}[a^3]}{V_A}. \label{eq:Zarch}
+\end{equation}
+For a symmetric Gaussian breeding value ($\mathbb{E}[a^3] = 0$), $Z = 1 - V_A$, $Q = 2/(1 + V_A)$, and $N_e/N = (1 + V_A)^2/(1 + 6V_A + V_A^2)$. This ratio reaches a minimum of $1/2$ at $V_A = 1$ before increasing back toward $1$ at larger $V_A$. That pathological rebound is an artifact of the linear map assigning negative expected offspring ($1 + a < 0$) to a fraction $\Phi(-1/\sqrt{V_A})$ of the cohort ($8\%$ of individuals at $V_A = 0.5$ and $16\%$ at $V_A = 1$); we therefore do not consider the linear fitness map further.
 \ifdefined\isMainDocument
 \else
     \printbibliography

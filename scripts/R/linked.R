@@ -11,7 +11,7 @@
 #   v_i = V_A f_i (the MEASURED V_A, user 2026-10-19), v_h = v_i / 2,
 #   f_i = chromosome i's share of autosomal coding bp (denominator over ALL
 #   autosomes, so variance on unmapped chromosomes stays in the global term)
-#   Q2bar_i = position-averaged cumulative factor under a Haldane map (Appendix C)
+#   Q2bar_i = position-averaged cumulative factor under a Haldane map (Appendix D)
 #   Q = 2 / (2 - Z), the unlinked factor at the same retention.
 # Retention is class by class (Theory eq. Z): an effect class k is retained at
 # Z_k = 1 - s_k, independent of V_A, and every Z-dependent factor (Q2bar_i and
@@ -42,7 +42,7 @@ Li2 <- function(x) {
   out
 }
 
-# Position-averaged Q^2 under a Haldane map, closed form (Appendix C, eq.
+# Position-averaged Q^2 under a Haldane map, closed form (Appendix D, eq.
 # C_closed_haldane), vectorised over M and Z. Agrees with quadrature of
 # (2/M^2) int_0^M (M - d) / [1 - (Z/2)(1 + exp(-2d))]^2 dd to < 3e-12 (relative)
 # for M in [0.005, 60] Morgans and Z from 1e-9 to 1 - 1e-9, which spans every class,

@@ -11,7 +11,7 @@
 #   gamma  dependence of extra-pair success on male breeding value:
 #          0 = Model A (lottery), 1 = Model B (gains replace within-pair loss)
 #   G      fraction of additive variance remaining among selected parents.
-#          G = 1 is Appendix A's assumption and gives the LARGEST reduction in
+#          G = 1 is Appendix B's assumption and gives the LARGEST reduction in
 #          N_e, so it is the conservative case for the diversity comparison.
 #   rho    r_mf: correlation of social partners' breeding values (0 = random
 #          pairing with respect to breeding value)
@@ -21,7 +21,7 @@
 Q_sc <- function(G = 1, rho = 0) 2 / (2 - G * (1 + rho))
 # Unlinked Q^2 with the same per-generation persistence Z as the linked term
 # (main text, total_red; decided 2026-10-15). Equals the M -> infinity limit of the
-# linked Q2bar, so Omega <= 1 holds exactly. Z = 1 recovers Appendix A's 4.
+# linked Q2bar, so Omega <= 1 holds exactly. Z = 1 recovers Appendix B's 4.
 Qu2 <- function(Z) (2 / (2 - Z))^2
 
 # No pair bond (polygynous, polygynandrous): each parent's family size depends on
@@ -41,12 +41,12 @@ kappa_pair <- function(alpha, gamma = 1, G = 1, rho = 0) {
   (vF + vM) / 8
 }
 
-# Closed forms at G = 1, rho = 0 (Appendix B)
+# Closed forms at G = 1, rho = 0 (Appendix C)
 kappa_A <- function(alpha)
   ((4 - alpha)^2 * (1 + (1 - alpha)^2) + (4 - 3 * alpha + alpha^2)^2 + (4 - 3 * alpha)^2) / 32
 kappa_B <- function(alpha) 2 - 1.5 * alpha + 0.625 * alpha^2
 
-# Split of kappa for the linked term (Appendix B, "Own, partner and linked
+# Split of kappa for the linked term (Appendix C, "Own, partner and linked
 # components"; G = 1, rho = 0). kappa = own + partner. The partner's breeding
 # value is never in cis with a focal copy, so only the own part loses v_h to the
 # linked term, and the linked exponent carries kappa_cis, not kappa:
@@ -64,7 +64,7 @@ kappa_cis <- function(alpha, gamma = 1, rho) {
   ((1 + mb * X)^2 + (m + mb * X)^2) / (2 * (1 + X)^2)
 }
 
-# G under fecundity selection on Gaussian breeding values (Appendix A): a parent
+# G under fecundity selection on Gaussian breeding values (Appendix B): a parent
 # whose expected family size is 1 + b a has selected-parent variance
 # V_A - b^2 V_A^2, so G = 1 - b^2 V_A. Sexes averaged (Santiago & Caballero 1995).
 # Valid only while G > 0; NA outside that domain.
@@ -85,7 +85,7 @@ ne_ratio <- function(Va, pair, alpha = NA, gamma = 1, G_correct = FALSE, rho = 0
 }
 
 # ------------------------------------------------------------------------------
-# Multiplicative fitness map (Appendix A; pair bond and EPP in Appendix B since 2026-10-21; decided 2026-10-19). Log-fitness is
+# Multiplicative fitness map (Appendix B; pair bond and EPP in Appendix C since 2026-10-21; decided 2026-10-19). Log-fitness is
 # additive and Gaussian, w ∝ e^z, the structure of Bonnet et al.'s log-link model,
 # for which V_A(w) = Var(z) (de Villemereuil et al. 2016). Reproductive value of an
 # ancestor with log value z is exp(2(z - zbar) - 2V) and coalescence goes as its

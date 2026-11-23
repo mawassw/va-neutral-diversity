@@ -144,7 +144,7 @@ MSD; the amount of variance is the **measured** $\hat V_A$ ($v_i = \hat V_A f_i$
 **Units.** Bonnet et al. 2022 fitted a zero-inflated over-dispersed Poisson animal model and
 back-transformed with $V_A(w) = \mathbf d^\top\mathbf G\mathbf d$, so the estimate is observed-scale,
 mean-standardised additive variance in relative fitness — exactly SC's $C^2$ (random mating) and
-Appendix D's currency. **Nothing to rescale.** Under a log link $\hat V_A = \mathrm{Var}(z)$ exactly
+Appendix A's currency. **Nothing to rescale.** Under a log link $\hat V_A = \mathrm{Var}(z)$ exactly
 (de Villemereuil 2016 Eqs 15–16: the average derivative is the mean); $e^{\sigma^2}-1$ is the total
 genotypic variance (their Eq. 28), not the additive one; the zero-inflation component makes the
 equality approximate (Fix 6, 2026-11-19).
@@ -195,26 +195,26 @@ equality approximate (Fix 6, 2026-11-19).
 | δ, $\hat\delta$ | δ = $\pi/(4\mu N) \approx N_{eC}/N$, a parameter ($N$ = harmonic-mean breeders over the genealogy); $\hat\delta = \pi_\text{obs}/(4\mu N_c)$, its estimate (2026-11-18). Observed values, table column, Fig 3 points and Fig 5 y-axis are $\hat\delta$; curves over δ stay δ |
 | $V_A$ | additive variance in relative fitness, $\bar w = 1$; written $V_A(w)$ once where each section defines it, $V_A$ after (author's intro, 2026-11-12) |
 | κ, κ(α), $\kappa_\text{max}$ | mating-system scalar: 1 random mating; $\kappa_B = 2 - \tfrac32\alpha + \tfrac58\alpha^2$ under social monogamy; $\kappa_\text{max}$ = 2 with pair bond, 1 without (Weissman & Barton 2012) |
-| $V_{A,\max}$ | small-variance ceiling $(1-\delta)/(4\kappa\delta)$ (Appendix A.2) |
+| $V_{A,\max}$ | small-variance ceiling $(1-\delta)/(4\kappa\delta)$ (Appendix B.2) |
 | $V_{A,\delta}$ | $\ln(1/\delta)/(4\kappa_\text{max})$, least variance that could explain δ |
 | $Z$, $Z_k$ | retention (SC 1995's $G$, named once as theirs); $Z_k = 1 - s_k$ per class |
 | $Q$ | unlinked transmission factor $2/[2 - Z(1+r_{mf})]$, = 2 at $Z = 1$ |
 | $z$, $a$ | breeding value for log-fitness ($w \propto e^z$); $a = z - \bar z$ to first order |
 | $R(z)$ | expected long-term contribution, $\exp[2(z-\bar z) - 2V_A]$ |
-| $A_X$, $h_t$, $x_i$ | Appendix B/A quantities (first-order cumulative advantage, carriers' breeding value, neutral frequency) |
+| $A_X$, $h_t$, $x_i$ | Appendix C/B quantities (first-order cumulative advantage, carriers' breeding value, neutral frequency) |
 | $\rho = (1-r)Z$ | linked persistence; kernel $1/(1-\rho)$ |
 | $M$, $M_i$; $r$; $r_{mf}$ | map length (Morgans) only; recombination fraction only; mates' correlation (0 in primary) |
 | $\overline{Q^2}_i$, $\overline{Q^2}(y)$ | position-averaged $Q^2$ on chromosome $i$ (not "interference", which reads as crossover interference); profile at $y$ (bare $Q^2$ = unlinked constant) |
 | $s, s_k, \bar s, s^*$; $\varphi_k$; $\nu_k$; $\zeta$ | heterozygous effect; DFE class fractions; class share of $V_A$, $\varphi_ks_k/\bar s$; unannotated sequence counted as target (Fig. S_noncoding) |
-| $m'$, $f'$ | social partner (Appendix B) |
-| Γ, η, ε; Λ; Ψ, χ, ξ, $\beta$, $\bar\beta$, $\beta_X$, $\tilde\beta$; $n_i$ | Appendix C.2 constants; C.5 exponents; Appendix B coefficients; C.6 element count |
+| $m'$, $f'$ | social partner (Appendix C) |
+| Γ, η, ε; Λ; Ψ, χ, ξ, $\beta$, $\bar\beta$, $\beta_X$, $\tilde\beta$; $n_i$ | Appendix D.2 constants; D.5 exponents; Appendix C coefficients; D.6 element count |
 | $C^2$ | SC's family-fitness variance: $V_A$ random mating, $2V_A$ with a pair bond |
 
 Retired: $Q_u$, $Q(s)$, $t$, $s_\text{het}$, $\overline{Q^2}_\text{linked}$, $\kappa_\text{mult}$ /
 κ(0) (now $\kappa_\text{max}$), Woolliams/B&E symbols. No symbol for LD ($D$ unused).
 
-**Which $N_e$ (2026-11-18, user).** The predicted $N_e$ is the inbreeding = coalescent size (Appendix A,
-`eq:A_dF`); the variance size converges to it only when $N$ and $V_A$ are constant. The sizes coincide in any
+**Which $N_e$ (2026-11-18, user).** The predicted $N_e$ is the inbreeding = coalescent size (Appendix B,
+`eq:B_dF`); the variance size converges to it only when $N$ and $V_A$ are constant. The sizes coincide in any
 constant-size, constant-reproduction population (not only Wright–Fisher; Caballero 1994) and part when $N$
 changes (Crow & Denniston 1988). Never call our $N_e$ "the asymptotic variance effective size". The diversity
 verdict reverses only if $N_c$ overstates the harmonic-mean breeders by at least the shortfall (80–31,000×
@@ -227,7 +227,7 @@ the small-variance form) and as the third opposite-direction factor in `sec:appr
 $e^{-4\kappa_\text{max}V_A}$ only while $8\kappa_\text{max}V_A \lesssim \ln N$ (ancestors $4\sqrt{\kappa_\text{max}V_A}$
 SD out, fraction $e^{-8\kappa_\text{max}V_A}$), i.e. down to $N_e \approx \sqrt N$; beyond it coalescence comes in
 bursts (multiple mergers). Required $V_{A,\delta}$ = 70–95% (median 88%) of that limit with $N_c$, 48–83% with
-$N_c/10$. Appendix A `app:A_tail` + simulation (`scripts/R/check_tail_realization.R`), Theory `sec:onemodel`,
+$N_c/10$. Appendix B `app:B_tail` + simulation (`scripts/R/check_tail_realization.R`), Theory `sec:onemodel`,
 Results "How large", Discussion ¶7 (Eldon & Wakeley 2006, Diamantidis et al. 2024, Neher & Hallatschek 2013).
 No new symbol for the limit. $c$ covers spatial as well as temporal unrepresentativeness.
 Why not PSMC/SMC++: every genomic $N_e$ already contains $V_A$-driven drift, none gives long-term $N$ (Methods).
@@ -274,7 +274,7 @@ smaller, ~4% chance of in-island coalescence since; Perrier et al. 2020).
 everywhere (claim, headings, verdicts): drift never adds variance, so $U_d\bar s$ bounds it at any $N_e$
 and the verdict is stronger with drift in. Theory `sec:msdb` states once that the strong-selection
 limit reduces MSDB to mutation--selection balance; "mutation--selection balance" only for genuinely
-no-drift statements ($q \approx \mu/s$ in Appendices A/D; Connallon & Czuppon's loci in Discussion ¶5).
+no-drift statements ($q \approx \mu/s$ in Appendices B/A; Connallon & Czuppon's loci in Discussion ¶5).
 The Abstract's maintenance and rescaling sentences say "mutation--selection balance" (author, Overleaf 2026-11-09; kept in the Fix 1.8 abstract, 2026-11-19), an exception to this rule.
 
 **Selection regimes have three named axes.** "Strong/weak" = against drift only ($4N_es$). Purging
@@ -292,8 +292,8 @@ required only there.
 
 **Long-term contribution as the shared basis (2026-10-29).** Robertson/SC 1995, Woolliams et al.
 1999 and B&E 2011/W&B 2012 all compute $R$; at unlinked sites $N_e/N = \mathbb E[R]^2/\mathbb E[R^2]$
-(`eq:ratio`, displayed in Theory `sec:unlinked`; derived from the coalescence sum in Appendix A as
-`eq:A_ratio`, which is $N_{eC}$, not single-generation $N_{eV}$). They differ only in $R$'s dependence on
+(`eq:ratio`, displayed in Theory `sec:unlinked`; derived from the coalescence sum in Appendix B as
+`eq:B_ratio`, which is $N_{eC}$, not single-generation $N_{eV}$). They differ only in $R$'s dependence on
 breeding values: linear with slope $Q$, $Z$ a parameter (SC → $Q$, $Z_k$); linear regression on
 several advantages (Woolliams → κ(α), own/partner/cis); exponential, $Z = 1$ exactly (B&E →
 multiplicative model, bound, $\kappa_\text{max}$). State each model's role where it is used; Table
@@ -363,6 +363,14 @@ at linked sites the segment's contribution sets drift.
   and new em-dashes (user, 2026-11-12). The Discussion keeps its closing *so* clauses.
 - **"Biased toward passing"** is the one phrase for approximations chosen to favor a test (not
   "optimistic", "most favourable to explaining").
+- **Threshold analysis / compatibility test (user, 2026-11-23).** Computing $c_\text{MSD}$ and
+  $c_\text{div}$ per population is the **threshold analysis** (each is a **threshold** on $c$); the
+  condition $c_\text{div} \le c_\text{MSD}$ (`eq:compat`) is the **compatibility test**, failed by
+  every population in the deficit set. Defined in Theory `sec:conditions`; Methods
+  `sec:rescaling_methods` is titled "Threshold analysis and compatibility test"; Results
+  `sec:res_rescaling`, Fig. 5 caption and Discussion ¶6 (defined in words) and ¶8 use the same terms.
+  Not "sensitivity analysis" (taken by the joint, target and gene-count analyses), not "feasibility",
+  no econometrics terms ("partial identification"). Only the threshold analysis uses $\hat V_A$.
 - **One intuition per quantity (Fix 9, 2026-11-19):** each formally defined quantity is given one
   intuitive sentence at its definition; results elsewhere relate to it in one sentence, without
   re-explaining; the Discussion pairs each formal lesson (in words) with its comparative finding.
@@ -415,7 +423,7 @@ at linked sites the segment's contribution sets drift.
 
 - **$V_{A,\max}(\delta)$ / $V_{A,\delta}$ curves** — reusable; publish as curves. $V_{A,\delta}$ is
   main-text Fig. `fig:ceiling` (`sec:res_deficit`). **$V_{A,\max}$ is supplementary since 2026-11-19
-  (Fix 5):** note at the end of Appendix A `app:A_first`, Fig. `fig:S_ceiling`, one pointer clause in
+  (Fix 5):** note at the end of Appendix B `app:B_first`, Fig. `fig:S_ceiling`, one pointer clause in
   Theory `sec:conditions`. Not currently exceeded: 0 of 19 at δ ≤ 0.2, 2 at 0.25–0.3, 5 at 0.5, 15 at
   0.9; every $\hat\delta$ is 2–4.5 orders below where its estimate would reach it.
 - **$\overline{Q^2}$ along a Haldane map** — closed form (dilogarithm). Method, not finding.
@@ -426,10 +434,10 @@ at linked sites the segment's contribution sets drift.
   "large-effect alleles dominate $V_A$".
 - **Independence of inputs from diversity data** — short Methods subsection; not a gap being filled.
 
-**Novelty ledger (keep derivations only for these):** EPP bracket at all orders (Appendix B.4);
+**Novelty ledger (keep derivations only for these):** EPP bracket at all orders (Appendix C.4);
 κ(α) Models A/B and the own/partner/cis split; Haldane position averaging, linear lower bound,
-Ω ≤ 1, spatial result (Appendix C); `eq:compat` and the $c$ framework. Everything else is cited
-(Robertson; SC 1995/1998; B&E 2011; W&B 2012; Wray & Thompson 1990; de Villemereuil 2016; Appendix D
+Ω ≤ 1, spatial result (Appendix D); `eq:compat` and the $c$ framework. Everything else is cited
+(Robertson; SC 1995/1998; B&E 2011; W&B 2012; Wray & Thompson 1990; de Villemereuil 2016; Appendix A
 sources).
 
 ### Retired claims — do not let these come back
@@ -445,7 +453,7 @@ sources).
 | Balancing/fluctuating selection as an escape from the diversity ceiling | MSD side only |
 | Opportunity for selection $I$, any $V_A \le I$ argument | struck by user |
 | FTNS co-requiring the long-run quantity | FTNS is single-generation |
-| "$N_e/N \ge 1/2$" ($G = 1 - V_A$) | additive-map artifact; Appendix A.4 remark only |
+| "$N_e/N \ge 1/2$" ($G = 1 - V_A$) | additive-map artifact; Appendix B.4 remark only |
 | "$V_{A,\max}$ = 29–6,000" / "needs $V_A \gtrsim 12$" | first-order inversion outside domain |
 
 **Recurring failure mode:** borrowed significance — positioning the work as the answer to someone
@@ -518,7 +526,7 @@ $V_A$ as input. Not competitors.
    CI-less preprint; *Capra* alternative recorded in Methods comment). All pinpoint equation/section
    citations checked by the author against the sources (SC95 Eq 16, SC98 Eq 8, Charlesworth 2012 App.,
    de Villemereuil 2016 Eqs 15-16, B&K24 S-Eqs 28-29/32/33, B&E 2011 App. B, Woolliams 1999 Eq 6b,
-   Kimura 1969); Appendix D.1 now writes E[H] in 4N_es (no β, which Methods uses for the gamma scale).
+   Kimura 1969); Appendix A.1 now writes E[H] in 4N_es (no β, which Methods uses for the gamma scale).
 9. **Staleness found 2026-10-28 (not fixed):** `data/README.md` κ range (1.22–1.93, now
    1.32–1.86); `data/processed/parameters.csv` unused; `genomic_parameters_summary.csv` blue-tit row is an
    old assembly; `load_chromosomes()` defaults and `fig2_linked.R` l.238 comment stale. Bighorn `Physical_Length_bp` in
@@ -530,11 +538,11 @@ $V_A$ as input. Not competitors.
    (user, 2026-11-02): (a) Fig. 2 and Fig. S_noncoding b use the multiplicative bound for the global
    factor, as Figs 3, 5 and S_rescaling_linked; small-variance shortfalls are mentioned once in
    Results. (b) Abstract at ~286 words is fine for the preprint. (c) Reused symbols renamed: unannotated
-   target fraction φ → ζ; App A μ₃ → 𝔼[a³], CGF argument θ → ψ, copy index → j′, beneficial s → s₊,
-   Φ → Pr(a < −1); App B own-value weight m, m̄, m_X → β, β̄, β_X, c̄ → β̃, c_f/c_m → 𝓔_f/𝓔_m,
+   target fraction φ → ζ; App B μ₃ → 𝔼[a³], CGF argument θ → ψ, copy index → j′, beneficial s → s₊,
+   Φ → Pr(a < −1); App C own-value weight m, m̄, m_X → β, β̄, β_X, c̄ → β̃, c_f/c_m → 𝓔_f/𝓔_m,
    c_k → 𝓒_l, route shares w_k → ω_l, route indices → l, l′, v(·,·) → σ²(·,·), L_X/L_f/L_m → A_X/A_f/A_m;
-   App C kernel f → 𝒦, its integral F → ℐ, dummy D → ℓ, Λ_L/Λ_U → Λ_linked/Λ_unlinked, "M" unit →
-   "Morgans"; App D L → L_target, u → μ_locus, 𝔼[H] → 𝔼[2q(1−q)]. Methods describes the gamma DFE in
+   App D kernel f → 𝒦, its integral F → ℐ, dummy D → ℓ, Λ_L/Λ_U → Λ_linked/Λ_unlinked, "M" unit →
+   "Morgans"; App A L → L_target, u → μ_locus, 𝔼[H] → 𝔼[2q(1−q)]. Methods describes the gamma DFE in
    words (no b, β) and Pagel's lambda in words. (d) Flycatcher α = 0.15 stays (closed). (e) Snow voles
    are Graubünden; `tab:S_sources` labels now match Table 1 and the figures; "Superb fairy-wrens" fixed in
    `data/species_EPP.csv`. (f) Quadrature check widened to Z from 1e-9 to 1−1e-9, M 0.005–60
@@ -586,10 +594,10 @@ $V_A$ as input. Not competitors.
    defined in `sec:onemodel`; `unlinked_mating`, `eq:kappaB` and `eq:ne_mult_pair` sit in
    `sec:extensions`. Where moved passages went: `tab:models` → `supp/supp_tables.tex` (prints as Table
    S2, before `tab:S_sources`, S3; cited once from `sec:unlinked`); the sex-averaging, nest-productivity,
-   Woolliams-regression and Model B rationale sentences were duplicates of Appendix B and were cut; the
-   cis/trans and own/partner bookkeeping → Appendix B `app:B_split`; `eq:haldane_avg` (label kept), the
+   Woolliams-regression and Model B rationale sentences were duplicates of Appendix C and were cut; the
+   cis/trans and own/partner bookkeeping → Appendix C `app:C_split`; `eq:haldane_avg` (label kept), the
    Haldane-versus-linear rationale, the BGS-kernel substitution and the Buffalo & Kern / Santiago &
-   Caballero comparisons → Appendix C `app:C_kernel`; the $M_i \to \infty$ limit → `app:C_limits`; the
+   Caballero comparisons → Appendix D `app:D_kernel`; the $M_i \to \infty$ limit → `app:D_limits`; the
    linked $V_{A,\delta}$ and linked-compatibility sentences moved from `sec:conditions` to the end of
    `sec:extensions`; the duplicate account of the two perspectives in `sec:unlinked` cut to one sentence.
    Results `sec:res_linked` is two paragraphs; the bird–mammal, Wytham/Hoge Veluwe and both
@@ -598,9 +606,9 @@ $V_A$ as input. Not competitors.
    states once that the linked term is an upper limit on what linkage adds. **Fig. 2 (`Fig2_linked`) is a
    single panel; its old panels b, c are `FigS_omega` b, c** (`fig2_linked.R`). `fig:S_ceiling` now
    prints before `fig:S_kappa`. Methods' midpoint-approximation comparison cut to one clause
-   (Appendix C `app:C_linear` already had it). Intro ¶4 lost its two closing map sentences; the Intro's
+   (Appendix D `app:D_linear` already had it). Intro ¶4 lost its two closing map sentences; the Intro's
    last paragraph and the Abstract name the two extensions in one sentence/clause. Follow-up (2026-11-19, user): `tab:linked_limits` moved from
-   Appendix C to the end of `supp/supp_tables.tex`, so supplementary tables print in citation order
+   Appendix D to the end of `supp/supp_tables.tex`, so supplementary tables print in citation order
    (S1 notation, S2 `tab:models`, S3 `tab:S_sources`, S4 `tab:linked_limits`); this file names the
    sources table by label; the linked figure's legend reads $\hat\delta$; the ceiling clause in
    `sec:conditions` no longer uses κ before `sec:extensions` defines it, and `sec:onemodel`'s Jensen
@@ -620,6 +628,13 @@ $V_A$ as input. Not competitors.
    in Methods `sec:pi_methods` (none is from a focal study population). Legends of the new figures name
    model and statistic only. Staleness: Results `sec:res_deficit` gives the bound share as "1.3 to 41%"
    and `sec:res_linked` as "1.2 to 20%" for the same minimum (great tits, Hoge Veluwe, 1.249%); not fixed.
+
+15. **Appendices lettered in order of first citation (2026-11-23, user).** A = MSDB and $s^*$
+   (`app:msdbapp`, formerly D), B = unlinked effective size (`app:unlinkedapp`, formerly A), C = mating
+   system (`app:matingapp`, formerly B), D = linked factor (`app:chromosapp`, formerly C). File names,
+   `app:X_`/`eq:X_` label prefixes, R comments and every letter in this file (dated notes included) use
+   the new letters; `scratch.tex` keeps the old ones. Prose cites an appendix only by `\ref`, never a typed
+   letter, so a future reorder needs only the `\input` order and the prefixes.
 
 ## Venue and prose authority
 
@@ -642,9 +657,9 @@ $V_A$ as input. Not competitors.
    on $c$** (`sec:conditions`), before any extension.
 2. **Mating-system scalar κ(α)** — modulates the unlinked term by EPP rate α; changes the variance a
    deficit requires at most twofold. Main text: definition, `eq:kappaB`, limits 2 and 9/8, bound at
-   $\kappa_\text{max}$; everything else in Appendix B.
+   $\kappa_\text{max}$; everything else in Appendix C.
 3. **Linked term** — chromosome-local variance $v_i$ over map length $M_i$, via position-averaged
-   $\overline{Q^2}$ (derivation and `eq:haldane_avg` in Appendix C); exponential composite
+   $\overline{Q^2}$ (derivation and `eq:haldane_avg` in Appendix D); exponential composite
    $(N_e/N)_i = \exp\{-[\kappa_\text{cis}\overline{Q^2}_iv_h + Q^2(\kappa V_A - \kappa_\text{own}v_h)]\}$,
    so Ω ≤ 1 is immediate.
 
@@ -706,7 +721,7 @@ project#3/
 5. **Model conventions in code:** κ only from `kappa.R`. Any "V_A needed for a deficit" uses
    `vamax_mult` with `kappa_mult_bound` (= $\kappa_\text{max}$), never the first-order inversion.
    Code names differ from manuscript symbols: `G`/`G_correct`/`G_sym` mean $Z$; `Qu2()` is $Q^2$;
-   `kappa_pair(..., rho)` is $r_{mf}$, its `Phi` is Ψ. `reduction_Gsym` is kept only for the A.4
+   `kappa_pair(..., rho)` is $r_{mf}$, its `Phi` is Ψ. `reduction_Gsym` is kept only for the B.4
    remark. $v_i = V_A f_i$, halved ($v_h$) for the focal haplotype.
 6. **Never end an Edit insertion with a comment line in the middle of a paragraph** — it swallows
    the following prose into a LaTeX comment.

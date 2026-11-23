@@ -144,12 +144,12 @@ epp <- epp_raw %>%
   )
 stopifnot(setequal(epp$code, crosswalk$code))
 
-# kappa (Theory section, Appendix B; formulas in scripts/R/kappa.R). The EPP
+# kappa (Theory section, Appendix C; formulas in scripts/R/kappa.R). The EPP
 # rate alpha is a measurement only for socially monogamous systems. For
 # polygynous/polygynandrous systems the source codes EPP = 1 to mean "no social
 # pair constrains paternity"; that is not a measured rate, so epp_alpha is NA.
 # Without a pair bond each parent's own breeding value sets its family size and
-# the two-sex mean of Santiago & Caballero (1995) leaves Appendix A unchanged:
+# the two-sex mean of Santiago & Caballero (1995) leaves Appendix B unchanged:
 # kappa = 1 under both models (re-derived 2026-10-14; was 2 for Model B, which
 # summed the sexes). Under social monogamy both partners set a shared nest's
 # productivity; Model B (primary, decided 2026-10-10) lets extra-pair gains
@@ -318,13 +318,13 @@ populations <- crosswalk %>%
     U_d_direct_lo = 4 * mu_direct_lo * L_coding_bp,
     U_d_direct_hi = 4 * mu_direct_hi * L_coding_bp,
     # Unlinked reduction N/N_e at the posterior mode (internal convention; quote as
-    # N_e/N = 1/reduction). One model family (Appendix A, decided 2026-10-19):
+    # N_e/N = 1/reduction). One model family (Appendix B, decided 2026-10-19):
     #   reduction_G1         first order, 1 + 4 kappa V_A (Model B)
     #   reduction_mult       multiplicative map, all orders (Model B nest sharing)
     #   reduction_mult_bound largest multiplicative reduction, exp(4 kappa_mult V_A),
     #                        kappa_mult = 2 with a pair bond, 1 without
     #   reduction_Gsym       additive map with G = 1 - V_A: kept only as the remark in
-    #                        Appendix A.4 (that map implies negative fitness at large V_A)
+    #                        Appendix B.4 (that map implies negative fitness at large V_A)
     reduction_G1   = 1 + 4 * kappa * va_mode,
     reduction_mult = 1 / ne_ratio_mult(va_mode, pair_bond == "social_monogamy", epp_alpha),
     reduction_mult_bound = 1 / ne_ratio_mult_bound(va_mode, pair_bond == "social_monogamy"),
@@ -459,8 +459,8 @@ parameters <- tribble(
   "cne_multiplier_bird",  2,      "",         "conserved non-coding, birds",                 "linked term",
   "cne_multiplier_mammal",4,      "",         "conserved non-coding, mammals",               "linked term",
   "cne_multiplier_max",   5,      "",         "maximum-rescue",                              "linked term",
-  "kappa_min",            1,      "",         "Appendix B: Model B kappa in [1,2] (Model A down to 7/16)", "all",
-  "kappa_max",            2,      "",         "Appendix B: strict monogamy",                 "all"
+  "kappa_min",            1,      "",         "Appendix C: Model B kappa in [1,2] (Model A down to 7/16)", "all",
+  "kappa_max",            2,      "",         "Appendix C: strict monogamy",                 "all"
 )
 write_csv(parameters, file.path(out_dir, "parameters.csv"))
 

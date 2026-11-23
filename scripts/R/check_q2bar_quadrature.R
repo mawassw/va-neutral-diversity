@@ -2,7 +2,7 @@
 # check_q2bar_quadrature.R — closed-form Haldane Q2bar against numerical quadrature
 # ==============================================================================
 # Run from the repo root:   Rscript scripts/R/check_q2bar_quadrature.R
-# Appendix C, eq. C_closed_haldane (Q2bar_haldane() in linked.R) against adaptive
+# Appendix D, eq. C_closed_haldane (Q2bar_haldane() in linked.R) against adaptive
 # quadrature of the position average (Theory eq. haldane_avg, reduced to one integral
 # over the distance d between the two sites):
 #   Q2bar(M, Z) = (2 / M^2) int_0^M (M - d) / [1 - (Z/2)(1 + exp(-2d))]^2 dd.
@@ -11,7 +11,7 @@
 # the analysis uses (all classes of every assigned DFE, the uniform effects of
 # Figure 2b-c and Methods, and s = s*) and every mapped autosome's map length,
 # with margins on both sides. Added 2026-11-02 (user: cover the Z range of the
-# analysis; Appendix C had stated Z 0.5-0.999, M >= 0.05).
+# analysis; Appendix D had stated Z 0.5-0.999, M >= 0.05).
 # ==============================================================================
 suppressPackageStartupMessages(library(dplyr))
 source("scripts/R/load_data.R"); source("scripts/R/linked.R")

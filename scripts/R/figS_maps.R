@@ -1,6 +1,6 @@
 # ==============================================================================
 # figS_maps.R — Fig. S_maps: three ways of evaluating Q^2 on a chromosome
-# (Appendix C), relative to the Haldane chromosome average used in the analysis
+# (Appendix D), relative to the Haldane chromosome average used in the analysis
 # ==============================================================================
 #   Haldane average   Q2bar_haldane() from linked.R (Eq. C_closed_haldane)
 #   linear average    Eq. closed_form, 2/[MZ(1-Z)] - 2/(MZ)^2 ln(1 + MZ/(1-Z))

@@ -1,6 +1,6 @@
 # ==============================================================================
 # figS_kappa.R — Fig. S_kappa: the mating-system scalar kappa against the
-# extra-pair paternity rate alpha under Models A and B (Appendix B, app:B_limits)
+# extra-pair paternity rate alpha under Models A and B (Appendix C, app:C_limits)
 # ==============================================================================
 # kappa_A() and kappa_B() from kappa.R (Z = 1, r_mf = 0). Points: the socially
 # monogamous populations at their EPP rate (data/species_EPP.csv). Run from the

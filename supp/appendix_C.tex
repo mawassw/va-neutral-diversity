@@ -24,105 +24,87 @@
     \appendix
 \fi
 % Working copy (since 2026-10-17 the section files, not scratch.tex, are edited directly).
-% Rewritten 2026-10-21 (user): setup and notation once (the profile is \overline{Q^2}(y), bare
-% Q^2 is the unlinked constant); kernel -> closed form -> limits -> linear lower bound ->
-% Omega <= 1 for any placement -> non-uniform placement. All numbers re-checked in R.
+% Rewritten 2026-10-21 (user): model and assumptions once; one general first-order
+% derivation of kappa (with Z and r_mf), then its limits; own/partner/cis split; the
+% all-orders bracket last. Matches kappa_pair() in scripts/R/kappa.R.
 
-\section{The linked factor along a Haldane map}\label{app:chromosapp}
-\claude{This appendix derives the chromosome-wide average $\overline{Q^2}_i$ of} \autoref{sec:linkage} \claude{(Equation}~\eqref{eq:haldane_avg}\claude{) and evaluates it.}
+\section{Effective size with separate sexes, pair bonds and extra-pair paternity}\label{app:matingapp}
+This appendix derives the mating-system scalar $\kappa$ of Equation~\eqref{unlinked_mating} \claude{(Model B, Equation}~\eqref{eq:kappaB}\claude{)}, its split into the components used in Equation~\eqref{total_red}, and the multiplicative-model bracket of Equation~\eqref{eq:C_mult_pair}. It applies the expected long-term contributions of Woolliams, Bijma, and Villanueva~\cite{woolliams1999} and the two-sex combination of Santiago and Caballero~\cite{santiago1995}. 
 
-\subsection{The kernel and chromosome average}\label{app:C_kernel}
-Consider a single mutational effect class with retention factor $Z$ (Equation~\eqref{eq:Z}); under a distribution of fitness effects, each expression below is averaged over classes using the variance weights $\nu_k$ of \autoref{sec:linkage}. Take a chromosome of map length $M$ Morgans (dropping the chromosome index $i$ for clarity) on which two sites separated by $\ell$ Morgans recombine with probability $r(\ell)$. Unless stated otherwise (Section~\ref{app:C_spatial}), both selected variance and neutral sites are distributed uniformly in map distance. Let $Q^2 = [2/(2-Z)]^2$ denote the unlinked transmission factor squared (Equation~\eqref{eq:Q}), $\overline{Q^2}(y)$ the linked value at a neutral site at position $y$ averaged over selected loci, and $\overline{Q^2}_\text{H}$ and $\overline{Q^2}_\text{L}$ the chromosome-wide averages under the Haldane and linear maps ($\overline{Q^2}_\text{H}$ is the $\overline{Q^2}_i$ of the main text).
+Consider a diploid population with discrete generations, $N$ breeding adults, and an equal sex ratio. Each individual possesses an additive breeding value $a$ for relative lifetime breeding success, with variance $\mathrm{Var}(a) = V_A$ assumed equal in both sexes. For small advantages, $a = z - \bar{z}$ (Appendix~\ref{app:unlinkedapp}). Bonnet et al.~\cite{bonnet2022} estimate this single variance from an animal model incorporating both sexes with sex fitted as a fixed effect.
 
-An association between a neutral site and a selected locus $\ell$ Morgans away survives one generation with probability $(1 - r(\ell))Z$, as recombination breaks it with probability $r(\ell)$ and selection multiplies the remaining association by $Z$. Summing over generations gives the cumulative advantage per unit effect~\cite{santiago2016,buffaloKern2024},
+Under random mating, a parent's relative family size is $1 + a$. Under social monogamy, the nest serves as the unit of productivity. A female paired with social partner $m'$ has relative family size $1 + u_f = 1 + a_f + a_{m'}$. Extra-pair paternity at rate $\alpha$ moves paternity out of the nest without altering its overall productivity, so a male paired with social partner $f'$ achieves relative success
 \begin{equation}
-    \sum_{t=0}^{\infty}\left[(1 - r(\ell))\,Z\right]^t = \frac{1}{1-(1-r(\ell))Z}.
+    u_m = (1-\alpha)(a_m + a_{f'}) + \alpha\gamma\, a_m,
 \end{equation}
-It is the counterpart of $Q$ for the chromosome segment that carries the neutral site, counting the advantage over every generation in which the segment keeps the selected locus\claude{, so it is the expected number of generations that the association lasts (}\autoref{sec:linkage}\claude{)}. Because the cumulative factor appears squared in the variance of the segment's long-term contributions, as $Q$ does in Equation~\eqref{eq:A_first}, a locus at distance $\ell$ contributes $\mathcal{K}(\ell) = [1 - (1 - r(\ell))Z]^{-2}$. \claude{Here and below, $y$ is always the position of a neutral site and $x$ that of a selected locus.} With $\mathcal{I}(\ell) = \int_0^\ell \mathcal{K}(\ell')\,d\ell'$, the profile and its chromosome average are
-\begin{gather}
-    \overline{Q^2}(y) = \frac{1}{M}\int_0^M \mathcal{K}(\vert x-y\vert)\,dx = \frac{1}{M}\left[\mathcal{I}(y) + \mathcal{I}(M-y)\right], \label{eq:C_profile} \\
-    \frac{1}{M}\int_0^M \overline{Q^2}(y)\,dy = \frac{2}{M^2}\int_0^M (M-\ell)\,\mathcal{K}(\ell)\,d\ell = \frac{2}{M^2}\int_0^M \mathcal{I}(\ell)\,d\ell, \label{eq:C_haldane_avg}
-\end{gather}
-where the factor $(M - \ell)$ weights each distance $\ell$ by the density of site pairs separated by $\ell$. \claude{Under} Haldane's mapping function, $r_\text{H}(\ell) = \tfrac12(1 - e^{-2\ell})$, which saturates at $\tfrac12$ \claude{for sites far apart on the same chromosome, Equation}~\eqref{eq:C_haldane_avg} \claude{becomes, for chromosome $i$ of map length $M_i$,}
-\begin{equation}
-    \overline{Q^2}_i = \frac{2}{M_i^2}\int_0^{M_i} (M_i - \ell)\left(\frac{1}{1 - \dfrac{Z}{2}(1 + e^{-2\ell})}\right)^2 d\ell. \label{eq:haldane_avg}
-\end{equation}
-Substituting $Z = 1 - s$ reduces the term inside the integral to $1/[s + r(\ell)(1-s)]$, the familiar kernel from classical background selection theory~\cite{hudson1995,nordborg1996,santiago1998,santiago2016,buffaloKern2024}. Whereas Buffalo and Kern~\cite{buffaloKern2024} evaluate this kernel locally along a high-resolution recombination map, our spatial average yields the expected chromosome-wide reduction when only total map length $M_i$ is known. While Santiago and Caballero~\cite{santiago1998} and Buffalo and Kern~\cite[Supplementary Equations~32--33]{buffaloKern2024} derived similar chromosome-wide averages assuming a linear map for a central or end site, Equation~\eqref{eq:haldane_avg} \claude{uses} Haldane's mapping function and averages over the position of the neutral site as well.
+where $\gamma$ indexes the dependence of extra-pair siring success on the male's own breeding value. Model A sets $\gamma = 0$ (extra-pair siring as a random lottery), whereas Model B sets $\gamma = 1$ (extra-pair gains exactly offset within-pair losses). Model B is the unique parameterization in which a male's breeding value contributes to his total fitness with the same average weight as a female's across all $\alpha$, satisfying the single-variance assumption of the animal model. Model B is therefore adopted for all primary results. 
 
-\subsection{Closed form under the Haldane map}\label{app:C_closed}
-Under Haldane's map, $(1 - r_\text{H}(\ell))Z = \tfrac{Z}{2}(1 + e^{-2\ell})$, so
-\begin{equation}
-    \mathcal{K}_\text{H}(\ell) = \left(\Gamma - \eta\, e^{-2\ell}\right)^{-2}, \qquad \Gamma = 1 - \tfrac{Z}{2}, \quad \eta = \tfrac{Z}{2}.
-\end{equation}
-Substituting $\tau = e^{-2\ell}$ and decomposing into partial fractions yields the arm integral in elementary functions:
-\begin{equation}
-    \mathcal{I}_\text{H}(\ell) = \frac{1}{2}\left\{\frac{2\ell + \ln\!\left[(\Gamma - \eta e^{-2\ell})/(1-Z)\right]}{\Gamma^2} + \frac{1}{\Gamma}\left[\frac{1}{1-Z} - \frac{1}{\Gamma - \eta e^{-2\ell}}\right]\right\}.
-\label{eq:C_arm}
-\end{equation}
-Integrating once more over $[0, M]$, using $\int_0^M \ln(\Gamma - \eta e^{-2\ell})\,d\ell = M\ln \Gamma + \tfrac{1}{2}\left[\mathrm{Li}_2(\epsilon e^{-2M}) - \mathrm{Li}_2(\epsilon)\right]$ with $\epsilon = \eta/\Gamma$ and $\mathrm{Li}_2$ the dilogarithm, gives
-\begin{equation}
-\begin{split}
-    \overline{Q^2}_\text{H} = \frac{1}{M^2}\Bigg\{ &\frac{M^2 - M\ln(1-Z) + M\ln \Gamma + \tfrac{1}{2}\left[\mathrm{Li}_2(\epsilon e^{-2M}) - \mathrm{Li}_2(\epsilon)\right]}{\Gamma^2} \\
-    &+ \frac{1}{\Gamma}\left[\frac{M}{1-Z} - \frac{2M + \ln\!\left[(\Gamma-\eta e^{-2M})/(1-Z)\right]}{2\Gamma}\right]\Bigg\}.
-\end{split}
-\label{eq:C_closed_haldane}
-\end{equation}
-Equation~\eqref{eq:C_closed_haldane} is the exact form evaluated in the main analysis. Against direct numerical quadrature of Equation~\eqref{eq:C_haldane_avg} in R, Equation~\eqref{eq:C_closed_haldane} agrees to better than $10^{-11}$ relative error across $Z \in [10^{-9}, 1 - 10^{-9}]$ and $M \in [0.005, 60]$ Morgans, spanning all selection classes and map lengths analyzed.
+A carrier's own breeding value therefore contributes to its advantage with weight $1$ in females and $\beta = 1 - \alpha + \alpha\gamma$ in males, averaging $\bar{\beta} = (1+\beta)/2$ across the sexes. Social partners' breeding values exhibit correlation $r_{mf}$. Each generation of selection multiplies a gene copy's association with its selective background by the retention factor $Z$ (Appendix~\ref{app:B_Z}). Except in Section~\ref{app:C_mult}, the following derivations employ the small-variance approximation ($V_A \ll 1$).
 
-\subsection{Short- and long-map limits}\label{app:C_limits}
-As $M \to 0$, $\overline{Q^2}_\text{H} \to (1-Z)^{-2}$, the non-recombining limit of background selection. Approaching this limit requires recombination across the entire chromosome to be slower than purging ($M \ll 1 - Z$), not \claude{only a short physical map. At} $Z = 0.99$ and $M = 0.5$, $\overline{Q^2}_\text{H} = 387$ compared with $(1-Z)^{-2} = 10^4$. Conversely, as $\ell \to \infty$, $\mathcal{K}_\text{H}(\ell) \to \Gamma^{-2} = Q^2$, recovering the unlinked factor\claude{, and on a freely recombining chromosome ($M \to \infty$) the linked and unlinked terms of Equation}~\eqref{total_red} \claude{combine into the reduction at unlinked sites, $e^{-Q^2\kappa V_A}$.} Convergence to this free-recombination limit is slow:
+\subsection{Long-term contributions and \texorpdfstring{$\kappa$}{kappa}}\label{app:C_kappa}
+Consider a neutral gene copy in individual $X$ with social partner $X'$. The copy's expected number of transmitted descendants is proportional to $1 + u_X$. In a descendant carrier with expected breeding value $h$, the partner's expected breeding value is $r_{mf}h$, contributing to the carrier's advantage with weight $1$ in female nests and $1 - \alpha$ in male nests. The carrier's expected advantage is thus $\tilde{\beta}\,h$, where
 \begin{equation}
-    \overline{Q^2}_\text{H} = Q^2 + \frac{2}{M}\int_0^\infty \left[\mathcal{K}_\text{H}(\ell) - Q^2\right]d\ell + O(M^{-2}).
+    \tilde{\beta} = \bar{\beta} + \tfrac12 r_{mf}(2 - \alpha).
 \end{equation}
-From Equation~\eqref{eq:C_arm}, the leading integral evaluates to $\frac{1}{2\Gamma}\left[\frac{1}{1-Z} - \frac{1}{\Gamma} + \frac{\ln(\Gamma/(1-Z))}{\Gamma}\right] \sim (1-Z)^{-1}$ as $Z \to 1$ ($10.3$ at $Z = 0.9$ and $105$ at $Z = 0.99$). Free recombination therefore requires $M \gg 1/(1-Z)$; even at $M = 10$ and $Z = 0.99$, $\overline{Q^2}_\text{H} = 24.8$ against $Q^2 = 3.9$.
-
-Empirical chromosomes occupy the intermediate regime $\overline{Q^2}_\text{H} \approx 2/[M(1-Z)]$~\cite{santiago1998}\claude{, because an allele removed at rate $s = 1 - Z$ stays linked to sites within about $s$ Morgans on either side, a fraction $2s/M$ of the chromosome, for about $1/s$ generations, which gives $(1/s)^2 \times 2s/M$. For the same reason the reduction depends on the selected target per Morgan, $f_i/M_i$.} Even avian microchromosomes rarely approach the non-recombining limit\claude{, because} an obligate crossover per bivalent implies $M \gtrsim 0.5$ Morgans, and the shortest empirical maps analyzed here ($0.04$--$0.2$ Morgans in great tits and song sparrows) still greatly exceed $1 - Z$ for all but the \claude{classes purged fastest} (Table~\ref{tab:linked_limits}).
-
-\subsection{The linear map as a lower bound}\label{app:C_linear}
-Under a linear map, $r_\text{L}(\ell) = \ell$, the kernel is $\mathcal{K}_\text{L}(\ell) = (1 - Z + \ell Z)^{-2}$ and the arm integral is $\mathcal{I}_\text{L}(\ell) = \ell/[(1-Z)(1-Z+\ell Z)]$, whose mid-chromosome value matches Supplementary Equation~33 of Buffalo and Kern~\cite{buffaloKern2024}. Equation~\eqref{eq:C_haldane_avg} gives
+Offspring that inherit the copy receive half of $h$ and half of the other parent's expected breeding value. The other parent's value is $r_{mf}h$ when that parent is the social partner, with probability $1 - \alpha$, and zero when it is an extra-pair parent. Because selection then multiplies the association by $Z$, expected breeding values decline geometrically, $h_{t+1} = \theta h_t$ with $\theta = (Z/2)[1 + (1-\alpha)r_{mf}]$\claude{, the fraction of a carrier's expected breeding value that the next carrier keeps (half by segregation, raised by a correlated partner, times the retention factor)}. In the first generation the partner's breeding value is known, $h_1 = (Z/2)[a_X + (1-\alpha)a_{X'}]$. Summing $\tilde{\beta}\,h_t$ over $t \ge 1$ gives the cumulative advantage of the copy, $A_X = u_X + \Psi[a_X + (1-\alpha)a_{X'}]$ with $\Psi = \tilde{\beta}(Z/2)/(1-\theta)$\claude{, the descendants' part of the cumulative advantage, so that $1 + \Psi = Q$ under strict monogamy and, at $r_{mf} = 0$, under random mating}:
 \begin{equation}
-    \overline{Q^2}_\text{L} = \frac{2}{M^2(1-Z)}\int_0^M \frac{y}{1-Z+yZ}\,dy = \frac{2}{MZ(1-Z)} - \frac{2}{M^2Z^2}\ln\!\left(1+\frac{MZ}{1-Z}\right).
-\label{eq:closed_form}
+    A_f = (1+\Psi)\,a_f + \left[1 + \Psi(1-\alpha)\right] a_{m'}, \qquad
+    A_m = (\beta+\Psi)\,a_m + (1+\Psi)(1-\alpha)\,a_{f'}. \label{eq:C_L}
 \end{equation}
-As $M \to 0$, $\overline{Q^2}_\text{L} = (1-Z)^{-2} - \tfrac{2}{3}MZ(1-Z)^{-3} + O(M^2)$, matching $\overline{Q^2}_\text{H}$ to first order because $r_\text{H}(\ell) = \ell + O(\ell^2)$. As $M \to \infty$, however, $\overline{Q^2}_\text{L} \to 0$ rather than $Q^2$, because $r_\text{L}(\ell)$ exceeds $1/2$ for $\ell > 1/2$.
-
-Because $e^{-2\ell} > 1 - 2\ell$ implies $r_\text{H}(\ell) < \ell$ for all $\ell > 0$, it follows that $0 < 1 - Z + r_\text{H}(\ell)Z < 1 - Z + \ell Z$ everywhere for $Z \in (0, 1)$, so $\mathcal{K}_\text{L}(\ell) < \mathcal{K}_\text{H}(\ell)$ at every distance and
+For small $V_A$, $1 + A_X$ approximates the expected long-term contribution $R$ (Equation~\eqref{eq:B_R}), representing the regression of contribution on ancestral selective advantages~\cite[Equation~6b]{woolliams1999}. In each sex, $\mathbb{E}[R^2] = 1 + \mathrm{Var}(A)$, yielding $N_{e,X}/N = 1/[1 + \mathrm{Var}(A_X)]$. Combining sexes via Santiago and Caballero's~\cite{santiago1995} formula $1/N_e = \frac{1}{4N_{e,m}} + \frac{1}{4N_{e,f}}$ (following Crow and Denniston~\cite{crow1988}) at an equal sex ratio makes $N/N_e$ the mean of $1 + \mathrm{Var}(A)$ across sexes:
 \begin{equation}
-    \overline{Q^2}_\text{L} < \overline{Q^2}_\text{H} \qquad \text{for all } M > 0.
+    \frac{N_e}{N} = \frac{1}{1 + \tfrac{1}{2}\left[\mathrm{Var}(A_f) + \mathrm{Var}(A_m)\right]} \equiv \frac{1}{1 + 4\kappa V_A}. \label{eq:kappa_def}
 \end{equation}
-Equation~\eqref{eq:closed_form} is therefore a lower bound on $\overline{Q^2}_i$, and hence on the reduction in $N_e$ at linked sites. The gap grows with $M$ and with $1-Z$. $\overline{Q^2}_\text{L}/\overline{Q^2}_\text{H}$ is 0.98, 0.95 and 0.91 at $M = 0.1$, 1 and 3 Morgans for $Z = 0.99$, and 0.99, 0.85 and 0.67 for $Z = 0.9$. Buffalo and Kern~\cite{buffaloKern2024} use instead the linear-map profile at the middle of the segment, $\overline{Q^2}_\text{L}(M/2) = 1/[(1-Z)(1-Z+ZM/2)]$, which is the largest value along the segment. The mid-segment value exceeds $\overline{Q^2}_\text{H}$ by at most about 12\%, on short maps with $M$ a few times $1-Z$, and \claude{is} below it once $M$ exceeds about one Morgan and purging is fast, to 0.81 at $M = 10$ for $Z = 0.99$ and 0.41 for $Z = 0.9$ (Figure~\ref{fig:S_maps}). Both linear-map expressions are close to the Haldane average over the rest of the range, which includes the short, densely mapped segments of human data for which the mid-segment value was designed. The main text uses the Haldane closed form, Equation~\eqref{eq:C_closed_haldane}.
-
-\subsection{Upper bound on the linked factor (\texorpdfstring{$\Omega_i \le 1$}{Omega <= 1})}\label{app:omega}
-\claude{Linkage can only lengthen the association between a neutral site and the selected alleles on its haplotype, so their variance never counts for less than it would at an unlinked site. The argument below makes this exact.} Because $\mathcal{K}_\text{H}(\ell)$ decreases monotonically from $(1-Z)^{-2}$ to $Q^2$, every local profile satisfies $\overline{Q^2}(y) \ge Q^2$, and therefore $\overline{Q^2}_i \ge Q^2$ regardless of how selected variance is distributed along the chromosome (Section~\ref{app:C_spatial}). We define three compound quantities
+Here $4\kappa V_A$ is the sex-averaged variance of long-term contributions, and $\kappa$ scales this variance relative to its random-mating baseline ($Z = 1$, $r_{mf} = 0$, $4V_A$). For a weighted sum $\xi_1 a + \xi_2 a'$ of partner breeding values with correlation $r_{mf}$, the variance is $V_A\,\sigma^2(\xi_1, \xi_2) = V_A(\xi_1^2 + \xi_2^2 + 2r_{mf}\xi_1\xi_2)$, yielding
 \begin{equation}
-    \Lambda_\text{linked} = \kappa_\text{cis}\overline{Q^2}_iv_h, \qquad \Lambda_\text{own} = \kappa_\text{own}Q^2v_h, \qquad \Lambda_\text{unlinked} = Q^2\kappa V_A.
+    \kappa = \frac{\sigma^2\!\left(1+\Psi,\ 1+\Psi(1-\alpha)\right) + \sigma^2\!\left(\beta+\Psi,\ (1-\alpha)(1+\Psi)\right)}{8}. \label{eq:C_kappa_general}
 \end{equation}
-In the primary model $\kappa_\text{cis} = \kappa_\text{own}$ (Appendix~\ref{app:B_split}), so $\Lambda_\text{linked} \ge \Lambda_\text{own}$; furthermore, $\Lambda_\text{unlinked} \ge \Lambda_\text{own}$ since $v_h \le V_A$ and $\kappa \ge \kappa_\text{own}$. Under the multiplicative form of Equation~\eqref{total_red}, $\Omega_i = e^{-(\Lambda_\text{linked} - \Lambda_\text{own})} \le 1$ follows immediately, with equality on a freely recombining chromosome ($\overline{Q^2}_i \to Q^2$)\claude{, because there no association outlasts an unlinked one, so linkage adds nothing}.
 
-The bound also holds when the unlinked factor uses the small-variance reciprocal form $1/(1 + \Lambda_\text{unlinked} - \Lambda_\text{own})$\claude{, because} $e^{-\Lambda_\text{linked}} \le e^{-\Lambda_\text{own}} \le 1/(1+\Lambda_\text{own})$,
+\subsection{\texorpdfstring{$\kappa$}{kappa} under Models A and B}\label{app:C_limits}
+When $Z = 1$ and $r_{mf} = 0$, $\theta = 1/2$ and $\Psi = \bar{\beta}$. Model B ($\beta = \bar{\beta} = 1$) reduces Equation~\eqref{eq:C_kappa_general} to
 \begin{equation}
-    \Omega_i = e^{-\Lambda_\text{linked}}\,\frac{1+\Lambda_\text{unlinked}}{1+\Lambda_\text{unlinked}-\Lambda_\text{own}} \le \frac{1+\Lambda_\text{unlinked}}{(1+\Lambda_\text{own})(1+\Lambda_\text{unlinked}-\Lambda_\text{own})} \le 1,
+    \kappa_B = 2 - \tfrac32\alpha + \tfrac58\alpha^2. \label{eq:kappaB}
 \end{equation}
-where the final inequality holds because $(1+\Lambda_\text{own})(1+\Lambda_\text{unlinked}-\Lambda_\text{own}) - (1+\Lambda_\text{unlinked}) = \Lambda_\text{own}(\Lambda_\text{unlinked}-\Lambda_\text{own}) \ge 0$. Under free recombination, this mixed form gives $\Omega_i = 1 - \Lambda_\text{own}\Lambda_\text{unlinked}/(1 + \Lambda_\text{unlinked}) + O(\Lambda_\text{own}^2)$, an $O(v_h V_A)$ discrepancy arising solely from combining exponential and reciprocal approximations for the same variance. Under a distribution of fitness effects, the bound applies class by class.
+For Model A ($\beta = 1 - \alpha$, $\bar{\beta} = 1 - \alpha/2$),
+\begin{equation}
+    \kappa_A(\alpha) = \frac{(4-\alpha)^2\left[1+(1-\alpha)^2\right] + (4-3\alpha+\alpha^2)^2 + (4-3\alpha)^2}{32}.
+\end{equation}
+As $\alpha$ increases to $1$, $\kappa_B$ decreases monotonically to $9/8$ (staying above $1$ because social males retain productivity contributions), whereas $\kappa_A$ drops to $7/16$ and falls below $1$ once $\alpha > 0.44$ (Figure~\ref{fig:S_kappa}).
 
-\claude{With linkage, the minimum variance that accounts for $\delta$ solves Equation}~\eqref{eq:genome_linked}\claude{ set equal to $\delta$ (Methods), and because $\overline{\Omega} \le 1$ it lies below the unlinked threshold at the same retention factor, $\ln(1/\delta)/(Q^2\kappa)$, which equals $V_{A,\delta}$ at $Z = 1$ and $\kappa = \kappa_\text{max}$.}
+Under strict monogamy ($\alpha = 0$), both models yield $1 + \Psi = \frac{2}{2 - Z(1 + r_{mf})} = Q$, giving $A_f = Q(a_f + a_{m'})$ and recovering the pair-mated model of Santiago and Caballero~\cite{santiago1995} with $\kappa = 2$ at $Z = 1, r_{mf} = 0$. Under random mating, $u = a$ in both sexes ($\tilde{\beta} = 1$), yielding $A = \frac{a}{1-\theta} = Q\,a$ and $\kappa = Q^2/4$ ($1$ at $Z = 1, r_{mf} = 0$). Positive assortative mating ($r_{mf} > 0$) extends association persistence via $\theta$ to elevate $\kappa$; we set $r_{mf} = 0$ in the absence of empirical estimates. Under random mating and Model B, carrier weights equal $1$ in both sexes, preserving the single-sex retention factor $Z = 1$ (Gaussian) or $Z_k = 1 - s_k$ (deleterious classes; Equation~\eqref{eq:Zclass}).
 
-\subsection{Non-uniform placement of selected variance}\label{app:C_spatial}
-Because the chromosomal architecture of fitness variance in wild populations is unknown~\cite{barton2002}, uniform placement is a baseline assumption. Let $g(x) \ge 0$ ($\int_0^M g(x)\,dx = 1$) denote the density of selected variance in map distance. With neutral sites uniform in map distance, symmetry of $\mathcal{K}_\text{H}(\vert x-y\vert)$ yields
+\subsection{Own, partner, and cis components}\label{app:C_split}
+Evaluating linked selection requires partitioning $\kappa$ into components attributable to the carrier versus its social partner (the divergence between ancestor-centered contributions and gene-centered backgrounds; \autoref{sec:unlinked}). Because neither the homologous (\emph{trans}) haplotype nor a social partner's breeding value co-segregates with the focal gene copy, the individual ancestor's long-term contribution no longer governs drift at linked sites. \claude{Because meiosis separates the homologous chromosomes every generation, a neutral allele remains linked only to the selected alleles in \emph{cis} on its own haplotype}~\cite{buffaloKern2024}, which carries half the chromosome's diploid variance ($v_h = v_i/2$). Similarly, only the carrier's own breeding value\claude{, not its mate's,} acts in \emph{cis}. Setting $r_{mf} = 0$, $\mathrm{Var}(A_f) + \mathrm{Var}(A_m)$ separates into carrier and partner variances:
 \begin{equation}
-    \overline{Q^2}_\text{H}[g] = \frac{1}{M}\int_0^M\!\!\int_0^M g(x)\, \mathcal{K}_\text{H}(\vert x-y\vert)\,dx\,dy = \int_0^M g(x)\,\overline{Q^2}(x)\,dx, \label{general_g}
+\begin{gathered}
+    \kappa = \kappa_\text{own} + \kappa_\text{partner}, \\
+    \kappa_\text{own} = \frac{(1+\Psi)^2 + (\beta+\Psi)^2}{8}, \qquad
+    \kappa_\text{partner} = \frac{\left[1+\Psi(1-\alpha)\right]^2 + (1-\alpha)^2(1+\Psi)^2}{8}.
+\end{gathered}
+\label{eq:kappa_split}
 \end{equation}
-\claude{where the square brackets mark the chromosome average as a function of the whole density $g$. Because $\mathcal{K}_\text{H}$ depends only on the distance between the two sites, the profile of Equation}~\eqref{eq:C_profile} \claude{has two equivalent meanings. Evaluated at a neutral site, it averages the kernel over selected loci spread uniformly; evaluated at a selected locus, as here, it averages the kernel over neutral sites spread uniformly, and so measures how much a locus at $x$ reduces diversity along the whole chromosome. With $g = 1/M$ the chromosome average recovers the uniform one, $\overline{Q^2}_\text{H}[1/M] = \overline{Q^2}_\text{H}$,} and for $J$ loci of equal effect at $x_1, \ldots, x_J$ it is the mean of $\overline{Q^2}(x_j)$. Because $\overline{Q^2}(x) \ge Q^2$ everywhere, $\Omega_i \le 1$ holds for every $g$. The profile is strictly concave, because its second derivative, $[\mathcal{K}_\text{H}'(x) + \mathcal{K}_\text{H}'(M-x)]/M$, is negative. It is largest at the midpoint and smallest at the telomeres, because a central locus is linked to neutral sites on both chromosome arms and a terminal one to sites on one arm only.
+The partner's genes are never on the focal copy's haplotype, so the partner component is unlinked. The share of the own component that lies on the focal haplotype, $v_h$, is assigned to the linked term. In the linked term, a selected locus keeps its association with the copy with probability $\rho = (1-r)Z$ per generation. When every carrier has weight 1, the cumulative advantage per unit of the locus's effect is the linked kernel $1/(1-\rho) = 1 + \chi$ of \autoref{sec:linkage}, with $\chi = \rho/(1-\rho)$. With the carrier's own weight $\beta_X$ (1 in females, $\beta$ in males) and later carriers' average weight $\bar{\beta}$, the cumulative advantage is $\beta_X + \bar{\beta}\chi$ instead. The square of this weighted kernel relative to the square of the unweighted one, averaged over the sexes, is
+\begin{equation}
+    \kappa_\text{cis}(\rho) = \frac{\left[1 + \bar{\beta}\chi\right]^2 + \left[\beta + \bar{\beta}\chi\right]^2}{2(1+\chi)^2},
+\end{equation}
+which decreases from $(1+\beta^2)/2$ as $\rho \to 0$ to $\bar{\beta}^2$ under tight linkage. Under random mating, and under Model B, $\beta = 1$, so $\kappa_\text{own} = \kappa_\text{cis} = 1$ and $\kappa_\text{partner} = \kappa - 1$. The remainder of the genome \claude{(the homologous haplotype and all other chromosomes)} assorts independently of the focal neutral site\claude{, so Equation}~\eqref{total_red} \claude{uses this split, applying} $\kappa_\text{cis}$ to the linked term and $Q^2(\kappa V_A - \kappa_\text{own}v_h)$ to the exponent of the unlinked background, with $Q = 2/(2-Z)$ at the same retention factor as the linked term. \claude{Because the \emph{cis} haplotype variance $v_h$ moves from the unlinked to the linked term, no variance is counted twice. The two terms combine additively in the exponent if selected loci are distributed independently along the genetic map, so that their effects multiply}~\cite{hudson1995,santiago2016}\claude{, and fitness is multiplicative across loci}~\cite[Supplementary Equations~28--29]{buffaloKern2024}; \cite[cf.][]{santiago1998}\claude{. Across a DFE, $\overline{Q^2}_i$ and $Q^2$ are replaced by their averages over the variance weights $\nu_k$, and the multiplicative bound replaces $\kappa$ by $\kappa_\text{max}$ (Appendix}~\ref{app:omega}\claude{ gives the small-variance form).}
 
-Because linked diversity depends on the expectation of the convex function $\exp(-\kappa_\text{cis} v_h \overline{Q^2})$, Jensen's inequality implies that for a single locus placed uniformly at random on $[0, M]$,
+\subsection{The multiplicative model with pair bonds}\label{app:C_mult}
+Under Model B with multiplicative fitness ($w \propto e^{z}$), a gene copy's long-term contribution flows through within-pair and extra-pair routes. In females, productivity is $e^{z_f + z_{m'}}$, with a fraction $1 - \alpha$ of offspring sired by $m'$ and $\alpha$ by extra-pair sires. In males, contributions arise from within-nest and extra-pair offspring proportional to $e^{z_m}$. Following Appendix~\ref{app:B_R}, expected contributions evolve as
 \begin{equation}
-    \mathbb{E}_{x_0}\!\left[\exp\!\left(-\kappa_\text{cis} v_h \overline{Q^2}(x_0)\right)\right] > \exp\!\left(-\kappa_\text{cis} v_h \overline{Q^2}_\text{H}\right).
+    R_f \propto (1-\alpha)\,e^{2a_f + 2a_{m'}} + \alpha \mathcal{E}_f\,e^{2a_f + a_{m'}}, \qquad
+    R_m \propto (1-\alpha)\,e^{2a_m + 2a_{f'}} + \alpha \mathcal{E}_m\,e^{2a_m},
 \end{equation}
-For $J$ independently placed equal-effect loci, a second-order expansion gives
+where $\mathcal{E}_f$ and $\mathcal{E}_m$ absorb expectations over outside individuals and equal $1$ at $V_A = 0$. Letting $\mathbf{a} = (a_X, a_{X'})$ denote independent carrier and partner deviations, contributions take the mixture form $R = \sum_l \mathcal{C}_l e^{\boldsymbol{\lambda}_l\cdot\mathbf{a}}$, with exponent vectors $\boldsymbol{\lambda} \in \{(2,2), (2,1)\}$ in females and $\{(2,2), (2,0)\}$ in males, and coefficients $\mathcal{C}_1 = 1 - \alpha$, $\mathcal{C}_2 = \alpha\mathcal{E}_X$. Using the Gaussian moment-generating function $\mathbb{E}[e^{\boldsymbol{\lambda}\cdot\mathbf{a}}] = e^{V_A|\boldsymbol{\lambda}|^2/2}$,
 \begin{equation}
-    \mathbb{E}\!\left[\exp\!\left(-\kappa_\text{cis} v_h \overline{Q^2}_\text{H}[g]\right)\right] - \exp\!\left(-\kappa_\text{cis} v_h \overline{Q^2}_\text{H}\right) \approx \frac{(\kappa_\text{cis} v_h)^2}{2J}\exp\!\left(-\kappa_\text{cis} v_h \overline{Q^2}_\text{H}\right)\mathrm{Var}_x\!\left[\overline{Q^2}(x)\right].
+    \frac{\mathbb{E}[R^2]}{\mathbb{E}[R]^2} = \sum_{l,l'} \omega_l \omega_{l'}\, e^{V_A\,\boldsymbol{\lambda}_l\cdot\boldsymbol{\lambda}_{l'}}, \qquad
+    \omega_l = \frac{\mathcal{C}_l\, e^{V_A|\boldsymbol{\lambda}_l|^2/2}}{\sum_{l'} \mathcal{C}_{l'}\, e^{V_A|\boldsymbol{\lambda}_{l'}|^2/2}}, \label{eq:C_moments}
 \end{equation}
-Under random placement independent of recombination rate, uniform density therefore maximizes the expected linked reduction in $N_e$. This ordering can reverse, however, when selected alleles are concentrated in regions of suppressed recombination such as pericentromeres or chromosomal inversions. Even without physical clustering, low recombination compresses large stretches of selected and neutral sequence into a short map interval, locking them together and elevating local linkage above the uniform-map baseline; evolutionary processes that actively concentrate selected alleles within low-recombination regions or inversions~\cite{kirkpatrick2006,yeaman2013} compound this effect further.
+where $\omega_l$ is route $l$'s share of expected long-term contribution. Averaging over sexes per Equation~\eqref{eq:B_ratio} yields $N_e/N$. Because all dot products $\boldsymbol{\lambda}_l\cdot\boldsymbol{\lambda}_{l'} \le 8$, the ratio in Equation~\eqref{eq:C_moments} is bounded above by $e^{8V_A}$ in either sex. Conversely, Jensen's inequality bounds the sex mean below by $\exp(V_A|\bar{\boldsymbol{\lambda}}_X|^2)$. At baseline weights $(\omega_1, \omega_2) = (1-\alpha, \alpha)$, $\tfrac{1}{2}(|\bar{\boldsymbol{\lambda}}_f|^2 + |\bar{\boldsymbol{\lambda}}_m|^2) = 8 - 6\alpha + \tfrac{5}{2}\alpha^2 = 4\kappa_B$. Consequently, provided extra-pair routes carry no more than proportional share $\alpha$,
+\begin{equation}
+    e^{-8V_A} \le \frac{N_e}{N} \le e^{-4\kappa_B V_A}. \label{eq:C_mult_pair}
+\end{equation}
+This bound holds for extra-pair multipliers $\mathcal{E}_f, \mathcal{E}_m$ up to $e^{2V_A}$. At $\alpha = 0$, $\kappa_B = 2$ and both bounds collapse to Weissman and Barton's~\cite{weissman2012} strict-monogamy result ($e^{-8V_A}$; Equation~\eqref{eq:B_mono}). For small $V_A$, the upper bound recovers $1/(1 + 4\kappa_B V_A)$, whereas for larger $V_A$ the within-pair route dominates $\mathbb{E}[R^2]$, shifting the exact ratio toward the lower bound.
 
 \ifdefined\isMainDocument
 \else

@@ -18,7 +18,7 @@ ggplot() +geom_line(aes(x = r, y = log10(Q1)), col="black")+geom_line(aes(x = r,
   geom_vline(xintercept = 0.5, col="red", alpha=0.5, linetype = "dashed")+ theme_Publication()
 dev.off()
         
-# Appendix B (re-derived 2026-10-14): social monogamy with a shared nest.
+# Appendix C (re-derived 2026-10-14): social monogamy with a shared nest.
 # Model A (orange) = extra-pair siring a lottery; Model B (blue) = extra-pair
 # gains replace the within-pair loss. Grey: no pair bond, kappa = 1.
 source("scripts/R/kappa.R")

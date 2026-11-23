@@ -1,7 +1,7 @@
 # check_tail_realization.R — when does a finite population realize the multiplicative reduction?
 #
 # Under the multiplicative bound, log R = sigma * X with X ~ N(0, 1) and sigma^2 = 4 kappa_max V_A
-# (Appendix A). E[R^2] is dominated by ancestors at X = 2 sigma, a fraction ~ exp(-2 sigma^2) =
+# (Appendix B). E[R^2] is dominated by ancestors at X = 2 sigma, a fraction ~ exp(-2 sigma^2) =
 # exp(-8 kappa_max V_A) of individuals. A population of N breeding individuals contains them in a
 # typical generation only while 8 kappa_max V_A < ln N, i.e. V_A < V* = ln(N) / (8 kappa_max).
 # At V*, N_e/N = exp(-4 kappa_max V*) = N^(-1/2), so N_e = sqrt(N).

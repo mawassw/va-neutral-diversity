@@ -26,7 +26,7 @@ theme_Publication <- function(base_size=16, base_family="serif") {
 
 ####### The Mating System Scalars & Constraint Equations ########
 
-# Appendix B (re-derived 2026-10-14; formulas in scripts/R/kappa.R). Social
+# Appendix C (re-derived 2026-10-14; formulas in scripts/R/kappa.R). Social
 # monogamy: shared nest, Model A = extra-pair siring independent of male breeding
 # value, Model B = extra-pair gains replace the within-pair loss. No pair bond
 # (species_EPP.csv codes these EPP = 1): kappa = 1 under both models.

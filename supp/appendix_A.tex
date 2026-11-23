@@ -24,91 +24,53 @@
     \appendix
 \fi
 % Working copy (since 2026-10-17 the section files, not scratch.tex, are edited directly).
-% Rewritten 2026-10-21 as one chain (user): long-term contributions -> effective size at
-% all orders -> first order -> upper tail -> retention factor Z. The extra-pair-paternity bracket
-% moved to Appendix B (it rests on Model B); Bonnet's estimand moved to Theory sec:onemodel.
+% Rewritten 2026-10-21 (user): setup once; stationary variance -> inversion and its conditions
+% (symbols only; population numbers in Methods and Results) -> DFE -> fast purging -> the
+% unlinked limit of background selection. retention factor and class weights are derived in A.4.
 
-\section{Effective size under heritable variance in log-fitness}\label{app:unlinkedapp}
+\section{Mutation--selection--drift balance and the implied selection coefficient}\label{app:msdbapp}
 
-\subsection{Long-term genetic contributions and effective size}\label{app:A_R}
-Following Barton and Etheridge~\cite{barton2011}, consider a diploid population of $N$ breeding adults in which a parent with additive breeding value $z$ for log-fitness produces a Poisson number of offspring with mean proportional to $e^{z}$, where $z \sim \mathcal{N}(\bar{z}, V_A)$. Dominance and epistatic deviations are omitted because they do not transmit stably across generations. Assume initially that mating is random with respect to $z$, and consider a neutral locus unlinked to all selected loci (pair bonds and extra-pair paternity are treated in Appendix~\ref{app:matingapp}, and physical linkage in Appendix~\ref{app:chromosapp}).
+\subsection{Stationary variance}\label{app:A_stationary}
+Suppose deleterious mutations arise at rate $U_d$ per diploid genome per generation across $L_\text{target}$ independent sites in a population of constant effective size $N_e$. We define $U_d = 2\mu L_\text{target}$, with per-site mutation rate $\mu$ satisfying $4N_e\mu \ll 1$.  Mutations are semidominant with heterozygous effect $s \ll 1$ on relative fitness (genotype fitnesses $1$, $1-s$, $1-2s$), so a site at mutant frequency $q$ contributes $2q(1-q)s^2$ to the additive variance in relative fitness $V_A$. Under a distribution of fitness effects (DFE) with density $\varphi(s)$ and arithmetic mean $\bar{s}$, class $k$ has heterozygous effect $s_k$ and receives fraction $\varphi_k$ of new mutations.
 
-Track a neutral gene copy carried by an ancestor with breeding value $z$. Tracking a gene copy rather than an individual allows the same bookkeeping to extend directly to pair bonds and linked sites; at an unlinked site the two perspectives are equivalent because a gene copy's survival probability is proportional to the long-term genetic contribution of its carrier~\cite{barton2011}. Under the infinitesimal model, offspring of carrier $z$ inherit a mean deviation $\tfrac12(z - \bar{z})$ plus a Mendelian segregation residual of variance $\tfrac12 V_A$. Because this segregation variance is homoscedastic (independent of $z$) and expected family sizes multiply along a lineage, deviations in each subsequent generation decay by a factor of $1/2$ and sum on the log scale to $(1 + \tfrac12 + \tfrac14 + \dots)(z - \bar{z}) = 2(z - \bar{z})$. Solving the exact reproductive-value recursion~\cite[Appendix~B]{barton2011}, the expected long-term contribution of the ancestral copy, normalized such that $\mathbb{E}[R] = 1$, is
+For a semidominant deleterious allele, the stationary expected heterozygosity per site ($2q(1-q)$) under the diffusion approximation~\cite{kimura1969} is
 \begin{equation}
-    R(z) = \exp\left[Q(z - \bar{z}) - \tfrac12 Q^2V_A\right], \qquad Q = 2. \label{eq:A_R}
+    \mathbb{E}[2q(1-q)] = 8N_e\mu\left(\frac{1}{4N_e s} - \frac{1}{e^{4N_e s} - 1}\right).
 \end{equation}
-
-Two neutral copies sampled in a distant future generation coalesce in the ancestral generation if both descend from the same ancestral copy. Ancestral copy $j$ ($j = 1, \dots, 2N$), carried by an individual with breeding value $z_j$, contributes an expected fraction $p_j = R(z_j)/\sum_{j'=1}^{2N} R(z_{j'}) = R(z_j)/(2N\,\mathbb{E}[R])$ of the descendant gene pool. Conditional on the carrier's breeding value, the two homologous copies within a diploid parent segregate independently into Poisson family sizes, so two sampled lineages trace to copy $j$ with probability $p_j^2$~\cite{barton2011}. Summing over all $2N$ ancestral copies yields the per-generation rate of inbreeding~\cite{wray1990},
+Multiplying by $s^2$ and summing over $L_\text{target}$ sites gives Equation~\eqref{eq:VA_MSD} of the main text:
 \begin{equation}
-    \Delta F = \sum_{j=1}^{2N} p_j^2 = \frac{1}{2N}\,\frac{\mathbb{E}[R^2]}{\mathbb{E}[R]^2}. \label{eq:A_dF}
+    V_A = U_d\,s\left(1 - \frac{4N_e s}{e^{4N_e s} - 1}\right). \label{eq:A_VA_MSD}
 \end{equation}
-Without heritable variance every copy has the same contribution with $R = \mathbb{E}[R]$ and $\Delta F = 1/(2N)$, the Poisson baseline. Heritable variance replaces $\mathbb{E}[R]^2$ by $\mathbb{E}[R^2]$\claude{, so the more unequal the shares $p_j$, the more often two lineages trace to the same copy}. Because $\Delta F$ is the probability that two lineages coalesce in one generation, setting $\Delta F = 1/(2N_e)$ defines the inbreeding effective size, which here is also the coalescent effective size $N_{eC}$ that $\pi$ measures. \claude{The inbreeding, variance and coalescent effective sizes coincide whenever the size and pattern of reproduction of a population remain constant, not only under Wright--Fisher sampling}~\cite{caballero1994}\claude{, and differ when its size changes}~\cite{crow1988}\claude{.} The inbreeding effective size is not the variance effective size of a single generation. That size reflects only one generation's family-size variance and so omits the persistence of the carriers' advantage along the lineage that produces the factor $Q^2$. With $N$ and $V_A$ constant, the long-term $N_{eV}$ converges to the same value, and
+The parenthetical factor lies strictly in the range $[0, 1]$. For $N_e s \ll 1$, it expands to $2N_e s$, recovering the neutral mutation--drift variance $V_A \approx 2N_e U_d s^2$~\cite{lynch1986}. For $N_e s \gg 1$, it approaches $1$, as each allele is held near $q = \mu/s$ and $V_A \approx U_d s$ at mutation-selection balance~\cite{mukai1972,charlesworth2012}.
+
+\subsection{Inverting for \texorpdfstring{$s^*$}{s*}}\label{app:A_inversion}
+Because Equation~\eqref{eq:A_VA_MSD} is strictly increasing in $s$ from $0$ to $\infty$, any observed $V_A > 0$ determines a unique single-effect solution $s$. In the strong-selection limit, Equation~\eqref{eq:strong} inverts to $s^* = \bar{V}_A / U_d$ (Equation~\eqref{eq:sstar}), which is self-consistent whenever $2N_e s^* \gg 1$. \claude{A solution in the weak-selection regime ($2N_e s \ll 1$), where $V_A \approx 2N_e U_d s^2$, would require}
 \begin{equation}
-    \frac{N_e}{N} = \frac{\mathbb{E}[R]^2}{\mathbb{E}[R^2]}, \label{eq:A_ratio}
+    N_e \ll \frac{U_d}{2V_A},
 \end{equation}
-giving Equation~\eqref{eq:ratio} of the main text. Because $\log R$ is Gaussian, $\mathbb{E}[R]^2/\mathbb{E}[R^2] = \exp[-\mathrm{Var}(\log R)]$. Under random mating, $\mathrm{Var}(\log R) = Q^2V_A = 4V_A$, yielding Equation~\eqref{eq:ne_mult}:
+corresponding to an effective size of only a few individuals for $U_d \sim O(1)$ and $V_A \sim O(0.1)$. Both $2N_e s^*$ and $U_d/(2V_A)$ are reported for each study population in the Results.
+
+\subsection{Distributions of fitness effects}\label{app:A_dfe}
+Summing Equation~\eqref{eq:A_VA_MSD} over selective classes gives the stationary variance maintained under a DFE:
 \begin{equation}
-    \frac{N_e}{N} = e^{-4V_A}. \label{eq:A_mult}
+    V_A^{\text{DFE}} = U_d \sum_k \varphi_k\, s_k\left(1 - \frac{4N_e s_k}{e^{4N_e s_k} - 1}\right) \le U_d\,\bar{s}.
+\label{eq:VA_forward}
 \end{equation}
+Equality is attained in the strong-selection limit, where each class contributes $U_d\,\varphi_k s_k$ regardless of the shape of $\varphi(s)$\claude{, because a class of larger effect adds more variance per generation and is removed proportionally sooner (}\autoref{sec:msdb}\claude{)}; consequently, $s^*$ estimates the arithmetic mean $\bar{s}$. The shape of the DFE matters only through nearly neutral classes ($4N_e s_k \lesssim 1$), which contribute less than $U_d\,\varphi_k s_k$ and therefore lower $V_A^{\text{DFE}}$ for a fixed mean $\bar{s}$. Using the upper bound $U_d\,\bar{s}$ with the DFE assigned to each population~\cite{lin2026} (Methods) is therefore \claude{biased toward passing the maintenance test, because} it overstates the variance maintainable by mutation--selection--drift balance. The class-specific retention factor $Z_k = 1 - s_k$ and variance share $\nu_k = \varphi_k s_k / \bar{s}$ are derived in Appendix~\ref{app:B_Z}.
 
-Under strict lifetime monogamy, pairs form at random and a pair with breeding values $z$ and $z'$ produces offspring in proportion to $e^{z + z'}$~\cite{weissman2012}. Every offspring that inherits the focal neutral copy from parent $z$ simultaneously inherits half of its unlinked background from parent $z$ and half from the monogamous partner $z'$. Consequently, the partner's deviation $(z' - \bar{z})$ is co-transmitted along the focal gene's lineage through the same geometric series ($1 + \tfrac12 + \tfrac14 + \dots = 2$) as the carrier's own deviation, yielding $\log R = 2(z - \bar{z}) + 2(z' - \bar{z}) - 4V_A$. Because $z$ and $z'$ are independent, $\mathrm{Var}(\log R) = 8V_A$ and
+\subsection{Unlinked reduction under fast purging}\label{app:A_purge}
+Strongly deleterious alleles are purged within a few generations, causing their statistical associations with unlinked neutral sites to decay faster than through Mendelian segregation alone. At retention factor $Z_k = 1 - s_k$, the unlinked transmission factor (Equation~\eqref{eq:Q}) becomes $Q_k = 2/(1 + s_k)$ in place of $2$~\cite{santiago1998,charlesworth2012}. Weighting by each class's variance share $\nu_k = \varphi_k s_k / \bar{s}$ of $V_A = U_d\bar{s}$ yields
 \begin{equation}
-    \frac{N_e}{N} = e^{-8V_A}. \label{eq:A_mono}
+    \sum_k \nu_k\,Q_k^2\,V_A = 4U_d\,\bar{s}_\text{eff}, \qquad \bar{s}_\text{eff} = \sum_k \varphi_k\,\frac{s_k}{(1+s_k)^2} < \bar{s}.
+\label{eq:A_purge}
 \end{equation}
-Equations~\eqref{eq:A_mult} and \eqref{eq:A_mono} match the $e^{-4V_A}$ and $e^{-8V_A}$ reductions in the fixation probability of a weakly beneficial allele derived by Weissman and Barton~\cite{weissman2012}, as both coalescence and fixation rates scale inversely with the variance of long-term genetic contributions $\mathbb{E}[R^2]/\mathbb{E}[R]^2$~\cite{kimura1962}.
+\claude{Large effects are discounted because their carriers are removed before the association has lasted its two generations.} Equation~\eqref{eq:A_purge} replaces $4\kappa V_A$ by $4\kappa U_d\bar{s}_\text{eff}$ in the reduction at unlinked sites, in the multiplicative model or its small-variance approximation. The substitution is exact under random mating and under strict monogamy. With extra-pair paternity, $\kappa$ itself depends on $Z$ (Equation~\eqref{eq:C_kappa_general}), and holding it at its value for $Z = 1$ understates the reduction in $N_e$, by at most 2.3\% for $s_k \le 0.1$. Like truncation of the upper tail of log-fitness (Appendix~\ref{app:B_tail}), purging lowers the reduction in $N_e$ below the multiplicative bound used in the main text. Results give the size of this purging correction at $s^*$.
 
-\claude{An ancestor's expected contribution is settled within about ten generations, and mostly within the first two, because the initial terms of the $Q$ series dominate}~\cite{barton2011}\claude{. The advantage therefore needs to keep its sign for only a few generations to amplify drift, as it does under MSDB, during sweeps of positively selected alleles and under fluctuating selection that is positively autocorrelated between generations, whereas selection that reverses direction every generation makes the terms alternate in sign and gives $Q = \sum_{t=0}^{\infty}(-\tfrac{1}{2})^t = 2/3$. Over the genealogy, $V_A$ and $N$ may both change. If $N(t)$ fluctuates, $N$ in Equation}~\eqref{eq:harmonic}\claude{ is replaced by its harmonic mean provided $V_A(t)$ and $1/N(t)$ are uncorrelated; if they covary, $\bar{V}_A$ becomes the mean of $V_A(t)$ weighted by $1/N(t)$, because small generations contribute most to both the harmonic mean and the drift that heritable variance in fitness causes.}
+\subsection{Equivalence to the unlinked limit of background selection}\label{app:A_bgs}
+Equation~\eqref{eq:A_purge} coincides with the unlinked limit of classical background selection. Consider a diploid selected locus with haploid (per-gamete) deleterious mutation rate $\mu_\text{locus}$ and heterozygous effect $s$. At mutation--selection balance ($q \approx \mu_\text{locus}/s$), the locus contributes $2qs^2 = 2\mu_\text{locus}s$ to $V_A$, or $\mu_\text{locus}s$ per homolog. For a neutral site at recombination fraction $r$, the background-selection reduction from the single \textit{cis} copy is $\exp\left[-\mu_\text{locus}s / (s + r(1-s))^2\right]$~\cite{hudson1995,nordborg1996}, which at $r = \tfrac12$ reduces to $\exp\left\{-[2/(1+s)]^2\mu_\text{locus}s\right\}$, recovering the transmission factor $Q_k = 2/(1+s_k)$ of Equation~\eqref{eq:A_purge}.
 
-\subsection{The small-variance approximation}\label{app:A_first}
-When $V_A \ll 1$, linearizing $R(z) \approx 1 + Q(z - \bar{z})$ gives $\mathbb{E}[R^2] = 1 + \mathrm{Var}(R) \approx 1 + Q^2V_A$, reducing Equation~\eqref{eq:A_ratio} to
-\begin{equation}
-    \frac{N_e}{N} = \frac{1}{1 + Q^2V_A}. \label{eq:A_first}
-\end{equation}
-Robertson~\cite{robertson1961} and Santiago and Caballero~\cite{santiago1995} (reviewed in Wang et al.~\cite{wang2016}) derived Equation~\eqref{eq:A_first} for any smooth mapping from breeding value to fitness, because all such mappings linearize to the same first-order form as $V_A \to 0$. In their general formulation, the cumulative transmission factor is $Q = 2/[2 - Z(1 + r_{mf})]$ (Equation~\eqref{eq:Q}), where $Z$ is the retention factor (Appendix~\ref{app:A_Z}) and $r_{mf}$ is the correlation between mates' breeding values. At $Z = 1$ and $r_{mf} = 0$, $Q = 2$ and $N_e/N = 1/(1 + 4V_A)$; under strict monogamy, expanding Equation~\eqref{eq:A_mono} gives $1/(1 + 8V_A)$.
+At an unlinked locus, however, the \textit{trans} (homologous) copy reshuffles at the same rate $r = \tfrac12$ as the \textit{cis} copy and makes an identical contribution, so the diploid locus lowers $N_e/N$ by $\exp\left\{-[2/(1+s)]^2\,2\mu_\text{locus}s\right\}$. Summing over all loci with $U_d = \sum 2\mu_\text{locus}$ yields the exponent $4U_d\bar{s}_\text{eff}$ of Equation~\eqref{eq:A_purge} under random mating; summing over \textit{cis} copies alone captures only half of the unlinked reduction. On the same chromosome, this identical accounting motivates Equation~\eqref{total_red}, where the \textit{cis} half of the variance ($v_h = v_i/2$) enters the linked term while the homologous half remains in the unlinked background (whereas Buffalo and Kern~\cite{buffaloKern2024} track only the \textit{cis} half). Similarly, Marsh, Daigle, and Johri~\cite[Equation~4]{marsh2026} evaluate the unlinked background-selection contribution from other chromosomes across uniform DFE bins by averaging $\ln(1 + s) + (1 + s)^{-1}$ over each bin. Because $\frac{d}{ds}\left[\ln(1 + s) + (1 + s)^{-1}\right] = s/(1 + s)^2$, their unlinked exponent equals $4U_d\bar{s}_\text{eff}$ (both homologs included), and their simulation finding that weak-purging expressions ($s \ll 1$) overestimate unlinked diversity loss under strong selection reflects precisely the fast-purging factor $Q_k = 2/(1 + s_k)$ derived above.
 
-Incorporating the general mating-system factor $\kappa(\alpha)$ (Equation~\eqref{unlinked_mating}), setting $N_e/N = \delta$, and inverting the small-variance form yields the linear variance ceiling
-\begin{equation}
-    V_{A,\max} = \frac{1 - \delta}{4\kappa(\alpha)\,\delta}, \label{eq:vamax}
-\end{equation}
-above which heritable fitness variance alone would remove more diversity than observed. Because the small-variance expansion holds only for $V_{A,\max} \le 1$, Equation~\eqref{eq:vamax} applies only when $\delta \gtrsim 1/(1 + 4\kappa)$: populations retaining at least $0.20$ of expected neutral diversity under random mating ($\kappa = 1$), $\delta \gtrsim 0.12$--$0.16$ under social monogamy with extra-pair paternity ($\kappa_B = 1.32$--$1.86$), and $\delta \gtrsim 0.11$ under strict monogamy ($\kappa = 2$). For deeper diversity deficits, the required variance must be evaluated from the exact multiplicative bound $V_{A,\delta}$ (Equation~\eqref{eq:vamax_mult}).
-
-\claude{At each population's $\kappa$, none of the 19 pedigree estimates exceeds this ceiling at $\delta \le 0.2$; two do at $\delta$ = 0.25--0.3 (the blue tits at Pirio and Muro), five at $\delta = 0.5$ and 15 at $\delta = 0.9$ (Figure}~\ref{fig:S_ceiling}\claude{). Every $\hat{\delta}$ in the deficit set lies two to four and a half orders of magnitude below the $\delta$ at which its own estimate would reach the ceiling. Neutral diversity in these populations therefore sets no upper limit on their fitness variance.}
-
-\subsection{The upper tail of log-fitness and finite-population truncation}\label{app:A_tail}
-Under random mating, $\mathbb{E}[R^2] \propto \mathbb{E}[e^{4z}]$. Exponentially tilting the Gaussian density of $z$ by $e^{4z}$ shifts its mean to $\bar{z} + 4V_A$ without altering its variance, meaning that the ancestors dominating $\mathbb{E}[R^2]$ lie $4\sqrt{V_A}$ standard deviations above the population mean. A $10^2$-fold reduction in $N_e$ ($V_A = \ln(100)/4 = 1.15$) is driven by ancestors $4.3$ standard deviations above the mean (roughly $1$ in $10^5$ individuals), whereas a $10^4$-fold reduction ($V_A = 2.30$) requires ancestors at $6.1$ standard deviations (roughly $1$ in $10^9$).
-
-Realizing the analytical expectation $\mathbb{E}[R^2]$ therefore requires both an untruncated biological upper tail and a census size large enough to sample that tail. Ecological ceilings on reproductive output—such as territory saturation, clutch-size constraints, or the upper bound of unity on breeding probability in zero-inflated hurdle models~\cite{bonnet2022} (\autoref{sec:onemodel})—truncate the tilted density and lower $\mathbb{E}[R^2]$. Consequently, Equations~\eqref{eq:A_mult}, \eqref{eq:A_mono}, and \eqref{eq:B_mult_pair} represent upper bounds on the reduction in $N_e$ for a given $V_A$.
-
-Finite population size imposes a second, structural ceiling. For a general mating structure with $\mathrm{Var}(\log R) = 4\kappa_{\max}V_A$, the lineages dominating $\mathbb{E}[R^2]$ originate from ancestors $k = 4\sqrt{\kappa_{\max}V_A}$ standard deviations above the mean. To leading exponential order in the Gaussian tail ($\propto e^{-k^2/2}$), such individuals comprise a fraction $\sim e^{-8\kappa_{\max}V_A}$ of the cohort. A population of $N$ breeding adults (or $N/2$ monogamous pairs) samples these ancestors in a typical generation only while
-\begin{equation}
-    8\kappa_{\max}V_A \lesssim \ln N, \label{eq:A_tail_limit}
-\end{equation}
-at which threshold $N_e/N = e^{-4\kappa_{\max}V_A} = N^{-1/2}$. Beyond this threshold, most generations lack the extreme tail individuals needed to achieve $\mathbb{E}[R^2]$; the analytical expectation is recovered only across vast averages dominated by rare generations containing an exceptional founder\claude{, and lineages coalesce in bursts from single exceptional lineages rather than steadily in pairs}~\cite{eldon2006,neher2013,diamantidis2024}. For example, in single-generation Monte Carlo draws of $N = 10^6$ random-mating individuals (where the threshold is $V_A = \ln(10^6)/8 = 1.73$), the median realized pairwise coalescence rate at $V_A = 1.5$ is only $0.56$ of the analytical expectation (range $0.36$--$5.5\times$), dropping at $V_A = 1.73$ to $0.39$, where the single fittest individual accounts for $\sim 1\%$ of all long-term genetic contributions.
-
-\subsection{The retention factor \texorpdfstring{$Z$}{Z}}\label{app:A_Z}
-In an ancestor-centered framing, the retention factor $Z$ is the additive genetic variance among successfully reproducing parents (weighted by their offspring output) divided by the cohort variance $V_A$. In a gene-centered framing, $Z$ is the per-generation retention of a neutral allele's statistical association with its selective background (the factor $G$ of Santiago and Caballero~\cite{santiago1995}). Defining a stationary retention factor $Z$ requires that allele frequencies at selected loci change negligibly over the timescale on which the background association decays~\cite{barton1998,barton2000}, as holds at mutation--selection--drift balance.
-
-Under multiplicative fitness, weighting parents by their expected offspring $e^{z}$ applies an exponential tilt with parameter $\psi = 1$ to the distribution of $z$. Letting $K(\psi) = \ln \mathbb{E}[e^{\psi z}]$ denote the cumulant-generating function of $z$, the variance of the offspring-weighted parent distribution is $K''(1)$, while $V_A = K''(0)$, giving
-\begin{equation}
-    Z = \frac{K''(1)}{K''(0)}. \label{eq:Zcgf}
-\end{equation}
-When $z$ is strictly Gaussian, $K(\psi) = \psi\bar{z} + \tfrac12\psi^2V_A$, so $K''(\psi) = V_A$ for all $\psi$ and $Z = 1$ identically: exponential selection shifts the parental mean by $V_A$ while leaving the variance invariant. Expanding $K''(1)$ around $\psi = 0$ for an arbitrary distribution gives
-\begin{equation}
-    Z = 1 + \frac{K'''(0) + \tfrac12 K''''(0) + \dots}{V_A},
-\end{equation}
-showing that positive skewness in breeding values ($K'''(0) > 0$) elevates $Z > 1$ (\autoref{sec:approx}).
-
-Now suppose $V_A$ is maintained by rare deleterious alleles at mutation--selection balance. A heterozygous carrier of an allele in selective class $k$ has relative fitness $1 - s_k$, a log-fitness deviation $\ln(1 - s_k)$, and equilibrium frequency $q_k \approx \mu/s_k$. Because cumulants sum across unlinked loci, a rare locus in class $k$ contributes $K_k''(\psi) \approx 2q_k \ln^2(1 - s_k)\,(1 - s_k)^{\psi}$. Applying Equation~\eqref{eq:Zcgf} across classes to leading order in $s_k$ yields
-\begin{equation}
-    Z = \sum_k \nu_k Z_k, \qquad Z_k = 1 - s_k, \qquad \nu_k = \frac{\varphi_k s_k}{\bar{s}}, \label{eq:Zclass}
-\end{equation}
-where $\varphi_k$ is the proportion of new deleterious mutations falling in class $k$ and $\nu_k$ is that class's share of total $V_A$. Each mutational class is retained in proportion to its carriers' relative survival $1 - s_k$ (Equation~\eqref{eq:Z}). While the class-weighted average reproduces the aggregate retention factor $1 - \mathbb{E}[s^2]/\mathbb{E}[s]$ of Santiago and Caballero~\cite{santiago1998}, the main text evaluates $Q$ and $\overline{Q^2}_i$ separately by class because both quantities are nonlinear in $Z_k$. Stronger purifying selection ($s_k$ large) accelerates purging, lowering $Z_k$, $Q_k$, and the resulting reduction in $N_e$ below the Gaussian ($Z=1$) limit; conversely, rare beneficial alleles ($s_k < 0$) yield $Z_k > 1$.
-
-Finally, Equation~\eqref{eq:Zcgf} relies on the exponential map $w \propto e^z$. Under an explicitly linear map $w = 1 + a$ with $\mathbb{E}[a] = 0$ and $\mathrm{Var}(a) = V_A$, the offspring-weighted parental variance is $\mathbb{E}[(1 + a)a^2] - \mathbb{E}[(1 + a)a]^2 = V_A + \mathbb{E}[a^3] - V_A^2$, giving
-\begin{equation}
-    Z = 1 - V_A + \frac{\mathbb{E}[a^3]}{V_A}. \label{eq:Zarch}
-\end{equation}
-For a symmetric Gaussian breeding value ($\mathbb{E}[a^3] = 0$), $Z = 1 - V_A$, $Q = 2/(1 + V_A)$, and $N_e/N = (1 + V_A)^2/(1 + 6V_A + V_A^2)$. This ratio reaches a minimum of $1/2$ at $V_A = 1$ before increasing back toward $1$ at larger $V_A$. That pathological rebound is an artifact of the linear map assigning negative expected offspring ($1 + a < 0$) to a fraction $\Phi(-1/\sqrt{V_A})$ of the cohort ($8\%$ of individuals at $V_A = 0.5$ and $16\%$ at $V_A = 1$); we therefore do not consider the linear fitness map further.
 \ifdefined\isMainDocument
 \else
     \printbibliography
