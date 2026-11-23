@@ -1,36 +1,32 @@
 # ==============================================================================
-# fig3_ceiling.R — Figure 3: the least V_A each observed deficit requires;
-#                  Figure S_ceiling: the small-variance ceiling (supplement)
+# fig3_ceiling.R — the variance each observed deficit requires
+#   main/Fig3_ceiling    (printed as Figure 2): one row per population of the deficit set
+#   supp/FigS_required   the general curve, V_A,delta against delta
+#   supp/FigS_ceiling    the small-variance ceiling
 # ==============================================================================
 # Run from the repo root:   Rscript scripts/R/fig3_ceiling.R
-# Reads only through load_data.R. Writes main/Fig3_ceiling.{pdf,tiff} and
-# supp/FigS_ceiling.{pdf,tiff}.
-# Fix 5 (2026-11-19, REVIEW_FIXES.md): the small-variance ceiling (purple band, the
-# V_A = 1 line and the two vertical lines where the ceiling reaches 1) moved out of
-# Figure 3 into Figure S_ceiling, which adds the delta at which each of the 19
-# estimates reaches its own ceiling and the count of estimates above it.
+# Reads only through load_data.R.
 #
-# delta = pi / (4 mu N_c): observed diversity relative to its neutral
-# expectation. The curve is the object: anyone with a delta reads their ceiling
-# off it. Two forms of one model of fitness (Theory, decided 2026-10-19):
-#   first order   V_A,max = (1 - delta) / (4 kappa delta), the inversion of
-#                 1/(1 + 4 kappa V_A); drawn only inside its domain, V_A,max <= 1,
-#                 i.e. delta >= 1 / (1 + 4 kappa) (0.11 to 0.2). Band: kappa 1 to 2.
-#   all orders    V_A,delta = ln(1/delta) / (4 kappa_max), the inversion of the
-#                 multiplicative upper bound on the reduction, so the smallest V_A
-#                 that could account for delta. Band: kappa_max = 1 (no pair bond)
-#                 to 2 (pair bond).
-#   y rug    the 19 measured hat V_A (posterior modes)
-#   points   the deficit set (pi and an own-species Buffalo N_c; Soay excluded:
-#            domestic Ovis aries census) at (observed delta, hat V_A mode), bars over
-#            the 95% HPD and the mu CI; a dotted line from each up to its own least
-#            V_A, without linkage (orange tick) and with it (teal tick, mapped set).
-#            Points replaced the x rug on 2026-10-26 (user: observed delta as dots).
+# delta = pi / (4 mu N_c): observed diversity relative to its neutral expectation.
+#   V_A,delta = ln(1/delta) / (4 kappa_max), the inversion of the multiplicative bound,
+#               so the minimum V_A that could account for delta (kappa_max = 1 without
+#               a pair bond, 2 with one).
+#   V_A,max   = (1 - delta) / (4 kappa delta), the inversion of 1/(1 + 4 kappa V_A);
+#               drawn only inside its domain, V_A,max <= 1 (FigS_ceiling).
+#
+# 2026-11-23 (user): the main figure showed the curve against delta with the deficit
+# set as points, each joined to its own required value by a dotted line. The claim is
+# per population, so the main figure is now population rows on a linear V_A axis (the
+# layout of Figures 1 and 3): the measured hat V_A (mode, 95% HPD), the minimum V_A
+# its deficit requires without linkage (orange) and with it (teal, mapped set), and
+# the share of the deficit hat V_A accounts for under the multiplicative model (the
+# "deficit" column of tab_reduction; shares.R). The estimate's position along the
+# track from zero to V_A,delta is the same share under the multiplicative bound. The
+# curve against delta moved to FigS_required.
+# Fix 5 (2026-11-19, REVIEW_FIXES.md): the small-variance ceiling moved out of the
+# main figure into FigS_ceiling.
 # Every explanation of lines and colours is in the legend and caption, none on the
-# panel (user, 2026-10-26); theme in theme_genetics.R.
-# (Two-panel draft 2026-10-16 -> supplement -> back to main as Figure 3, 2026-10-17,
-# with the linked ceiling. Until 2026-10-19 it showed the first-order curve alone, with a
-# grey region above V_A = 1; both forms of one model since, merged 2026-10-19.)
+# panel (user, 2026-10-26), except the share printed at the end of each row.
 # ==============================================================================
 
 suppressPackageStartupMessages({
@@ -105,12 +101,20 @@ need <- d %>%
   mutate(v_unl = vamax_mult(delta, kappa_mult_bound(pair_bond == "social_monogamy")),
          v_lk = if (show_linked) vapply(seq_along(code), function(i)
                   if (code[i] %in% lpops$code) linked_ceiling(code[i], delta[i]) else NA_real_,
-                  numeric(1)) else NA_real_,
-         v_top = pmin(v_unl, v_lk, na.rm = TRUE))
-ticks <- bind_rows(
-  need %>% transmute(code, delta, V = v_unl, kind = "unl"),
-  need %>% filter(!is.na(v_lk)) %>% transmute(code, delta, V = v_lk, kind = "lk"))
-tick_w <- 1.6                                  # half-width of a tick, as a factor in delta
+                  numeric(1)) else NA_real_)
+birds <- c("BTR", "BTP", "BTM", "CF", "SFW", "SSP", "HT", "HK", "GTU", "GTN")
+row_order <- c("BTR", "BTP", "BTM", "GTU", "GTN", "CF", "SSP", "BHS", "CSM")   # as Figure 1
+need <- need %>%
+  mutate(kmax = kappa_mult_bound(pair_bond == "social_monogamy"),
+         v_unl_lo = vamax_mult(delta_hi, kmax), v_unl_hi = vamax_mult(delta_lo, kmax),
+         # share of the deficit, log scale, multiplicative model (as shares.R)
+         share_model = log(reduction_mult) / log(1 / delta),
+         share_bound = va_mode / v_unl,
+         taxon = if_else(code %in% birds, "Birds", "Mammals"),
+         label = pop_label(sub(" \\(.*\\)$", "", common_name), sub("^tiritiri", "Tiritiri", location)))
+stopifnot(setequal(need$code, row_order))
+need <- need %>% mutate(label = factor(label, levels = rev(label[match(row_order, code)])))
+fmt_share <- function(x) if_else(x >= 0.095, sprintf("%.0f%%", 100 * x), sprintf("%.1f%%", 100 * x))
 
 # Legend keys: a band edged by its two limiting lines; the point key carries the
 # 95% HPD (vertical) and mu CI (horizontal) bars
@@ -127,51 +131,83 @@ key_cross <- function(data, params, size) {
                  grid::segmentsGrob(0.5, 0.05, 0.5, 0.95, gp = bar),
                  draw_key_point(data, params, size))
 }
-key_need <- function(data, params, size)
-  grid::grobTree(
-    grid::segmentsGrob(0.5, 0.05, 0.5, 0.85, gp = grid::gpar(col = "grey35", lwd = 0.4 * .pt, lty = "13")),
-    grid::segmentsGrob(0.25, 0.85, 0.75, 0.85, gp = grid::gpar(col = col_mult, lwd = 0.8 * .pt)),
-    grid::segmentsGrob(0.25, 0.6, 0.75, 0.6, gp = grid::gpar(col = col_link, lwd = 0.8 * .pt)))
-lab_need  <- expression("Each population's test: from " * hat(italic(V))[A] *
-                          " to the least " * italic(V)[A] * " that could explain its " * delta *
-                          ", without and with linkage")
 lab_mult  <- expression("Multiplicative bound, " * italic(V)[A*","*delta] == ln(1/delta) / 4 * kappa[max] *
-                          ": the least " * italic(V)[A] * " that could explain " * delta)
+                          ": the minimum " * italic(V)[A] * " that could account for " * delta)
 lab_first <- expression("Small-variance ceiling, " * italic(V)[A*","*max] == (1 - delta) / 4 * kappa * delta *
                           ", where it holds")
-lab_link  <- "Multiplicative bound with linkage, one line per mapped population"
 lab_rm    <- expression("Measured " * hat(italic(V))[A] * " at " * hat(delta) * ": random mating")
 lab_sm    <- expression("Measured " * hat(italic(V))[A] * " at " * hat(delta) * ": social monogamy")
 
-p <- ggplot() +
-  # multiplicative bound: kappa_max = 1 (upper line) to 2 (lower line)
+lab_est <- expression("Measured " * hat(italic(V))[A] * ": mode and 95% HPD")
+lab_req <- expression("Minimum " * italic(V)[A] * " that could account for the observed deficit, " *
+                        italic(V)[A*","*delta] * " (multiplicative bound)")
+lab_rlk <- "The same with linkage, mapped populations"
+key_hrange <- function(data, params, size)
+  grid::grobTree(
+    grid::segmentsGrob(0.05, 0.5, 0.95, 0.5, gp = grid::gpar(col = data$colour, lwd = 0.5 * .pt)),
+    draw_key_point(data, params, size))
+
+# --- Figure 2 as printed: population rows --------------------------------------
+p <- ggplot(need, aes(y = label)) +
+  # the track, from zero to the variance the deficit requires
+  geom_linerange(aes(xmin = 0, xmax = v_unl), colour = col_mult, alpha = 0.18, linewidth = 2.6) +
+  geom_linerange(aes(xmin = va_hpd95_lo, xmax = va_hpd95_hi), linewidth = 0.5) +
+  geom_point(aes(x = va_mode, colour = "est"), shape = 21, fill = "grey60", size = 1.9, stroke = 0.5,
+             key_glyph = key_hrange) +
+  geom_point(aes(x = v_lk, colour = "lk"), shape = 18, size = 2.6, na.rm = TRUE) +
+  geom_linerange(aes(xmin = v_unl_lo, xmax = v_unl_hi), colour = col_mult, linewidth = 0.5, na.rm = TRUE) +
+  geom_point(aes(x = v_unl, colour = "unl"), shape = 18, size = 2.6, key_glyph = key_hrange) +
+  geom_text(aes(x = coalesce(v_unl_hi, v_unl), label = fmt_share(share_model)), hjust = -0.3,
+            size = pt_mm(7), family = fig_family, colour = "grey20") +
+  scale_colour_manual(values = c(est = "black", unl = col_mult, lk = col_link),
+                      breaks = c("est", "unl", "lk"), labels = list(lab_est, lab_req, lab_rlk),
+                      name = NULL, guide = guide_legend(ncol = 1)) +
+  scale_x_continuous(limits = c(0, 1.95), breaks = seq(0, 1.75, 0.25), expand = c(0, 0)) +
+  facet_grid(taxon ~ ., scales = "free_y", space = "free_y") +
+  labs(x = expression("Additive genetic variance in relative fitness, " * italic(V)[A]), y = NULL) +
+  theme_genetics(grid_x = TRUE) +
+  theme(strip.text.y = element_text(angle = 0, hjust = 0), panel.spacing = unit(2.5, "mm"),
+        legend.location = "panel")
+
+save_fig <- function(p, stem, w, h) {
+  dir.create(dirname(stem), showWarnings = FALSE)
+  ggsave(paste0(stem, ".pdf"), p, width = w, height = h, units = "mm", device = cairo_pdf)
+  ggsave(paste0(stem, ".tiff"), p, width = w, height = h, units = "mm", dpi = 600,
+         device = ragg::agg_tiff, compression = "lzw")
+  pv <- Sys.getenv("FIG_PREVIEW_DIR")
+  if (nzchar(pv)) ggsave(file.path(pv, paste0(basename(stem), ".png")), p, width = w, height = h,
+                         units = "mm", dpi = 200, device = ragg::agg_png)
+}
+save_fig(p, "main/Fig3_ceiling", 178, 85)
+
+# --- Figure S_required: the curve against delta ---------------------------------
+# The orange band is V_A,delta for kappa_max = 1 (upper line) to 2 (lower line); a teal
+# line per mapped population is the same with linkage at its assigned DFE; the deficit
+# set is placed at its observed delta and measured hat V_A.
+lcurve <- lcurve %>% mutate(taxon = if_else(code %in% birds, "Birds", "Mammals"))
+lab_lk_b <- "Multiplicative bound with linkage, mapped birds"
+lab_lk_m <- "Multiplicative bound with linkage, mapped mammals"
+pC <- ggplot() +
   geom_ribbon(data = curve, aes(x = delta, ymin = m2, ymax = m1, fill = "mult"), alpha = 0.3,
               key_glyph = key_band) +
   geom_line(data = curve, aes(delta, m1), colour = col_mult, linewidth = 0.6) +
   geom_line(data = curve, aes(delta, m2), colour = col_mult, linewidth = 0.6) +
-  # linked ceilings, one per mapped population, at its assigned DFE
   { if (show_linked)
-      geom_line(data = lcurve, aes(delta, V, group = code, colour = "link"), linewidth = 0.35,
-                alpha = 0.85, na.rm = TRUE) } +
-  # the 19 measured hat V_A (left rug), and the deficit set as points
-  geom_rug(data = pops, aes(y = va_mode), sides = "l", length = unit(2, "mm"),
-           linewidth = 0.35, colour = "grey15") +
-  geom_segment(data = need, aes(x = delta, xend = delta, y = va_mode, yend = v_top, linetype = "need"),
-               linewidth = 0.4, colour = "grey35", key_glyph = key_need) +
-  geom_segment(data = ticks, aes(x = delta / tick_w, xend = delta * tick_w, y = V, yend = V),
-               colour = if_else(ticks$kind == "unl", col_mult, col_link), linewidth = 0.6) +
-  scale_linetype_manual(values = c(need = "13"), labels = list(lab_need), name = NULL) +
+      geom_line(data = lcurve, aes(delta, V, group = code, linetype = taxon), colour = col_link,
+                linewidth = 0.35, alpha = 0.85, na.rm = TRUE) } +
   geom_linerange(data = d, aes(x = delta, ymin = va_hpd95_lo, ymax = va_hpd95_hi), linewidth = 0.35) +
   geom_linerange(data = d, aes(y = va_mode, xmin = delta_lo, xmax = delta_hi), linewidth = 0.35) +
   geom_point(data = d, aes(delta, va_mode, shape = system), size = 1.6, stroke = 0.6, fill = "white",
              key_glyph = key_cross) +
   scale_fill_manual(values = c(mult = col_mult), breaks = "mult",
                     labels = list(lab_mult), name = NULL) +
-  scale_colour_manual(values = c(link = col_link), labels = lab_link, name = NULL) +
+  scale_linetype_manual(values = c(Birds = "solid", Mammals = "42"), labels = c(lab_lk_b, lab_lk_m),
+                        name = NULL) +
   scale_shape_manual(values = c(rm = 16, sm = 21), breaks = c("rm", "sm"),
                      labels = list(lab_rm, lab_sm), name = NULL) +
-  guides(fill = guide_legend(order = 1, ncol = 1), colour = guide_legend(order = 2),
-         shape = guide_legend(order = 3, ncol = 1), linetype = guide_legend(order = 4)) +
+  guides(fill = guide_legend(order = 1, ncol = 1),
+         linetype = guide_legend(order = 2, ncol = 1, override.aes = list(colour = col_link, alpha = 1)),
+         shape = guide_legend(order = 3, ncol = 1)) +
   scale_x_log10(breaks = 10^seq(-5, 0), labels = scales::label_math(10^.x, format = log10),
                 expand = c(0, 0)) +
   scale_y_log10(breaks = 10^seq(-3, 1), labels = scales::label_math(10^.x, format = log10),
@@ -183,20 +219,14 @@ p <- ggplot() +
   theme_genetics(grid_x = TRUE, grid_y = TRUE) +
   theme(legend.direction = "vertical", legend.box = "vertical",
         plot.margin = margin(3, 4, 2, 2, "mm"))
-
-dir.create("main", showWarnings = FALSE)
-ggsave("main/Fig3_ceiling.pdf", p, width = 120, height = 125, units = "mm", device = cairo_pdf)
-ggsave("main/Fig3_ceiling.tiff", p, width = 120, height = 125, units = "mm", dpi = 600,
-       device = ragg::agg_tiff, compression = "lzw")
-if (nzchar(Sys.getenv("FIG_PREVIEW_DIR")))
-  ggsave(file.path(Sys.getenv("FIG_PREVIEW_DIR"), "Fig3_ceiling.png"), p, width = 120, height = 125, units = "mm", dpi = 200,
-         device = ragg::agg_png)
+save_fig(pC, "supp/FigS_required", 120, 120)
 
 cat(sprintf("n = %d populations with delta: %.2g to %.2g\nleast V_A that could explain them: %.2f to %.2f; measured modes at most %.2f\n",
             nrow(d), min(d$delta), max(d$delta), min(need$v_unl), max(need$v_unl), max(pops$va_mode)))
 print(as.data.frame(need %>% transmute(code, delta = signif(delta, 2), va_mode = signif(va_mode, 2),
                                        va_hi = signif(va_hpd95_hi, 2), v_unl = signif(v_unl, 3),
-                                       v_lk = signif(v_lk, 3))))
+                                       v_lk = signif(v_lk, 3), share_model = signif(share_model, 3),
+                                       share_bound = signif(share_bound, 3))))
 
 # ------------------------------------------------------------------------------
 # Figure S_ceiling (Fix 5, 2026-11-19): the small-variance ceiling

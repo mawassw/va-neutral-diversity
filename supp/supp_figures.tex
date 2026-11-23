@@ -21,6 +21,8 @@
 % \beginsupplement in _main.tex, in order of first citation in the main text (S_ceiling and S_kappa from
 % Theory, the rest from Results). 2026-11-19 (Fix 4): S_ceiling now precedes S_kappa, because Theory
 % sec:conditions (which cites S_ceiling) now precedes the mating-system text (which cites S_kappa).
+% 2026-11-23 (user): S_required (the curve of the variance a deficit requires, the main Figure 2 until then)
+% comes first, cited from Theory sec:onemodel at eq:vamax_mult.
 
 % Supplementary results: linkage. Moved verbatim from Results sec:res_linked on 2026-11-19 (Fix 4),
 % figure pointers updated (old Figure 2b, c are now Figure S_omega b, c).
@@ -34,6 +36,13 @@ The local reduction is also steeply nonlinear in the amount of variance. The two
 \claude{The mammals other than the spotted hyenas fail the maintenance test by 9- to 22-fold at the primary target (the meerkats by 2.0-fold) and by 2- to 5-fold when 8\% of the unannotated sequence is counted as target, at which the meerkats pass (Figure}~\ref{fig:S_maintenance_joint}\claude{).}
 
 \section*{Supplementary Figures}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{FigS_required}
+    \caption{\claude{\textbf{The minimum variance that could account for a diversity deficit increases only with the logarithm of the deficit.} Orange band: the minimum $V_A$ that could account for a diversity ratio $\delta$, the reciprocal of the deficit, under the multiplicative bound, between $\kappa_\text{max} = 1$ (upper line, random mating) and 2 (lower line, strict monogamy). Teal lines: the same with linkage for each of the nine mapped populations at its assigned empirical DFE (solid, birds; dashed, mammals). Points: the nine populations with $\pi$ and a census size, at $\hat{\delta}$ and the posterior mode of $\hat{V}_A$, with bars over the 95\% HPD interval of $\hat{V}_A$ (vertical) and the 95\% CI of the mutation rate (horizontal); filled, random mating; open, social monogamy. A population would pass the diversity test where its estimate reaches the line for its mating system, or with linkage its own teal line.}}
+    \label{fig:S_required}
+\end{figure}
 
 \begin{figure}[h!]
     \centering

@@ -96,10 +96,8 @@ base <- pops %>%
     pi_any = coalesce(pi_obs, pi_lit),
     obs    = pi_any / (4 * mu_direct    * 10^log10_Nc),
     obs_lo = pi_any / (4 * mu_direct_hi * 10^log10_Nc),
-    obs_hi = pi_any / (4 * mu_direct_lo * 10^log10_Nc),
-    obs_kind = case_when(!is.na(pi_obs) ~ "own", !is.na(pi_lit) ~ "lit")) %>%
-  mutate(across(c(obs, obs_lo, obs_hi), ~ if_else(code == "SSH", NA_real_, .x)),
-         obs_kind = if_else(code == "SSH" | is.na(obs), NA_character_, obs_kind))
+    obs_hi = pi_any / (4 * mu_direct_lo * 10^log10_Nc)) %>%
+  mutate(across(c(obs, obs_lo, obs_hi), ~ if_else(code == "SSH", NA_real_, .x)))
 row_order <- c("GTU", "GTN", "CF", "SSP", "RD", "SSH", "BHS", "CSM", "AB")
 base <- base %>% mutate(label = factor(label, levels = rev(label[match(row_order, code)])))
 
@@ -128,8 +126,9 @@ plot_total <- function(part) {
   lab_unl <- expression("Unlinked, multiplicative bound: " * italic(e)^{-4 * kappa[max] * hat(italic(V))[A]} * ", mode and 95% HPD")
   lab_lk  <- expression("With linkage (total): " * bar(Omega) * italic(e)^{-4 * kappa[max] * hat(italic(V))[A]} *
                           ", assigned DFE: mode and 95% HPD")
-  lab_own <- expression("Observed: " * hat(delta) * ", " * pi * " of study species")
-  lab_lit <- expression("Observed: " * hat(delta) * ", " * pi * " from another population")
+  # one symbol for the observed ratio (user, 2026-11-23): where each pi comes from is in
+  # Methods sec:pi_methods, and none is from a focal study population
+  lab_obs <- expression("Observed diversity ratio, " * hat(delta) * ", with the 95% CI of the mutation rate")
   ggplot(d, aes(y = label)) +
     geom_vline(xintercept = 1, linewidth = 0.3, colour = "grey60") +
     geom_linerange(aes(xmin = tot_lo, xmax = tot_hi), colour = col_lk, linewidth = 2.2, alpha = 0.4) +
@@ -138,13 +137,11 @@ plot_total <- function(part) {
     geom_point(aes(x = unl, colour = "unl"), shape = 21, fill = "white", size = 1.8, stroke = 0.6,
                key_glyph = key_hrange) +
     geom_linerange(aes(xmin = obs_lo, xmax = obs_hi), colour = col_req, linewidth = 0.5, na.rm = TRUE) +
-    geom_point(data = filter(d, obs_kind == "own"), aes(x = obs, colour = "own"),
+    geom_point(data = filter(d, !is.na(obs)), aes(x = obs, colour = "obs"),
                shape = 18, size = 2.6, key_glyph = key_hrange) +
-    geom_point(data = filter(d, obs_kind == "lit"), aes(x = obs, colour = "lit"),
-               shape = 5, size = 2, stroke = 0.7, key_glyph = key_hrange) +
-    scale_colour_manual(values = c(unl = "black", lk = col_lk, own = col_req, lit = col_req),
-                        breaks = c("unl", "lk", "own", "lit"),
-                        labels = list(lab_unl, lab_lk, lab_own, lab_lit), name = NULL,
+    scale_colour_manual(values = c(unl = "black", lk = col_lk, obs = col_req),
+                        breaks = c("unl", "lk", "obs"),
+                        labels = list(lab_unl, lab_lk, lab_obs), name = NULL,
                         guide = guide_legend(ncol = 1)) +
     x_log(c(1e-5, 1.25), 10^(-5:0)) + y_scale +
     facet_grid(taxon ~ ., scales = "free_y", space = "free_y") +
