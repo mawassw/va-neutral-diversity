@@ -95,10 +95,10 @@ d <- d %>% mutate(across(c(req, req_lo, req_hi), ~ if_else(code == "SSH", NA_rea
 lab_msd <- expression("Maintainable at MSD balance: " * italic(U)[d] * bar(italic(s)) *
                         ", assigned empirical DFE")
 lab_post <- "Measured: mode, 50% and 95% HPD"
-lab_own <- expression("Least needed for observed " * pi * ", study species")
-lab_lit <- expression("Least needed for observed " * pi * ", another population")
+# one symbol for the required variance (user, 2026-11-23): where each pi comes from is in
+# Methods sec:pi_methods, and none is from a focal study population
+lab_req <- "Minimum that could account for the observed deficit"
 
-d <- d %>% mutate(req_kind = case_when(!is.na(pi_obs) ~ "own", !is.na(pi_lit) ~ "lit"))
 col_msd <- "#2C7FB8"; col_req <- "#D95F0E"
 
 # Legend keys drawn horizontally, as in the panel: a point on its interval
@@ -132,14 +132,12 @@ p <- ggplot(d, aes(y = label)) +
   # V_A required by the observed deficit
   geom_linerange(aes(xmin = req_lo, xmax = req_hi), colour = col_req, linewidth = 0.5,
                  na.rm = TRUE) +
-  geom_point(data = filter(d, req_kind == "own"), aes(x = req, colour = "own"), key_glyph = key_hrange,
-             shape = 18, size = 2.4, na.rm = TRUE) +
-  geom_point(data = filter(d, req_kind == "lit"), aes(x = req, colour = "lit"), key_glyph = key_hrange,
-             shape = 5, size = 2, stroke = 0.7) +
+  geom_point(data = filter(d, !is.na(req)), aes(x = req, colour = "req"), key_glyph = key_hrange,
+             shape = 18, size = 2.4) +
   scale_colour_manual(
-    values = c(msd = col_msd, post = "black", own = col_req, lit = col_req),
-    breaks = c("msd", "post", "own", "lit"),
-    labels = list(lab_msd, lab_post, lab_own, lab_lit), name = NULL,
+    values = c(msd = col_msd, post = "black", req = col_req),
+    breaks = c("msd", "post", "req"),
+    labels = list(lab_msd, lab_post, lab_req), name = NULL,
     guide = guide_legend(ncol = 2)) +
   scale_x_log10(limits = c(x_min, 10), expand = c(0, 0),
                 breaks = 10^seq(-4, 1),

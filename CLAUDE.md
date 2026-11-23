@@ -607,6 +607,20 @@ $V_A$ as input. Not competitors.
    sentence uses $\kappa_\text{max}$; `sec:res_linked` states its verdict as a share (with linkage,
    4.7–40% of each deficit, median 19%, six mapped deficit populations; 1.2–20% unlinked under the bound).
 
+14. **Figures show the per-population result (2026-11-23, user: "show, not tell").** Printed Figure 2
+   (`Fig3_ceiling`) is one row per population of the deficit set on a linear $V_A$ axis: $\hat V_A$ with
+   its 95% HPD, $V_{A,\delta}$ (orange diamond, μ CI) and its value with linkage (teal diamond, mapped
+   set), on a shaded track from zero to $V_{A,\delta}$; the printed percentage is the share of the deficit
+   under the **multiplicative model** (the "deficit" column of `tab_reduction`), while the position along
+   the track is the share under the bound (they differ by ≤ 2 points; said in the caption). The curve of
+   $V_{A,\delta}$ against δ is `supp/FigS_required` (`fig:S_required`, prints as S1, cited from Theory at
+   `eq:vamax_mult`; linkage curves solid for birds, dashed for mammals; no rug, ticks or dotted lines).
+   **The observed ratio / required variance has one symbol** in Figure 3 (`Fig2_linked`), its gene-count
+   twin and `FigS_gap`; which π is a species mean and which comes from another population is stated only
+   in Methods `sec:pi_methods` (none is from a focal study population). Legends of the new figures name
+   model and statistic only. Staleness: Results `sec:res_deficit` gives the bound share as "1.3 to 41%"
+   and `sec:res_linked` as "1.2 to 20%" for the same minimum (great tits, Hoge Veluwe, 1.249%); not fixed.
+
 ## Venue and prose authority
 
 - **GENETICS (GSA)**; fallbacks Am Nat, Evolution Letters. Figures follow `scripts/R/theme_genetics.R`
@@ -647,7 +661,7 @@ project#3/
 │   ├── theme_genetics.R  # figure style
 │   ├── fig1_unlinked.R … fig5_rescaling.R → main/Fig1–5
 │   ├── fig2_linked.R also → supp/FigS_omega, FigS_linked_fgene
-│   ├── fig3_ceiling.R also → supp/FigS_ceiling
+│   ├── fig3_ceiling.R also → supp/FigS_required, FigS_ceiling
 │   ├── figS_gap.R, figS_rescaling_linked.R → supp/
 │   ├── tab_reduction.R   → manuscript/tables/tab_reduction.tex
 │   ├── sens_maintenance_joint.R → data/processed/maintenance_joint_sensitivity*.csv,
@@ -687,7 +701,8 @@ project#3/
    in `supp/supp_figures.tex`, cited by `\ref`. Since Fix 5 (2026-11-19) `Fig3_ceiling` (label
    `fig:ceiling`, least $V_A$ each deficit requires) sits in `sec:res_deficit` and so prints as
    Figure 2, with `Fig2_linked` as Figure 3; file names were not changed. `fig3_ceiling.R` also writes
-   `supp/FigS_ceiling` (`fig:S_ceiling`, the small-variance ceiling).
+   `supp/FigS_required` (`fig:S_required`, the curve of $V_{A,\delta}$ against δ) and `supp/FigS_ceiling`
+   (`fig:S_ceiling`, the small-variance ceiling).
 5. **Model conventions in code:** κ only from `kappa.R`. Any "V_A needed for a deficit" uses
    `vamax_mult` with `kappa_mult_bound` (= $\kappa_\text{max}$), never the first-order inversion.
    Code names differ from manuscript symbols: `G`/`G_correct`/`G_sym` mean $Z$; `Qu2()` is $Q^2$;

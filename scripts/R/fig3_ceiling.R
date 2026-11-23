@@ -131,16 +131,14 @@ key_cross <- function(data, params, size) {
                  grid::segmentsGrob(0.5, 0.05, 0.5, 0.95, gp = bar),
                  draw_key_point(data, params, size))
 }
-lab_mult  <- expression("Multiplicative bound, " * italic(V)[A*","*delta] == ln(1/delta) / 4 * kappa[max] *
-                          ": the minimum " * italic(V)[A] * " that could account for " * delta)
+lab_mult  <- expression("Multiplicative bound: the minimum " * italic(V)[A] * " that could account for " * delta)
 lab_first <- expression("Small-variance ceiling, " * italic(V)[A*","*max] == (1 - delta) / 4 * kappa * delta *
                           ", where it holds")
 lab_rm    <- expression("Measured " * hat(italic(V))[A] * " at " * hat(delta) * ": random mating")
 lab_sm    <- expression("Measured " * hat(italic(V))[A] * " at " * hat(delta) * ": social monogamy")
 
 lab_est <- expression("Measured " * hat(italic(V))[A] * ": mode and 95% HPD")
-lab_req <- expression("Minimum " * italic(V)[A] * " that could account for the observed deficit, " *
-                        italic(V)[A*","*delta] * " (multiplicative bound)")
+lab_req <- expression("Minimum " * italic(V)[A] * " that could account for the observed deficit: multiplicative bound")
 lab_rlk <- "The same with linkage, mapped populations"
 key_hrange <- function(data, params, size)
   grid::grobTree(
