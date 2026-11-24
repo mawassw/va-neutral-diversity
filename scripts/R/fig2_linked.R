@@ -3,8 +3,8 @@
 # ==============================================================================
 # Run from the repo root:   Rscript scripts/R/fig2_linked.R
 # Reads only through load_data.R; model in linked.R. Writes
-#   main/Fig2_linked.{pdf,tiff}          primary: f_i from coding bp (single panel since
-#                                        2026-11-19, Fix 4; its old panels b, c are now
+#   main/Fig2_linked.{pdf,tiff}          primary: f_i from coding bp (single panel;
+#                                        the map-only panels are
 #                                        FigS_omega b, c)
 #   supp/FigS_linked_fgene.{pdf,tiff}    the same with f_i from gene counts
 #   supp/FigS_omega.{pdf,tiff}           (a) the linked factor Omega_bar alone at the assigned
@@ -226,7 +226,7 @@ save_fig <- function(p, stem, w, h) {
 library(patchwork)
 # c is freed from the row-label alignment of a, which otherwise puts a wide gap
 # between its axis and its axis title
-# Fix 4 (2026-11-19): Figure 2 keeps only the total against the observed deficit; the
+# Figure 2 keeps only the total against the observed deficit; the
 # map-only panels moved beside the linked factor in FigS_omega.
 fig2 <- plot_total("bp") + theme(legend.location = "panel")
 figS_omega <- ((plot_omega("bp") + labs(tag = "a") + theme(legend.location = "panel")) +

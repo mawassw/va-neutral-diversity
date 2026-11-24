@@ -39,8 +39,8 @@
 #   FT_CACHE          per-sequence helper output, default
 #                     "genomic_data/functional_target_cache"; delete to re-stream
 # From a worktree, point the first two at the main checkout, e.g.
-#   GENOMIC_DATA_DIR="G:/.../project#3/genomic_data"
-#   LFS_OBJECTS_DIR="G:/.../project#3/.git/lfs/objects"
+#   GENOMIC_DATA_DIR="/path/to/genomic_data"
+#   LFS_OBJECTS_DIR="/path/to/repo/.git/lfs/objects"
 # ==============================================================================
 
 suppressPackageStartupMessages({

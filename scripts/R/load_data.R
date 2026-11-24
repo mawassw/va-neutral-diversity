@@ -16,8 +16,10 @@
 .read_processed <- function(file) {
   path <- file.path(.processed, file)
   if (!file.exists(path)) {
-    stop(path, " not found. Run `Rscript scripts/R/00_prepare_data.R` from the repo root.",
-         call. = FALSE)
+    stop(path, " not found. Run `Rscript scripts/R/00_prepare_data.R` from the repo root",
+         if (file == "va_posterior.csv")
+           " (it needs the Bonnet et al. 2022 posterior draws, `alldistzip`; see README.md)",
+         ".", call. = FALSE)
   }
   utils::read.csv(path, stringsAsFactors = FALSE, check.names = FALSE)
 }
@@ -45,9 +47,9 @@ load_va_draws <- function(codes = NULL, long = FALSE) {
              va   = unlist(va, use.names = FALSE))
 }
 
-# Per-chromosome table. Defaults reproduce the model conventions in CLAUDE.md:
+# Per-chromosome table. Defaults reproduce the model conventions of the paper:
 # autosomes only, mapped chromosomes only, macrochromosomes (>= 20 Mb) only.
-# Adds f_i under both partitions in scratch.tex / the code:
+# Adds f_i under both partitions:
 #   f_bp   = L_coding_bp / sum(L_coding_bp)   (what the code uses)
 #   f_gene = Gene_Count  / sum(Gene_Count)    (what Methods describes)
 # computed within each population over the rows retained.

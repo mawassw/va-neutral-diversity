@@ -25,6 +25,11 @@
 % \usepackage{natbib}
 \usepackage[style=numeric-comp, sorting=none, maxbibnames=10, minbibnames=10]{biblatex}
 \addbibresource{manuscript/references.bib}
+% Let long DOIs and URLs break, and loosen spacing, so no entry runs into the margin.
+\setcounter{biburlnumpenalty}{100}
+\setcounter{biburlucpenalty}{100}
+\setcounter{biburllcpenalty}{100}
+\appto{\bibsetup}{\sloppy}
 \usepackage{xcolor}
 \usepackage[colorinlistoftodos]{todonotes}
 % Faint-blue background marking prose written wholesale by Claude (as opposed to

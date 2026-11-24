@@ -23,8 +23,8 @@
 # "deficit" column of tab_reduction; shares.R). The estimate's position along the
 # track from zero to V_A,delta is the same share under the multiplicative bound. The
 # curve against delta moved to FigS_required.
-# Fix 5 (2026-11-19, REVIEW_FIXES.md): the small-variance ceiling moved out of the
-# main figure into FigS_ceiling.
+# The small-variance ceiling is drawn in FigS_ceiling, not in the
+# main figure.
 # Every explanation of lines and colours is in the legend and caption, none on the
 # panel (user, 2026-10-26), except the share printed at the end of each row.
 # ==============================================================================
@@ -227,7 +227,7 @@ print(as.data.frame(need %>% transmute(code, delta = signif(delta, 2), va_mode =
                                        share_bound = signif(share_bound, 3))))
 
 # ------------------------------------------------------------------------------
-# Figure S_ceiling (Fix 5, 2026-11-19): the small-variance ceiling
+# Figure S_ceiling: the small-variance ceiling
 # V_A,max = (1 - delta)/(4 kappa delta), drawn only inside its domain
 # (V_A,max <= 1, delta >= 1/(1 + 4 kappa)); band kappa = 1 to 2.
 # (a) Each of the 19 estimates at the delta where its mode reaches the ceiling at its

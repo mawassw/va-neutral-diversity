@@ -144,7 +144,7 @@ print(as.data.frame(bypop %>% filter(k_inflation == 1, (target == "current" & p_
   mutate(across(where(is.numeric), ~ signif(.x, 3)))))
 
 # ==============================================================================
-# Figure S_maintenance_joint (added 2026-11-19, REVIEW_FIXES Fix 2)
+# Figure S_maintenance_joint
 #   a-e  populations still failing (point convention), deleterious target x tail,
 #        one panel per inflation of the estimate; outlined cells are the moderate
 #        (zeta 8%, 1% tail, twofold) and stronger (zeta 15%, 2% tail, threefold)

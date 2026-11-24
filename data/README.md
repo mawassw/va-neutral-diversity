@@ -36,12 +36,12 @@ committed, so step 4 alone rebuilds everything from a fresh clone. NCBI zips liv
 
 | file | content | provenance |
 |---|---|---|
-| `../alldistzip` | MCMCglmm posteriors, 4000 draws per variance component, 19 populations; `$id` is $V_A$ | Bonnet et al. 2022, back-transformed to observed-scale relative fitness |
+| `../alldistzip` | MCMCglmm posteriors, 4000 draws per variance component, 19 populations; `$id` is $V_A$. **Not included in this repository** (shared by T. Bonnet; available on request from the authors of Bonnet et al. 2022) | Bonnet et al. 2022, back-transformed to observed-scale relative fitness |
 | `species_EPP.csv` | mating system, EPP, two mutation rates with 95% CI, legacy $U_d$, unnamed last column = Buffalo 2021 log10 census | compiled by WM (see *Mutation rates* and *Census* below) |
 | `mutation_rate_sources.csv` | which species each direct mutation rate comes from, and its relation to the population's species | added 2026-10-10 |
-| `raw/clean_chromosome_data.csv` | per-chromosome length, collapsed CDS bp, gene count, 11 assemblies | `data_gen_2.R`. **A live input despite living in `raw/`.** Its `sciurus_vulgaris` rows are the wrong species and are ignored. 2026-10-28: `Gene_Count` recounted as protein-coding genes (`type == "gene"` with `gene_biotype=protein_coding`, the `ncbi_helpers.R` rule) from the same GFF/GTF files, replacing `data_gen_2.R`'s count of every `gene` feature; other columns untouched; `sciurus_vulgaris` rows not recounted |
+| `raw/clean_chromosome_data.csv` | per-chromosome length, collapsed CDS bp, gene count, 11 assemblies | an earlier extraction script (not included). **A live input despite living in `raw/`.** Its `sciurus_vulgaris` rows are the wrong species and are ignored. 2026-10-28: `Gene_Count` recounted as protein-coding genes (`type == "gene"` with `gene_biotype=protein_coding`, the `ncbi_helpers.R` rule) from the same GFF/GTF files, replacing `data_gen_2.R`'s count of every `gene` feature; other columns untouched; `sciurus_vulgaris` rows not recounted |
 | `assembly_stats_added.csv` | same, for blue tit (GCF_971803275.1), red squirrel (GCA_057657825.1), hyena (GCF_008692635.1, genome total only) | `fetch_extract_assemblies.R`, added 2026-10-10 |
-| `recomb_data.csv` | linkage-group cM, matched to an assembly chromosome where curated | linkage-map sources in `raw/species.xlsx` Sheet1 |
+| `recomb_data.csv` | linkage-group cM, matched to an assembly chromosome where curated | linkage-map sources in Table S3 of the manuscript |
 | `lg_orthology.csv` | song sparrow assembly chromosome ↔ linkage group, via gene symbols shared with great tit | `lg_orthology.R`, added 2026-10-10 |
 | `genomic_parameters_summary.csv` | genome-wide assembly stats (used for hihi) | copied from gitignored `genomic_data/` |
 | `lewin_eyre_walker_2026_data.xlsx` | $\pi$, $\mu$, $N_e$ (STable1), $\pi$ compartments (STable3), density and range (STable5) | Lewin & Eyre-Walker 2026, *Mol. Ecol.* |
@@ -50,8 +50,6 @@ committed, so step 4 alone rebuilds everything from a fresh clone. NCBI zips liv
 | `census/damuth1987.tsv` | density–body mass data | Damuth 1987, via Buffalo's repository |
 | `master_chromosome_recomb_data.csv` | legacy joined table | **validation target only** |
 
-`va_species_bonnet.csv` is superseded and read by nothing. It mislabels the Rouvière blue tits as `BTM`.
-
 ## Decisions encoded here (2026-10-10)
 
 **Mating system and κ.** The EPP rate α is a measurement only for socially monogamous systems. For
@@ -59,7 +57,7 @@ polygynous and polygynandrous systems, `species_EPP.csv` codes EPP = 1 to mean "
 paternity". That isn't a measured rate, so `epp_alpha` is NA for those systems (the source value is kept
 in `epp_alpha_source`).
 
-**κ re-derived 2026-10-14** (scratch.tex Appendix B; formulas in `scripts/R/kappa.R`). Without a
+**κ re-derived 2026-10-14** (manuscript Appendix C; formulas in `scripts/R/kappa.R`). Without a
 pair bond, each parent's own breeding value sets its family size, and Santiago & Caballero's (1995)
 two-sex combination is a mean over the sexes, so **κ = 1** under both models (previously `kappa_B =
 2`, which summed the sexes). Under social monogamy both partners set a shared nest's productivity:
@@ -71,10 +69,10 @@ two-sex combination is a mean over the sexes, so **κ = 1** under both models (p
 **Primary κ is Model B for every population** (`kappa` column; decided 2026-10-10, kept 2026-10-14
 because it is the only version consistent with Bonnet et al.'s single additive variance across
 sexes). Model A (`kappa_A`) is the sensitivity bound. Both are at G = 1 and $r_{mf}$ = 0. The
-monogamous populations run κ_B = 1.22 (fairy-wren, α = 0.76) to 1.93 (great tits, α = 0.047).
+monogamous populations run κ_B = 1.32 (fairy-wrens, α = 0.61) to 1.86 (meerkats, α = 0.097).
 
 **Reduction columns (added 2026-10-14).** `reduction_G1` = $1 + 4\kappa V_A$ at the posterior mode;
-`G_sym` = $1 - V_A$; `reduction_Gsym` = the same reduction with G = 1 − V_A (Appendix A sensitivity,
+`G_sym` = $1 - V_A$; `reduction_Gsym` = the same reduction with G = 1 − V_A (Appendix B sensitivity,
 symmetric additive breeding values).
 
 **Mutation rates: both carried, not averaged.**
@@ -174,7 +172,7 @@ caveat on Buffalo's published bird censuses instead.
 3. **Song sparrow chromosome 25 matches its linkage group at only 0.59 gene share.** Great tit splits
    that chromosome into 25LG1 and 25LG2. Chromosome 31 (LGE22) matches at 0.92. Both are
    microchromosomes.
-3. **SV's `mu_direct` (5.35e-9) matches no single Lewin entry.** It is close to a Wang & Obbard
-   compilation value for *Mus musculus*.
-4. **The red squirrel assembly is 5.7 Gb.** That's genuinely large; its coding density is therefore
+4. **SV's `mu_direct` is the Lewin & Eyre-Walker STable1 *Mus* rate** (5.08e-9, 95% CI
+   4.73–5.56e-9), which replaced an unsourced 5.35e-9 on 2026-10-29.
+5. **The red squirrel assembly is 5.7 Gb.** That's genuinely large; its coding density is therefore
    low, but its CDS total (36 Mb autosomal) is typical for a mammal.

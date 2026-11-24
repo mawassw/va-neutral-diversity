@@ -50,8 +50,9 @@ suppressPackageStartupMessages({
 })
 
 if (!file.exists("alldistzip")) {
-  stop("Run from the repo root (alldistzip not found in the working directory).",
-       call. = FALSE)
+  stop("alldistzip not found in the working directory. Run from the repo root, with the ",
+       "posterior draws of V_A from Bonnet et al. (2022) saved there as `alldistzip` ",
+       "(not redistributed here; see README.md).", call. = FALSE)
 }
 out_dir <- "data/processed"
 dir.create(out_dir, showWarnings = FALSE)

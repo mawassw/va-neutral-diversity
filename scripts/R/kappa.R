@@ -1,5 +1,5 @@
 # ==============================================================================
-# kappa.R — mating-system scalar and the G correction (scratch.tex Appendices A, B)
+# kappa.R — mating-system scalar and the G correction (manuscript Appendices B, C)
 # ==============================================================================
 # One definition for every script. N/N_e = 1 + 4 kappa V_A, where kappa follows
 # from the cumulative advantage L of a neutral gene copy (Woolliams, Bijma &
