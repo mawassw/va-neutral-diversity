@@ -44,7 +44,7 @@ committed, so step 4 alone rebuilds everything from a fresh clone. NCBI zips liv
 | `recomb_data.csv` | linkage-group cM, matched to an assembly chromosome where curated | linkage-map sources in Table S3 of the manuscript |
 | `lg_orthology.csv` | song sparrow assembly chromosome ↔ linkage group, via gene symbols shared with great tit | `lg_orthology.R`, added 2026-10-10 |
 | `genomic_parameters_summary.csv` | genome-wide assembly stats (used for hihi) | copied from gitignored `genomic_data/` |
-| `lewin_eyre_walker_2026_data.xlsx` | $\pi$, $\mu$, $N_e$ (STable1), $\pi$ compartments (STable3), density and range (STable5) | Lewin & Eyre-Walker 2026, *Mol. Ecol.* |
+| `lewin_eyre_walker_2026_data.xlsx` | $\pi$, $\mu$, $N_e$ (STable1), $\pi$ compartments (STable3), density and range (STable5) | Lewin & Eyre-Walker 2026, *Mol. Ecol.*: their Supporting Information workbook (Supplementary Tables 1–7), saved under this name. **Not included in the public repository**; download it from https://doi.org/10.1111/mec.70265 |
 | `pi_literature.csv` | literature π (and single-genome heterozygosity) for the 12 populations Lewin & Eyre-Walker lack, with compartment, sample, DOI and verbatim evidence per row | literature search, added 2026-10-10 |
 | `dfe_reference.csv` | measured gamma DFEs of new nonsynonymous mutations (shape α, scale β′ in *s* units, mean *s* = αβ′, heterozygous under semi-dominance); sets Figure 4's per-taxon bands (birds: two flycatchers; mammals: mouse, vaquita, fin whale) | Lin et al. 2026 *PLoS Biol* Table 1, verified 2026-10-15 against the published table and the means stated in its text |
 | `census/damuth1987.tsv` | density–body mass data | Damuth 1987, via Buffalo's repository |

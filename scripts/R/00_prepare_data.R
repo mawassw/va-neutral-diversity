@@ -54,6 +54,12 @@ if (!file.exists("alldistzip")) {
        "posterior draws of V_A from Bonnet et al. (2022) saved there as `alldistzip` ",
        "(not redistributed here; see README.md).", call. = FALSE)
 }
+if (!file.exists("data/lewin_eyre_walker_2026_data.xlsx")) {
+  stop("data/lewin_eyre_walker_2026_data.xlsx not found. Download the Supporting Information ",
+       "workbook (Supplementary Tables 1-7) of Lewin & Eyre-Walker (2026, Molecular Ecology, ",
+       "https://doi.org/10.1111/mec.70265) and save it under that name (see README.md).",
+       call. = FALSE)
+}
 out_dir <- "data/processed"
 dir.create(out_dir, showWarnings = FALSE)
 

@@ -77,7 +77,7 @@ tex <- c(
   "\\bottomrule",
   "\\end{tabular}",
   "\\end{table}")
-dir.create("manuscript/tables", showWarnings = FALSE)
+dir.create("manuscript/tables", showWarnings = FALSE, recursive = TRUE)
 writeLines(tex, "manuscript/tables/tab_reduction.tex")
 cat("Wrote manuscript/tables/tab_reduction.tex:", nrow(d), "populations\n")
 s <- d %>% filter(!is.na(delta))
