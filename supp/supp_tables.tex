@@ -4,7 +4,7 @@
     \usepackage{fullpage}
     \usepackage{amsmath, amsfonts, amssymb}
     \usepackage{caption}
-    \usepackage{booktabs}
+    \usepackage{booktabs, array, longtable}
     \usepackage{biblatex}
     \addbibresource{../manuscript/references.bib}
     \begin{document}
@@ -13,18 +13,31 @@
 % not the V_A posterior. Accessions from genomic_data/*/assembly_data_report.jsonl; maps from
 % data/raw/species.xlsx (red deer identified from the map length); mu_direct relatives from
 % data/mutation_rate_sources.csv; pi from data/pi_literature.csv and Lewin & Eyre-Walker STable3.
+% All three tables are longtables rather than floats, so each starts where it is written (under the
+% section heading or the previous table) and breaks across pages; the section opens on a new page.
+\clearpage
 \section*{Supplementary Tables}
 % Moved here from Theory sec:unlinked/sec:onemodel on 2026-11-19 (Fix 4, author decision 4); cited
 % once from Theory sec:unlinked, so it prints before tab:S_sources (first cited in Methods).
-\begin{table}[h!]
-\centering
-\caption{\textbf{Theories of drift under selection compute the same quantity, an ancestor's expected long-term genetic contribution $R$, from its heritable selective advantage.} $R$ is the ancestor's share of the population's genes many generations later, relative to an average ancestor's. At linked sites, the long-term contribution that sets drift is that of the chromosomal segment carrying the focal neutral copy, not that of the individual ancestor.}
-\label{tab:models}
+\begingroup
 \small
-\begin{tabular}{>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}p{2.2cm}>{\raggedright\arraybackslash}p{3.0cm}}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{longtable}{>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}p{2.2cm}>{\raggedright\arraybackslash}p{3.0cm}}
+\caption{\textbf{Theories of drift under selection compute the same quantity, an ancestor's expected long-term genetic contribution $R$, from its heritable selective advantage.} $R$ is the ancestor's share of the population's genes many generations later, relative to an average ancestor's. At linked sites, the long-term contribution that sets drift is that of the chromosomal segment carrying the focal neutral copy, not that of the individual ancestor.}\label{tab:models}\\
 \toprule
 Theory & Expected long-term contribution ($R$) & Persistence of the advantage & Regime of validity & Role in this study \\
 \midrule
+\endfirsthead
+\multicolumn{5}{l}{\textit{Table~\thetable{} (continued)}}\\
+\toprule
+Theory & Expected long-term contribution ($R$) & Persistence of the advantage & Regime of validity & Role in this study \\
+\midrule
+\endhead
+\midrule
+\multicolumn{5}{r}{\textit{Continued on next page}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 \multicolumn{5}{l}{\textit{Unlinked sites: the ancestor's contribution}} \\
 Robertson~\cite{robertson1961}; Santiago and Caballero~\cite{santiago1995} & Linear in the ancestor's breeding value, with slope $Q$ & Constant retention factor $Z$ per generation, treated as a parameter & Small $V_A$; any smooth mapping from breeding value to fitness & Defines $Q$, the small-variance approximation, and $Z_k$ at MSDB \\
 \addlinespace
@@ -34,23 +47,32 @@ Barton and Etheridge~\cite{barton2011}; Weissman and Barton~\cite{weissman2012} 
 \midrule
 \multicolumn{5}{l}{\textit{Linked sites: the chromosomal segment's contribution}} \\
 Santiago and Caballero~\cite{santiago1998}; Buffalo and Kern~\cite{buffaloKern2024} & Linear in the segment's \textit{cis} breeding value, with slope $1/(1-\rho)$ & Joint decay via recombination and purging, $\rho = (1-r)Z$ per generation & Small segment variance; $Z_k$ set by MSDB & Parameterizes the reduction at linked sites and $\overline{\Omega}$ \\
-\bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
+\endgroup
 % Added 2026-10-29 (user): the three unlinked theories as computations of one quantity, R, and the
 % division of labor among them; the linked row marks where the ancestor's contribution stops
 % setting drift. Map of cited results only; no new derivation.
 
-\begin{table}[h!]
-\centering
+\begingroup
 \footnotesize
 \setlength{\tabcolsep}{4pt}
-\caption{Sources of the inputs for each population. Assembly: NCBI accession (assembly name); all are of the study species except where a species is named. Map: published pedigree linkage map, where one was joined to the assembly. $\mu$: species of the direct mutation-rate estimate, from the compilation of Lewin and Eyre-Walker~\cite{lewin2026}, and of the phylogenetic prediction of Wang and Obbard~\cite{wangobbard2023}, which is the same species except where noted. $\pi$: source of nucleotide diversity. $N_c$: census size of the study species from Buffalo~\cite{buffalo2021}. $\alpha$: extra-pair paternity rate of each socially monogamous population, in the order of the sites named. A dash: none used, or random mating for $\alpha$.}
-\label{tab:S_sources}
-\begin{tabular}{p{2.3cm}p{2.9cm}p{1.9cm}p{2.3cm}p{2.3cm}p{0.5cm}p{2.0cm}}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{longtable}{>{\raggedright\arraybackslash}p{2.3cm}>{\raggedright\arraybackslash}p{2.9cm}>{\raggedright\arraybackslash}p{1.9cm}>{\raggedright\arraybackslash}p{2.3cm}>{\raggedright\arraybackslash}p{2.3cm}>{\raggedright\arraybackslash}p{0.5cm}>{\raggedright\arraybackslash}p{2.0cm}}
+\caption{Sources of the inputs for each population. Assembly: NCBI accession (assembly name); all are of the study species except where a species is named. Map: published pedigree linkage map, where one was joined to the assembly. $\mu$: species of the direct mutation-rate estimate, from the compilation of Lewin and Eyre-Walker~\cite{lewin2026}, and of the phylogenetic prediction of Wang and Obbard~\cite{wangobbard2023}, which is the same species except where noted. $\pi$: source of nucleotide diversity. $N_c$: census size of the study species from Buffalo~\cite{buffalo2021}. $\alpha$: extra-pair paternity rate of each socially monogamous population, in the order of the sites named. A dash: none used, or random mating for $\alpha$.}\label{tab:S_sources}\\
 \toprule
 Population & Assembly & Map & $\mu$ & $\pi$ & $N_c$ & $\alpha$ \\
 \midrule
+\endfirsthead
+\multicolumn{7}{l}{\textit{Table~\thetable{} (continued)}}\\
+\toprule
+Population & Assembly & Map & $\mu$ & $\pi$ & $N_c$ & $\alpha$ \\
+\midrule
+\endhead
+\midrule
+\multicolumn{7}{r}{\textit{Continued on next page}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 Blue tits (La Rouvi\`ere, Pirio, Muro) & GCF\_971803275.1 (bCyaCae1.hap1.1) & --- & own species~\cite{bergeron2023} & species mean~\cite{lewin2026} & yes & 0.14, 0.25~\cite{charmantier2003}; 0.18~\cite{charmantier2004} \\
 Collared flycatchers (Gotland) & GCF\_000247815.1 (FicAlb1.5)~\cite{kawakami2014} & \cite{kawakami2014} & own species~\cite{smeds2016} & species mean~\cite{lewin2026} & yes & 0.15~\cite{sheldon1999} \\
 Great tits (Wytham Woods, Hoge Veluwe) & GCF\_001522545.3 (Parus\_major1.1)~\cite{laine2016} & \cite{vanoers2014} & \emph{Cyanistes caeruleus}~\cite{bergeron2023} & ten European males~\cite{barton2019} & yes & 0.13~\cite{patrick2012}; 0.177, Westerheide~\cite{bircher2020} \\
@@ -67,25 +89,30 @@ Spotted hyenas (Ngorongoro) & GCF\_008692635.1 (BGI\_CrCroc\_1.0, scaffold-level
 Meerkats (Kalahari) & GCF\_006229205.1 (DNA Zoo Hi-C)~\cite{dudchenko2017} & --- & \emph{Neofelis nebulosa}~\cite{armstrong2024}; $\mu_\text{phylo}$, \emph{Felis catus} & --- & --- & 0.097~\cite{herdtle2025} \\
 Snow voles (Graub\"unden) & GCF\_950005125.1 (mChiNiv1.1)~\cite{janzekovic2025} & --- & \emph{Mus musculus}~\cite{bergeron2023} & --- & --- & --- \\
 Red squirrels (Kluane) & GCA\_057657825.1 (mTamHud3.hap1) & --- & \emph{Cavia aperea}~\cite{bergeron2023} & --- & --- & --- \\
-\bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
+\endgroup
 
 % Moved from Appendix D (app:D_limits) on 2026-11-19 so that supplementary tables print in citation
 % order (notation, models, sources, linked limits); cited only from app:D_limits.
-\begin{table}[h!]
-\centering
-\caption{Asymptotic limits of the chromosome-wide average $\overline{Q^2}_i$ for a single class of deleterious mutations purged at rate $s$ ($Z = 1 - s$) or slowly ($s \to 0$). Complete linkage requires $M_i \ll 1 - Z$ and free recombination requires $M_i \gg 1/(1-Z)$; empirical chromosomes lie in the intermediate regime $\approx 2/[M_i(1-Z)]$.}
-\label{tab:linked_limits}
-\begin{tabular}{lcc}
+\begingroup
+\setlength{\LTcapwidth}{\textwidth}
+\begin{longtable}{lcc}
+\caption{Asymptotic limits of the chromosome-wide average $\overline{Q^2}_i$ for a single class of deleterious mutations purged at rate $s$ ($Z = 1 - s$) or slowly ($s \to 0$). Complete linkage requires $M_i \ll 1 - Z$ and free recombination requires $M_i \gg 1/(1-Z)$; empirical chromosomes lie in the intermediate regime $\approx 2/[M_i(1-Z)]$.}\label{tab:linked_limits}\\
 \toprule
 Purging regime & Complete linkage & Free recombination \\
 \midrule
+\endfirsthead
+\multicolumn{3}{l}{\textit{Table~\thetable{} (continued)}}\\
+\toprule
+Purging regime & Complete linkage & Free recombination \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
 At rate $s$ ($Z = 1 - s$) & $s^{-2}$ & $4/(1 + s)^2$ \\
 Slow ($s \to 0$, $Z \to 1$) & $\infty$ & $4$ \\
-\bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
+\endgroup
 
 \ifdefined\isMainDocument
 \else
