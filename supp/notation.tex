@@ -21,28 +21,28 @@
 \toprule
 Symbol & Meaning \\
 \midrule
-$w$, $V_A$, $\hat{V}_A$, $\bar{V}_A$ & relative fitness, $\bar{w} = 1$; additive variance in relative fitness, $V_A(w)$, written $V_A$; pedigree estimate; long-term time average \\
+$w$, $V_A$, $\hat{V}_A$, $\bar{V}_A$ & Relative fitness, $\bar{w} = 1$; additive variance in relative fitness, $V_A(w)$, written $V_A$; pedigree estimate; long-term time average \\
 $c$; $c_\text{MSD}$, $c_\text{div}$ & $\bar{V}_A/\hat{V}_A$; its upper bound from maintenance and lower bound from diversity \\
-$N$, $N_c$ & number of breeding adults; total census size \\
-$\pi$, $\mu$; $\mu_\text{direct}$, $\mu_\text{phylo}$ & neutral autosomal nucleotide diversity; per-site mutation rate per generation; its direct (pedigree or trio) and phylogenetic estimates \\
-$N_{eV}$, $N_{eC}$, $\tilde{N}_e$ & variance and coalescent effective sizes\claude{, equal to each other and to the inbreeding effective size when $N$ and $V_A$ are constant}; harmonic mean over the coalescent window \\
-$\delta$\claude{, $\hat{\delta}$} & diversity ratio $\pi/(4\mu N) \approx N_{eC}/N$ \claude{(a parameter, with $N$ the harmonic mean number of breeding adults over the genealogy); its estimate $\pi_\text{obs}/(4\mu N_c)$, with the contemporary total census in place of $N$ (Methods)} \\
-$V_{A,\max}$, $V_{A,\delta}$ & small-variance ceiling on $V_A$ implied by $\delta$; minimum $V_A$ that could account for $\delta$, under the multiplicative bound \\
-$\pi_\text{pred}$, $(N_e/N)_\text{pred}$ & predicted diversity, $4\mu N(N_e/N)_\text{pred}$; predicted ratio of effective to breeding population size \\
-$R$ & expected long-term contribution of an ancestor, normalized to mean one\claude{; its share of the population's genes many generations later, relative to an average ancestor's} \\
-$\kappa(\alpha)$, $\kappa_\text{max}$ & mating-system scalar, the variance of long-term contributions in units of its random-mating value $4V_A$ (Appendix~\ref{app:matingapp}); its largest value, 2 under social monogamy (at any extra-pair paternity rate; attained without it) and 1 under random mating \\
-$\kappa_\text{own}$, $\kappa_\text{partner}$, $\kappa_\text{cis}$ & \claude{parts of $\kappa$ due to the carrier's own breeding value and to its social partner's; the part of the own component that can be linked to the site} (Appendix~\ref{app:C_split}) \\
-$\alpha$ & extra-pair paternity rate \\
-$z$, $a$ & breeding value for log-fitness (latent scale of the pedigree model); $a = z - \bar{z}$ for small $V_A$ \\
-$Z$, $Z_k$ & retention factor, the proportion by which a gene copy's association with its selective background persists from one generation to the next (\claude{one for normally distributed breeding values, whose spread selection leaves unchanged;} above one only for right-skewed breeding values, Appendix~\ref{app:B_Z}); for effect class $k$, $Z_k = 1 - s_k$ \\
-$Q$, $r_{mf}$ & unlinked cumulative transmission factor, $2/[2 - Z(1+r_{mf})]$, equal to 2 at $Z = 1$, $r_{mf} = 0$; mates' correlation in breeding value \\
-$\overline{Q^2}_i$, $r(\ell)$ & \claude{squared number of generations that an association between a neutral site and a selected allele lasts, averaged over positions on chromosome $i$}; recombination fraction at map distance $\ell$ \\
-$M_i$, $L_i$, $f_i$ & map length (Morgans); physical length; share of the genome's functional sequence \\
-$L_\text{coding}$; $L_\text{annot}$, $L_\text{other}$; $\zeta$ & autosomal coding length; annotated functional and remaining sequence; fraction of the remaining sequence counted as deleterious target \\
-$v_i$, $v_h$, $\Omega_i$, $\overline{\Omega}$ & additive variance on chromosome $i$, $\hat{V}_A f_i$; on the focal haplotype; the linked factor of chromosome $i$; its genome-wide average \\
-$U_d$, $V_m$ & diploid deleterious mutation rate; mutational variance \\
-$s$, $s_k$, $\bar{s}$, $\varphi_k$, $\nu_k$ & heterozygous effect of a deleterious mutation; of effect class $k$; mean effect; fraction of new mutations in class $k$ (the DFE); share of $V_A$ in class $k$ \\
-$s^*$ & mean effect implied by $\bar{V}_A$ at mutation--selection--drift balance, $\bar{V}_A/U_d$ (evaluated at $\hat{V}_A$ in Results) \\
+$N$, $N_c$ & Number of breeding adults; total census size \\
+$\pi$, $\mu$; $\mu_\text{direct}$, $\mu_\text{phylo}$ & Neutral autosomal nucleotide diversity; per-site mutation rate per generation; its direct (pedigree or trio) and phylogenetic estimates \\
+$N_{eV}$, $N_{eC}$, $\tilde{N}_e$ & Variance and coalescent effective sizes, equal to each other and to the inbreeding effective size when $N$ and $V_A$ are constant; harmonic mean over the coalescent window \\
+$\delta$, $\hat{\delta}$ & Diversity ratio $\pi/(4\mu N) \approx N_{eC}/N$ (a parameter, with $N$ the harmonic mean number of breeding adults over the genealogy); its estimate $\pi_\text{obs}/(4\mu N_c)$, with the contemporary total census in place of $N$ (Methods) \\
+$V_{A,\max}$, $V_{A,\delta}$ & Small-variance ceiling on $V_A$ implied by $\delta$; minimum $V_A$ that could account for $\delta$, under the multiplicative bound \\
+$\pi_\text{pred}$, $(N_e/N)_\text{pred}$ & Predicted diversity, $4\mu N(N_e/N)_\text{pred}$; predicted ratio of effective to breeding population size \\
+$R$ & Expected long-term contribution of an ancestor, normalized to mean one; its share of the population's genes many generations later, relative to an average ancestor's \\
+$\kappa(\alpha)$, $\kappa_\text{max}$ & Mating-system scalar, the variance of long-term contributions in units of its random-mating value $4V_A$ (Appendix~\ref{app:matingapp}); its largest value, 2 under social monogamy (at any extra-pair paternity rate; attained without it) and 1 under random mating \\
+$\kappa_\text{own}$, $\kappa_\text{partner}$, $\kappa_\text{cis}$ & Parts of $\kappa$ due to the carrier's own breeding value and to its social partner's; the part of the own component that can be linked to the site (Appendix~\ref{app:C_split}) \\
+$\alpha$ & Extra-pair paternity rate \\
+$z$, $a$ & Breeding value for log-fitness (latent scale of the pedigree model); $a = z - \bar{z}$ for small $V_A$ \\
+$Z$, $Z_k$ & Retention factor, the proportion by which a gene copy's association with its selective background persists from one generation to the next (one for normally distributed breeding values, whose variance selection leaves unchanged; above one only for right-skewed breeding values, Appendix~\ref{app:B_Z}); for effect class $k$, $Z_k = 1 - s_k$ \\
+$Q$, $r_{mf}$ & Unlinked cumulative transmission factor, $2/[2 - Z(1+r_{mf})]$, equal to 2 at $Z = 1$, $r_{mf} = 0$; mates' correlation in breeding value \\
+$\overline{Q^2}_i$, $r(\ell)$ & Squared number of generations that an association between a neutral site and a selected allele lasts, averaged over positions on chromosome $i$; recombination fraction at map distance $\ell$ \\
+$M_i$, $L_i$, $f_i$ & Map length (Morgans); physical length; share of the genome's functional sequence \\
+$L_\text{coding}$; $L_\text{annot}$, $L_\text{other}$; $\zeta$ & Autosomal coding length; annotated functional and remaining sequence; fraction of the remaining sequence counted as deleterious target \\
+$v_i$, $v_h$, $\Omega_i$, $\overline{\Omega}$ & Additive variance on chromosome $i$, $\hat{V}_A f_i$; on the focal haplotype; the linked factor of chromosome $i$; its genome-wide average \\
+$U_d$, $V_m$ & Diploid deleterious mutation rate; mutational variance \\
+$s$, $s_k$, $\bar{s}$, $\varphi_k$, $\nu_k$ & Heterozygous effect of a deleterious mutation; of effect class $k$; mean effect; fraction of new mutations in class $k$ (the DFE); share of $V_A$ in class $k$ \\
+$s^*$ & Mean effect implied by $\bar{V}_A$ at mutation--selection--drift balance, $\bar{V}_A/U_d$ (evaluated at $\hat{V}_A$ in Results) \\
 \bottomrule
 \end{tabular}
 \end{table}
