@@ -5,22 +5,35 @@
     \usepackage{amsmath, amsfonts, amssymb}
     \usepackage{bm}
     \usepackage{caption}
-    \usepackage{booktabs, array}
+    \usepackage{booktabs, array, longtable}
     \usepackage{hyperref}
     \begin{document}
 \fi
 % Notation table, moved out of Theory on 2026-10-21 (Theory rewrite to the GENETICS exemplar,
 % user-approved outline). Referenced from Theory, sec:quantity, as Table~\ref{tab:notation}.
+% A longtable rather than a float, so the table starts under its heading and breaks across pages.
+% The supplement opens on a new page.
+\clearpage
 \section*{Notation}
-\begin{table}[h!]
-\centering
-\caption{Notation used in the main text. Symbols local to a derivation in an appendix are defined where they appear there.}
-\label{tab:notation}
+\begingroup
 \small
-\begin{tabular}{l>{\raggedright\arraybackslash}p{0.68\textwidth}}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{longtable}{l>{\raggedright\arraybackslash}p{0.68\textwidth}}
+\caption{Notation used in the main text. Symbols local to a derivation in an appendix are defined where they appear there.}\label{tab:notation}\\
 \toprule
 Symbol & Meaning \\
 \midrule
+\endfirsthead
+\multicolumn{2}{l}{\textit{Table~\thetable{} (continued)}}\\
+\toprule
+Symbol & Meaning \\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{\textit{Continued on next page}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 $w$, $V_A$, $\hat{V}_A$, $\bar{V}_A$ & Relative fitness, $\bar{w} = 1$; additive variance in relative fitness, $V_A(w)$, written $V_A$; pedigree estimate; long-term time average \\
 $c$; $c_\text{MSD}$, $c_\text{div}$ & $\bar{V}_A/\hat{V}_A$; its upper bound from maintenance and lower bound from diversity \\
 $N$, $N_c$ & Number of breeding adults; total census size \\
@@ -43,9 +56,8 @@ $v_i$, $v_h$, $\Omega_i$, $\overline{\Omega}$ & Additive variance on chromosome 
 $U_d$, $V_m$ & Diploid deleterious mutation rate; mutational variance \\
 $s$, $s_k$, $\bar{s}$, $\varphi_k$, $\nu_k$ & Heterozygous effect of a deleterious mutation; of effect class $k$; mean effect; fraction of new mutations in class $k$ (the DFE); share of $V_A$ in class $k$ \\
 $s^*$ & Mean effect implied by $\bar{V}_A$ at mutation--selection--drift balance, $\bar{V}_A/U_d$ (evaluated at $\hat{V}_A$ in Results) \\
-\bottomrule
-\end{tabular}
-\end{table}
+\end{longtable}
+\endgroup
 
 \ifdefined\isMainDocument
 \else
